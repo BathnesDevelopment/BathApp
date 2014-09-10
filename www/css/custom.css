@@ -1,0 +1,59 @@
+header h1 { font-weight: bold; }
+
+.main-background {
+    background: url('../img/Background.JPG') no-repeat center center fixed;
+	background-size: cover;
+}	
+
+i.listIcons {
+  font-size: 24px;
+}
+
+.slider {
+  height: 100%;
+}
+
+.slider-slide {
+  padding-top: 80px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.transparent {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+}
+
+#logo {
+	margin: 30px 0px;
+	font-size: 64px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  margin: 10px 0px;
+}
+
+.home-card
+{
+	text-align: center;
+}
+
+.home-card i
+{
+	font-size: 48px;
+}
+
+.home-card .home-header
+{
+	font-size: 24px;
+}
