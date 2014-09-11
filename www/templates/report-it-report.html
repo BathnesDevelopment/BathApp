@@ -1,0 +1,51 @@
+<div class="modal">
+	<ion-header-bar class="bar-dark">
+		<h1 class="title">Report it</h1>
+		<button class="button button-clear button-primary" ng-click="reportItModal.hide()">Cancel</button>
+			</ion-header-bar>
+			<ion-content>
+				<div class="list list-inset">
+					<h3>Report</h3>
+					Complete details for your report to the council.  Select a category of report and fill in some details.
+
+					<form ng-submit="submitReportItPage1(report)">
+						<label class="item item-input item-select">
+							<div class="input-label">
+								Category of report
+							</div>
+							<select>
+								<option>Missed rubbish</option>
+								<option>Missed recycling</option>
+								<option>Missed garden waste</option>
+								<option>Missed clinical waste</option>
+								<option>Missed garden waste</option>
+								<option>Missed trade waste</option>
+								<option>Pothole in the road</option>
+								<option>Pavement defect</option>
+								<option>Blocked drain or gully</option>
+								<option>Faulty street light</option>
+								<option>Overgrown vegetation</option>
+								<option>Street sweeping</option>
+								<option>Public litter bins</option>
+								<option>Fly tipping</option>
+								<option>Dead animal on a public highway</option>
+								<option>Graffiti</option>
+								<option>Abandoned vehicle</option>
+								<option>Pothole in the road</option>
+								<option>Smoking chimney in Smoke Control Area</option>
+								<option>Public Rights of Way problem</option>
+								<option>Contaminated land</option>
+								<option>Other issue</option>
+							</select>
+						</label>
+						<label class="item item-input">
+							<textarea placeholder="Description"></textarea>
+						</label>
+						<button type="submit" class="button button-full button-positive">
+							Next
+						</button>
+
+					</form>
+				</div>
+			</ion-content>
+		</div>

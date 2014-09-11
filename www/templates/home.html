@@ -1,0 +1,118 @@
+<div class="row responsive-sm">
+			<div class="col">
+				<div class="card">
+					<div class="item item-image">
+						<img src="images/logo.svg">
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" ng-click="showPopup('Bath And North East Somerset Council App', 'The Bath and North East Somerset Council app provides reporting facilities to easily connect with the Council and report issues')">
+							<i class="icon positive ion-ios7-information"></i>
+						</a>
+						<a class="tab-item" href="https://twitter.com/bathnes">
+							<i class="icon calm ion-social-twitter"></i>
+						</a>
+						<a class="tab-item" href="sms://07797806545?body=BathAppMessage: ">
+							<i class="icon energized ion-android-mail"></i>
+						</a>
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" href="http://www.bathnes.gov.uk">
+							<i class="icon positive ion-android-earth"></i>
+						</a>
+						<a class="tab-item" href="mailto:councilconnect@bathnes.gov.uk">
+							<i class="icon royal ion-at"></i>
+						</a>
+						<a class="tab-item" href="tel:01225394041">
+							<i class="icon balanced ion-ios7-telephone"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<div class="item item-body home-card">
+						<p class="home-header assertive">Report It</p>
+						<i class="icon assertive ion-compose"></i>
+						<p>Report a new issue to the Council.</p>
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" ng-click="showPopup('Report It', 'Report It allows you to report issues to the council such as missed bins, potholes, or fly tipping.')">
+							<i class="icon assertive ion-ios7-information"></i>
+						</a>
+						<a class="tab-item" href="#" ng-click="reportIt()">
+							<i class="icon assertive ion-more"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<div class="item item-body home-card">
+						<p class="home-header">My Reports</p>
+						<i class="icon positive ion-android-folder"></i>
+						<p>Existing reports to the council sent from this device.</p>
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" ng-click="showPopup('Report It', 'See your existing reports, sent to the Council from this device.')">
+							<i class="icon positive ion-ios7-information"></i>
+						</a>
+						<a class="tab-item" href="#/menu/reports">
+							<i class="icon positive ion-more"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row responsive-sm">
+			<div class="col">
+				<div class="card">
+					<div class="item item-body home-card">
+						<p class="home-header balanced">Local area map</p>
+						<i class="icon ion-map balanced"></i>
+						<p>View local area information on a map</p>
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" ng-click="showPopup('Local area map', 'The local area map shows a map, with boundary layers and points of interest such as schools, libraries and Council offices.' )">
+							<i class="icon ion-ios7-information balanced"></i>
+						</a>
+						<a class="tab-item" href="#/menu/map">
+							<i class="icon ion-more balanced"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<div class="item item-body home-card">
+						<p class="home-header royal">My details</p>
+						<i class="icon ion-ios7-person royal"></i>
+						<p>Review account details stored on this device.</p>
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" ng-click="showPopup('Report It', 'You can store personal details on this device to make reporting issues quicker and easier, and to personalise the information displayed.')">
+							<i class="icon ion-ios7-information royal"></i>
+						</a>
+						<a class="tab-item" href="#/menu/details">
+							<i class="icon ion-more royal"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<div class="item item-body home-card">
+						<p class="home-header">My Council</p>
+						<i class="icon calm ion-ios7-people"></i>
+						<p>Details about the Council and how to get in touch.</p>
+					</div>
+					<div class="item tabs tabs-primary tabs-icon-left">
+						<a class="tab-item" ng-click="showPopup('My Council', 'My Council shows details about Bath and North East Somerset Council, including useful phone numbers, office locations and opening hours.')">
+							<i class="icon calm ion-ios7-information"></i>
+						</a>
+						<a class="tab-item" href="#/menu/council">
+							<i class="icon ion-more"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>

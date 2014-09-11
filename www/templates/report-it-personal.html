@@ -1,0 +1,27 @@
+<div class="modal">
+	<ion-header-bar>
+		<h1 class="title">Report it</h1>
+		<button class="button button-clear button-primary" ng-click="reportItPersonalModal.hide()">Cancel</button>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list list-inset">
+			<h3>Your details</h3>
+			<p>Your personal details are shown from your registration.  If you do not want these to be included, untick the option below.</p>
+			<form ng-submit="submitReportItPage4(report)">
+				<label class="item item-input">
+					<input type="text" placeholder="First Name">
+				</label>
+				<label class="item item-input">
+					<input type="text" placeholder="Last Name">
+				</label>
+				<ul class="list">
+					<li class="item item-checkbox">
+						<label class="checkbox"><input type="checkbox"></label>
+						Send personal details with report
+					</li>
+				</ul>
+				<button type="submit" class="button button-full button-positive">Submit</button>
+			</form>
+		</div>
+	</ion-content>
+</div>
