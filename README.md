@@ -7,6 +7,7 @@ To build, install cordova, then run:
 
 
 - $ cordova platform add ios
+- $ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
 - $ cordova build ios
 - $ cordova emulate ios
 
