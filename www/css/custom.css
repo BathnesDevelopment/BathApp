@@ -57,3 +57,7 @@ i.listIcons {
 {
 	font-size: 24px;
 }
+
+.scroll, .angular-leaflet-map { 
+	height: 100%;
+} 
