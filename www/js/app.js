@@ -363,7 +363,7 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
 	$scope.map = {
 		defaults: {
 			tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
-			maxZoom: 14,
+			maxZoom: 20,
 			zoomControlPosition: 'bottomleft',
 			path: {
 				weight: 10,
@@ -373,7 +373,7 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
 		center: {
 			lat: 51.3821440,
 			lng: -2.3589420,
-			zoom: 8
+			zoom: 18
 		}
 	};
 
