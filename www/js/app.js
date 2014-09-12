@@ -47,4 +47,6 @@ angular.module('BathCouncil', ['ionic','leaflet-directive','mybath.services', 'm
 			}
 		});
 		$urlRouterProvider.otherwise("/menu/home");
+
+   
 });

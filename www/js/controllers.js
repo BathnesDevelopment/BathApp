@@ -158,7 +158,74 @@ angular.module('mybath.controllers', [])
 			zoom: 18
 		}
 	};
+     $scope.takePhoto = function () {
+      /* 
+       * Takes a photo, stores it in localStorage.reportPhoto
+       * Displays it to the user in photoTaken, which is by default aLinkcolor
+       * blank image 
+       * */
+      function onSuccess(imageURI) {
+          //replaces photoTaken with the photo taken
+          var image = document.getElementById('photoTaken');
+          window.localStorage.setItem("reportPhoto", imageURI);
+          imageURI = "data:image/jpeg;base64," + imageURI;
+          image.src = imageURI;
+      }
 
+      function onFail(message) {
+          alert('Failed because: ' + message);
+      }
+      return navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL });
+    };
+
+
+    $scope.geoLocate = function () {
+      
+      function updateLocation(position) {
+        res = "Your current location has been detected. Lat"
+        res += position.coords.latitude  + "<br />Long:" + position.coords.longitude;
+        console.log(res);
+        document.getElementById("locationString").innerHTML = res;
+      }
+    
+      
+      function showThrob() {
+        document.getElementById("NavThrob").innerHTML = '<span class="ion-looping"></span>';
+      }
+      
+      function hideThrob() {
+        document.getElementById("NavThrob").innerHTML = '';
+      }
+      var onGeolocationSuccess = function(position) {
+      console.log('Latitude: '    + position.coords.latitude          + '\n' +
+            'Longitude: '         + position.coords.longitude         + '\n' +
+            'Altitude: '          + position.coords.altitude          + '\n' +
+            'Accuracy: '          + position.coords.accuracy          + '\n' +
+            'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+            'Heading: '           + position.coords.heading           + '\n' +
+            'Speed: '             + position.coords.speed             + '\n' +
+            'Timestamp: '         + position.timestamp                + '\n'); //debug
+            window.localStorage.setItem("lat",position.coords.latitude);
+            window.localStorage.setItem("long",position.coords.longitude);
+            window.localStorage.setItem("timestamp",position.coords.timestamp);
+            updateLocation(position);
+            hideThrob();
+            return;
+      };
+
+      // onError Callback receives a PositionError object
+      //
+      var onGeolocationError = function (error) {
+      console.log('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+            hideThrob();
+      return false;
+      }
+      showThrob();
+      $scope.position = navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError,{ maximumAge: 3000, timeout: 50000, enableHighAccuracy: true });
+      
+    };
     $scope.options = function () {
         var optionsSheet = $ionicActionSheet.show({
             buttons: [

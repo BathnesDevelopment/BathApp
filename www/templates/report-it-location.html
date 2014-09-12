@@ -1,24 +1,26 @@
 <div class="modal">
-	<ion-header-bar>
-		<h1 class="title">Report it</h1>
-		<button class="button button-clear button-primary" ng-click="reportItLocationModal.hide()">Cancel</button>
-	</ion-header-bar>
-	<ion-content>
-		<div class="list list-inset">
-			<h3>Location</h3>
-			Your current location has been detected.
-			<form ng-submit="submitReportItPage3(location)">
-				<ul class="list">
-					<li class="item item-checkbox">
-						<label class="checkbox">
-							<input type="checkbox">
-						</label> Use my current location for report location
-					</li>
-				</ul>
-				<button type="submit" class="button button-full button-positive">
-					Next
-				</button>
-			</form>
+			<ion-header-bar>
+				<h1 class="title">Report it</h1>
+				<button class="button button-clear button-primary" ng-click="reportItLocationModal.hide()">Cancel</button>
+			</ion-header-bar>
+			<ion-content>
+				<div class="list list-inset">
+          <button ng-click="geoLocate()" class="button button-full button-calm">Find location<span id = "NavThrob" class=""></span></button>
+					<h3>Location</h3>
+					<span id = "locationString">No location found</span>
+					<form ng-submit="submitReportItPage3(location)">
+						<ul class="list">
+							<li class="item item-checkbox">
+								<label class="checkbox">
+									<input type="checkbox">
+								</label>
+								Use my current location for report location
+							</li>
+						</ul>
+						<button type="submit" class="button button-full button-positive">
+							Next
+						</button>
+					</form>
+				</div>
+			</ion-content>
 		</div>
-	</ion-content>
-</div>
