@@ -361,7 +361,7 @@
 						<button type="button" ng-click = "takePhoto()" class="button button-full button-calm">
 							Take photo
 						</button>
-            <img id = "photoTaken" width="100%" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img id = "photoTaken" max-width="100%" height="200px" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
 						<button type="submit" class="button button-full button-positive">
 							Next
 						</button>
@@ -380,9 +380,9 @@
 			</ion-header-bar>
 			<ion-content>
 				<div class="list list-inset">
-          <button ng-click="geoLocate()" class="button button-full button-calm">Find location<span ng-show = "showThrob" class="ion-looping ng-hide"></span></button>
+          <button ng-click="geoLocate()" class="button button-full button-calm">Find location<span id = "NavThrob" class=""></span></button>
 					<h3>Location</h3>
-					<span ng-app=""> <p ng-bind-html="getLat()">  </p><p>{{ subtract() }} seconds ago </p></span>
+					<span id = "locationString">No location found</span>
 					<form ng-submit="submitReportItPage3(location)">
 						<ul class="list">
 							<li class="item item-checkbox">

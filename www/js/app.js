@@ -310,28 +310,44 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
       return (new Date() - new Date(window.localStorage.getItem("timestamp")/1000) ).toString();
     }
     $scope.takePhoto = function () {
-    
-    
-    function onSuccess(imageURI) {
-        var image = document.getElementById('photoTaken');
-        window.localStorage.setItem("reportPhoto", imageURI);
-        imageURI = "data:image/jpeg;base64," + imageURI;
-        image.src = imageURI;
+      /* 
+       * Takes a photo, stores it in localStorage.reportPhoto
+       * Displays it to the user in photoTaken, which is by default aLinkcolor
+       * blank image 
+       * */
+      function onSuccess(imageURI) {
+          //replaces photoTaken with the photo taken
+          var image = document.getElementById('photoTaken');
+          window.localStorage.setItem("reportPhoto", imageURI);
+          imageURI = "data:image/jpeg;base64," + imageURI;
+          image.src = imageURI;
+      }
+
+      function onFail(message) {
+          alert('Failed because: ' + message);
+      }
+      return navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL });
     }
 
-    function onFail(message) {
-        alert('Failed because: ' + message);
-    }
-    return navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL });
-    }
-    $scope.getLat = function() {
-      return "Your current location has been detected. Lat" + window.localStorage.getItem("lat") + "<br />Long:" + window.localStorage.getItem("long");
-    }
-    $scope.getLong = function() {
-      return window.localStorage.getItem("long");
-    }
+
     $scope.geoLocate = function () {
+      
+      function updateLocation(position) {
+        res = "Your current location has been detected. Lat"
+        res += position.coords.latitude  + "<br />Long:" + position.coords.longitude;
+        console.log(res);
+        document.getElementById("locationString").innerHTML = res;
+      }
+    
+      
+      function showThrob() {
+        document.getElementById("NavThrob").innerHTML = '<span class="ion-looping"></span>';
+      }
+      
+      function hideThrob() {
+        document.getElementById("NavThrob").innerHTML = '';
+      }
       var onGeolocationSuccess = function(position) {
       console.log('Latitude: '    + position.coords.latitude          + '\n' +
             'Longitude: '         + position.coords.longitude         + '\n' +
@@ -343,23 +359,21 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
             'Timestamp: '         + position.timestamp                + '\n'); //debug
             window.localStorage.setItem("lat",position.coords.latitude);
             window.localStorage.setItem("long",position.coords.longitude);
-            window.localStorage.setItem("timestamp",position.coords.timestamp)
-            $scope.showThrob = 0;
-            console.log($scope.showThrob);
-            console.log("done");
-            $scope.apply();
+            window.localStorage.setItem("timestamp",position.coords.timestamp);
+            updateLocation(position);
+            hideThrob();
             return;
       };
 
       // onError Callback receives a PositionError object
       //
-      var onGeolocationError = function onGeolocationError(error) {
+      var onGeolocationError = function (error) {
       console.log('code: '    + error.code    + '\n' +
             'message: ' + error.message + '\n');
-            $scope.showThrob = 0;
+            hideThrob();
       return false;
       }
-      $scope.showThrob = true;
+      showThrob();
       $scope.position = navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError,{ maximumAge: 3000, timeout: 50000, enableHighAccuracy: true });
       
     }
