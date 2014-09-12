@@ -35,7 +35,7 @@ angular.module('mybath.controllers', [])
 	};
 
     // set up the report it first modal
-    $ionicModal.fromTemplateUrl('report-it-report.html', {
+    $ionicModal.fromTemplateUrl('templates/report-it-report.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -53,7 +53,7 @@ angular.module('mybath.controllers', [])
 		$scope.reportItLocationModal.remove();
     });
     // set up the report it photo modal
-    $ionicModal.fromTemplateUrl('report-it-photo.html', {
+    $ionicModal.fromTemplateUrl('templates/report-it-photo.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -67,7 +67,7 @@ angular.module('mybath.controllers', [])
     };
 
     // set up the report it location modal
-    $ionicModal.fromTemplateUrl('report-it-location.html', {
+    $ionicModal.fromTemplateUrl('templates/report-it-location.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -81,7 +81,7 @@ angular.module('mybath.controllers', [])
     };
 
     // set up the report it personal details modal
-    $ionicModal.fromTemplateUrl('report-it-personal.html', {
+    $ionicModal.fromTemplateUrl('templates/report-it-personal.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -171,7 +171,7 @@ angular.module('mybath.controllers', [])
             cancelText: 'Cancel',
             buttonClicked: function (index) {
 				if (index == 0) {
-					// either registering or unregistering
+					// either registering or un-registering
 					
 				
 				}
