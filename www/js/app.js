@@ -309,11 +309,13 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
     $scope.subtract = function() {
       return (new Date() - new Date(window.localStorage.getItem("timestamp")/1000) ).toString();
     }
-    $scope.takePicture = function () {
+    $scope.takePhoto = function () {
     
     
     function onSuccess(imageURI) {
-        var image = document.getElementById('myImage');
+        var image = document.getElementById('photoTaken');
+        window.localStorage.setItem("reportPhoto", imageURI);
+        imageURI = "data:image/jpeg;base64," + imageURI;
         image.src = imageURI;
     }
 
@@ -321,7 +323,7 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
         alert('Failed because: ' + message);
     }
     return navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI });
+        destinationType: Camera.DestinationType.DATA_URL });
     }
     $scope.getLat = function() {
       return "Your current location has been detected. Lat" + window.localStorage.getItem("lat") + "<br />Long:" + window.localStorage.getItem("long");
