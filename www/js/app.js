@@ -176,6 +176,7 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
  * This includes retrieving address data, as well as handling registration data
  * such as name and email, and storing these for retrival in form processes.
 */
+
 .factory('UserData', function ($http, $q) {
     return {
         all: function () {
@@ -305,6 +306,61 @@ angular.module('BathCouncil', ['ionic','leaflet-directive'])
     }).then(function (modal) {
         $scope.reportItPhotoModal = modal;
     });
+    $scope.subtract = function() {
+      return (new Date() - new Date(window.localStorage.getItem("timestamp")/1000) ).toString();
+    }
+    $scope.takePicture = function () {
+    
+    
+    function onSuccess(imageURI) {
+        var image = document.getElementById('myImage');
+        image.src = imageURI;
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+    return navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI });
+    }
+    $scope.getLat = function() {
+      return "Your current location has been detected. Lat" + window.localStorage.getItem("lat") + "<br />Long:" + window.localStorage.getItem("long");
+    }
+    $scope.getLong = function() {
+      return window.localStorage.getItem("long");
+    }
+    $scope.geoLocate = function () {
+      var onGeolocationSuccess = function(position) {
+      console.log('Latitude: '    + position.coords.latitude          + '\n' +
+            'Longitude: '         + position.coords.longitude         + '\n' +
+            'Altitude: '          + position.coords.altitude          + '\n' +
+            'Accuracy: '          + position.coords.accuracy          + '\n' +
+            'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+            'Heading: '           + position.coords.heading           + '\n' +
+            'Speed: '             + position.coords.speed             + '\n' +
+            'Timestamp: '         + position.timestamp                + '\n'); //debug
+            window.localStorage.setItem("lat",position.coords.latitude);
+            window.localStorage.setItem("long",position.coords.longitude);
+            window.localStorage.setItem("timestamp",position.coords.timestamp)
+            $scope.showThrob = 0;
+            console.log($scope.showThrob);
+            console.log("done");
+            $scope.apply();
+            return;
+      };
+
+      // onError Callback receives a PositionError object
+      //
+      var onGeolocationError = function onGeolocationError(error) {
+      console.log('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+            $scope.showThrob = 0;
+      return false;
+      }
+      $scope.showThrob = true;
+      $scope.position = navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError,{ maximumAge: 3000, timeout: 50000, enableHighAccuracy: true });
+      
+    }
     $scope.reportItPhoto = function () {
         $scope.reportItPhotoModal.show();
     };

@@ -11,6 +11,15 @@
 	<script src="js/ionic.bundle.js"></script>
     <script src="js/app.js"></script>
 	<script src="js/directives/angular-leaflet-directive.js"></script>
+  <style type="text/css">
+  .geolocate-loading {
+    display: none;
+  }
+  </style>
+  <script type="text/javascript" charset="utf-8">
+  
+
+</script>
 
     <!-- Needed for Cordova/PhoneGap (will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -161,8 +170,8 @@
 				<div class="card">
 					<div class="item item-body home-card">
 						<p class="home-header royal">My details</p>
-						<i class="icon ion-ios7-person royal"></i>
 						<p>Review account details stored on this device.</p>
+						<i class="icon ion-ios7-person royal"></i>
 					</div>
 					<div class="item tabs tabs-primary tabs-icon-left">
 						<a class="tab-item" ng-click="showPopup('My Details', 'You can store personal details on this device to make reporting issues quicker and easier, and to personalise the information displayed.')">
@@ -349,7 +358,7 @@
 					<h3>Photo</h3>
 					If you wish to attach a photo to the report please do so here.
 					<form ng-submit="submitReportItPage2(photo)">
-						<button type="button" class="button button-full button-calm">
+						<button type="button" ng-click = "takePicture()" class="button button-full button-calm">
 							Take photo
 						</button>
 						<button type="submit" class="button button-full button-positive">
@@ -363,14 +372,16 @@
 
 	<script id="report-it-location.html" type="text/ng-template">
 		<div class="modal">
+     
 			<ion-header-bar>
 				<h1 class="title">Report it</h1>
 				<button class="button button-clear button-primary" ng-click="reportItLocationModal.hide()">Cancel</button>
 			</ion-header-bar>
 			<ion-content>
 				<div class="list list-inset">
+          <button ng-click="geoLocate()" class="button button-full button-calm">Find location<span ng-show = "showThrob" class="ion-looping ng-hide"></span></button>
 					<h3>Location</h3>
-					Your current location has been detected.
+					<span ng-app=""> <p ng-bind-html="getLat()">  </p><p>{{ subtract() }} seconds ago </p></span>
 					<form ng-submit="submitReportItPage3(location)">
 						<ul class="list">
 							<li class="item item-checkbox">
