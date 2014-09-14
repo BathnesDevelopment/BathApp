@@ -1,6 +1,6 @@
 <div class="modal">
 	<ion-header-bar>
-		<h1 class="title">Report it</h1>
+		<h1 class="title">Report It</h1>
 		<button class="button button-clear button-primary" ng-click="reportItPersonalModal.hide()">Cancel</button>
 	</ion-header-bar>
 	<ion-content>
@@ -9,18 +9,24 @@
 			<p>Your personal details are shown from your registration.  If you do not want these to be included, untick the option below.</p>
 			<form ng-submit="submitReportItPage4(report)">
 				<label class="item item-input">
-					<input type="text" placeholder="First Name">
+                    <input type="text" placeholder="First Name" ng-model="currentReport.firstname" ng-bind="userData.firstname">
 				</label>
 				<label class="item item-input">
-					<input type="text" placeholder="Last Name">
+                    <input type="text" placeholder="Last Name" ng-model="currentReport.lastname" ng-bind="userData.lastname">
 				</label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Contact email" ng-model="currentReport.email" ng-bind="userData.email">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Contact phone" ng-model="currentReport.phone" ng-bind="userData.phone">
+                </label>
 				<ul class="list">
 					<li class="item item-checkbox">
 						<label class="checkbox"><input type="checkbox"></label>
 						Send personal details with report
 					</li>
 				</ul>
-				<button type="submit" class="button button-full button-positive">Submit</button>
+                <button type="submit" class="button button-full button-clear button-positive">Submit</button>
 			</form>
 		</div>
 	</ion-content>

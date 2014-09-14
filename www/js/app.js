@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic','leaflet-directive','mybath.services', 'mybath.controllers'])
+angular.module('BathCouncil', ['ionic','leaflet-directive','MyBath.BathDataService','MyBath.ReportsService','MyBath.UserDataService', 'MyBath.Controllers'])
  .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('menu', {
@@ -47,6 +47,4 @@ angular.module('BathCouncil', ['ionic','leaflet-directive','mybath.services', 'm
 			}
 		});
 		$urlRouterProvider.otherwise("/menu/home");
-
-   
 });

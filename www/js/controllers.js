@@ -1,40 +1,120 @@
-angular.module('mybath.controllers', [])
-.controller('BathCouncilController', function ($scope, $state, $timeout, $ionicModal, UserData, $ionicSideMenuDelegate, $ionicActionSheet,$ionicPopup) {
-    // Load or initialize projects
-    //$scope.user = UserDATA.getUser();
+angular.module('MyBath.Controllers', [])
+.controller('BathCouncilController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup) {
 
-    // Called to select the given project
-    $scope.selectMenu = function (menuItem) {
-        $ionicSideMenuDelegate.toggleLeft(false);
-		
-		if (menuItem == 'home') $state.go('menu.home');
-		if (menuItem == 'map')
-		{
-			//$state.transitionTo('menu.map', {
-				//location: true, inherit: true, relative: $state.$current, notify: true, reload: true
-			//});
-			$state.go('menu.map');
-		}
-		if (menuItem == 'reports') $state.go('menu.reports');
-		if (menuItem == 'details') $state.go('menu.details');
-		if (menuItem == 'mycouncil') $state.go('menu.mycouncil');
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // STARTUP
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Variables: Global
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.currentReport = null;
+    $scope.userData = null;
+    $scope.reports = null;
+    $scope.currentLocation = null;
+    $scope.map = null;
+    $scope.mapmarkers = {};
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // OnLoad
+    // The following all happens on loading the app.
+    // - If the app has not been previously loaded then a tutorial is shown.
+    // - If there is an existing user registered then their user data is loaded.
+    // - Location is detected in the background (not to be used, but to save time later).
+    // - The definition for the map is loaded.
+    // - Existing reports are loaded.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    $scope.map = {
+        defaults: {
+            tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
+            maxZoom: 20,
+            zoomControlPosition: 'bottomleft',
+            path: {
+                weight: 10,
+                color: '#800000',
+                opacity: 1
+            }
+        },
+        //markers: $scope.mapmarkers,
+        layers: {
+            baselayers: {
+                MapBox: {
+                    name: 'OpenStreetMap',
+                    url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
+                    type: 'xyz',
+                    maxZoom: 20,
+                    zoomControlPosition: 'bottomleft',
+                    path: {
+                        weight: 10,
+                        color: '#800000',
+                        opacity: 1
+                    }
+                }
+            },
+            overlays: {
+                Schools: {
+                    type: 'geoJSON',
+                    name: 'Schools',
+                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=PrimarySchools&SearchType=findMyNearest&Distance=1609&MaxResults=50&Easting=375059&Northing=164907',
+                    visible: true,
+                    layerOptions: {
+                        style: {
+                            "color": "#00D",
+                            "fillColor": "#00D",
+                            "weight": 1.0,
+                            "opacity": 0.6,
+                            "fillOpacity": .2
+                        }
+                    }
+                },
+                School2: {
+                    type: 'geoJSON',
+                    name: 'Schools',
+                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=PrimarySchools&SearchType=findMyNearest&Distance=1609&MaxResults=50&Easting=375059&Northing=164907',
+                    visible: true,
+                    layerOptions: {
+                        style: {
+                            "color": "#00D",
+                            "fillColor": "#00D",
+                            "weight": 1.0,
+                            "opacity": 0.6,
+                            "fillOpacity": .2
+                        }
+                    }
+                },
+                School3: {
+                    type: 'geoJSON',
+                    name: 'Schools',
+                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=PrimarySchools&SearchType=findMyNearest&Distance=1609&MaxResults=50&Easting=375059&Northing=164907',
+                    visible: true,
+                    layerOptions: {
+                        style: {
+                            "color": "#00D",
+                            "fillColor": "#00D",
+                            "weight": 1.0,
+                            "opacity": 0.6,
+                            "fillOpacity": .2
+                        }
+                    }
+                }
+            }
+        },
+        center: {
+            lat: 51.3821440,
+            lng: -2.3589420,
+            zoom: 18
+        }
     };
 
-    $scope.toggleMenu = function () {
-        $ionicSideMenuDelegate.toggleLeft();
-    };
-	
-	// A popup dialog
-	$scope.showPopup = function(title,message) {
-		var alertPopup = $ionicPopup.alert({
-			title: title,
-			template: message
-		});
-		alertPopup.then(function(res) {
-		});
-	};
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // MODAL DEFINITIONS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // set up the report it first modal
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt
+    // The first report it screen
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/report-it-report.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -42,17 +122,21 @@ angular.module('mybath.controllers', [])
         $scope.reportItModal = modal;
     });
     $scope.reportIt = function () {
-		$scope.reportItModal.show();
+        $scope.reportItModal.show();
     };
     $scope.closeReportIt = function () {
         $scope.reportItModal.hide();
     };
-    // Clean-up the modal when we're done with it!
-    $scope.$on('$destroy', function () {
-        $scope.reportItModal.remove();
-		$scope.reportItLocationModal.remove();
-    });
-    // set up the report it photo modal
+    //Submit
+    $scope.submitReportItPage1 = function (report) {
+        $scope.reportItModal.hide();
+        $scope.reportItPhotoModal.show();
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt Photo
+    // Gives the user an option to add a photo to their report.
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/report-it-photo.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -65,8 +149,19 @@ angular.module('mybath.controllers', [])
     $scope.closeReportIt = function () {
         $scope.reportItPhotoModal.hide();
     };
+    // Submit
+    $scope.submitReportItPage2 = function (photo) {
+        $scope.reportItPhotoModal.hide();
+        $ionicLoading.show({
+            template: 'Finding location...'
+        });
+        $scope.geoLocate();
+    };
 
-    // set up the report it location modal
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt Location
+    // Add the user's current location to the report, or allows them to search for an address
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/report-it-location.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -79,7 +174,16 @@ angular.module('mybath.controllers', [])
     $scope.closeReportIt = function () {
         $scope.reportItLocationModal.hide();
     };
+    // Submit
+    $scope.submitReportItPage3 = function (location) {
+        $scope.reportItLocationModal.hide();
+        $scope.reportItPersonalModal.show();
+    };
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt Personal details
+    // Add the user's personal details to the report.  This will be optional.
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // set up the report it personal details modal
     $ionicModal.fromTemplateUrl('templates/report-it-personal.html', {
         scope: $scope,
@@ -93,139 +197,32 @@ angular.module('mybath.controllers', [])
     $scope.closeReportIt = function () {
         $scope.reportItPersonalModal.hide();
     };
-
-    $scope.submitReportItPage1 = function (report) {
-        $scope.reportItModal.hide();
-        $scope.reportItPhotoModal.show();
-    };
-
-    $scope.submitReportItPage2 = function (photo) {
-        $scope.reportItPhotoModal.hide();
-        $scope.reportItLocationModal.show();
-    };
-
-    $scope.submitReportItPage3 = function (location) {
-        $scope.reportItLocationModal.hide();
-        $scope.reportItPersonalModal.show();
-    };
-
-	$scope.submitReportItPage3 = function (report) {
+    // Submit
+    $scope.submitReportItPage4 = function (report) {
         $scope.reportItPersonalModal.hide();
-		// we need to store the report - and then run a sync
+
+        Reports.saveReport($scope.currentReport);
+        $scope.currentReport = null;
     }
-	
-	$scope.map = {
-		defaults: {
-			tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
-			maxZoom: 20,
-			zoomControlPosition: 'bottomleft',
-			path: {
-				weight: 10,
-				color: '#800000',
-				opacity: 1 }
-		},
-		layers: {
-			baselayers:{
-				MapBox: {
-                    name: 'OpenStreetMap',
-                    url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
-                    type: 'xyz',
-					maxZoom: 20,
-					zoomControlPosition: 'bottomleft',
-					path: {
-						weight: 10,
-						color: '#800000',
-						opacity: 1
-					}
-				}
-			},
-			overlays: {
-				Schools: {
-					type: 'group',
-					name: 'Schools',
-					visible: false
-				},
-				AirQuality: {
-					type: 'group',
-					name: 'Air Quality',
-					visible: false
-				}
-			}
-		},
-		center: {
-			lat: 51.3821440,
-			lng: -2.3589420,
-			zoom: 18
-		}
-	};
-     $scope.takePhoto = function () {
-      /* 
-       * Takes a photo, stores it in localStorage.reportPhoto
-       * Displays it to the user in photoTaken, which is by default aLinkcolor
-       * blank image 
-       * */
-      function onSuccess(imageURI) {
-          //replaces photoTaken with the photo taken
-          var image = document.getElementById('photoTaken');
-          window.localStorage.setItem("reportPhoto", imageURI);
-          imageURI = "data:image/jpeg;base64," + imageURI;
-          image.src = imageURI;
-      }
-
-      function onFail(message) {
-          alert('Failed because: ' + message);
-      }
-      return navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL });
-    };
 
 
-    $scope.geoLocate = function () {
-      
-      function updateLocation(position) {
-        res = "Your current location has been detected. Lat"
-        res += position.coords.latitude  + "<br />Long:" + position.coords.longitude;
-        console.log(res);
-        document.getElementById("locationString").innerHTML = res;
-      }
-    
-      
-      function showThrob() {
-        document.getElementById("NavThrob").innerHTML = '<span class="ion-looping"></span>';
-      }
-      
-      function hideThrob() {
-        document.getElementById("NavThrob").innerHTML = '';
-      }
-      var onGeolocationSuccess = function(position) {
-      console.log('Latitude: '    + position.coords.latitude          + '\n' +
-            'Longitude: '         + position.coords.longitude         + '\n' +
-            'Altitude: '          + position.coords.altitude          + '\n' +
-            'Accuracy: '          + position.coords.accuracy          + '\n' +
-            'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-            'Heading: '           + position.coords.heading           + '\n' +
-            'Speed: '             + position.coords.speed             + '\n' +
-            'Timestamp: '         + position.timestamp                + '\n'); //debug
-            window.localStorage.setItem("lat",position.coords.latitude);
-            window.localStorage.setItem("long",position.coords.longitude);
-            window.localStorage.setItem("timestamp",position.coords.timestamp);
-            updateLocation(position);
-            hideThrob();
-            return;
-      };
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal Cleanup
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.$on('$destroy', function () {
+        $scope.reportItModal.remove();
+        $scope.reportItLocationModal.remove();
+    });
 
-      // onError Callback receives a PositionError object
-      //
-      var onGeolocationError = function (error) {
-      console.log('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
-            hideThrob();
-      return false;
-      }
-      showThrob();
-      $scope.position = navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError,{ maximumAge: 3000, timeout: 50000, enableHighAccuracy: true });
-      
-    };
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // APP FUNCTIONS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: options
+    // Displays the options menu
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.options = function () {
         var optionsSheet = $ionicActionSheet.show({
             buttons: [
@@ -237,22 +234,107 @@ angular.module('mybath.controllers', [])
             titleText: 'App options',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
-				if (index == 0) {
-					// either registering or un-registering
-					
-				
-				}
+                if (index == 0) {
+                    // either registering or un-registering
+
+
+                }
                 return true;
             }
         });
     };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: SelectMenu
+    // Called to select the current view - currently called in the menu bar and on various buttons 
+    // throughout the app.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.selectMenu = function (menuItem) {
+        $ionicSideMenuDelegate.toggleLeft(false);
+
+        if (menuItem == 'home') $state.go('menu.home');
+        if (menuItem == 'map') $state.go('menu.map');
+        if (menuItem == 'reports') $state.go('menu.reports');
+        if (menuItem == 'details') $state.go('menu.details');
+        if (menuItem == 'mycouncil') $state.go('menu.mycouncil');
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: toggleMenu
+    // Moves the sidebar in or out.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.toggleMenu = function () {
+        $ionicSideMenuDelegate.toggleLeft();
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: showPopup
+    // Shows a helper popup - used on various information buttons throughout the app.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.showPopup = function (title, message) {
+        var alertPopup = $ionicPopup.alert({
+            title: title,
+            template: message
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: takePhoto
+    // Takes a photo, stores it in localStorage.reportPhoto
+    // Displays it to the user in photoTaken, which is by default aLinkcolor blank image 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.takePhoto = function () {
+        function onSuccess(imageURI) {
+            //replaces photoTaken with the photo taken
+            //var image = document.getElementById('photoTaken');
+            // window.localStorage.setItem("reportPhoto", imageURI);
+            $scope.currentReport.photo = imageURI;
+            //imageURI = "data:image/jpeg;base64," + imageURI;
+            //image.src = imageURI;
+        }
+
+        function onFail(message) {
+            // alert('Failed because: ' + message);
+        }
+        return navigator.camera.getPicture(onSuccess, onFail, {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: geoLocate
+    // Returns the geolocation.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.geoLocate = function () {
+
+        function onGeolocationSuccess(position) {
+            $scope.currentLocation = position;
+            console.log('Latitude: ' + position.coords.latitude + '\n' +
+                  'Longitude: ' + position.coords.longitude + '\n' +
+                  'Altitude: ' + position.coords.altitude + '\n' +
+                  'Accuracy: ' + position.coords.accuracy + '\n' +
+                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+                  'Heading: ' + position.coords.heading + '\n' +
+                  'Speed: ' + position.coords.speed + '\n' +
+                  'Timestamp: ' + position.timestamp + '\n'); //debug
+
+            $ionicLoading.hide();
+            $scope.currentReport.locationMessage = "Your location has been succesfully detected.  If you would like this to be used as part of the report, check the option below.";
+            $scope.reportItLocationModal.show();
+        };
+
+        function onGeolocationError(error) {
+            console.log('code: ' + error.code + '\n' +
+                  'message: ' + error.message + '\n');
+            $scope.reportItLocationModal.show();
+        }
+        navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+    };
+
 })
 .controller('MapController', function ($scope, $state, $timeout, $ionicModal, UserData, $ionicSideMenuDelegate, $ionicActionSheet) {
-	//Astun.JS.IncludeJS('lite',function(){
-	//	$('atMap').map = new Astun.JS.Map('atMap',{
-	//			'layers':'DCApplications',
-	//			'mapSource': 'BathNES/publisher_planning',
-	//			view:{easting:375193, northing:165109, zoom:3000}
-	//	});
-	//});
+
 });

@@ -1,4 +1,4 @@
-angular.module('mybath.services', [])
+angular.module('MyBath.BathDataService', [])
 /**
  * Factory: Bath Data
  * The bath data factory includes methods to return and save data from iShare to local storage
@@ -114,80 +114,5 @@ angular.module('mybath.services', [])
 				return [];
 			});
 		}
-    }
-})
-/**
- * Factory: User Data
- * The user data factory includes methods to handle user data for the app.
- * This includes retrieving address data, as well as handling registration data
- * such as name and email, and storing these for retrieval in form processes.
-*/
-.factory('UserData', function ($http, $q) {
-    return {
-        all: function () {
-            var userData = window.localStorage['UserData'];
-            if (userData) {
-                return angular.fromJson(userData);
-            }
-            return [];
-        },
-        save: function (userData) {
-            window.localStorage['UserData'] = angular.toJson(userData);
-        },
-        fetchUprn: function (postcode) {
-			var addressData = [];
-			var addressData_q = $q.defer();
-            $http.get("http://isharemaps.bathnes.gov.uk/getdata.aspx?service=LocationSearch&RequestType=LocationSearch&location=" + postcode + "&pagesize=200&startnum=1")
-				.success(function (data, status, headers, config) {
-				    addressData = data;
-					if (data && data != []) {
-					}
-					else
-					{
-						addressData = "Failed";
-					}
-				    addressData_q.resolve(data);
-				    return addressData;
-				})
-				.error(function (data, status, headers, config) {
-				    addressData = "Failed";
-				    addressData_q.resolve(addressData);
-				    return "Failed";
-				});
-            return addressData_q.promise;
-        }
-    }
-})
-.factory('Reports', function () {
-    return {
-        getReports: function () {
-            var reports = window.localStorage['reports'];
-            if (reports) {
-                return angular.fromJson(reports);
-            }
-            return [];
-        },
-        saveReports: function (reports) {
-            window.localStorage['reports'] = angular.toJson(reports);
-        },
-        addReport: function (report) {
-            var reports = getReports();
-			reports.add(report);
-			saveReports(reports);
-        },
-		submitReports: function () {
-            var reports = getReports();
-			// reports is an array (of whatever length).
-			// iterate through and submit to the web service.  as successes are recorded, remove from array.
-			var index;
-			for (index = 0; index < reports.length; ++index) {
-				$http({
-					method: 'POST',
-					url: 'request-url',
-					data: "message=" + message,
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				});
-			}
-        }
     }
 });
