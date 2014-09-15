@@ -8,7 +8,7 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentReport = null;
+    $scope.currentReport = { firstname:'', lastname:'', useLocation: true, address: '', uprn:'', lat:'', lon: '', photo: '' }
     $scope.userData = null;
     $scope.reports = null;
     $scope.currentLocation = null;
@@ -202,7 +202,7 @@ angular.module('MyBath.Controllers', [])
         $scope.reportItPersonalModal.hide();
 
         Reports.saveReport($scope.currentReport);
-        $scope.currentReport = null;
+        $scope.currentReport = { firstname:'', lastname:'', useLocation: true, address: '', uprn:'', lat:'', lon: '', photo: '' };
     }
 
 
@@ -322,6 +322,7 @@ angular.module('MyBath.Controllers', [])
                   'Timestamp: ' + position.timestamp + '\n'); //debug
 
             $ionicLoading.hide();
+            $scope.currentReport.useLocation = true;
             $scope.currentReport.locationMessage = "Your location has been succesfully detected.  If you would like this to be used as part of the report, check the option below.";
             $scope.reportItLocationModal.show();
         };
@@ -329,6 +330,8 @@ angular.module('MyBath.Controllers', [])
         function onGeolocationError(error) {
             console.log('code: ' + error.code + '\n' +
                   'message: ' + error.message + '\n');
+            $ionicLoading.hide();
+            $scope.currentReport.useLocation = false;
             $scope.reportItLocationModal.show();
         }
         navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });

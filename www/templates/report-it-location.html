@@ -8,7 +8,7 @@
 			<h3>Location</h3>
             <p>{{ currentReport.locationMessage }}</p>
 			<form ng-submit="submitReportItPage3(location)">
-				<ul class="list">
+				<ul class="list" ng-show="currentReport.useLocation">
 					<li class="item item-checkbox">
 						<label class="checkbox">
                             <input type="checkbox" ng-model="report.useLocation">
@@ -16,6 +16,9 @@
 						Use my current location for report location
 					</li>
 				</ul>
+
+
+
                 <button type="submit" class="button button-full button-clear button-positive">Next</button>
 			</form>
 		</div>
