@@ -287,6 +287,7 @@ angular.module('MyBath.Controllers', [])
     // Displays it to the user in photoTaken, which is by default aLinkcolor blank image 
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.takePhoto = function () {
+        
         function onSuccess(imageURI) {
             //replaces photoTaken with the photo taken
             //var image = document.getElementById('photoTaken');
@@ -307,19 +308,14 @@ angular.module('MyBath.Controllers', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: geoLocate
-    // Returns the geolocation.
+    // Stores the geolocation.
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.geoLocate = function () {
-
         function onGeolocationSuccess(position) {
             $scope.currentLocation = position;
             console.log('Latitude: ' + position.coords.latitude + '\n' +
                   'Longitude: ' + position.coords.longitude + '\n' +
-                  'Altitude: ' + position.coords.altitude + '\n' +
                   'Accuracy: ' + position.coords.accuracy + '\n' +
-                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-                  'Heading: ' + position.coords.heading + '\n' +
-                  'Speed: ' + position.coords.speed + '\n' +
                   'Timestamp: ' + position.timestamp + '\n'); //debug
 
             $ionicLoading.hide();
@@ -330,12 +326,13 @@ angular.module('MyBath.Controllers', [])
 
         function onGeolocationError(error) {
             console.log('code: ' + error.code + '\n' +
-                  'message: ' + error.message + '\n');
+                  'message: ' + error.message + '\n'); //debug
             $ionicLoading.hide();
+            $scope.currentReport.locationMessage = "Your location was not detected.";
             $scope.currentReport.useLocation = false;
             $scope.reportItLocationModal.show();
         }
-        navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+        navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
 
 })
