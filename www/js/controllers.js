@@ -8,7 +8,7 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentReport = { firstname:'', lastname:'', useLocation: true, address: '', uprn:'', lat:'', lon: '', photo: '' }
+    $scope.currentReport = { firstname:'', lastname:'', useLocation: true, address: '', uprn:'', lat:'', lon: '', photo: 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=' }
     $scope.userData = null;
     $scope.reports = null;
     $scope.currentLocation = null;
@@ -129,6 +129,10 @@ angular.module('MyBath.Controllers', [])
     };
     //Submit
     $scope.submitReportItPage1 = function (report) {
+        if ( typeof(navigator.camera.getPicture) != typeof(Function) ) {
+          // No camera is detected, so we can skip the photo modal?
+          return $scope.submitReportItPage2();          
+        }
         $scope.reportItModal.hide();
         $scope.reportItPhotoModal.show();
     };
@@ -289,18 +293,17 @@ angular.module('MyBath.Controllers', [])
     $scope.takePhoto = function () {
         
         function onSuccess(imageURI) {
-            //replaces photoTaken with the photo taken
-            //var image = document.getElementById('photoTaken');
-            // window.localStorage.setItem("reportPhoto", imageURI);
-            $scope.currentReport.photo = imageURI;
-            //imageURI = "data:image/jpeg;base64," + imageURI;
-            //image.src = imageURI;
+            // saves to currentReport.photo            
+            imageURI = "data:image/jpeg;base64," + imageURI;
+            $scope.$apply(function(){
+              $scope.currentReport.photo = imageURI;
+             });
         }
 
         function onFail(message) {
             // alert('Failed because: ' + message);
         }
-        return navigator.camera.getPicture(onSuccess, onFail, {
+        navigator.camera.getPicture(onSuccess, onFail, {
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL
         });
@@ -316,7 +319,7 @@ angular.module('MyBath.Controllers', [])
             console.log('Latitude: ' + position.coords.latitude + '\n' +
                   'Longitude: ' + position.coords.longitude + '\n' +
                   'Accuracy: ' + position.coords.accuracy + '\n' +
-                  'Timestamp: ' + position.timestamp + '\n'); //debug
+                  'Timestamp: ' + position.timestamp); // debug
 
             $ionicLoading.hide();
             $scope.currentReport.useLocation = true;
@@ -326,7 +329,7 @@ angular.module('MyBath.Controllers', [])
 
         function onGeolocationError(error) {
             console.log('code: ' + error.code + '\n' +
-                  'message: ' + error.message + '\n'); //debug
+                  'message: ' + error.message + '\n'); // debug
             $ionicLoading.hide();
             $scope.currentReport.locationMessage = "Your location was not detected.";
             $scope.currentReport.useLocation = false;

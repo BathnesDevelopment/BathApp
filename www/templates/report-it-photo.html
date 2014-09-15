@@ -6,12 +6,12 @@
     <ion-content>
         <div class="list list-inset">
             <h3>Photo</h3>
-            If you wish to attach a photo to the report (a picture of the pothold for example) please do so here.
+            If you wish to attach a photo to the report (a picture of the pothole for example) please do so here.
             <form ng-submit="submitReportItPage2(photo)">
                 <button type="button" ng-click="takePhoto()" class="button button-full button-clear button-positive">
                     Take photo
                 </button>
-                <div class="item item-image">
+                <div class="item item-image"><img src="{{currentReport.photo}}" />
                 </div>
                 <button type="submit" class="button button-full button-clear button-positive">
                     Next
