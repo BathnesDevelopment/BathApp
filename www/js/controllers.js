@@ -324,7 +324,7 @@ angular.module('MyBath.Controllers', [])
 
             $ionicLoading.hide();
             $scope.currentReport.useLocation = true;
-            $scope.currentReport.locationMessage = "Your location has been succesfully detected.  If you would like this to be used as part of the report, check the option below.";
+            $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
             $scope.reportItLocationModal.show();
         };
 
