@@ -1,8 +1,94 @@
 <div style="margin: 10px;">
-	<h3>My Council</h3>
+	<h2>My Council</h2>
 	<div class="card">
 		<div class="item item-divider"></div>
 		<div class="item item-text-wrap"></div>
 		<div class="item item-divider"></div>
 	</div>
+    <h3>Your councillors</h3>
+    <p ng-show="!uprn">No location set</p>
+    <div class="list card" ng-repeat="councillor in yourCouncillors.Results">
+        <div class="item item-divider">
+            Contact details
+        </div>
+        <div class="item item-body" ng-show="councillor.number1">
+            <b>{{councillor.number1}}</b> <br />
+            {{councillor.telephone1}}
+        </div>
+        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone1">
+            <a class="tab-item" browse-to="tel:{{councillor.telephone1}}">
+                <i class="icon ion-ios7-telephone positive"></i> Call
+            </a>
+        </div>
+        <div class="item item-body" ng-show="councillor.number2">
+            <b>{{councillor.number2}}</b> <br />
+            {{councillor.telephone2}}
+        </div>
+        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone2">
+            <a class="tab-item" browse-to="tel:{{councillor.telephone2}}">
+                <i class="icon ion-ios7-telephone positive"></i> Call
+            </a>
+        </div>
+        <div class="item item-body" ng-show="councillor.number3">
+            <b>{{councillor.number3}}</b> <br />
+            {{councillor.telephone3}}
+        </div>
+        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3">
+            <a class="tab-item" browse-to="tel:{{councillor.telephone3}}">
+                <i class="icon ion-ios7-telephone positive"></i> Call
+            </a>
+        </div>
+    </div>
+    <h3>Nearest council offices</h3>
+    <p ng-show="!uprn">No location set</p>
+    <div class="list card" ng-repeat="office in councilOffices.Results.____________________________">
+        <div class="item item-divider">
+            {{office.title}}
+            <p>Distance: {{office.Distance}}</p>
+        </div>
+        <div class="item tabs tabs-icon-right">
+            <a class="tab-item" browse-to="{{office.url}}">
+                <i class="icon ion-earth assertive"></i> More info
+            </a>
+        </div>
+    </div>
+    <h3>Listed building status</h3>
+    <p ng-show="!uprn">No location set</p>
+    <div class="list card" ng-repeat="listedstatus in listedBuilding.Results">
+        <div class="item item-divider">
+            Address
+        </div>
+        <div class="item item-body">
+            {{listedstatus.Description}}<br />
+            <b>Grading:</b> {{listedstatus.Grading}}
+        </div>
+    </div>
+    <h3>Bin collection dates</h3>
+    <p ng-show="!uprn">No location set</p>
+    <div class="list card" ng-repeat="collection in binCollection.Results">
+        <div class="item item-divider">
+            Waste: {{collection.waste}}
+        </div>
+        <div class="item tabs tabs-icon-right">
+            <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection">
+                <i class="icon ion-earth assertive"></i> Waste info
+            </a>
+        </div>
+        <div class="item item-divider">
+            Recycling: {{collection.recycling}}
+        </div>
+        <div class="item tabs tabs-icon-right">
+            <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle">
+                <i class="icon ion-earth assertive"></i> Recycling info
+            </a>
+        </div>
+        <div class="item item-divider">
+            Garden: {{collection.garden}}
+        </div>
+        <div class="item tabs tabs-icon-right">
+            <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost">
+                <i class="icon ion-earth assertive"></i> Garden waste
+            </a>
+        </div>
+    </div>
 </div>

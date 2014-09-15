@@ -7,27 +7,27 @@
 		<div class="list list-inset">
 			<h3>Your details</h3>
 			<p>Your personal details are shown from your registration.  If you do not want these to be included, untick the option below.</p>
-			<form ng-submit="submitReportItPage4(report)">
-				<label class="item item-input">
-                    <input type="text" placeholder="First Name" ng-model="currentReport.firstname" ng-bind="userData.firstname">
-				</label>
-				<label class="item item-input">
-                    <input type="text" placeholder="Last Name" ng-model="currentReport.lastname" ng-bind="userData.lastname">
-				</label>
+            <form ng-submit="submitReportItPage4(currentReport)">
                 <label class="item item-input">
-                    <input type="text" placeholder="Contact email" ng-model="currentReport.email" ng-bind="userData.email">
+                    <input type="text" placeholder="First Name" ng-model="currentReport.userFirstname" ng-bind="userData.firstname">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="Contact phone" ng-model="currentReport.phone" ng-bind="userData.phone">
+                    <input type="text" placeholder="Last Name" ng-model="currentReport.userLastname" ng-bind="userData.lastname">
                 </label>
-				<ul class="list">
-					<li class="item item-checkbox">
-						<label class="checkbox"><input type="checkbox"></label>
-						Send personal details with report
-					</li>
-				</ul>
+                <label class="item item-input">
+                    <input type="text" placeholder="Contact email" ng-model="currentReport.userEmail" ng-bind="userData.email">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Contact phone" ng-model="currentReport.userPhone" ng-bind="userData.phone">
+                </label>
+                <ul class="list">
+                    <li class="item item-checkbox">
+                        <label class="checkbox"><input type="checkbox" ng-model="currentReport.usePersonalDetails"></label>
+                        Send personal details with report
+                    </li>
+                </ul>
                 <button type="submit" class="button button-full button-clear button-positive">Submit</button>
-			</form>
+            </form>
 		</div>
 	</ion-content>
 </div>

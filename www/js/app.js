@@ -18,7 +18,8 @@ angular.module('BathCouncil', ['ionic','leaflet-directive','MyBath.BathDataServi
 			url: "/local",
 			views: {
 				'mainContent': {
-					templateUrl: "templates/local-data.html"
+				    templateUrl: "templates/local-data.html",
+				    controller: "LocalDataController"
 				}
 			}
 		})
@@ -42,7 +43,8 @@ angular.module('BathCouncil', ['ionic','leaflet-directive','MyBath.BathDataServi
 			url: "/mycouncil",
 			views: {
 				'mainContent': {
-					templateUrl: "templates/my-council.html"
+				    templateUrl: "templates/my-council.html",
+				    controller: "CouncilController"
 				}
 			}
 		})

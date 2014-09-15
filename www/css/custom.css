@@ -61,3 +61,6 @@ i.listIcons {
 .scroll, .angular-leaflet-map { 
 	height: 100%;
 } 
+.card .item:first-child {
+    /* height: 11em; */
+}

@@ -7,20 +7,17 @@
 		<div class="list list-inset">
 			<h3>Location</h3>
             <p>{{ currentReport.locationMessage }}</p>
-			<form ng-submit="submitReportItPage3(location)">
-				<ul class="list" ng-show="currentReport.useLocation">
-					<li class="item item-checkbox">
-						<label class="checkbox">
-                            <input type="checkbox" ng-model="report.useLocation">
-						</label>
-						Use my current location for report location
-					</li>
-				</ul>
-
-
-
+            <form ng-submit="submitReportItPage3(currentReport)">
+                <ul class="list" ng-show="currentReport.useUserLocation">
+                    <li class="item item-checkbox">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="currentReport.useUserLocation">
+                        </label>
+                        Use my current location for report location
+                    </li>
+                </ul>
                 <button type="submit" class="button button-full button-clear button-positive">Next</button>
-			</form>
+            </form>
 		</div>
 	</ion-content>
 </div>

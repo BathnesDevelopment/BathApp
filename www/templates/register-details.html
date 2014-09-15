@@ -1,27 +1,27 @@
 <div class="modal">
 	<ion-header-bar>
 		<h1 class="title">Register</h1>
-		<button class="button button-clear button-primary" ng-click="registerPersonalDetails.hide()">Cancel</button>
+        <button class="button button-clear button-primary" ng-click="closeRegister()">Cancel</button>
 	</ion-header-bar>
 	<ion-content>
 		<div class="list list-inset">
 			<h3>Personal details</h3>
             <p>Registering within the app will save your personal details when submitting reports, and show you personalised information for your address.</p>
-			<form ng-submit="submitPersonalDetails(personal)">
-				<label class="item item-input">
-					<input type="text" placeholder="First Name" ng-model="personal.firstname">
-				</label>
-				<label class="item item-input">
-                    <input type="text" placeholder="Last Name" ng-model="personal.lastname">
-				</label>
-				<label class="item item-input">
-                    <input type="email" placeholder="Email" ng-model="personal.email">
-				</label>
-				<label class="item item-input">
-                    <input type="text" placeholder="First line of address" ng-model="personal.addresssearch">
-				</label>
-				<button type="submit" class="button button-full button-positive">Submit</button>
-			</form>
+            <form ng-submit="searchUserAddress(userData.addresssearch)">
+                <label class="item item-input">
+                    <input type="text" placeholder="First Name" ng-model="userData.firstname">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Last Name" ng-model="userData.lastname">
+                </label>
+                <label class="item item-input">
+                    <input type="email" placeholder="Email" ng-model="userData.email">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="First line of address" ng-model="userData.addresssearch">
+                </label>
+                <button type="submit" class="button button-full button-positive">Submit</button>
+            </form>
 		</div>
 	</ion-content>
 </div>

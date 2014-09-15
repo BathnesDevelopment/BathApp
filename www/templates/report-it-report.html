@@ -7,12 +7,12 @@
         <div class="list list-inset">
             <h3>Report</h3>
             <p>Complete details for your report to the Council.  Select a category of report and fill in a description of the issue.</p>
-            <form ng-submit="submitReportItPage1(report)">
+            <form ng-submit="submitReportItPage1(currentReport)">
                 <label class="item item-input item-select">
                     <div class="input-label">
                         Category of report
                     </div>
-                    <select ng-model="report.type">
+                    <select ng-model="currentReport.type">
                         <option>Missed rubbish</option>
                         <option>Missed recycling</option>
                         <option>Missed garden waste</option>
@@ -38,7 +38,7 @@
                     </select>
                 </label>
                 <label class="item item-input">
-                    <textarea placeholder="Description" ng-model="report.description"></textarea>
+                    <textarea placeholder="Description" ng-model="currentReport.description"></textarea>
                 </label>
                 <button type="submit" class="button button-full button-clear button-positive">
                     Next

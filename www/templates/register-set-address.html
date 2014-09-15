@@ -1,0 +1,13 @@
+<div class="modal">
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-stable">
+        <h1 class="title">Select address</h1>
+        <button class="button button-clear" ng-click="closeSetAddress()">Cancel</button>
+    </ion-header-bar>
+    <!-- Modal content area -->
+    <ion-content padding="true">
+        <button class="button button-clear button-stable" ng-click="setProperty({{address[0]}})" ng-repeat="address in addresses.data">
+            {{address[7]}}
+        </button>
+    </ion-content>
+</div>

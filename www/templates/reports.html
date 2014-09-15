@@ -1,20 +1,14 @@
-		<div style="margin: 10px;">
-			<h3>My Reports</h3>
-			<div class="list list-inset">
-				<div class="item">
-					<strong>1st July 2013</strong> - Missed bin
-				</div>
-				<div class="item">
-					<strong>2nd July 2013</strong> - 
-				</div>
-				<div class="item">
-					<strong>3rd July 2013</strong> - 
-				</div>
-				<div class="item">
-					<strong>4th July 2013</strong> - 
-				</div>
-				<div class="item">
-					<strong>5th July 2013</strong> - Missed recycling collection
-				</div>
-			</div>
-		</div>
+<div style="margin: 10px;">
+    <h3>My Reports</h3>
+    <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
+    <button type="button" ng-click="takePhoto()" class="button button-full button-clear button-positive">
+        New Report
+    </button>
+    <div class="list list-inset">
+        <div class="item item-avatar" ng-repeat="report in reports">
+            <img ng-src="report.photo" ng-show="report.photo">
+            <h2>{{ report.type  }}</h2>
+            <p>{{ report.description }}</p>
+        </div>
+    </div>
+</div>
