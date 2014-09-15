@@ -1,8 +1,13 @@
 <div style="margin: 10px;">
 	<h3>My details</h3>
+	<p>See below for your registration data, as held on this device.  </p>
 	<div class="card">
-		<div class="item item-divider">Dave Rowe</div>
-		<div class="item item-text-wrap">Address: Flat 6, 22 Grosvenor Place, Bath, BA1 6AX</div>
-		<div class="item item-divider"></div>
-	</div>
+		<div class="item item-divider">{{ userData.firstname + ' ' + userData.lastname }}</div>
+		<div class="item item-text-wrap">
+			Address: {{ userData.address }} <br/>
+			Unique property reference: {{ userData.address }} <br />
+			Phone: {{ userData.phone }} <br />
+			Email: {{ userData.email }} <br />
+		</div>
+	</div>	
 </div>

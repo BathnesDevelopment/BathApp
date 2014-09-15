@@ -14,6 +14,14 @@ angular.module('BathCouncil', ['ionic','leaflet-directive','MyBath.BathDataServi
 				}
 			}
 		})
+		.state('menu.local', {
+			url: "/local",
+			views: {
+				'mainContent': {
+					templateUrl: "templates/local-data.html"
+				}
+			}
+		})
 		.state('menu.details', {
 			url: "/details",
 			views: {

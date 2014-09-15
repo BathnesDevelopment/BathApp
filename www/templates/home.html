@@ -33,7 +33,7 @@
 					<div class="item item-body home-card">
 						<p class="home-header assertive">Report It</p>
 						<i class="icon assertive ion-compose"></i>
-						<p>Report a new issue to the Council.</p>
+						<p>Report a new issue to the Council and view your existing reports.</p>
 					</div>
 					<div class="item tabs tabs-primary tabs-icon-left">
 						<a class="tab-item" ng-click="showPopup('Report It', 'Report It allows you to report issues to the council such as missed bins, potholes, or fly tipping.')">
@@ -42,21 +42,24 @@
 						<a class="tab-item" href="#" ng-click="reportIt()">
 							<i class="icon assertive ion-more"></i>
 						</a>
+						<a class="tab-item" href="#/menu/reports">
+							<i class="icon positive ion-more"></i>
+						</a>
 					</div>
 				</div>
 			</div>
 			<div class="col">
 				<div class="card">
 					<div class="item item-body home-card">
-						<p class="home-header">My Reports</p>
-						<i class="icon positive ion-android-folder"></i>
-						<p>Existing reports to the council sent from this device.</p>
+						<p class="home-header">Local Data</p>
+						<i class="icon positive ion-ios7-information"></i>
+						<p>View local data personalised to your address.</p>
 					</div>
 					<div class="item tabs tabs-primary tabs-icon-left">
-						<a class="tab-item" ng-click="showPopup('Report It', 'See your existing reports, sent to the Council from this device.')">
+						<a class="tab-item" ng-click="showPopup('Local Data', 'View information about your address such as planning and licensing applications, and roadworks.')">
 							<i class="icon positive ion-ios7-information"></i>
 						</a>
-						<a class="tab-item" href="#/menu/reports">
+						<a class="tab-item" href="#/menu/local">
 							<i class="icon positive ion-more"></i>
 						</a>
 					</div>

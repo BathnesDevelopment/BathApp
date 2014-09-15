@@ -255,6 +255,7 @@ angular.module('MyBath.Controllers', [])
         if (menuItem == 'home') $state.go('menu.home');
         if (menuItem == 'map') $state.go('menu.map');
         if (menuItem == 'reports') $state.go('menu.reports');
+		if (menuItem == 'localdata') $state.go('menu.local');
         if (menuItem == 'details') $state.go('menu.details');
         if (menuItem == 'mycouncil') $state.go('menu.mycouncil');
     };
