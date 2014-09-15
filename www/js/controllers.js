@@ -129,10 +129,6 @@ angular.module('MyBath.Controllers', [])
     };
     //Submit
     $scope.submitReportItPage1 = function (report) {
-        if ( typeof(navigator.camera.getPicture) != typeof(Function) ) {
-          // No camera is detected, so we can skip the photo modal?
-          return $scope.submitReportItPage2();          
-        }
         $scope.reportItModal.hide();
         $scope.reportItPhotoModal.show();
     };
