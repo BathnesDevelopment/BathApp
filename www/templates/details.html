@@ -1,13 +1,34 @@
 <div style="margin: 10px;">
 	<h3>My Details</h3>
 	<p>See below for your registration data, as held on this device.  </p>
-	<div class="card">
-		<div class="item item-divider">{{ userData.firstname + ' ' + userData.lastname }}</div>
-		<div class="item item-text-wrap">
-			Address: {{ userData.address }} <br/>
-			Unique property reference: {{ userData.address }} <br />
-			Phone: {{ userData.phone }} <br />
-			Email: {{ userData.email }} <br />
-		</div>
-	</div>	
+    <div class="card">
+        <div class="item item-divider">
+            {{ userData.firstname + ' ' + userData.lastname }}
+        </div>
+        <div class="item item-icon-left">
+            <i class="icon ion-home"></i>
+            Address: {{ userData.address }}
+        </div>
+
+        <div class="item item-icon-left">
+            <i class="icon ion-map"></i>
+            Unique property reference: {{ userData.address }}
+        </div>
+
+        <div class="item item-icon-left">
+            <i class="icon ion-ios7-telephone"></i>
+            Phone: {{ userData.phone }}
+        </div>
+
+        <div class="item item-icon-left">
+            <i class="icon ion-card"></i>
+            Email: {{ userData.email }}
+        </div>
+    </div>
+    To clear the data held on the device, use the link below:
+
+    Note: this will also clear any existing reports data stored.
+    <button type="button" ng-click="deleteData()" class="button button-full button-clear button-positive">
+        Remove personal data
+    </button>
 </div>

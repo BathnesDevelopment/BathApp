@@ -9,7 +9,7 @@ angular.module('MyBath.Controllers', [])
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
-    $scope.userData = null;
+    $scope.userData = UserData.all();
     $scope.reports = Reports.getReports();
     $scope.currentLocation = null;
     $scope.map = null;
@@ -38,7 +38,48 @@ angular.module('MyBath.Controllers', [])
                 opacity: 1
             }
         },
-        //markers: $scope.mapmarkers,
+        markers: {
+            school1: {
+                layer: "Schools",
+                lat: 51.383456,
+                lng: -2.362547
+            },
+            school2: {
+                layer: "Schools",
+                lat: 51.385081,
+                lng: -2.357540
+            },
+            building: {
+                layer: "PlanningApplications",
+                lat: 51.383724,
+                lng: -2.361975
+            },
+            fence: {
+                layer: "PlanningApplications",
+                lat: 51.383206,
+                lng: -2.360744
+            },
+            victoria: {
+                layer: "Parks",
+                lat: 51.384978,
+                lng: -2.365467
+            },
+            parade: {
+                layer: "Parks",
+                lat: 51.380913,
+                lng: -2.352698
+            },
+            sydney: {
+                layer: "Parks",
+                lat: 51.386137,
+                lng: -2.349652
+            }
+        },
+        center: {
+            lat: 51.3821440,
+            lng: -2.3589420,
+            zoom: 18
+        },
         layers: {
             baselayers: {
                 MapBox: {
@@ -56,9 +97,8 @@ angular.module('MyBath.Controllers', [])
             },
             overlays: {
                 Schools: {
-                    type: 'geoJSON',
+                    type: 'markercluster',
                     name: 'Schools',
-                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=PrimarySchools&SearchType=findMyNearest&Distance=1609&MaxResults=50&Easting=375059&Northing=164907',
                     visible: true,
                     layerOptions: {
                         style: {
@@ -70,10 +110,9 @@ angular.module('MyBath.Controllers', [])
                         }
                     }
                 },
-                School2: {
-                    type: 'geoJSON',
-                    name: 'Schools',
-                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=PrimarySchools&SearchType=findMyNearest&Distance=1609&MaxResults=50&Easting=375059&Northing=164907',
+                Parks: {
+                    type: 'markercluster',
+                    name: 'Parks',
                     visible: true,
                     layerOptions: {
                         style: {
@@ -85,27 +124,12 @@ angular.module('MyBath.Controllers', [])
                         }
                     }
                 },
-                School3: {
-                    type: 'geoJSON',
-                    name: 'Schools',
-                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=PrimarySchools&SearchType=findMyNearest&Distance=1609&MaxResults=50&Easting=375059&Northing=164907',
-                    visible: true,
-                    layerOptions: {
-                        style: {
-                            "color": "#00D",
-                            "fillColor": "#00D",
-                            "weight": 1.0,
-                            "opacity": 0.6,
-                            "fillOpacity": .2
-                        }
-                    }
+                PlanningApplications: {
+                    type: 'markercluster',
+                    name: 'Planning applications',
+                    visible: true
                 }
             }
-        },
-        center: {
-            lat: 51.3821440,
-            lng: -2.3589420,
-            zoom: 18
         }
     };
 
@@ -293,7 +317,7 @@ angular.module('MyBath.Controllers', [])
             template: 'Fetching data...'
         });
         $scope.uprn = uId;
-        UserData.save({ "uprn": $scope.uprn, "postcode": $scope.postcode });
+        UserData.save({ "uprn": uId, "addressSearch": userData.addressSearch, "firstname": userData.firstname, "lastname": userData.lastname, "email": userData.email, "phone": userData.phone });
         BathData.fetchAll(uId)
 			.then(function (data) {
 			    if (data && data != []) {

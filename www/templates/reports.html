@@ -1,14 +1,30 @@
 <div style="margin: 10px;">
     <h3>My Reports</h3>
     <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
-    <button type="button" ng-click="takePhoto()" class="button button-full button-clear button-positive">
+    <button type="button" ng-click="reportIt()" class="button button-full button-clear button-positive">
         New Report
     </button>
     <div class="list list-inset">
-        <div class="item item-avatar" ng-repeat="report in reports">
-            <img ng-src="report.photo" ng-show="report.photo">
-            <h2>{{ report.type  }}</h2>
-            <p>{{ report.description }}</p>
+        <div ng-repeat="report in reports">
+            <div class="item item-avatar">
+                <img ng-src="report.photo" ng-show="report.photo">
+                <h2>{{ report.type  }}</h2>
+                <p>{{ report.description }}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-paper-airplane"></i>
+                    Send report
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-trash-a"></i>
+                    Delete
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-map"></i>
+                    View map
+                </a>
+            </div>
         </div>
     </div>
 </div>
