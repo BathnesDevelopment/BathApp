@@ -7,7 +7,7 @@
     <div class="list list-inset">
         <div ng-repeat="report in reports">
             <div class="item item-avatar">
-                <img ng-src="report.photo" ng-show="report.photo">
+                <img src="{{ report.photo }}" ng-show="report.photo">
                 <h2>{{ report.type  }}</h2>
                 <p>{{ report.description }}</p>
             </div>
