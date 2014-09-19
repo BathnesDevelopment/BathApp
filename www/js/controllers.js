@@ -49,6 +49,7 @@ angular.module('MyBath.Controllers', [])
 	}
 	if ($scope.userData && $scope.userData.length == 0) {
 		$scope.userData = { uprn: '10001140919', addressSearch: 'Flat 6, 22 Grosvenor Place', firstname: 'Dave', lastname: 'Rowe', email: 'david_rowe@bathnes.gov.uk', phone: '01225477356' };
+    $scope.uprn = true;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////
     // </END TEST DATA>
