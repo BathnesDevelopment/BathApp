@@ -8,7 +8,7 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
+    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
     $scope.userData = UserData.all();
     $scope.reports = Reports.getReports();
     $scope.currentLocation = null;
@@ -432,6 +432,7 @@ angular.module('MyBath.Controllers', [])
         alertPopup.then(function (res) {
         });
     };
+    
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: takePhoto
@@ -471,6 +472,7 @@ angular.module('MyBath.Controllers', [])
 
             $ionicLoading.hide();
             $scope.currentReport.useLocation = true;
+            $scope.currentReport.locationFound = true;
             $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
             $scope.reportItLocationModal.show();
         };
@@ -481,6 +483,7 @@ angular.module('MyBath.Controllers', [])
             $ionicLoading.hide();
             $scope.currentReport.locationMessage = "Your location was not detected.";
             $scope.currentReport.useLocation = false;
+            $scope.currentReport.locationFound = false;
             $scope.reportItLocationModal.show();
         }
         navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
