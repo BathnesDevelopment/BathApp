@@ -495,7 +495,7 @@ angular.module('MyBath.Controllers', [])
     // Phones Council Connect during office hours.
     // Provides information when it's closed.
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.councilConnect = function() {
+    $scope.councilConnectHelper = function() {
     if (isCouncilConnectHours()){
       window.location.href="tel://01225394041"
     } else {
