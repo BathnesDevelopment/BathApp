@@ -17,6 +17,7 @@ angular.module('MyBath.Controllers', [])
     $scope.bathdata = BathData.all();
     $scope.addresses = [];
 	$scope.binCollection = [];
+
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////
     // TEST DATA - For use when testing in browser
@@ -488,6 +489,19 @@ angular.module('MyBath.Controllers', [])
         }
         navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: councilConnectHelper
+    // Phones Council Connect during office hours.
+    // Provides information when it's closed.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.councilConnect = function() {
+    if (isCouncilConnectHours()){
+      window.location.href="tel://01225394041"
+    } else {
+      $scope.showPopup('Council Connect','Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.<br /><br /><b>Opening hours are 9:30-6 on a Wednesday or 8 - 6 on any other weekday.</b><br /><br />Outside of office hours there are various pre-recorded messages and email options available for you to access more information or report an emergency. Tap the phone icon to call council connect and listen to these messages <a class="tab-item" href="tel:01225394041"><i class="icon balanced ion-ios7-telephone"></i></a>');
+    }
+  };
 })
 .controller('MapController', function ($scope, $state, $timeout, $ionicModal, UserData, $ionicSideMenuDelegate, $ionicActionSheet) {
 
@@ -920,3 +934,30 @@ function InitialLat(north, n0, af0, phi0, n, bf0) {
     }
     return (phi2);
 }
+
+function isCouncilConnectHours() {
+    // Returns true if it is currently Council Connect Hours
+    // Council Connect hours are 8-6 MTTF
+    // 9:30 - 6 W
+    // Closed on weekends
+    var time = new Date();
+
+    var h = time.getHours()
+    var m = time.getMinutes()
+    var d = time.getDay();
+
+    if (d == 0 || d == 6) { // weekend
+      return false;
+    }
+
+    if (d == 3 && (h < 9 || (h == 9 && m < 30))) { // Wednesday
+      return false;
+    }
+
+    if ( h < 8 || h > 18) { 
+      return false;
+    }
+
+    return true;
+    $scope.$digest(); 
+    }
