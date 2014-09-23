@@ -496,13 +496,29 @@ angular.module('MyBath.Controllers', [])
     // Phones Council Connect during office hours.
     // Provides information when it's closed.
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.councilConnectHelper = function() {
-    if (isCouncilConnectHours()){
-      window.location.href="tel://01225394041"
-    } else {
-      $scope.showPopup('Council Connect','Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.<br /><br /><b>Opening hours are 9:30-6 on a Wednesday or 8 - 6 on any other weekday.</b><br /><br />Outside of office hours there are various pre-recorded messages and email options available for you to access more information or report an emergency. Tap the phone icon to call council connect and listen to these messages <a class="tab-item" href="tel:01225394041"><i class="icon balanced ion-ios7-telephone"></i></a>');
+    $scope.councilConnectPopup = function() {
+      //if (isCouncilConnectHours()){
+      //  window.location.href="tel://01225394041"
+      //} else {
+        $scope.showPopup('Council Connect','Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.<br /><br /><b>Opening hours are 9:30-6 on a Wednesday or 8 - 6 on any other weekday.</b><br /><br />Outside of office hours there are various pre-recorded messages and email options available for you to access more information or report an emergency.<br /><br /><table><tr><td style="text-align: center; vertical-align: middle;"><a class="tab-item" ng-click="emailCouncilConnect()" ><i class="icon royal ion-at"></i></a></td>    <td>Tap the @ icon to email council connect with your query.<br /></td></tr>  <tr>    <td style="text-align: center; vertical-align: middle;"><a class="tab-item" href="tel:01225394041"><i class="icon balanced ion-ios7-telephone"></i></a></td>    <td>Tap the phone icon to call council connect.</td>  </tr></table>         ');
+      //}
+    };
+    
+    $scope.emailCouncilConnect = function () {
+    // documentation: https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
+    try {
+    window.plugin.email.open({
+    to:          ['councilconnect@bathnes.gov.uk'],
+    subject:    "Message from Bath App", 
+    body:       "",
+    isHtml:    false });
+    } catch (err) {
+      console.log(err.message);
+      window.location.href="mailto:councilconnect@bathnes.gov.uk";
     }
+
   };
+      
 })
 .controller('MapController', function ($scope, $state, $timeout, $ionicModal, UserData, $ionicSideMenuDelegate, $ionicActionSheet) {
 

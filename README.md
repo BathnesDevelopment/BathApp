@@ -10,6 +10,7 @@ To build, install cordova, then run:
 - $ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
 - $ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git
 - $ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+- $ cordova plugin add de.appplant.cordova.plugin.email-composer && cordova prepare
 - $ cordova build ios
 - $ cordova emulate ios
 
