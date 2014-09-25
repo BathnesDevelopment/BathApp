@@ -43,6 +43,9 @@
             <a class="tab-item" browse-to="tel:{{councillor.telephone1}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
+            <a class="tab-item" browse-to="{{councillor.info1}}">
+                <i class="icon ion-person assertive"></i> More details
+            </a>
         </div>
         <div class="item item-body" ng-show="councillor.number2">
             <b>{{councillor.number2}}</b> <br />
@@ -52,6 +55,9 @@
             <a class="tab-item" browse-to="tel:{{councillor.telephone2}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
+            <a class="tab-item" browse-to="{{councillor.info2}}">
+                <i class="icon ion-person assertive"></i> More details
+            </a>
         </div>
         <div class="item item-body" ng-show="councillor.number3">
             <b>{{councillor.number3}}</b> <br />
@@ -60,6 +66,9 @@
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3">
             <a class="tab-item" browse-to="tel:{{councillor.telephone3}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
+            </a>
+            <a class="tab-item" browse-to="{{councillor.info2}}">
+                <i class="icon ion-person assertive"></i> More details
             </a>
         </div>
     </div>

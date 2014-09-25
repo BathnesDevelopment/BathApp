@@ -766,6 +766,7 @@ angular.module('MyBath.Controllers', [])
                 tel = telAndParty[0].innerText.split('Telephone ')[1];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number1 = councillors[0].innerHTML;
+            $scope.yourCouncillors.Results.Your_Councillors.info1 = councillors[0].href;
             $scope.yourCouncillors.Results.Your_Councillors.telephone1 = tel;
         }
         if (councillors[1]) {
@@ -776,6 +777,7 @@ angular.module('MyBath.Controllers', [])
                 tel = telAndParty[1].innerText.split('Telephone ')[1];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number2 = councillors[1].innerHTML;
+            $scope.yourCouncillors.Results.Your_Councillors.info2 = councillors[1].href;
             $scope.yourCouncillors.Results.Your_Councillors.telephone2 = tel;
         }
         if (councillors[2]) {
@@ -786,6 +788,7 @@ angular.module('MyBath.Controllers', [])
                 tel = telAndParty[2].innerText.split('Telephone ')[1];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number3 = councillors[3].innerHTML;
+            $scope.yourCouncillors.Results.Your_Councillors.info3 = councillors[3].href;
             $scope.yourCouncillors.Results.Your_Councillors.telephone3 = tel;
         }
     }
@@ -888,11 +891,10 @@ angular.module('MyBath.Controllers', [])
 function NEtoLL(east, north) {
     // converts NGR easting and nothing to lat, lon. With proj4.js
     
-    // EPSG:27700 is British National Grid 
-    proj4.defs("EPSG:27700","+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"); 
-    var res = proj4('EPSG:27700', 'WGS84', [east,north]);    
+    // British National Grid. Source: http://epsg.io/27700
+    proj4.defs("NationalGrid","+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"); 
+    var res = proj4('NationalGrid', 'WGS84', [east,north]);    
     return { latitude: res[1], longitude: res[0] };
-  
     }
 
 
