@@ -1,10 +1,9 @@
 <div style="margin: 10px;">
-              
     <h2>Local Data</h2>
     <p>This page shows local data, relevant to your registered address.  </p>
-    
-    <button ng-click="showShowHide = !showShowHide;" class="button button-full">Show/Hide settings</button>
-    <table ng-show = "showShowHide">
+    <div style = "width: 50%"><button ng-click="showOptions = !showOptions;" class="button">Settings</button>
+    <div ng-show="showOptions"><p>Check the box to hide it's information.</p>
+    <table>
       <tr>
         <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Libraries"></label></td>
         <td>Libraries</td>
@@ -39,7 +38,7 @@
         <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Allotments"></label></td>
         <td>Allotments</td>
       </tr>
-    </table>
+    </table></div></div>
     <div ng-hide = "userData.LocalHidden.Libraries"><h3 >Local libraries</h3>
       <p ng-show="!uprn">No location set</p>
       <div class="list card" ng-repeat="library in librariesNearby.Results" >
