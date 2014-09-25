@@ -18,17 +18,16 @@ angular.module('MyBath.UserDataService', [])
             window.localStorage['UserData'] = angular.toJson(userData);
         },
         fetchUprn: function (postcode) {
-			var addressData = [];
-			var addressData_q = $q.defer();
+            var addressData = [];
+            var addressData_q = $q.defer();
             $http.get("http://isharemaps.bathnes.gov.uk/getdata.aspx?service=LocationSearch&RequestType=LocationSearch&location=" + postcode + "&pagesize=200&startnum=1")
 				.success(function (data, status, headers, config) {
 				    addressData = data;
-					if (data && data != []) {
-					}
-					else
-					{
-						addressData = "Failed";
-					}
+				    if (data && data != []) {
+				    }
+				    else {
+				        addressData = "Failed";
+				    }
 				    addressData_q.resolve(data);
 				    return addressData;
 				})

@@ -1,52 +1,53 @@
-		<ion-side-menus>
-			<!-- Center content -->
-			<ion-side-menu-content>
-				<ion-header-bar class="bar-dark">
-					<button class="button button-icon" ng-click="toggleMenu()">
-						<i class="icon ion-navicon"></i>
-					</button>
-					<h1 class="title">Bath & North East Somerset</h1>
-					<!-- New Report button-->
-					<button class="button button-icon" ng-click="reportIt()">
-						<i class="icon ion-compose"></i>
-					</button>
-					<button class="button button-icon" ng-click="options()">
-						<i class="icon ion-settings"></i>
-					</button>
-				</ion-header-bar>
-				<ion-content>
-					<ion-nav-view  name="mainContent">>
-						<!-- Center content -->
-					</ion-nav-view>
-				</ion-content>
-			</ion-side-menu-content>
-			<!-- Left menu -->
-			<ion-side-menu side="left">
-				<ion-header-bar class="bar-dark">
-					<h1 class="title">Menu</h1>
-					<button class="button button-icon ion-refresh" ng-click="refresh()"></button>
-				</ion-header-bar>
-				<ion-content scroll="false">
-					<ion-list>
-						<ion-item ng-click="selectMenu('home')">
-							Home
-						</ion-item>
-						<ion-item ng-click="selectMenu('reports')">
-							Report It
-						</ion-item>
-						<ion-item ng-click="selectMenu('localdata')">
-							Local Data
-						</ion-item>
-						<ion-item ng-click="selectMenu('details')">
-							My Details
-						</ion-item>
-						<ion-item ng-click="selectMenu('mycouncil')">
-							My Council
-						</ion-item>
-						<ion-item ng-click="selectMenu('map')">
-							Map
-						</ion-item>
-					</ion-list>
-				</ion-content>
-			</ion-side-menu>
-		</ion-side-menus>
+<ion-side-menus>
+    <!-- Center content -->
+    <ion-side-menu-content>
+        <ion-header-bar class="bar-dark">
+            <button class="button button-icon" ng-click="toggleMenu()">
+                <i class="icon ion-navicon"></i>
+            </button>
+            <h1 class="title">Bath & North East Somerset</h1>
+            <!-- New Report button-->
+            <button class="button button-icon" ng-click="reportIt()">
+                <i class="icon ion-compose"></i>
+            </button>
+            <button class="button button-icon" ng-click="options()">
+                <i class="icon ion-settings"></i>
+            </button>
+        </ion-header-bar>
+        <ion-content>
+            <ion-nav-view name="mainContent">
+                >
+                <!-- Center content -->
+            </ion-nav-view>
+        </ion-content>
+    </ion-side-menu-content>
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-dark">
+            <h1 class="title">Menu</h1>
+            <button class="button button-icon ion-refresh" ng-click="refresh()"></button>
+        </ion-header-bar>
+        <ion-content scroll="false">
+            <ion-list>
+                <ion-item ng-click="selectMenu('home')">
+                    Home
+                </ion-item>
+                <ion-item ng-click="selectMenu('reports')">
+                    Report It
+                </ion-item>
+                <ion-item ng-click="selectMenu('localdata')">
+                    Local Data
+                </ion-item>
+                <ion-item ng-click="selectMenu('details')">
+                    My Details
+                </ion-item>
+                <ion-item ng-click="selectMenu('mycouncil')">
+                    My Council
+                </ion-item>
+                <ion-item ng-click="selectMenu('map')">
+                    Map
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

@@ -1,12 +1,12 @@
 <div class="modal">
-	<ion-header-bar>
-		<h1 class="title">Report It</h1>
-		<button class="button button-clear button-primary" ng-click="reportItPersonalModal.hide()">Cancel</button>
-	</ion-header-bar>
-	<ion-content>
-		<div class="list list-inset">
-			<h3>Your details</h3>
-			<p>Your personal details are shown from your registration.  If you do not want these to be included, untick the option below.</p>
+    <ion-header-bar>
+        <h1 class="title">Report It</h1>
+        <button class="button button-clear button-primary" ng-click="reportItPersonalModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list list-inset">
+            <h3>Your details</h3>
+            <p>Your personal details are shown from your registration.  If you do not want these to be included, untick the option below.</p>
             <form ng-submit="submitReportItPage4(currentReport)">
                 <label class="item item-input">
                     <input type="text" placeholder="First Name" ng-model="currentReport.userFirstname" ng-bind="userData.firstname">
@@ -28,6 +28,6 @@
                 </ul>
                 <button type="submit" class="button button-full button-clear button-positive">Submit</button>
             </form>
-		</div>
-	</ion-content>
+        </div>
+    </ion-content>
 </div>

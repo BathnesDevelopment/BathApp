@@ -1,379 +1,385 @@
 <div style="margin: 10px;">
     <h2>Local Data</h2>
     <p>This page shows local data, relevant to your registered address.  </p>
-    <div style = "width: 50%"><button ng-click="showOptions = !showOptions;" class="button">Settings</button>
-    <div ng-show="showOptions"><p>Check the box to hide it's information.</p>
-    <table>
-      <tr>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Libraries"></label></td>
-        <td>Libraries</td>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Schools"></label></td>
-        <td>Schools</td>
-      </tr>
-      <tr>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Roadworks"></label></td>
-        <td>Roadworks</td>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Bus"></label></td>
-        <td>Bus Stops</td>
-      </tr>
-      <tr>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.CarPark"></label></td>
-        <td>Car Parks</td>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Crossings"></label></td>
-        <td>Crossings</td>
-      </tr>
-      <tr>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Sports"></label></td>
-        <td>Health & Fitness centres</td>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Planning"></label></td>
-        <td>Planning Applications</td>
-      </tr>
-      <tr>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Licenses"></label></td>
-        <td>License Applications</td>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.ParksAndRec"></label></td>
-        <td>Parks & Play areas</td>
-      </tr>
-      <tr>
-        <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Allotments"></label></td>
-        <td>Allotments</td>
-      </tr>
-    </table></div></div>
-    <div ng-hide = "userData.LocalHidden.Libraries"><h3 >Local libraries</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="library in librariesNearby.Results" >
-          <div class="item item-divider">
-              {{library.name}}
-              <p>{{library.Distance}} metres</p>
-          </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" browse-to="http://www.librarieswest.org.uk/explore-our-collections/catalogue-search/">
-                  <i class="icon ion-android-book positive"></i> Library catalogue
-              </a>
-              <a class="tab-item" browse-to="{{library.url}}">
-                  <i class="icon ion-earth assertive"></i> Website
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{library.lat}},{{library.lon}}({{library.name}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
-      <h3>Mobile libraries</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="library in mobileLibrariesNearby.Results">
-          <div class="item item-divider">
-              Nearest village stop: {{library.village}}
-              <p>{{library.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Time:</b> {{library.timeAdjusted}}<br />
-              <b>Stop:</b> {{library.stop}}<br />
-              <b>Day:</b> {{library.day}}<br />
-          </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" browse-to="{{library.url}}">
-                  <i class="icon ion-earth assertive"></i> Timetable
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{library.lat}},{{library.lon}}({{library.village}} mobile library stop)">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+    <div style="width: 50%">
+        <button ng-click="showOptions = !showOptions;" class="button">Settings</button>
+        <div ng-show="showOptions">
+            <p>Check the box to hide it's information.</p>
+            <table>
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Libraries"></label></td>
+                    <td>Libraries</td>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Schools"></label></td>
+                    <td>Schools</td>
+                </tr>
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Roadworks"></label></td>
+                    <td>Roadworks</td>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Bus"></label></td>
+                    <td>Bus Stops</td>
+                </tr>
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.CarPark"></label></td>
+                    <td>Car Parks</td>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Crossings"></label></td>
+                    <td>Crossings</td>
+                </tr>
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Sports"></label></td>
+                    <td>Health & Fitness centres</td>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Planning"></label></td>
+                    <td>Planning Applications</td>
+                </tr>
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Licenses"></label></td>
+                    <td>License Applications</td>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.ParksAndRec"></label></td>
+                    <td>Parks & Play areas</td>
+                </tr>
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Allotments"></label></td>
+                    <td>Allotments</td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div ng-hide = "userData.LocalHidden.Schools">
-      <h3>Play schools</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="playschool in playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">
-          <div class="item item-divider">
-              Play school: {{playschool._}}
-              <p>{{playschool.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Address:</b> {{playschool.__}} {{playschool.___}} {{playschool.____}}<br />
-          </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" browse-to="geo:0,0?q={{playschool.lat}},{{playschool.lon}}({{playschool._}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
-      <h3>Primary schools</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="primaryschool in primarySchoolsNearby.Results.Primary_Schools_Nearby">
-          <div class="item item-divider">
-              Primary school: {{primaryschool.name}}
-              <p>{{primaryschool.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Address:</b> {{primaryschool.__}}, {{primaryschool.___}}, {{primaryschool.____}}
-          </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" browse-to="{{primaryschool.url}}">
-                  <i class="icon ion-earth assertive"></i> Website
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{primaryschool.lat}},{{primaryschool.lon}}({{primaryschool.name}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+    <div ng-hide="userData.LocalHidden.Libraries">
+        <h3>Local libraries</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="library in librariesNearby.Results">
+            <div class="item item-divider">
+                {{library.name}}
+                <p>{{library.Distance}} metres</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="http://www.librarieswest.org.uk/explore-our-collections/catalogue-search/">
+                    <i class="icon ion-android-book positive"></i> Library catalogue
+                </a>
+                <a class="tab-item" browse-to="{{library.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{library.lat}},{{library.lon}}({{library.name}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+        <h3>Mobile libraries</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="library in mobileLibrariesNearby.Results">
+            <div class="item item-divider">
+                Nearest village stop: {{library.village}}
+                <p>{{library.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Time:</b> {{library.timeAdjusted}}<br />
+                <b>Stop:</b> {{library.stop}}<br />
+                <b>Day:</b> {{library.day}}<br />
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="{{library.url}}">
+                    <i class="icon ion-earth assertive"></i> Timetable
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{library.lat}},{{library.lon}}({{library.village}} mobile library stop)">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="userData.LocalHidden.Schools">
+        <h3>Play schools</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="playschool in playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">
+            <div class="item item-divider">
+                Play school: {{playschool._}}
+                <p>{{playschool.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Address:</b> {{playschool.__}} {{playschool.___}} {{playschool.____}}<br />
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="geo:0,0?q={{playschool.lat}},{{playschool.lon}}({{playschool._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+        <h3>Primary schools</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="primaryschool in primarySchoolsNearby.Results.Primary_Schools_Nearby">
+            <div class="item item-divider">
+                Primary school: {{primaryschool.name}}
+                <p>{{primaryschool.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Address:</b> {{primaryschool.__}}, {{primaryschool.___}}, {{primaryschool.____}}
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="{{primaryschool.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{primaryschool.lat}},{{primaryschool.lon}}({{primaryschool.name}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
 
-      <h3>Secondary schools</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="secondaryschool in secondarySchoolsNearby.Results.Secondary_Schools_Nearby">
-          <div class="item item-divider">
-              {{secondaryschool.name}}
-              <p>{{secondaryschool.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Address:</b> {{secondaryschool.__}}, {{secondaryschool.___}} {{secondaryschool.____}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="{{secondaryschool.url}}">
-                  <i class="icon ion-earth assertive"></i> Website
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{secondaryschool.lat}},{{secondaryschool.lon}}({{secondaryschool.name}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-    </div>
+        <h3>Secondary schools</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="secondaryschool in secondarySchoolsNearby.Results.Secondary_Schools_Nearby">
+            <div class="item item-divider">
+                {{secondaryschool.name}}
+                <p>{{secondaryschool.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Address:</b> {{secondaryschool.__}}, {{secondaryschool.___}} {{secondaryschool.____}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="{{secondaryschool.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{secondaryschool.lat}},{{secondaryschool.lon}}({{secondaryschool.name}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
 
-    <h3>Colleges</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="college in collegesNearby.Results.Colleges_Nearby">
-        <div class="item item-divider">
-            {{college._}}
-            <p>{{college.Distance}} metres</p>
+        <h3>Colleges</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="college in collegesNearby.Results.Colleges_Nearby">
+            <div class="item item-divider">
+                {{college._}}
+                <p>{{college.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Address:</b> {{college.__}}, {{college.___}}, {{college.____}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{college.lat}},{{college.lon}}({{college._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
         </div>
-        <div class="item item-body">
-            <b>Address:</b> {{college.__}}, {{college.___}}, {{college.____}}
-        </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="geo:0,0?q={{college.lat}},{{college.lon}}({{college._}})">
-                <i class="icon ion-map calm"></i> Map
-            </a>
-        </div>
-    </div>
 
-    <h3>Universities</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="university in universitiesNearby.Results.Universities_Nearby">
-        <div class="item item-divider">
-            {{university._}}
-            <p>{{university.Distance}} metres</p>
-        </div>
-        <div class="item item-body">
-            <b>Address:</b> {{university.__}}, {{university.___}}, {{university.____}}
-        </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="geo:0,0?q={{university.lat}},{{university.lon}}({{university._}})">
-                <i class="icon ion-map calm"></i> Map
-            </a>
-        </div>
-    </div></div>
-    <div ng-hide = "userData.LocalHidden.Roadworks">
-      <h3>Scheduled roadworks</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="roadworks in roadworksNearby.Results.Roadworks_Nearby">
-          <div class="item item-divider">
-              {{roadworks.title}}
-              <p>Distance: {{roadworks.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              {{roadworks._}}<br />
-              <b>Location:</b> {{roadworks.Location}}<br />
-              <b>Work commenced:</b> {{roadworks.Work____commenced}}<br />
-              <b>Due to be completed:</b> {{roadworks.Due_____to_____be_____completed_____on}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="{{roadworks.url}}">
-                  <i class="icon ion-earth assertive"></i> More info
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{roadworks.lat}},{{roadworks.lon}}({{roadworks.title}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
-    </div>
-    <div ng-hide = "userData.LocalHidden.Bus">
-      <h3>Bus stops</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="busstop in busStops.Results.Bus_Stops_Nearby">
-          <div class="item item-divider">
-              {{busstop.Bus_stop_name}}
-              <p>Distance: {{busstop.Distance}} metres</p>
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="http://www.nextbuses.mobi/WebView/BusStopSearch/BusStopSearchResults?id={{busstop.Bus_stop_name}}"> 
-                  <i class="icon ion-android-locate assertive"></i> Timetable
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{busstop.lat}},{{busstop.lon}}({{busstop.Bus_stop_name}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
-    </div>
-    <div ng-hide = "userData.LocalHidden.CarPark">
-      <h3>Parking zone</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="parking in parkingNearby.Results" ng-show="parkingNearby.Results.Parking_Zones">
-          <div class="item item-divider">
-              {{parking._}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="geo:0,0?q={{parking.lat}},{{parking.lon}}({{parking._}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
-      </div>
-    <div ng-hide = "userData.LocalHidden.Crossings">
-    <h3>School crossings</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="schoolCrossing in schoolCrossings.Results.School_Crossings_Nearby">
-        <div class="item item-divider">
-            {{schoolCrossing.Name_}}
-            <p>Distance: {{schoolCrossing.Distance}} metres</p>
-        </div>
-        <div class="item item-body">
-            <b>Location:</b> {{schoolCrossing._}}<br />
-            <b>Morning times:</b> {{schoolCrossing.Morning__times}}<br />
-            <b>Afternoon times:</b> {{schoolCrossing.Afternoon___times}}<br />
-        </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="geo:0,0?q={{schoolCrossing.lat}},{{schoolCrossing.lon}}({{schoolCrossing._}})">
-                <i class="icon ion-map calm"></i> Map
-            </a>
+        <h3>Universities</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="university in universitiesNearby.Results.Universities_Nearby">
+            <div class="item item-divider">
+                {{university._}}
+                <p>{{university.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Address:</b> {{university.__}}, {{university.___}}, {{university.____}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{university.lat}},{{university.lon}}({{university._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
         </div>
     </div>
-    </div>
-    <div ng_hide = "userData.LocalHidden.Sports">
-    <h3>Health and fitness centres</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="healthcentre in healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
-        <div class="item item-divider">
-            {{healthcentre.name}}
-            <p>Distance: {{healthcentre.Distance}} metres</p>
+    <div ng-hide="userData.LocalHidden.Roadworks">
+        <h3>Scheduled roadworks</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="roadworks in roadworksNearby.Results.Roadworks_Nearby">
+            <div class="item item-divider">
+                {{roadworks.title}}
+                <p>Distance: {{roadworks.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                {{roadworks._}}<br />
+                <b>Location:</b> {{roadworks.Location}}<br />
+                <b>Work commenced:</b> {{roadworks.Work____commenced}}<br />
+                <b>Due to be completed:</b> {{roadworks.Due_____to_____be_____completed_____on}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="{{roadworks.url}}">
+                    <i class="icon ion-earth assertive"></i> More info
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{roadworks.lat}},{{roadworks.lon}}({{roadworks.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
         </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="{{healthcentre.url}}">
-                <i class="icon ion-earth assertive"></i> Website
-            </a>
-            <a class="tab-item" browse-to="geo:0,0?q={{healthcentre.lat}},{{healthcentre.lon}}({{healthcentre.name}})">
-                <i class="icon ion-map calm"></i> Map
-            </a>
+    </div>
+    <div ng-hide="userData.LocalHidden.Bus">
+        <h3>Bus stops</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="busstop in busStops.Results.Bus_Stops_Nearby">
+            <div class="item item-divider">
+                {{busstop.Bus_stop_name}}
+                <p>Distance: {{busstop.Distance}} metres</p>
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://www.nextbuses.mobi/WebView/BusStopSearch/BusStopSearchResults?id={{busstop.Bus_stop_name}}">
+                    <i class="icon ion-android-locate assertive"></i> Timetable
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{busstop.lat}},{{busstop.lon}}({{busstop.Bus_stop_name}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
         </div>
     </div>
+    <div ng-hide="userData.LocalHidden.CarPark">
+        <h3>Parking zone</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="parking in parkingNearby.Results" ng-show="parkingNearby.Results.Parking_Zones">
+            <div class="item item-divider">
+                {{parking._}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{parking.lat}},{{parking.lon}}({{parking._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
     </div>
-    <div ng-hide = "userData.LocalHidden.Planning">
-      <h3>Planning applications</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="application in planningApplicationsNearby.Results.Planning_Applications_Nearby">
-          <div class="item item-divider">
-              Planning reference: {{application.title}}
-              <p>Distance: {{application.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              {{application.PROPOSAL}}<br />
-              <b ng-show="application.Consulation___Expiry___Date">Consultation expiry date:</b> {{application.Consulation___Expiry___Date}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="http://isharemaps.bathnes.gov.uk{{application.url}}">
-                  <i class="icon ion-earth assertive"></i> More info
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{application.lat}},{{application.lon}}({{application.title}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+    <div ng-hide="userData.LocalHidden.Crossings">
+        <h3>School crossings</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="schoolCrossing in schoolCrossings.Results.School_Crossings_Nearby">
+            <div class="item item-divider">
+                {{schoolCrossing.Name_}}
+                <p>Distance: {{schoolCrossing.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Location:</b> {{schoolCrossing._}}<br />
+                <b>Morning times:</b> {{schoolCrossing.Morning__times}}<br />
+                <b>Afternoon times:</b> {{schoolCrossing.Afternoon___times}}<br />
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{schoolCrossing.lat}},{{schoolCrossing.lon}}({{schoolCrossing._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
     </div>
-    <div ng-hide = "userData.LocalHidden.Licenses">
-      <h3>New license applications</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="newApplication in newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby" ng-show="newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length">
-          <div class="item item-divider">
-              License reference: {{newApplication.title}}
-              <p>Distance: {{newApplication.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Who:</b> {{newApplication.Licence}}<br />
-              <b>Address:</b> {{newApplication.Address}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="http://isharemaps.bathnes.gov.uk{{newApplication.url}}">
-                  <i class="icon ion-earth assertive"></i> More info
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{newApplication.lat}},{{newApplication.lon}}({{newApplication.title}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+    <div ng_hide="userData.LocalHidden.Sports">
+        <h3>Health and fitness centres</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="healthcentre in healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
+            <div class="item item-divider">
+                {{healthcentre.name}}
+                <p>Distance: {{healthcentre.Distance}} metres</p>
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="{{healthcentre.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{healthcentre.lat}},{{healthcentre.lon}}({{healthcentre.name}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="userData.LocalHidden.Planning">
+        <h3>Planning applications</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="application in planningApplicationsNearby.Results.Planning_Applications_Nearby">
+            <div class="item item-divider">
+                Planning reference: {{application.title}}
+                <p>Distance: {{application.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                {{application.PROPOSAL}}<br />
+                <b ng-show="application.Consulation___Expiry___Date">Consultation expiry date:</b> {{application.Consulation___Expiry___Date}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://isharemaps.bathnes.gov.uk{{application.url}}">
+                    <i class="icon ion-earth assertive"></i> More info
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{application.lat}},{{application.lon}}({{application.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-hide="userData.LocalHidden.Licenses">
+        <h3>New license applications</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="newApplication in newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby" ng-show="newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length">
+            <div class="item item-divider">
+                License reference: {{newApplication.title}}
+                <p>Distance: {{newApplication.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Who:</b> {{newApplication.Licence}}<br />
+                <b>Address:</b> {{newApplication.Address}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://isharemaps.bathnes.gov.uk{{newApplication.url}}">
+                    <i class="icon ion-earth assertive"></i> More info
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{newApplication.lat}},{{newApplication.lon}}({{newApplication.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
 
-      <h3>Issued license applications</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="issuedApplication in issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby" ng-show="issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length">
-          <div class="item item-divider">
-              Reference: {{issuedApplication.title}}
-              <p>Distance: {{issuedApplication.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Who:</b> {{issuedApplication.LINK}}<br />
-              <b>Address:</b> {{issuedApplication.Address}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="http://isharemaps.bathnes.gov.uk{{issuedApplication.url}}">
-                  <i class="icon ion-earth assertive"></i> More info
-              </a>
-              <a class="tab-item" browse-to="geo:0,0?q={{issuedApplication.lat}},{{issuedApplication.lon}}({{issuedApplication.title}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+        <h3>Issued license applications</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="issuedApplication in issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby" ng-show="issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length">
+            <div class="item item-divider">
+                Reference: {{issuedApplication.title}}
+                <p>Distance: {{issuedApplication.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Who:</b> {{issuedApplication.LINK}}<br />
+                <b>Address:</b> {{issuedApplication.Address}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://isharemaps.bathnes.gov.uk{{issuedApplication.url}}">
+                    <i class="icon ion-earth assertive"></i> More info
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{issuedApplication.lat}},{{issuedApplication.lon}}({{issuedApplication.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
     </div>
-    <div ng-hide = "userData.LocalHidden.ParksAndRec">
-      <h3>Parks</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="park in parksNearby.Results.Parks_or_Open_Spaces_Nearby">
-          <div class="item item-divider">
-              Park: {{park._}}
-              <p>Distance: {{park.Distance}} metres</p>
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="geo:0,0?q={{park.lat}},{{park.lon}}({{park._}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+    <div ng-hide="userData.LocalHidden.ParksAndRec">
+        <h3>Parks</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="park in parksNearby.Results.Parks_or_Open_Spaces_Nearby">
+            <div class="item item-divider">
+                Park: {{park._}}
+                <p>Distance: {{park.Distance}} metres</p>
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{park.lat}},{{park.lon}}({{park._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
 
-      <h3>Play areas</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="playarea in playAreasNearby.Results.Play_Areas_Nearby">
-          <div class="item item-divider">
-              Play area: {{playarea._}}
-              <p>Distance: {{playarea.Distance}} metres</p>
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="geo:0,0?q={{playarea.lat}},{{playarea.lon}}({{playarea._}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+        <h3>Play areas</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="playarea in playAreasNearby.Results.Play_Areas_Nearby">
+            <div class="item item-divider">
+                Play area: {{playarea._}}
+                <p>Distance: {{playarea.Distance}} metres</p>
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{playarea.lat}},{{playarea.lon}}({{playarea._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
     </div>
-    <div ng-hide = "userData.LocalHidden.Allotments">
-      <h3>Allotments</h3>
-      <p ng-show="!uprn">No location set</p>
-      <div class="list card" ng-repeat="allotment in allotmentsNearby.Results.Allotments_Nearby">
-          <div class="item item-divider">
-              Allotment: {{allotment._}}
-              <p>Distance: {{allotment.Distance}} metres</p>
-          </div>
-          <div class="item item-body">
-              <b>Provided by:</b> {{allotment.ProvidedAdjusted}}
-          </div>
-          <div class="item tabs tabs-icon-right">
-              <a class="tab-item" browse-to="geo:0,0?q={{allotment.lat}},{{allotment.lon}}({{allotment._}})">
-                  <i class="icon ion-map calm"></i> Map
-              </a>
-          </div>
-      </div>
+    <div ng-hide="userData.LocalHidden.Allotments">
+        <h3>Allotments</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="allotment in allotmentsNearby.Results.Allotments_Nearby">
+            <div class="item item-divider">
+                Allotment: {{allotment._}}
+                <p>Distance: {{allotment.Distance}} metres</p>
+            </div>
+            <div class="item item-body">
+                <b>Provided by:</b> {{allotment.ProvidedAdjusted}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="geo:0,0?q={{allotment.lat}},{{allotment.lon}}({{allotment._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
     </div>
 </div>
