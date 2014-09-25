@@ -564,8 +564,21 @@ angular.module('MyBath.Controllers', [])
     }
     if ($scope.bathdata[6]) {
         $scope.universitiesNearby = $scope.bathdata[6];
+        
     }
-
+    
+    if ($scope.universitiesNearby) {
+      // ishare only returns 8 characters in the string for some reason
+      // This should get fixed, but at the moment, this fixes the display for the 2 major universities
+        for (var i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length; i ++) {
+          if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Claverto") {
+            $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Claverton Down";
+          }
+          if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Newton P") {
+            $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Newton Park";
+          }
+      }
+    }
     if ($scope.playSchoolsNearby && $scope.playSchoolsNearby.Results) {
         //for (i = 0; i < $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"].length ; i++) {
         //    var geo = NEtoLL($scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"][i].MapSpurE, $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"].MapSpurN);
