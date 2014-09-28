@@ -16,42 +16,41 @@ angular.module('MyBath.Controllers', [])
     $scope.mapmarkers = {};
     $scope.bathdata = BathData.all();
     $scope.addresses = [];
-	$scope.binCollection = [];
+    $scope.binCollection = [];
 
-	
-	/////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // TEST DATA - For use when testing in browser
     /////////////////////////////////////////////////////////////////////////////////////////////
-	if ($scope.bathdata && $scope.bathdata.length == 0) {
-		//$scope.playSchoolsNearby = { "Results": { "Nurseries Pre Schools and Out of School Childcare Nearby": [{ "_": "SNAPDRAGONS DAY NURSERY", "__": "4 GROSVENOR PLACE", "___": null, "____": "BA1 6AX", "MapSpurE": 376033.000794, "MapSpurN": 166172.003014, "MapSpurMinE": 376033.000794, "MapSpurMinN": 166172.003014, "MapSpurMaxE": 376033.000794, "MapSpurMaxN": 166172.003014, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "APPLE TREE DAY NURSERY", "__": "SPRING LANE", "___": "LARKHALL", "____": "BA1 6NY", "MapSpurE": 375794.998861, "MapSpurN": 166774.000694, "MapSpurMinE": 375794.998861, "MapSpurMinN": 166774.000694, "MapSpurMaxE": 375794.998861, "MapSpurMaxN": 166774.000694, "Distance": 625.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Busy Bees Pre-school (Bath)", "__": "St Marks School", "___": "Baytree Road", "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.primarySchoolsNearby = { "Results": { "Primary_Schools_Nearby": [{ "_": "http://www.st-saviours-jun.bathnes.sch.uk|St Saviours CofE Junior School", "__": "Brookleaze Place", "___": "Larkhall", "____": "BA1 6RB", "MapSpurE": 375956.997821, "MapSpurN": 166668.001036, "MapSpurMinE": 375956.997821, "MapSpurMinN": 166668.001036, "MapSpurMaxE": 375956.997821, "MapSpurMaxN": 166668.001036, "Distance": 465.5, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-saviours-inf.bathnes.sch.uk|St Saviours CofE Infant School", "__": "Spring Lane", "___": "Larkhall", "____": "BA1 6NY", "MapSpurE": 375844.436247, "MapSpurN": 166670.970186, "MapSpurMinE": 375844.436247, "MapSpurMinN": 166670.970186, "MapSpurMaxE": 375844.436247, "MapSpurMaxN": 166670.970186, "Distance": 511.2, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Bathwick St Mary Church of England Primary School", "__": "Darlington Road", "___": null, "____": "BA2 6NN", "MapSpurE": 376034.996099, "MapSpurN": 165538.004494, "MapSpurMinE": 376034.996099, "MapSpurMinN": 165538.004494, "MapSpurMaxE": 376034.996099, "MapSpurMaxN": 165538.004494, "Distance": 685, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.secondarySchoolsNearby = { "Results": { "Secondary_Schools_Nearby": [{ "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.beechencliff.bathnes.sch|Beechen Cliff School", "__": "Alexandra Park", "___": null, "____": "BA2 4RE", "MapSpurE": 375015.997243, "MapSpurN": 163750.996020, "MapSpurMinE": 375015.997243, "MapSpurMinN": 163750.996020, "MapSpurMaxE": 375015.997243, "MapSpurMaxN": 163750.996020, "Distance": 2692.2, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.collegesNearby = { "Results": { "Colleges_Nearby": [{ "_": "Norland College", "__": "York Place, London", "___": "Walcot", "____": "BA1 6AE", "MapSpurE": 375584.997154, "MapSpurN": 165901.000588, "MapSpurMinE": 375584.997154, "MapSpurMinN": 165901.000588, "MapSpurMaxE": 375584.997154, "MapSpurMaxN": 165901.000588, "Distance": 595.3, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Rusland College Ltd", "__": "Solsbury Way", "___": "Larkhall", "____": "BA1 6HH", "MapSpurE": 375087.003709, "MapSpurN": 166495.000557, "MapSpurMinE": 375087.003709, "MapSpurMinN": 166495.000557, "MapSpurMaxE": 375087.003709, "MapSpurMaxN": 166495.000557, "Distance": 1036.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.universitiesNearby = { "Results": { "Universities_Nearby": [{ "_": "University of Bath", "__": "The Avenue", "___": "Claverto", "____": "BA2 7AY", "MapSpurE": 377226.448654, "MapSpurN": 164469.990210, "MapSpurMinE": 377226.448654, "MapSpurMinN": 164469.990210, "MapSpurMaxE": 377226.448654, "MapSpurMaxN": 164469.990210, "Distance": 2089.1, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Bath Spa University", "__": "Newton Park Drive", "___": "Newton P", "____": "BA2 9BN", "MapSpurE": 369584.497282, "MapSpurN": 164159.918967, "MapSpurMinE": 369584.497282, "MapSpurMinN": 164159.918967, "MapSpurMaxE": 369584.497282, "MapSpurMaxN": 164159.918967, "Distance": 6821.3, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.librariesNearby = { "Results": { "Libraries_Nearby": { "_": "http://www.bathnes.gov.uk/BathNES/leisureandculture/Libraries/default.htm#The Podium - Central Library|The Podium - Central Library", "MapSpurE": 375114.764830, "MapSpurN": 165010.235567, "MapSpurMinE": 375114.764830, "MapSpurMinN": 165010.235567, "MapSpurMaxE": 375114.764830, "MapSpurMaxN": 165010.235567, "Distance": 1552.8, "MapSpurX": "0", "MapSpurY": "0" } } };
-		$scope.mobileLibrariesNearby = { "Results": { "Mobile_Libraries_Nearby": { "village": "Bathampton", "stop": "Devonshire Road", "time": "16.20 ? 16.50", "day": "Thursday", "_": "http://www.bathnes.gov.uk/services/libraries-and-archives/access-all/mobile-library-routes/mobile-library-route-review|View the timetable", "MapSpurE": 377374.999919, "MapSpurN": 166048.998224, "MapSpurMinE": 377374.999919, "MapSpurMinN": 166048.998224, "MapSpurMaxE": 377374.999919, "MapSpurMaxN": 166048.998224, "Distance": 1299.4, "MapSpurX": "0", "MapSpurY": "0" } } };
-		$scope.parkingNearby = {"Results":{"Parking_Zones":{"_":"Bath Central Parking Zone","MapSpurE":374864.745719,"MapSpurN":164975.845411,"MapSpurMinE":374323.766648,"MapSpurMinN":164281.204250,"MapSpurMaxE":375405.724791,"MapSpurMaxN":165670.486572}}};
-		$scope.roadworksNearby = { "Results": { "Roadworks_Nearby": [{ "Organisation": "http://www.bathnes.gov.uk/services/streets-and-highway-maintenance/roadworks/public-utilities#contactB&amp;NES - Network Maintenance|B&amp;NES - Network Maintenance", "_": "Skip App - Granted", "Location": "Skip on the Highway - Rear of 6 Grosvenor Place, Ringswell Gardens, London Road, Bath, BA1 6AX", "Work____commenced": "12/02/2014 00:00:00", "Due_____to_____be_____completed_____on": "11/03/2014 00:00:00", "Advised______complete______on": null, "MapSpurE": 375993.000000, "MapSpurN": 166159.000000, "MapSpurMinE": 375993.000000, "MapSpurMinN": 166159.000000, "MapSpurMaxE": 375993.000000, "MapSpurMaxN": 166159.000000, "Distance": 112.6, "MapSpurX": "0", "MapSpurY": "0" }, { "Organisation": "http://www.bathnes.gov.uk/services/streets-and-highway-maintenance/roadworks/public-utilities#contactWESSEX WATER (Bath Operations)|WESSEX WATER (Bath Operations)", "_": "Section 81 (covers in verge)", "Location": "1, Unmade", "Work____commenced": "17/03/2014 00:00:00", "Due_____to_____be_____completed_____on": "19/03/2014 00:00:00", "Advised______complete______on": "17/03/2014 00:00:00", "MapSpurE": 375957.000000, "MapSpurN": 166148.000000, "MapSpurMinE": 375957.000000, "MapSpurMinN": 166148.000000, "MapSpurMaxE": 375957.000000, "MapSpurMaxN": 166148.000000, "Distance": 149.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.busStops = {"Results":{"Bus_Stops_Nearby":[{"Bus_stop_name":"Balustrade","MapSpurE":375946.996562,"MapSpurN":166162.995593,"MapSpurMinE":375946.996562,"MapSpurMinN":166162.995593,"MapSpurMaxE":375946.996562,"MapSpurMaxN":166162.995593,"Distance":42.8,"MapSpurX":"0","MapSpurY":"0"},{"Bus_stop_name":"Balustrade","MapSpurE":375883.996050,"MapSpurN":166104.002479,"MapSpurMinE":375883.996050,"MapSpurMinN":166104.002479,"MapSpurMaxE":375883.996050,"MapSpurMaxN":166104.002479,"Distance":92.4,"MapSpurX":"0","MapSpurY":"0"}]}};
-		$scope.schoolCrossings = {"Results":{"School_Crossings_Nearby":[{"Name_":"St Savior&#39;s Junior School","Morning__times":"8.30- 9.05","Afternoon___times":"3.20- 3.45","_":"Brookleaze Buildings","MapSpurE":375976.340735,"MapSpurN":166611.967076,"MapSpurMinE":375976.340735,"MapSpurMinN":166611.967076,"MapSpurMaxE":375976.340735,"MapSpurMaxN":166611.967076,"Distance":483,"MapSpurX":"0","MapSpurY":"0"},{"Name_":"St Saviours Infant School","Morning__times":"8.35- 9.10","Afternoon___times":"3.10- 3.45","_":"Junction of Eldon Place &amp; Spring Lane","MapSpurE":375893.618037,"MapSpurN":166691.904194,"MapSpurMinE":375893.618037,"MapSpurMinN":166691.904194,"MapSpurMaxE":375893.618037,"MapSpurMaxN":166691.904194,"Distance":568.5,"MapSpurX":"0","MapSpurY":"0"}]}};
-		$scope.planningApplicationsNearby = { "Results": { "Planning_Applications_Nearby": [{ "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00718/COND'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00718/COND|14/00718/COND", "PROPOSAL": "Discharge of conditions 3 and 4 attached to application 13/04170/LBA (Internal and external works to entrance hall of basement flat).", "Consulation___Expiry___Date": null, "MapSpurE": 376131.000000, "MapSpurN": 166249.000000, "MapSpurMinE": 376131.000000, "MapSpurMinN": 166249.000000, "MapSpurMaxE": 376131.000000, "MapSpurMaxN": 166249.000000, "Distance": 52.2, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00595/LBA'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00595/LBA|14/00595/LBA", "PROPOSAL": "Internal alterations and refurbishment, and rear external alterations to the ground floor/lower ground floor garden maisonette", "Consulation___Expiry___Date": "25/03/2014", "MapSpurE": 376033.000000, "MapSpurN": 166172.000000, "MapSpurMinE": 376033.000000, "MapSpurMinN": 166172.000000, "MapSpurMaxE": 376033.000000, "MapSpurMaxN": 166172.000000, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00594/FUL'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00594/FUL|14/00594/FUL", "PROPOSAL": "Internal alterations and refurbishment, and rear external alterations to the ground floor/lower ground floor garden maisonette", "Consulation___Expiry___Date": "25/03/2014", "MapSpurE": 376033.000000, "MapSpurN": 166172.000000, "MapSpurMinE": 376033.000000, "MapSpurMinN": 166172.000000, "MapSpurMaxE": 376033.000000, "MapSpurMaxN": 166172.000000, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00306/LBA'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00306/LBA|14/00306/LBA", "PROPOSAL": "Internal and external alterations for the conversion of the coach house into 1no. dwelling house to include erection of single storey rear extension, stone repairs, staircase, intermediate floor and other associated works.", "Consulation___Expiry___Date": "18/03/2014", "MapSpurE": 376060.000000, "MapSpurN": 166362.000000, "MapSpurMinE": 376060.000000, "MapSpurMinN": 166362.000000, "MapSpurMaxE": 376060.000000, "MapSpurMaxN": 166362.000000, "Distance": 143.6, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00305/FUL'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00305/FUL|14/00305/FUL", "PROPOSAL": "Conversion of coach house to create 1no. dwelling with erection of single storey rear garden extension and associated works.", "Consulation___Expiry___Date": "18/03/2014", "MapSpurE": 376060.000000, "MapSpurN": 166362.000000, "MapSpurMinE": 376060.000000, "MapSpurMinN": 166362.000000, "MapSpurMaxE": 376060.000000, "MapSpurMaxN": 166362.000000, "Distance": 143.6, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='13/03344/OUT'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=13/03344/OUT|13/03344/OUT", "PROPOSAL": "Demolition of existing house and swimming pool to facilitate the erection of 4no. dwellings and associated works. (Outline with all matters reserved)", "Consulation___Expiry___Date": "18/09/2013", "MapSpurE": 376243.000000, "MapSpurN": 166303.000000, "MapSpurMinE": 376243.000000, "MapSpurMinN": 166303.000000, "MapSpurMaxE": 376243.000000, "MapSpurMaxN": 166303.000000, "Distance": 176.2, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00802/AR'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00802/AR|14/00802/AR", "PROPOSAL": "Display of six sheet internally illuminated advertisements in bus shelters serving the No.13 Bathford-Foxhill Route; to be located along London Road at: Stop No. 30 (Balustrade) and Stop No.32 (Lambridge)", "Consulation___Expiry___Date": "03/04/2014", "MapSpurE": 375856.000000, "MapSpurN": 166104.000000, "MapSpurMinE": 375856.000000, "MapSpurMinN": 166104.000000, "MapSpurMaxE": 375856.000000, "MapSpurMaxN": 166104.000000, "Distance": 258.9, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00989/FUL'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00989/FUL|14/00989/FUL", "PROPOSAL": "Erection of single storey rear extension and loft conversion.", "Consulation___Expiry___Date": "17/04/2014", "MapSpurE": 375847.000000, "MapSpurN": 166348.000000, "MapSpurMinE": 375847.000000, "MapSpurMinN": 166348.000000, "MapSpurMaxE": 375847.000000, "MapSpurMaxN": 166348.000000, "Distance": 271.5, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.healthAndFitnessNearby = { "Results": { "Health_and_Fitness_Centres_Nearby": [{ "_": "http://www.macdonaldhotels.co.uk/bathspa/index.htm|Vital Health, Fitness &amp; Beauty (Bath Spa Hotel)", "MapSpurE": 376159.999471, "MapSpurN": 164829.997159, "MapSpurMinE": 376159.999471, "MapSpurMinN": 164829.997159, "MapSpurMaxE": 376159.999471, "MapSpurMaxN": 164829.997159, "Distance": 1392.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.bathymca.co.uk/|YMCA (CITY OF BATH)", "MapSpurE": 375046.001020, "MapSpurN": 165188.004681, "MapSpurMinE": 375046.001020, "MapSpurMinN": 165188.004681, "MapSpurMaxE": 375046.001020, "MapSpurMaxN": 165188.004681, "Distance": 1466.5, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.parksNearby = { "Results": { "Parks_or_Open_Spaces_Nearby": [{ "_": "Kensington Meadows", "MapSpurE": 376002.221981, "MapSpurN": 165980.127938, "MapSpurMinE": 375744.877134, "MapSpurMinN": 165808.197153, "MapSpurMaxE": 376259.566828, "MapSpurMaxN": 166152.058723, "Distance": 255.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Alice Park", "MapSpurE": 376460.544315, "MapSpurN": 166611.562192, "MapSpurMinE": 376343.551021, "MapSpurMinN": 166463.739505, "MapSpurMaxE": 376577.537610, "MapSpurMaxN": 166759.384878, "Distance": 540.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Sydney Gardens", "MapSpurE": 375788.060642, "MapSpurN": 165314.223551, "MapSpurMinE": 375638.087103, "MapSpurMinN": 165180.086947, "MapSpurMaxE": 375938.034181, "MapSpurMaxN": 165448.360155, "Distance": 954.8, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.allotmentsNearby = { "Results": { "Allotments_Nearby": [{ "_": "Claremont Road", "Provided__by": "B&amp;NES", "MapSpurE": 375850.562327, "MapSpurN": 166187.743508, "MapSpurMinE": 375788.221420, "MapSpurMinN": 166125.346369, "MapSpurMaxE": 375912.903234, "MapSpurMaxN": 166250.140647, "Distance": 238.8, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Hampton Row", "Provided__by": "B&amp;NES", "MapSpurE": 375952.425935, "MapSpurN": 165717.528106, "MapSpurMinE": 375898.350702, "MapSpurMinN": 165651.252078, "MapSpurMaxE": 376006.501168, "MapSpurMaxN": 165783.804135, "Distance": 521.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.playAreasNearby = { "Results": { "Play_Areas_Nearby": [{ "_": "Alice Park", "MapSpurE": 376380.051906, "MapSpurN": 166522.222765, "MapSpurMinE": 376345.101092, "MapSpurMinN": 166463.749503, "MapSpurMaxE": 376415.002720, "MapSpurMaxN": 166580.696027, "Distance": 420.3, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Midsummer Buildings", "MapSpurE": 375582.742130, "MapSpurN": 166535.413989, "MapSpurMinE": 375559.148888, "MapSpurMinN": 166517.184207, "MapSpurMaxE": 375606.335373, "MapSpurMaxN": 166553.643771, "Distance": 594.2, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Larkhall Recreation Ground", "MapSpurE": 375899.298884, "MapSpurN": 166830.399550, "MapSpurMinE": 375879.650903, "MapSpurMinN": 166803.162347, "MapSpurMaxE": 375918.946864, "MapSpurMaxN": 166857.636754, "Distance": 637.7, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.newLicensingAppsNearby = { "Results": { "New_Licensing_Applications_Nearby": { "Info": "<p>No records found nearby.</p>" } } };
-		$scope.issuedLicensingAppsNearby = { "Results": { "Issued_Licensing_Applications_Nearby": [{ "LINK": "Mr Stephen Bates - Piercing-Practitioner/Responsible Person", "Address": "Flat 6, 36 Grosvenor Place, Lambridge, Bath, BA1 6BA", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='12/02652/PCPER'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=12/02652/PCPER|12/02652/PCPER", "MapSpurE": 376175.000000, "MapSpurN": 166279.000000, "MapSpurMinE": 376175.000000, "MapSpurMinN": 166279.000000, "MapSpurMaxE": 376175.000000, "MapSpurMaxN": 166279.000000, "Distance": 105.4, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "One Beaufort - Premises Licence", "Address": "1 Beaufort West, Lambridge, Bath, BA1 6QB", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='10/03946/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=10/03946/LAPRE|10/03946/LAPRE", "MapSpurE": 375958.000000, "MapSpurN": 166186.000000, "MapSpurMinE": 375958.000000, "MapSpurMinN": 166186.000000, "MapSpurMaxE": 375958.000000, "MapSpurMaxN": 166186.000000, "Distance": 133.7, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "Beaufort Store - Premises Licence", "Address": "3 - 4 Balustrade, London Road, Walcot, Bath, BA1 6QA", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='10/02944/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=10/02944/LAPRE|10/02944/LAPRE", "MapSpurE": 375941.000000, "MapSpurN": 166170.000000, "MapSpurMinE": 375941.000000, "MapSpurMinN": 166170.000000, "MapSpurMaxE": 375941.000000, "MapSpurMaxN": 166170.000000, "Distance": 154.7, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "Martin McColl Ltd - Premises Licence", "Address": "7 Lambridge Buildings, Larkhall, Bath, BA1 6RS", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='11/01084/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=11/01084/LAPRE|11/01084/LAPRE", "MapSpurE": 376059.000000, "MapSpurN": 166469.000000, "MapSpurMinE": 376059.000000, "MapSpurMinN": 166469.000000, "MapSpurMaxE": 376059.000000, "MapSpurMaxN": 166469.000000, "Distance": 249.6, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "The Rondo - Premises Licence", "Address": "St Saviour&#39;s Road, Larkhall, Bath, BA1  6RT", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='11/04635/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=11/04635/LAPRE|11/04635/LAPRE", "MapSpurE": 376063.000000, "MapSpurN": 166482.000000, "MapSpurMinE": 376063.000000, "MapSpurMinN": 166482.000000, "MapSpurMaxE": 376063.000000, "MapSpurMaxN": 166482.000000, "Distance": 262.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
-		$scope.listedBuilding = { "Results": { "Listed_Building": { "Reference": null, "Description": "NOS. 1-41 AND ATTACHED AREA RAILINGS, 1-41, GROSVENOR PLACE", "Grading": "I", "_": "http://list.english-heritage.org.uk/resultsingle.aspx?uid=1396090|More Info at English Heritage", "MapSpurE": 376087.974739, "MapSpurN": 166215.010703, "MapSpurMinE": 375965.399538, "MapSpurMinN": 166121.227548, "MapSpurMaxE": 376210.549940, "MapSpurMaxN": 166308.793858 } } };
-		$scope.yourCouncillors = { "Results": { "Your_Councillors": { "_": "<div id=\"myCouncillor\"><a href=\"http://democracy.bathnes.gov.uk/mgUserInfo.aspx?UID=1436\">Councillor Lisa Brett</a><br />(Liberal Democrats)<br /><img src=\"http://democracy.bathnes.gov.uk/UserData/6/3/4/Info00001436/smallpic.jpg\"/><br />Telephone <br />07787314094<br /><br /></div><br /> <div id=\"myCouncillor\"><a href=\"http://democracy.bathnes.gov.uk/mgUserInfo.aspx?UID=1437\">Councillor Paul Fox</a><br />(Liberal Democrats)<br /><img src=\"http://democracy.bathnes.gov.uk/UserData/7/3/4/Info00001437/smallpic.jpg\"/><br />Telephone <br />07974 328905<br /><br /></div><br /> ", "MapSpurE": 375777.201896, "MapSpurN": 166000.247175, "MapSpurMinE": 375091.802335, "MapSpurMinN": 165356.996303, "MapSpurMaxE": 376462.601458, "MapSpurMaxN": 166643.498046 } } };
-		$scope.councilOffices = {"Results":{"____________________________":[{"Your_nearest_Council_Office_is_":"http://www.bathnes.gov.uk/contact-us/council-offices?office=GUILDHALL|GUILDHALL","MapSpurE":375126.002848,"MapSpurN":164839.004581,"MapSpurMinE":375126.002848,"MapSpurMinN":164839.004581,"MapSpurMaxE":375126.002848,"MapSpurMaxN":164839.004581,"Distance":1683.3,"MapSpurX":"0","MapSpurY":"0"},{"Your_nearest_Council_Office_is_":"http://www.bathnes.gov.uk/contact-us/council-offices?office=LEWIS HOUSE|LEWIS HOUSE","MapSpurE":375229.997804,"MapSpurN":164541.999598,"MapSpurMinE":375229.997804,"MapSpurMinN":164541.999598,"MapSpurMaxE":375229.997804,"MapSpurMaxN":164541.999598,"Distance":1885.1,"MapSpurX":"0","MapSpurY":"0"}]}};
-		$scope.housingAllowanceZones = {"Results":{"___________":{"Your_Local_Housing_Allowance_Zone_is_":"http://www.bathnes.gov.uk/services/council-tax-benefits-and-grants/benefits/housing-benefit/local-housing-allowance-lha?Bath|Bath","MapSpurE":366754.986071,"MapSpurN":166278.897416,"MapSpurMinE":345139.968873,"MapSpurMinN":149656.700470,"MapSpurMaxE":388370.003269,"MapSpurMaxN":182901.094362}}};
-		$scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
-	}
-	if ($scope.userData && $scope.userData.length == 0) {
-		$scope.userData = { uprn: '10001140919', addressSearch: 'Flat 6, 22 Grosvenor Place', firstname: 'Dave', lastname: 'Rowe', email: 'david_rowe@bathnes.gov.uk', phone: '01225477356' };
-    $scope.uprn = true;
-	}
-	/////////////////////////////////////////////////////////////////////////////////////////////
+    if ($scope.bathdata && $scope.bathdata.length == 0) {
+        //$scope.playSchoolsNearby = { "Results": { "Nurseries Pre Schools and Out of School Childcare Nearby": [{ "_": "SNAPDRAGONS DAY NURSERY", "__": "4 GROSVENOR PLACE", "___": null, "____": "BA1 6AX", "MapSpurE": 376033.000794, "MapSpurN": 166172.003014, "MapSpurMinE": 376033.000794, "MapSpurMinN": 166172.003014, "MapSpurMaxE": 376033.000794, "MapSpurMaxN": 166172.003014, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "APPLE TREE DAY NURSERY", "__": "SPRING LANE", "___": "LARKHALL", "____": "BA1 6NY", "MapSpurE": 375794.998861, "MapSpurN": 166774.000694, "MapSpurMinE": 375794.998861, "MapSpurMinN": 166774.000694, "MapSpurMaxE": 375794.998861, "MapSpurMaxN": 166774.000694, "Distance": 625.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Busy Bees Pre-school (Bath)", "__": "St Marks School", "___": "Baytree Road", "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.primarySchoolsNearby = { "Results": { "Primary_Schools_Nearby": [{ "_": "http://www.st-saviours-jun.bathnes.sch.uk|St Saviours CofE Junior School", "__": "Brookleaze Place", "___": "Larkhall", "____": "BA1 6RB", "MapSpurE": 375956.997821, "MapSpurN": 166668.001036, "MapSpurMinE": 375956.997821, "MapSpurMinN": 166668.001036, "MapSpurMaxE": 375956.997821, "MapSpurMaxN": 166668.001036, "Distance": 465.5, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-saviours-inf.bathnes.sch.uk|St Saviours CofE Infant School", "__": "Spring Lane", "___": "Larkhall", "____": "BA1 6NY", "MapSpurE": 375844.436247, "MapSpurN": 166670.970186, "MapSpurMinE": 375844.436247, "MapSpurMinN": 166670.970186, "MapSpurMaxE": 375844.436247, "MapSpurMaxN": 166670.970186, "Distance": 511.2, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Bathwick St Mary Church of England Primary School", "__": "Darlington Road", "___": null, "____": "BA2 6NN", "MapSpurE": 376034.996099, "MapSpurN": 165538.004494, "MapSpurMinE": 376034.996099, "MapSpurMinN": 165538.004494, "MapSpurMaxE": 376034.996099, "MapSpurMaxN": 165538.004494, "Distance": 685, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.secondarySchoolsNearby = { "Results": { "Secondary_Schools_Nearby": [{ "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.beechencliff.bathnes.sch|Beechen Cliff School", "__": "Alexandra Park", "___": null, "____": "BA2 4RE", "MapSpurE": 375015.997243, "MapSpurN": 163750.996020, "MapSpurMinE": 375015.997243, "MapSpurMinN": 163750.996020, "MapSpurMaxE": 375015.997243, "MapSpurMaxN": 163750.996020, "Distance": 2692.2, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.collegesNearby = { "Results": { "Colleges_Nearby": [{ "_": "Norland College", "__": "York Place, London", "___": "Walcot", "____": "BA1 6AE", "MapSpurE": 375584.997154, "MapSpurN": 165901.000588, "MapSpurMinE": 375584.997154, "MapSpurMinN": 165901.000588, "MapSpurMaxE": 375584.997154, "MapSpurMaxN": 165901.000588, "Distance": 595.3, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Rusland College Ltd", "__": "Solsbury Way", "___": "Larkhall", "____": "BA1 6HH", "MapSpurE": 375087.003709, "MapSpurN": 166495.000557, "MapSpurMinE": 375087.003709, "MapSpurMinN": 166495.000557, "MapSpurMaxE": 375087.003709, "MapSpurMaxN": 166495.000557, "Distance": 1036.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.universitiesNearby = { "Results": { "Universities_Nearby": [{ "_": "University of Bath", "__": "The Avenue", "___": "Claverto", "____": "BA2 7AY", "MapSpurE": 377226.448654, "MapSpurN": 164469.990210, "MapSpurMinE": 377226.448654, "MapSpurMinN": 164469.990210, "MapSpurMaxE": 377226.448654, "MapSpurMaxN": 164469.990210, "Distance": 2089.1, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Bath Spa University", "__": "Newton Park Drive", "___": "Newton P", "____": "BA2 9BN", "MapSpurE": 369584.497282, "MapSpurN": 164159.918967, "MapSpurMinE": 369584.497282, "MapSpurMinN": 164159.918967, "MapSpurMaxE": 369584.497282, "MapSpurMaxN": 164159.918967, "Distance": 6821.3, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.librariesNearby = { "Results": { "Libraries_Nearby": { "_": "http://www.bathnes.gov.uk/BathNES/leisureandculture/Libraries/default.htm#The Podium - Central Library|The Podium - Central Library", "MapSpurE": 375114.764830, "MapSpurN": 165010.235567, "MapSpurMinE": 375114.764830, "MapSpurMinN": 165010.235567, "MapSpurMaxE": 375114.764830, "MapSpurMaxN": 165010.235567, "Distance": 1552.8, "MapSpurX": "0", "MapSpurY": "0" } } };
+        $scope.mobileLibrariesNearby = { "Results": { "Mobile_Libraries_Nearby": { "village": "Bathampton", "stop": "Devonshire Road", "time": "16.20 ? 16.50", "day": "Thursday", "_": "http://www.bathnes.gov.uk/services/libraries-and-archives/access-all/mobile-library-routes/mobile-library-route-review|View the timetable", "MapSpurE": 377374.999919, "MapSpurN": 166048.998224, "MapSpurMinE": 377374.999919, "MapSpurMinN": 166048.998224, "MapSpurMaxE": 377374.999919, "MapSpurMaxN": 166048.998224, "Distance": 1299.4, "MapSpurX": "0", "MapSpurY": "0" } } };
+        $scope.parkingNearby = { "Results": { "Parking_Zones": { "_": "Bath Central Parking Zone", "MapSpurE": 374864.745719, "MapSpurN": 164975.845411, "MapSpurMinE": 374323.766648, "MapSpurMinN": 164281.204250, "MapSpurMaxE": 375405.724791, "MapSpurMaxN": 165670.486572 } } };
+        $scope.roadworksNearby = { "Results": { "Roadworks_Nearby": [{ "Organisation": "http://www.bathnes.gov.uk/services/streets-and-highway-maintenance/roadworks/public-utilities#contactB&amp;NES - Network Maintenance|B&amp;NES - Network Maintenance", "_": "Skip App - Granted", "Location": "Skip on the Highway - Rear of 6 Grosvenor Place, Ringswell Gardens, London Road, Bath, BA1 6AX", "Work____commenced": "12/02/2014 00:00:00", "Due_____to_____be_____completed_____on": "11/03/2014 00:00:00", "Advised______complete______on": null, "MapSpurE": 375993.000000, "MapSpurN": 166159.000000, "MapSpurMinE": 375993.000000, "MapSpurMinN": 166159.000000, "MapSpurMaxE": 375993.000000, "MapSpurMaxN": 166159.000000, "Distance": 112.6, "MapSpurX": "0", "MapSpurY": "0" }, { "Organisation": "http://www.bathnes.gov.uk/services/streets-and-highway-maintenance/roadworks/public-utilities#contactWESSEX WATER (Bath Operations)|WESSEX WATER (Bath Operations)", "_": "Section 81 (covers in verge)", "Location": "1, Unmade", "Work____commenced": "17/03/2014 00:00:00", "Due_____to_____be_____completed_____on": "19/03/2014 00:00:00", "Advised______complete______on": "17/03/2014 00:00:00", "MapSpurE": 375957.000000, "MapSpurN": 166148.000000, "MapSpurMinE": 375957.000000, "MapSpurMinN": 166148.000000, "MapSpurMaxE": 375957.000000, "MapSpurMaxN": 166148.000000, "Distance": 149.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.busStops = { "Results": { "Bus_Stops_Nearby": [{ "Bus_stop_name": "Balustrade", "MapSpurE": 375946.996562, "MapSpurN": 166162.995593, "MapSpurMinE": 375946.996562, "MapSpurMinN": 166162.995593, "MapSpurMaxE": 375946.996562, "MapSpurMaxN": 166162.995593, "Distance": 42.8, "MapSpurX": "0", "MapSpurY": "0" }, { "Bus_stop_name": "Balustrade", "MapSpurE": 375883.996050, "MapSpurN": 166104.002479, "MapSpurMinE": 375883.996050, "MapSpurMinN": 166104.002479, "MapSpurMaxE": 375883.996050, "MapSpurMaxN": 166104.002479, "Distance": 92.4, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.schoolCrossings = { "Results": { "School_Crossings_Nearby": [{ "Name_": "St Savior&#39;s Junior School", "Morning__times": "8.30- 9.05", "Afternoon___times": "3.20- 3.45", "_": "Brookleaze Buildings", "MapSpurE": 375976.340735, "MapSpurN": 166611.967076, "MapSpurMinE": 375976.340735, "MapSpurMinN": 166611.967076, "MapSpurMaxE": 375976.340735, "MapSpurMaxN": 166611.967076, "Distance": 483, "MapSpurX": "0", "MapSpurY": "0" }, { "Name_": "St Saviours Infant School", "Morning__times": "8.35- 9.10", "Afternoon___times": "3.10- 3.45", "_": "Junction of Eldon Place &amp; Spring Lane", "MapSpurE": 375893.618037, "MapSpurN": 166691.904194, "MapSpurMinE": 375893.618037, "MapSpurMinN": 166691.904194, "MapSpurMaxE": 375893.618037, "MapSpurMaxN": 166691.904194, "Distance": 568.5, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.planningApplicationsNearby = { "Results": { "Planning_Applications_Nearby": [{ "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00718/COND'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00718/COND|14/00718/COND", "PROPOSAL": "Discharge of conditions 3 and 4 attached to application 13/04170/LBA (Internal and external works to entrance hall of basement flat).", "Consulation___Expiry___Date": null, "MapSpurE": 376131.000000, "MapSpurN": 166249.000000, "MapSpurMinE": 376131.000000, "MapSpurMinN": 166249.000000, "MapSpurMaxE": 376131.000000, "MapSpurMaxN": 166249.000000, "Distance": 52.2, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00595/LBA'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00595/LBA|14/00595/LBA", "PROPOSAL": "Internal alterations and refurbishment, and rear external alterations to the ground floor/lower ground floor garden maisonette", "Consulation___Expiry___Date": "25/03/2014", "MapSpurE": 376033.000000, "MapSpurN": 166172.000000, "MapSpurMinE": 376033.000000, "MapSpurMinN": 166172.000000, "MapSpurMaxE": 376033.000000, "MapSpurMaxN": 166172.000000, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00594/FUL'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00594/FUL|14/00594/FUL", "PROPOSAL": "Internal alterations and refurbishment, and rear external alterations to the ground floor/lower ground floor garden maisonette", "Consulation___Expiry___Date": "25/03/2014", "MapSpurE": 376033.000000, "MapSpurN": 166172.000000, "MapSpurMinE": 376033.000000, "MapSpurMinN": 166172.000000, "MapSpurMaxE": 376033.000000, "MapSpurMaxN": 166172.000000, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00306/LBA'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00306/LBA|14/00306/LBA", "PROPOSAL": "Internal and external alterations for the conversion of the coach house into 1no. dwelling house to include erection of single storey rear extension, stone repairs, staircase, intermediate floor and other associated works.", "Consulation___Expiry___Date": "18/03/2014", "MapSpurE": 376060.000000, "MapSpurN": 166362.000000, "MapSpurMinE": 376060.000000, "MapSpurMinN": 166362.000000, "MapSpurMaxE": 376060.000000, "MapSpurMaxN": 166362.000000, "Distance": 143.6, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00305/FUL'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00305/FUL|14/00305/FUL", "PROPOSAL": "Conversion of coach house to create 1no. dwelling with erection of single storey rear garden extension and associated works.", "Consulation___Expiry___Date": "18/03/2014", "MapSpurE": 376060.000000, "MapSpurN": 166362.000000, "MapSpurMinE": 376060.000000, "MapSpurMinN": 166362.000000, "MapSpurMaxE": 376060.000000, "MapSpurMaxN": 166362.000000, "Distance": 143.6, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='13/03344/OUT'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=13/03344/OUT|13/03344/OUT", "PROPOSAL": "Demolition of existing house and swimming pool to facilitate the erection of 4no. dwellings and associated works. (Outline with all matters reserved)", "Consulation___Expiry___Date": "18/09/2013", "MapSpurE": 376243.000000, "MapSpurN": 166303.000000, "MapSpurMinE": 376243.000000, "MapSpurMinN": 166303.000000, "MapSpurMaxE": 376243.000000, "MapSpurMaxN": 166303.000000, "Distance": 176.2, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00802/AR'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00802/AR|14/00802/AR", "PROPOSAL": "Display of six sheet internally illuminated advertisements in bus shelters serving the No.13 Bathford-Foxhill Route; to be located along London Road at: Stop No. 30 (Balustrade) and Stop No.32 (Lambridge)", "Consulation___Expiry___Date": "03/04/2014", "MapSpurE": 375856.000000, "MapSpurN": 166104.000000, "MapSpurMinE": 375856.000000, "MapSpurMinN": 166104.000000, "MapSpurMaxE": 375856.000000, "MapSpurMaxN": 166104.000000, "Distance": 258.9, "MapSpurX": "0", "MapSpurY": "0" }, { "Reference": "/projects/bathnes/developmentcontrol/default.aspx?requesttype=parsetemplate&amp;template=DevelopmentControlApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='14/00989/FUL'&amp;SearchLayer=DCApplications&amp;SearchField=REFVAL&amp;SearchValue=14/00989/FUL|14/00989/FUL", "PROPOSAL": "Erection of single storey rear extension and loft conversion.", "Consulation___Expiry___Date": "17/04/2014", "MapSpurE": 375847.000000, "MapSpurN": 166348.000000, "MapSpurMinE": 375847.000000, "MapSpurMinN": 166348.000000, "MapSpurMaxE": 375847.000000, "MapSpurMaxN": 166348.000000, "Distance": 271.5, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.healthAndFitnessNearby = { "Results": { "Health_and_Fitness_Centres_Nearby": [{ "_": "http://www.macdonaldhotels.co.uk/bathspa/index.htm|Vital Health, Fitness &amp; Beauty (Bath Spa Hotel)", "MapSpurE": 376159.999471, "MapSpurN": 164829.997159, "MapSpurMinE": 376159.999471, "MapSpurMinN": 164829.997159, "MapSpurMaxE": 376159.999471, "MapSpurMaxN": 164829.997159, "Distance": 1392.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.bathymca.co.uk/|YMCA (CITY OF BATH)", "MapSpurE": 375046.001020, "MapSpurN": 165188.004681, "MapSpurMinE": 375046.001020, "MapSpurMinN": 165188.004681, "MapSpurMaxE": 375046.001020, "MapSpurMaxN": 165188.004681, "Distance": 1466.5, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.parksNearby = { "Results": { "Parks_or_Open_Spaces_Nearby": [{ "_": "Kensington Meadows", "MapSpurE": 376002.221981, "MapSpurN": 165980.127938, "MapSpurMinE": 375744.877134, "MapSpurMinN": 165808.197153, "MapSpurMaxE": 376259.566828, "MapSpurMaxN": 166152.058723, "Distance": 255.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Alice Park", "MapSpurE": 376460.544315, "MapSpurN": 166611.562192, "MapSpurMinE": 376343.551021, "MapSpurMinN": 166463.739505, "MapSpurMaxE": 376577.537610, "MapSpurMaxN": 166759.384878, "Distance": 540.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Sydney Gardens", "MapSpurE": 375788.060642, "MapSpurN": 165314.223551, "MapSpurMinE": 375638.087103, "MapSpurMinN": 165180.086947, "MapSpurMaxE": 375938.034181, "MapSpurMaxN": 165448.360155, "Distance": 954.8, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.allotmentsNearby = { "Results": { "Allotments_Nearby": [{ "_": "Claremont Road", "Provided__by": "B&amp;NES", "MapSpurE": 375850.562327, "MapSpurN": 166187.743508, "MapSpurMinE": 375788.221420, "MapSpurMinN": 166125.346369, "MapSpurMaxE": 375912.903234, "MapSpurMaxN": 166250.140647, "Distance": 238.8, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Hampton Row", "Provided__by": "B&amp;NES", "MapSpurE": 375952.425935, "MapSpurN": 165717.528106, "MapSpurMinE": 375898.350702, "MapSpurMinN": 165651.252078, "MapSpurMaxE": 376006.501168, "MapSpurMaxN": 165783.804135, "Distance": 521.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.playAreasNearby = { "Results": { "Play_Areas_Nearby": [{ "_": "Alice Park", "MapSpurE": 376380.051906, "MapSpurN": 166522.222765, "MapSpurMinE": 376345.101092, "MapSpurMinN": 166463.749503, "MapSpurMaxE": 376415.002720, "MapSpurMaxN": 166580.696027, "Distance": 420.3, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Midsummer Buildings", "MapSpurE": 375582.742130, "MapSpurN": 166535.413989, "MapSpurMinE": 375559.148888, "MapSpurMinN": 166517.184207, "MapSpurMaxE": 375606.335373, "MapSpurMaxN": 166553.643771, "Distance": 594.2, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Larkhall Recreation Ground", "MapSpurE": 375899.298884, "MapSpurN": 166830.399550, "MapSpurMinE": 375879.650903, "MapSpurMinN": 166803.162347, "MapSpurMaxE": 375918.946864, "MapSpurMaxN": 166857.636754, "Distance": 637.7, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.newLicensingAppsNearby = { "Results": { "New_Licensing_Applications_Nearby": { "Info": "<p>No records found nearby.</p>" } } };
+        $scope.issuedLicensingAppsNearby = { "Results": { "Issued_Licensing_Applications_Nearby": [{ "LINK": "Mr Stephen Bates - Piercing-Practitioner/Responsible Person", "Address": "Flat 6, 36 Grosvenor Place, Lambridge, Bath, BA1 6BA", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='12/02652/PCPER'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=12/02652/PCPER|12/02652/PCPER", "MapSpurE": 376175.000000, "MapSpurN": 166279.000000, "MapSpurMinE": 376175.000000, "MapSpurMinN": 166279.000000, "MapSpurMaxE": 376175.000000, "MapSpurMaxN": 166279.000000, "Distance": 105.4, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "One Beaufort - Premises Licence", "Address": "1 Beaufort West, Lambridge, Bath, BA1 6QB", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='10/03946/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=10/03946/LAPRE|10/03946/LAPRE", "MapSpurE": 375958.000000, "MapSpurN": 166186.000000, "MapSpurMinE": 375958.000000, "MapSpurMinN": 166186.000000, "MapSpurMaxE": 375958.000000, "MapSpurMaxN": 166186.000000, "Distance": 133.7, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "Beaufort Store - Premises Licence", "Address": "3 - 4 Balustrade, London Road, Walcot, Bath, BA1 6QA", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='10/02944/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=10/02944/LAPRE|10/02944/LAPRE", "MapSpurE": 375941.000000, "MapSpurN": 166170.000000, "MapSpurMinE": 375941.000000, "MapSpurMinN": 166170.000000, "MapSpurMaxE": 375941.000000, "MapSpurMaxN": 166170.000000, "Distance": 154.7, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "Martin McColl Ltd - Premises Licence", "Address": "7 Lambridge Buildings, Larkhall, Bath, BA1 6RS", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='11/01084/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=11/01084/LAPRE|11/01084/LAPRE", "MapSpurE": 376059.000000, "MapSpurN": 166469.000000, "MapSpurMinE": 376059.000000, "MapSpurMinN": 166469.000000, "MapSpurMaxE": 376059.000000, "MapSpurMaxN": 166469.000000, "Distance": 249.6, "MapSpurX": "0", "MapSpurY": "0" }, { "LINK": "The Rondo - Premises Licence", "Address": "St Saviour&#39;s Road, Larkhall, Bath, BA1  6RT", "Reference": "/projects/bathnes/licensing/default.aspx?requesttype=parsetemplate&amp;template=LicenceApplication.tmplt&amp;basepage=default.aspx&amp;Filter=^REFVAL^='11/04635/LAPRE'&amp;SearchLayer=LIApplications&amp;SearchField=REFVAL&amp;SearchValue=11/04635/LAPRE|11/04635/LAPRE", "MapSpurE": 376063.000000, "MapSpurN": 166482.000000, "MapSpurMinE": 376063.000000, "MapSpurMinN": 166482.000000, "MapSpurMaxE": 376063.000000, "MapSpurMaxN": 166482.000000, "Distance": 262.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.listedBuilding = { "Results": { "Listed_Building": { "Reference": null, "Description": "NOS. 1-41 AND ATTACHED AREA RAILINGS, 1-41, GROSVENOR PLACE", "Grading": "I", "_": "http://list.english-heritage.org.uk/resultsingle.aspx?uid=1396090|More Info at English Heritage", "MapSpurE": 376087.974739, "MapSpurN": 166215.010703, "MapSpurMinE": 375965.399538, "MapSpurMinN": 166121.227548, "MapSpurMaxE": 376210.549940, "MapSpurMaxN": 166308.793858 } } };
+        $scope.yourCouncillors = { "Results": { "Your_Councillors": { "_": "<div id=\"myCouncillor\"><a href=\"http://democracy.bathnes.gov.uk/mgUserInfo.aspx?UID=1436\">Councillor Lisa Brett</a><br />(Liberal Democrats)<br /><img src=\"http://democracy.bathnes.gov.uk/UserData/6/3/4/Info00001436/smallpic.jpg\"/><br />Telephone <br />07787314094<br /><br /></div><br /> <div id=\"myCouncillor\"><a href=\"http://democracy.bathnes.gov.uk/mgUserInfo.aspx?UID=1437\">Councillor Paul Fox</a><br />(Liberal Democrats)<br /><img src=\"http://democracy.bathnes.gov.uk/UserData/7/3/4/Info00001437/smallpic.jpg\"/><br />Telephone <br />07974 328905<br /><br /></div><br /> ", "MapSpurE": 375777.201896, "MapSpurN": 166000.247175, "MapSpurMinE": 375091.802335, "MapSpurMinN": 165356.996303, "MapSpurMaxE": 376462.601458, "MapSpurMaxN": 166643.498046 } } };
+        $scope.councilOffices = { "Results": { "____________________________": [{ "Your_nearest_Council_Office_is_": "http://www.bathnes.gov.uk/contact-us/council-offices?office=GUILDHALL|GUILDHALL", "MapSpurE": 375126.002848, "MapSpurN": 164839.004581, "MapSpurMinE": 375126.002848, "MapSpurMinN": 164839.004581, "MapSpurMaxE": 375126.002848, "MapSpurMaxN": 164839.004581, "Distance": 1683.3, "MapSpurX": "0", "MapSpurY": "0" }, { "Your_nearest_Council_Office_is_": "http://www.bathnes.gov.uk/contact-us/council-offices?office=LEWIS HOUSE|LEWIS HOUSE", "MapSpurE": 375229.997804, "MapSpurN": 164541.999598, "MapSpurMinE": 375229.997804, "MapSpurMinN": 164541.999598, "MapSpurMaxE": 375229.997804, "MapSpurMaxN": 164541.999598, "Distance": 1885.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.housingAllowanceZones = { "Results": { "___________": { "Your_Local_Housing_Allowance_Zone_is_": "http://www.bathnes.gov.uk/services/council-tax-benefits-and-grants/benefits/housing-benefit/local-housing-allowance-lha?Bath|Bath", "MapSpurE": 366754.986071, "MapSpurN": 166278.897416, "MapSpurMinE": 345139.968873, "MapSpurMinN": 149656.700470, "MapSpurMaxE": 388370.003269, "MapSpurMaxN": 182901.094362 } } };
+        $scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
+    }
+    if ($scope.userData && $scope.userData.length == 0) {
+        $scope.userData = { uprn: '10001140919', addressSearch: 'Flat 6, 22 Grosvenor Place', firstname: 'Dave', lastname: 'Rowe', email: 'david_rowe@bathnes.gov.uk', phone: '01225477356' };
+        $scope.uprn = true;
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // </END TEST DATA>
     /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -76,43 +75,13 @@ angular.module('MyBath.Controllers', [])
                 opacity: 1
             }
         },
-        markers: {
-            school1: {
-                layer: "Schools",
-                lat: 51.383456,
-                lng: -2.362547
-            },
-            school2: {
-                layer: "Schools",
-                lat: 51.385081,
-                lng: -2.357540
-            },
-            building: {
-                layer: "PlanningApplications",
-                lat: 51.383724,
-                lng: -2.361975
-            },
-            fence: {
-                layer: "PlanningApplications",
-                lat: 51.383206,
-                lng: -2.360744
-            },
-            victoria: {
-                layer: "Parks",
-                lat: 51.384978,
-                lng: -2.365467
-            },
-            parade: {
-                layer: "Parks",
-                lat: 51.380913,
-                lng: -2.352698
-            },
-            sydney: {
-                layer: "Parks",
-                lat: 51.386137,
-                lng: -2.349652
-            }
-        },
+        crs: new L.Proj.CRS(
+        'EPSG:27700',
+        '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs',
+        {
+            resolutions: [1600, 800, 400, 200, 100, 50, 25, 10, 5, 2.5, 1, 0.5, 0.25, 0.125, 0.0625]
+        }
+        ),
         center: {
             lat: 51.3821440,
             lng: -2.3589420,
@@ -135,8 +104,9 @@ angular.module('MyBath.Controllers', [])
             },
             overlays: {
                 Schools: {
-                    type: 'markercluster',
+                    type: L.Proj.GeoJSON,
                     name: 'Schools',
+                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1411852577753&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=366498.77738154&Northing=165418.73132811',
                     visible: true,
                     layerOptions: {
                         style: {
@@ -147,25 +117,6 @@ angular.module('MyBath.Controllers', [])
                             "fillOpacity": .2
                         }
                     }
-                },
-                Parks: {
-                    type: 'markercluster',
-                    name: 'Parks',
-                    visible: true,
-                    layerOptions: {
-                        style: {
-                            "color": "#00D",
-                            "fillColor": "#00D",
-                            "weight": 1.0,
-                            "opacity": 0.6,
-                            "fillOpacity": .2
-                        }
-                    }
-                },
-                PlanningApplications: {
-                    type: 'markercluster',
-                    name: 'Planning applications',
-                    visible: true
                 }
             }
         }
@@ -434,7 +385,7 @@ angular.module('MyBath.Controllers', [])
         alertPopup.then(function (res) {
         });
     };
-    
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: takePhoto
@@ -490,35 +441,36 @@ angular.module('MyBath.Controllers', [])
         }
         navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: councilConnectHelper
     // Phones Council Connect during office hours.
     // Provides information when it's closed.
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.councilConnectPopup = function() {
-      //if (isCouncilConnectHours()){
-      //  window.location.href="tel://01225394041"
-      //} else {
-        $scope.showPopup('Council Connect','Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.<br /><br /><b>Opening hours are 9:30-6 on a Wednesday or 8 - 6 on any other weekday.</b><br /><br />Outside of office hours there are various pre-recorded messages and email options available for you to access more information or report an emergency.<br /><br /><table><tr><td style="text-align: center; vertical-align: middle;"><a class="tab-item" ng-click="emailCouncilConnect()" ><i class="icon royal ion-at"></i></a></td>    <td>Tap the @ icon to email council connect with your query.<br /></td></tr>  <tr>    <td style="text-align: center; vertical-align: middle;"><a class="tab-item" href="tel:01225394041"><i class="icon balanced ion-ios7-telephone"></i></a></td>    <td>Tap the phone icon to call council connect.</td>  </tr></table>         ');
-      //}
+    $scope.councilConnectPopup = function () {
+        //if (isCouncilConnectHours()){
+        //  window.location.href="tel://01225394041"
+        //} else {
+        $scope.showPopup('Council Connect', 'Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.<br /><br /><b>Opening hours are 9:30-6 on a Wednesday or 8 - 6 on any other weekday.</b><br /><br />Outside of office hours there are various pre-recorded messages and email options available for you to access more information or report an emergency.<br /><br /><table><tr><td style="text-align: center; vertical-align: middle;"><a class="tab-item" ng-click="emailCouncilConnect()" ><i class="icon royal ion-at"></i></a></td>    <td>Tap the @ icon to email council connect with your query.<br /></td></tr>  <tr>    <td style="text-align: center; vertical-align: middle;"><a class="tab-item" href="tel:01225394041"><i class="icon balanced ion-ios7-telephone"></i></a></td>    <td>Tap the phone icon to call council connect.</td>  </tr></table>         ');
+        //}
     };
-    
-    $scope.emailCouncilConnect = function () {
-    // documentation: https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
-    try {
-    window.plugin.email.open({
-    to:          ['councilconnect@bathnes.gov.uk'],
-    subject:    "Message from Bath App", 
-    body:       "",
-    isHtml:    false });
-    } catch (err) {
-      console.log(err.message);
-      window.location.href="mailto:councilconnect@bathnes.gov.uk";
-    }
 
-  };
-      
+    $scope.emailCouncilConnect = function () {
+        // documentation: https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
+        try {
+            window.plugin.email.open({
+                to: ['councilconnect@bathnes.gov.uk'],
+                subject: "Message from Bath App",
+                body: "",
+                isHtml: false
+            });
+        } catch (err) {
+            console.log(err.message);
+            window.location.href = "mailto:councilconnect@bathnes.gov.uk";
+        }
+
+    };
+
 })
 .controller('MapController', function ($scope, $state, $timeout, $ionicModal, UserData, $ionicSideMenuDelegate, $ionicActionSheet) {
 
@@ -564,20 +516,20 @@ angular.module('MyBath.Controllers', [])
     }
     if ($scope.bathdata[6]) {
         $scope.universitiesNearby = $scope.bathdata[6];
-        
+
     }
-    
+
     if ($scope.universitiesNearby) {
-      // ishare only returns 8 characters in the string for some reason
-      // This should get fixed, but at the moment, this fixes the display for the 2 major universities
-        for (var i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length; i ++) {
-          if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Claverto") {
-            $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Claverton Down";
-          }
-          if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Newton P") {
-            $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Newton Park";
-          }
-      }
+        // ishare only returns 8 characters in the string for some reason
+        // This should get fixed, but at the moment, this fixes the display for the 2 major universities
+        for (var i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length; i++) {
+            if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Claverto") {
+                $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Claverton Down";
+            }
+            if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Newton P") {
+                $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Newton Park";
+            }
+        }
     }
     if ($scope.playSchoolsNearby && $scope.playSchoolsNearby.Results) {
         //for (i = 0; i < $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"].length ; i++) {
@@ -666,7 +618,7 @@ angular.module('MyBath.Controllers', [])
     if ($scope.bathdata[12]) {
         $scope.healthAndFitnessNearby = $scope.bathdata[12];
     }
-	
+
     if ($scope.healthAndFitnessNearby && $scope.healthAndFitnessNearby.Results) {
         for (i = 0; i < $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby.length ; i++) {
             $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].name = $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[1].replace('amp;', '');
@@ -697,7 +649,7 @@ angular.module('MyBath.Controllers', [])
     if ($scope.bathdata[17]) {
         $scope.issuedLicensingAppsNearby = $scope.bathdata[17];
     }
-	
+
     if ($scope.newLicensingAppsNearby && $scope.newLicensingAppsNearby.Results) {
         for (i = 0; i < $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length ; i++) {
             $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].title = $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
@@ -763,8 +715,8 @@ angular.module('MyBath.Controllers', [])
     if ($scope.bathdata[19]) {
         $scope.housingAllowanceZones = $scope.bathdata[19];
     }
-	
-	if ($scope.yourCouncillors && $scope.yourCouncillors.Results) {
+
+    if ($scope.yourCouncillors && $scope.yourCouncillors.Results) {
         var string = '<!DOCTYPE html><html><head></head><body>' + $scope.yourCouncillors.Results.Your_Councillors._ + '</body></html>';
         var doc = new DOMParser().parseFromString(string, 'text/html');
 
@@ -837,21 +789,21 @@ angular.module('MyBath.Controllers', [])
     }
 })
 .directive('browseTo', function ($ionicGesture) {
-	return {
-		restrict: 'A',
-		link: function ($scope, $element, $attrs) {
-			var handleTap = function (e) {
-				var inAppBrowser = window.open($attrs.browseTo, '_system');
-			};
-			
-			var tapGesture = $ionicGesture.on('tap', handleTap, $element);
-			
-			$scope.$on('$destroy', function () {
-				// Clean up - unbind drag gesture handler
-				$ionicGesture.off(tapGesture, 'tap', handleTap);
-			});
-		}
-	}
+    return {
+        restrict: 'A',
+        link: function ($scope, $element, $attrs) {
+            var handleTap = function (e) {
+                var inAppBrowser = window.open($attrs.browseTo, '_system');
+            };
+
+            var tapGesture = $ionicGesture.on('tap', handleTap, $element);
+
+            $scope.$on('$destroy', function () {
+                // Clean up - unbind drag gesture handler
+                $ionicGesture.off(tapGesture, 'tap', handleTap);
+            });
+        }
+    }
 });
 
 /* 
@@ -903,12 +855,12 @@ angular.module('MyBath.Controllers', [])
 
 function NEtoLL(east, north) {
     // converts NGR easting and nothing to lat, lon. With proj4.js
-    
+
     // British National Grid. Source: http://epsg.io/27700
-    proj4.defs("NationalGrid","+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"); 
-    var res = proj4('NationalGrid', 'WGS84', [east,north]);    
+    proj4.defs("NationalGrid", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs");
+    var res = proj4('NationalGrid', 'WGS84', [east, north]);
     return { latitude: res[1], longitude: res[0] };
-    }
+}
 
 
 function isCouncilConnectHours() {
@@ -923,17 +875,17 @@ function isCouncilConnectHours() {
     var d = time.getDay();
 
     if (d == 0 || d == 6) { // weekend
-      return false;
+        return false;
     }
 
     if (d == 3 && (h < 9 || (h == 9 && m < 30))) { // Wednesday
-      return false;
+        return false;
     }
 
-    if ( h < 8 || h > 18) { 
-      return false;
+    if (h < 8 || h > 18) {
+        return false;
     }
 
     return true;
-    $scope.$digest(); 
-    }
+    $scope.$digest();
+}
