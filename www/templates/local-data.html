@@ -1,49 +1,8 @@
 <div style="margin: 10px;">
     <h2>Local Data</h2>
-    <p>This page shows local data, relevant to your registered address.  </p>
-    <div style="width: 50%">
-        <button ng-click="showOptions = !showOptions;" class="button">Settings</button>
-        <div ng-show="showOptions">
-            <p>Check the box to hide it's information.</p>
-            <table>
-                <tr>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Libraries"></label></td>
-                    <td>Libraries</td>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Schools"></label></td>
-                    <td>Schools</td>
-                </tr>
-                <tr>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Roadworks"></label></td>
-                    <td>Roadworks</td>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Bus"></label></td>
-                    <td>Bus Stops</td>
-                </tr>
-                <tr>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.CarPark"></label></td>
-                    <td>Car Parks</td>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Crossings"></label></td>
-                    <td>Crossings</td>
-                </tr>
-                <tr>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Sports"></label></td>
-                    <td>Health & Fitness centres</td>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Planning"></label></td>
-                    <td>Planning Applications</td>
-                </tr>
-                <tr>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Licenses"></label></td>
-                    <td>License Applications</td>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.ParksAndRec"></label></td>
-                    <td>Parks & Play areas</td>
-                </tr>
-                <tr>
-                    <td><label class="checkbox"><input type="checkbox" ng-model="userData.LocalHidden.Allotments"></label></td>
-                    <td>Allotments</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div ng-hide="userData.LocalHidden.Libraries">
+    <p>This page shows local data, relevant to your registered address.</p>
+	<button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
+    <div ng-show="userData.LocalHidden.Libraries">
         <h3>Local libraries</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="library in librariesNearby.Results">
@@ -85,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Schools">
+    <div ng-show="userData.LocalHidden.Schools">
         <h3>Play schools</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="playschool in playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">
@@ -176,7 +135,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Roadworks">
+    <div ng-show="userData.LocalHidden.Roadworks">
         <h3>Scheduled roadworks</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="roadworks in roadworksNearby.Results.Roadworks_Nearby">
@@ -200,7 +159,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Bus">
+    <div ng-show="userData.LocalHidden.Bus">
         <h3>Bus stops</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="busstop in busStops.Results.Bus_Stops_Nearby">
@@ -218,7 +177,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.CarPark">
+    <div ng-show="userData.LocalHidden.CarPark">
         <h3>Parking zone</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="parking in parkingNearby.Results" ng-show="parkingNearby.Results.Parking_Zones">
@@ -232,7 +191,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Crossings">
+    <div ng-show="userData.LocalHidden.Crossings">
         <h3>School crossings</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="schoolCrossing in schoolCrossings.Results.School_Crossings_Nearby">
@@ -252,7 +211,7 @@
             </div>
         </div>
     </div>
-    <div ng_hide="userData.LocalHidden.Sports">
+    <div ng-show="userData.LocalHidden.Sports">
         <h3>Health and fitness centres</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="healthcentre in healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
@@ -270,7 +229,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Planning">
+    <div ng-show="userData.LocalHidden.Planning">
         <h3>Planning applications</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="application in planningApplicationsNearby.Results.Planning_Applications_Nearby">
@@ -292,7 +251,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Licenses">
+    <div ng-show="userData.LocalHidden.Licenses">
         <h3>New license applications</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="newApplication in newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby" ng-show="newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length">
@@ -335,7 +294,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.ParksAndRec">
+    <div ng-show="userData.LocalHidden.ParksAndRec">
         <h3>Parks</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="park in parksNearby.Results.Parks_or_Open_Spaces_Nearby">
@@ -364,7 +323,7 @@
             </div>
         </div>
     </div>
-    <div ng-hide="userData.LocalHidden.Allotments">
+    <div ng-show="userData.LocalHidden.Allotments">
         <h3>Allotments</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="allotment in allotmentsNearby.Results.Allotments_Nearby">

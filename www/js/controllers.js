@@ -104,7 +104,7 @@ angular.module('MyBath.Controllers', [])
             },
             overlays: {
                 Schools: {
-                    type: L.Proj.GeoJSON,
+                    type: 'marker',
                     name: 'Schools',
                     url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1411852577753&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=366498.77738154&Northing=165418.73132811',
                     visible: true,
@@ -119,13 +119,38 @@ angular.module('MyBath.Controllers', [])
                     }
                 }
             }
-        }
-    };
+        },
+		markers: { 
+			stoke: { 
+				layer: 'blue', 
+				lat: 51.5615, 
+				lng: -0.0731, 
+				icon: ''//icons.blue 
+			},
+			dalston: { 
+				layer: 'blue', 
+				lat: 51.545, 
+				lng: -0.070, 
+				icon: ''//icons.blue 
+			}, 
+			wandsworth: { 
+				layer: 'red', 
+				lat: 51.4644, 
+				lng:-0.1924, 
+				icon: ''//icons.red 
+			}, 
+			battersea: { 
+				layer: 'red', 
+				lat: 51.4638, 
+				lng: -0.1677, 
+				icon: ''//icons.red
+			}
+		}
+	};
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODAL DEFINITIONS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: Register Details
@@ -157,6 +182,22 @@ angular.module('MyBath.Controllers', [])
     };
     $scope.closeSetAddress = function () {
         $scope.propertyModal.hide();
+    };
+	
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: Display options
+    // Options screen for local data display
+    /////////////////////////////////////////////////////////////////////////////////////////////
+	$ionicModal.fromTemplateUrl('templates/options-data-display.html', function (modal) {
+        $scope.displayOptionsModal = modal;
+    }, {
+        scope: $scope
+    });
+    $scope.displayOptions = function () {
+        $scope.displayOptionsModal.show();
+    };
+    $scope.closeDisplayOptions = function () {
+        $scope.displayOptionsModal.hide();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +235,7 @@ angular.module('MyBath.Controllers', [])
     $scope.reportItPhoto = function () {
         $scope.reportItPhotoModal.show();
     };
-    $scope.closeReportIt = function () {
+    $scope.closeReportItPhoto = function () {
         $scope.reportItPhotoModal.hide();
     };
     // Submit
@@ -219,7 +260,7 @@ angular.module('MyBath.Controllers', [])
     $scope.reportItLocation = function () {
         $scope.reportItLocationModal.show();
     };
-    $scope.closeReportIt = function () {
+    $scope.closeReportItLocation = function () {
         $scope.reportItLocationModal.hide();
     };
     // Submit
@@ -242,7 +283,7 @@ angular.module('MyBath.Controllers', [])
     $scope.reportItPersonal = function () {
         $scope.reportItPersonalModal.show();
     };
-    $scope.closeReportIt = function () {
+    $scope.closeReportItPersonal = function () {
         $scope.reportItPersonalModal.hide();
     };
     // Submit
