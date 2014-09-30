@@ -64,90 +64,6 @@ angular.module('MyBath.Controllers', [])
     // - Existing reports are loaded.
     /////////////////////////////////////////////////////////////////////////////////////////////
 
-    $scope.map = {
-        defaults: {
-            tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
-            maxZoom: 20,
-            zoomControlPosition: 'bottomleft',
-            path: {
-                weight: 10,
-                color: '#800000',
-                opacity: 1
-            }
-        },
-        crs: new L.Proj.CRS(
-        'EPSG:27700',
-        '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs',
-        {
-            resolutions: [1600, 800, 400, 200, 100, 50, 25, 10, 5, 2.5, 1, 0.5, 0.25, 0.125, 0.0625]
-        }
-        ),
-        center: {
-            lat: 51.3821440,
-            lng: -2.3589420,
-            zoom: 18
-        },
-        layers: {
-            baselayers: {
-                MapBox: {
-                    name: 'OpenStreetMap',
-                    url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
-                    type: 'xyz',
-                    maxZoom: 20,
-                    zoomControlPosition: 'bottomleft',
-                    path: {
-                        weight: 10,
-                        color: '#800000',
-                        opacity: 1
-                    }
-                }
-            },
-            overlays: {
-                Schools: {
-                    type: 'marker',
-                    name: 'Schools',
-                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1411852577753&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=366498.77738154&Northing=165418.73132811',
-                    visible: true,
-                    layerOptions: {
-                        style: {
-                            "color": "#00D",
-                            "fillColor": "#00D",
-                            "weight": 1.0,
-                            "opacity": 0.6,
-                            "fillOpacity": .2
-                        }
-                    }
-                }
-            }
-        },
-		markers: { 
-			stoke: { 
-				layer: 'blue', 
-				lat: 51.5615, 
-				lng: -0.0731, 
-				icon: ''//icons.blue 
-			},
-			dalston: { 
-				layer: 'blue', 
-				lat: 51.545, 
-				lng: -0.070, 
-				icon: ''//icons.blue 
-			}, 
-			wandsworth: { 
-				layer: 'red', 
-				lat: 51.4644, 
-				lng:-0.1924, 
-				icon: ''//icons.red 
-			}, 
-			battersea: { 
-				layer: 'red', 
-				lat: 51.4638, 
-				lng: -0.1677, 
-				icon: ''//icons.red
-			}
-		}
-	};
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODAL DEFINITIONS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -513,9 +429,6 @@ angular.module('MyBath.Controllers', [])
     };
 
 })
-.controller('MapController', function ($scope, $state, $timeout, $ionicModal, UserData, $ionicSideMenuDelegate, $ionicActionSheet) {
-
-})
 .controller('LocalDataController', function ($scope, $ionicSideMenuDelegate) {
 
     if ($scope.bathdata[0]) {
@@ -741,6 +654,67 @@ angular.module('MyBath.Controllers', [])
             $scope.playAreasNearby.Results.Play_Areas_Nearby[i].lon = geo.longitude;
         }
     }
+})
+.controller('MapController', function ($scope, $ionicSideMenuDelegate) {
+	$scope.markers = [];	
+    $scope.map = {
+        defaults: {
+            tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
+            maxZoom: 20,
+            zoomControlPosition: 'bottomleft',
+            path: {
+                weight: 10,
+                color: '#800000',
+                opacity: 1
+            }
+        },
+        crs: new L.Proj.CRS(
+        'EPSG:27700',
+        '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs',
+        {
+            resolutions: [1600, 800, 400, 200, 100, 50, 25, 10, 5, 2.5, 1, 0.5, 0.25, 0.125, 0.0625]
+        }
+        ),
+        center: {
+            lat: 51.3821440,
+            lng: -2.3589420,
+            zoom: 18
+        },
+        layers: {
+            baselayers: {
+                MapBox: {
+                    name: 'OpenStreetMap',
+                    url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
+                    type: 'xyz',
+                    maxZoom: 20,
+                    zoomControlPosition: 'bottomleft',
+                    path: {
+                        weight: 10,
+                        color: '#800000',
+                        opacity: 1
+                    }
+                }
+            },
+            overlays: {
+                Schools: {
+                    type: 'marker',
+                    name: 'Schools',
+                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1411852577753&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=366498.77738154&Northing=165418.73132811',
+                    visible: true,
+                    layerOptions: {
+                        style: {
+                            "color": "#00D",
+                            "fillColor": "#00D",
+                            "weight": 1.0,
+                            "opacity": 0.6,
+                            "fillOpacity": .2
+                        }
+                    }
+                }
+            }
+        },
+		markers: $scope.markers
+	};
 })
 .controller('CouncilController', function ($scope, $ionicSideMenuDelegate) {
 

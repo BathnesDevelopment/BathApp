@@ -35,7 +35,8 @@ angular.module('BathCouncil', ['ionic','leaflet-directive','MyBath.BathDataServi
 			url: "/map",
 			views: {
 				'mainContent': {
-					templateUrl: "templates/map.html"
+					templateUrl: "templates/map.html",
+					controller: "MapController"
 				}
 			}
 		})
