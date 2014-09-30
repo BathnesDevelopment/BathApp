@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic','leaflet-directive','MyBath.BathDataService','MyBath.ReportsService','MyBath.UserDataService', 'MyBath.Controllers'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.UserDataService', 'MyBath.Controllers', 'MyBath.MapDataService'])
  .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('menu', {

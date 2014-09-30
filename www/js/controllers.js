@@ -655,8 +655,21 @@ angular.module('MyBath.Controllers', [])
         }
     }
 })
-.controller('MapController', function ($scope, $ionicSideMenuDelegate) {
-	$scope.markers = [];	
+.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
+
+    $scope.markers = [];
+
+    MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
+    .then(function (data) {
+        // check for whether we have postcode results
+        if (data && data != "Failed") {
+            //
+        }
+        else {
+            $scope.markers = data;
+        }
+    });
+
     $scope.map = {
         defaults: {
             tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
@@ -683,7 +696,7 @@ angular.module('MyBath.Controllers', [])
         layers: {
             baselayers: {
                 MapBox: {
-                    name: 'OpenStreetMap',
+                    name: 'Map items of interest',
                     url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
                     type: 'xyz',
                     maxZoom: 20,
@@ -696,21 +709,12 @@ angular.module('MyBath.Controllers', [])
                 }
             },
             overlays: {
-                Schools: {
-                    type: 'marker',
-                    name: 'Schools',
-                    url: 'http://isharemaps.bathnes.gov.uk/MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1411852577753&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=366498.77738154&Northing=165418.73132811',
-                    visible: true,
-                    layerOptions: {
-                        style: {
-                            "color": "#00D",
-                            "fillColor": "#00D",
-                            "weight": 1.0,
-                            "opacity": 0.6,
-                            "fillOpacity": .2
-                        }
-                    }
-                }
+				Schools: {
+					type: 'group', 
+					name: 'Schools', 
+					visible: false 
+				}
+                
             }
         },
 		markers: $scope.markers
