@@ -35,7 +35,12 @@ i.listIcons {
             text-align: left;
             margin: 10px 0px;
         }
-
+        
+.toggle.toggle-balanced .track {
+  border-color: #ef4e3a;
+  background-color: #ef4e3a;
+ }
+   
 .home-card {
     text-align: center;
 }
