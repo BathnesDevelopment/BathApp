@@ -343,7 +343,6 @@ angular.module('MyBath.Controllers', [])
         });
     };
 
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: takePhoto
     // Takes a photo, stores it in localStorage.reportPhoto
@@ -670,17 +669,15 @@ angular.module('MyBath.Controllers', [])
 			message: "I'm close to the guildhall" }
 		};
 
-
-    //MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
-    //.then(function (data) {
-    //    // check for whether we have postcode results
-    //    if (data && data != "Failed") {
-    //        //
-    //    }
-    //    else {
-    //        // $scope.markers = data;
-    //    }
-    //});
+    MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
+    .then(function (data) {
+        if (data && data != "Failed") {
+			$scope.markers = data;
+        }
+        else {
+			$scope.markers = data;
+        }
+    });
 
     $scope.map = {
         defaults: {
