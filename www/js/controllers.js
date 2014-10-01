@@ -44,7 +44,7 @@ angular.module('MyBath.Controllers', [])
         $scope.yourCouncillors = { "Results": { "Your_Councillors": { "_": "<div id=\"myCouncillor\"><a href=\"http://democracy.bathnes.gov.uk/mgUserInfo.aspx?UID=1436\">Councillor Lisa Brett</a><br />(Liberal Democrats)<br /><img src=\"http://democracy.bathnes.gov.uk/UserData/6/3/4/Info00001436/smallpic.jpg\"/><br />Telephone <br />07787314094<br /><br /></div><br /> <div id=\"myCouncillor\"><a href=\"http://democracy.bathnes.gov.uk/mgUserInfo.aspx?UID=1437\">Councillor Paul Fox</a><br />(Liberal Democrats)<br /><img src=\"http://democracy.bathnes.gov.uk/UserData/7/3/4/Info00001437/smallpic.jpg\"/><br />Telephone <br />07974 328905<br /><br /></div><br /> ", "MapSpurE": 375777.201896, "MapSpurN": 166000.247175, "MapSpurMinE": 375091.802335, "MapSpurMinN": 165356.996303, "MapSpurMaxE": 376462.601458, "MapSpurMaxN": 166643.498046 } } };
         $scope.councilOffices = { "Results": { "____________________________": [{ "Your_nearest_Council_Office_is_": "http://www.bathnes.gov.uk/contact-us/council-offices?office=GUILDHALL|GUILDHALL", "MapSpurE": 375126.002848, "MapSpurN": 164839.004581, "MapSpurMinE": 375126.002848, "MapSpurMinN": 164839.004581, "MapSpurMaxE": 375126.002848, "MapSpurMaxN": 164839.004581, "Distance": 1683.3, "MapSpurX": "0", "MapSpurY": "0" }, { "Your_nearest_Council_Office_is_": "http://www.bathnes.gov.uk/contact-us/council-offices?office=LEWIS HOUSE|LEWIS HOUSE", "MapSpurE": 375229.997804, "MapSpurN": 164541.999598, "MapSpurMinE": 375229.997804, "MapSpurMinN": 164541.999598, "MapSpurMaxE": 375229.997804, "MapSpurMaxN": 164541.999598, "Distance": 1885.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.housingAllowanceZones = { "Results": { "___________": { "Your_Local_Housing_Allowance_Zone_is_": "http://www.bathnes.gov.uk/services/council-tax-benefits-and-grants/benefits/housing-benefit/local-housing-allowance-lha?Bath|Bath", "MapSpurE": 366754.986071, "MapSpurN": 166278.897416, "MapSpurMinE": 345139.968873, "MapSpurMinN": 149656.700470, "MapSpurMaxE": 388370.003269, "MapSpurMaxN": 182901.094362 } } };
-        $scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 27 March</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
+        $scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
     }
     if ($scope.userData && $scope.userData.length == 0) {
         $scope.userData = { uprn: '10001140919', addressSearch: 'Flat 6, 22 Grosvenor Place', firstname: 'Dave', lastname: 'Rowe', email: 'david_rowe@bathnes.gov.uk', phone: '01225477356' };
@@ -657,18 +657,30 @@ angular.module('MyBath.Controllers', [])
 })
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
 
-    $scope.markers = [];
+    $scope.markers = { 
+		m1: { 
+			lat: 51.3821440, 
+			lng: -2.3589420, 
+			layer: 'Guildhall', 
+			message: "I'm the Guildhall" }, 
+		m2: { 
+			lat: 51.3821440, 
+			lng: -2.3579420, 
+			layer: 'Guildhall', 
+			message: "I'm close to the guildhall" }
+		};
 
-    MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
-    .then(function (data) {
-        // check for whether we have postcode results
-        if (data && data != "Failed") {
-            //
-        }
-        else {
-            $scope.markers = data;
-        }
-    });
+
+    //MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
+    //.then(function (data) {
+    //    // check for whether we have postcode results
+    //    if (data && data != "Failed") {
+    //        //
+    //    }
+    //    else {
+    //        // $scope.markers = data;
+    //    }
+    //});
 
     $scope.map = {
         defaults: {
@@ -681,13 +693,13 @@ angular.module('MyBath.Controllers', [])
                 opacity: 1
             }
         },
-        crs: new L.Proj.CRS(
-        'EPSG:27700',
-        '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs',
-        {
-            resolutions: [1600, 800, 400, 200, 100, 50, 25, 10, 5, 2.5, 1, 0.5, 0.25, 0.125, 0.0625]
-        }
-        ),
+        //crs: new L.Proj.CRS(
+        //'EPSG:27700',
+        //'+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs',
+        //{
+         //   resolutions: [1600, 800, 400, 200, 100, 50, 25, 10, 5, 2.5, 1, 0.5, 0.25, 0.125, 0.0625]
+        //}
+        //),
         center: {
             lat: 51.3821440,
             lng: -2.3589420,
@@ -709,10 +721,10 @@ angular.module('MyBath.Controllers', [])
                 }
             },
             overlays: {
-				Schools: {
+				Guildhall: {
 					type: 'group', 
-					name: 'Schools', 
-					visible: false 
+					name: 'Guildhall', 
+					visible: true 
 				}
                 
             }
