@@ -683,6 +683,7 @@ angular.module('MyBath.Controllers', [])
     $scope.map = {
         defaults: {
             tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
+            attributionControl: false,     
             maxZoom: 20,
             zoomControlPosition: 'bottomleft',
             path: {
@@ -697,8 +698,9 @@ angular.module('MyBath.Controllers', [])
             zoom: 18
         },
         layers: {
-            baselayers: {
+            baselayers: { 
                 MapBox: {
+                layerOptions:{attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>'},
                     name: 'Map items of interest',
                     url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
                     type: 'xyz',
