@@ -15,7 +15,15 @@ angular.module('MyBath.MapDataService', [])
 				    if (data && data != []) {
 						for (i = 0; i < data[0].features.length ; i++)
 						{
-							layerData.push({ lat: 51.3821440, lng: -2.3579420, layer: data[0].features[i].properties.layerName, message: data[0].features[i].properties.layerName });
+							var northing = data[0].features[i].geometry.coordinates[0][0];
+							var easting = data[0].features[i].geometry.coordinates[0][1];
+							var titleAndUrl = data[0].features[i].properties.fields._;
+							var title = data[0].features[i].properties.fields._;
+							if (titleAndUrl.indexOf('|') != -1) {
+								title = titleAndUrl.split('|')[1];
+							}
+							var latlng = NEtoLL(northing,easting);
+							layerData.push({ lat: latlng.latitude, lng: latlng.longitude, layer: data[0].properties.layerName, message: title });
 						}
 				    }
 				    else {

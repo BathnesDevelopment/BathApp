@@ -656,26 +656,27 @@ angular.module('MyBath.Controllers', [])
 })
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
 
-    $scope.markers = { 
-		m1: { 
-			lat: 51.3821440, 
-			lng: -2.3589420, 
-			layer: 'Guildhall', 
-			message: "I'm the Guildhall" }, 
-		m2: { 
-			lat: 51.3821440, 
-			lng: -2.3579420, 
-			layer: 'Guildhall', 
-			message: "I'm close to the guildhall" }
-		};
+    $scope.markers = new Array();//{ 
+		//m1: { 
+		//	lat: 51.3821440, 
+		//	lng: -2.3589420, 
+		//	layer: 'Guildhall', 
+		//	message: "I'm the Guildhall" }, 
+		//m2: { 
+		//	lat: 51.3821440, 
+		//	lng: -2.3579420, 
+		//	layer: 'Guildhall', 
+		//	message: "I'm close to the guildhall" }
+		//};
 
     MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
     .then(function (data) {
         if (data && data != "Failed") {
-			$scope.markers = data;
+			for (i = 0; i < data.length ; i++){
+				$scope.markers.push(data[i]);
+			}
         }
         else {
-			$scope.markers = data;
         }
     });
 
@@ -711,12 +712,11 @@ angular.module('MyBath.Controllers', [])
                 }
             },
             overlays: {
-				Guildhall: {
+				Libraries: {
 					type: 'group', 
-					name: 'Guildhall', 
+					name: 'Libraries', 
 					visible: true 
 				}
-                
             }
         },
 		markers: $scope.markers
@@ -882,7 +882,6 @@ function NEtoLL(east, north) {
     var res = proj4('NationalGrid', 'WGS84', [east, north]);
     return { latitude: res[1], longitude: res[0] };
 }
-
 
 function isCouncilConnectHours() {
     // Returns true if it is currently Council Connect Hours
