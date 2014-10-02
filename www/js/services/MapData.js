@@ -23,7 +23,7 @@ angular.module('MyBath.MapDataService', [])
 								title = titleAndUrl.split('|')[1];
 							}
 							var latlng = NEtoLL(northing,easting);
-							layerData.push({ lat: latlng.latitude, lng: latlng.longitude, layer: data[0].properties.layerName, message: title });
+							layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon : { iconUrl: 'images/android-book.png', iconSize: [30,30]}, layer: data[0].properties.layerName, message: title });
 						}
 				    }
 				    else {
