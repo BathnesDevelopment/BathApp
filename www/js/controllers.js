@@ -690,13 +690,6 @@ angular.module('MyBath.Controllers', [])
                 opacity: 1
             }
         },
-        //crs: new L.Proj.CRS(
-        //'EPSG:27700',
-        //'+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +datum=OSGB36 +units=m +no_defs',
-        //{
-         //   resolutions: [1600, 800, 400, 200, 100, 50, 25, 10, 5, 2.5, 1, 0.5, 0.25, 0.125, 0.0625]
-        //}
-        //),
         center: {
             lat: 51.3821440,
             lng: -2.3589420,
