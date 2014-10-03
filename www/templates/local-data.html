@@ -8,7 +8,7 @@
         <div class="list card" ng-repeat="library in librariesNearby.Results">
             <div class="item item-divider">
                 {{library.name}}
-                <p>{{library.Distance}} metres</p>
+                <p>{{mToMi(library.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item" browse-to="http://www.librarieswest.org.uk/explore-our-collections/catalogue-search/">
@@ -27,7 +27,7 @@
         <div class="list card" ng-repeat="library in mobileLibrariesNearby.Results">
             <div class="item item-divider">
                 Nearest village stop: {{library.village}}
-                <p>{{library.Distance}} metres</p>
+                <p>{{mToMi(library.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Time:</b> {{library.timeAdjusted}}<br />
@@ -50,7 +50,7 @@
         <div class="list card" ng-repeat="playschool in playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">
             <div class="item item-divider">
                 Play school: {{playschool._}}
-                <p>{{playschool.Distance}} metres</p>
+                <p>{{mToMi(playschool.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Address:</b> {{playschool.__}} {{playschool.___}} {{playschool.____}}<br />
@@ -66,7 +66,7 @@
         <div class="list card" ng-repeat="primaryschool in primarySchoolsNearby.Results.Primary_Schools_Nearby">
             <div class="item item-divider">
                 Primary school: {{primaryschool.name}}
-                <p>{{primaryschool.Distance}} metres</p>
+                <p>{{mToMi(primaryschool.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Address:</b> {{primaryschool.__}}, {{primaryschool.___}}, {{primaryschool.____}}
@@ -86,7 +86,7 @@
         <div class="list card" ng-repeat="secondaryschool in secondarySchoolsNearby.Results.Secondary_Schools_Nearby">
             <div class="item item-divider">
                 {{secondaryschool.name}}
-                <p>{{secondaryschool.Distance}} metres</p>
+                <p>{{mToMi(secondaryschool.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Address:</b> {{secondaryschool.__}}, {{secondaryschool.___}} {{secondaryschool.____}}
@@ -106,7 +106,7 @@
         <div class="list card" ng-repeat="college in collegesNearby.Results.Colleges_Nearby">
             <div class="item item-divider">
                 {{college._}}
-                <p>{{college.Distance}} metres</p>
+                <p>{{mToMi(college.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Address:</b> {{college.__}}, {{college.___}}, {{college.____}}
@@ -123,7 +123,7 @@
         <div class="list card" ng-repeat="university in universitiesNearby.Results.Universities_Nearby">
             <div class="item item-divider">
                 {{university._}}
-                <p>{{university.Distance}} metres</p>
+                <p>{{mToMi(university.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Address:</b> {{university.__}}, {{university.___}}, {{university.____}}
@@ -141,7 +141,7 @@
         <div class="list card" ng-repeat="roadworks in roadworksNearby.Results.Roadworks_Nearby">
             <div class="item item-divider">
                 {{roadworks.title}}
-                <p>Distance: {{roadworks.Distance}} metres</p>
+                <p>Distance: {{mToMi(roadworks.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 {{roadworks._}}<br />
@@ -165,7 +165,7 @@
         <div class="list card" ng-repeat="busstop in busStops.Results.Bus_Stops_Nearby">
             <div class="item item-divider">
                 {{busstop.Bus_stop_name}}
-                <p>Distance: {{busstop.Distance}} metres</p>
+                <p>Distance: {{mToMi(busstop.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-icon-right">
                 <a class="tab-item" browse-to="http://www.nextbuses.mobi/WebView/BusStopSearch/BusStopSearchResults?id={{busstop.Bus_stop_name}}">
@@ -197,7 +197,7 @@
         <div class="list card" ng-repeat="schoolCrossing in schoolCrossings.Results.School_Crossings_Nearby">
             <div class="item item-divider">
                 {{schoolCrossing.Name_}}
-                <p>Distance: {{schoolCrossing.Distance}} metres</p>
+                <p>Distance: {{mToMi(schoolCrossing.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Location:</b> {{schoolCrossing._}}<br />
@@ -217,7 +217,7 @@
         <div class="list card" ng-repeat="healthcentre in healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
             <div class="item item-divider">
                 {{healthcentre.name}}
-                <p>Distance: {{healthcentre.Distance}} metres</p>
+                <p>Distance: {{mToMi(healthcentre.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-icon-right">
                 <a class="tab-item" browse-to="{{healthcentre.url}}">
@@ -235,7 +235,7 @@
         <div class="list card" ng-repeat="application in planningApplicationsNearby.Results.Planning_Applications_Nearby">
             <div class="item item-divider">
                 Planning reference: {{application.title}}
-                <p>Distance: {{application.Distance}} metres</p>
+                <p>Distance: {{mToMi(application.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 {{application.PROPOSAL}}<br />
@@ -257,7 +257,7 @@
         <div class="list card" ng-repeat="newApplication in newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby" ng-show="newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length">
             <div class="item item-divider">
                 License reference: {{newApplication.title}}
-                <p>Distance: {{newApplication.Distance}} metres</p>
+                <p>Distance: {{mToMi(newApplication.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Who:</b> {{newApplication.Licence}}<br />
@@ -278,7 +278,7 @@
         <div class="list card" ng-repeat="issuedApplication in issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby" ng-show="issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length">
             <div class="item item-divider">
                 Reference: {{issuedApplication.title}}
-                <p>Distance: {{issuedApplication.Distance}} metres</p>
+                <p>Distance: {{mToMi(issuedApplication.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Who:</b> {{issuedApplication.LINK}}<br />
@@ -300,7 +300,7 @@
         <div class="list card" ng-repeat="park in parksNearby.Results.Parks_or_Open_Spaces_Nearby">
             <div class="item item-divider">
                 Park: {{park._}}
-                <p>Distance: {{park.Distance}} metres</p>
+                <p>Distance: {{mToMi(park.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-icon-right">
                 <a class="tab-item" browse-to="geo:0,0?q={{park.lat}},{{park.lon}}({{park._}})">
@@ -314,7 +314,7 @@
         <div class="list card" ng-repeat="playarea in playAreasNearby.Results.Play_Areas_Nearby">
             <div class="item item-divider">
                 Play area: {{playarea._}}
-                <p>Distance: {{playarea.Distance}} metres</p>
+                <p>Distance: {{mToMi(playarea.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-icon-right">
                 <a class="tab-item" browse-to="geo:0,0?q={{playarea.lat}},{{playarea.lon}}({{playarea._}})">
@@ -329,7 +329,7 @@
         <div class="list card" ng-repeat="allotment in allotmentsNearby.Results.Allotments_Nearby">
             <div class="item item-divider">
                 Allotment: {{allotment._}}
-                <p>Distance: {{allotment.Distance}} metres</p>
+                <p>Distance: {{mToMi(allotment.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Provided by:</b> {{allotment.ProvidedAdjusted}}

@@ -426,6 +426,12 @@ angular.module('MyBath.Controllers', [])
         }
 
     };
+    
+    $scope.mToMi =function ( distM ) {
+      // Returns the number of miles, as distance is stored in meters
+      res = distM * 0.000621371192;
+      return res.toFixed(3);
+    };
 
 })
 .controller('LocalDataController', function ($scope, $ionicSideMenuDelegate) {
