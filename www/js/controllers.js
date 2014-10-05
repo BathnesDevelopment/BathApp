@@ -281,7 +281,6 @@ angular.module('MyBath.Controllers', [])
 			});
     };
 
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: options
     // Displays the options menu
@@ -337,7 +336,58 @@ angular.module('MyBath.Controllers', [])
     $scope.showPopup = function (title, message) {
         var alertPopup = $ionicPopup.alert({
             title: title,
-            template: message
+            template: message,
+            buttons: [ {
+                text: 'OK',
+                type: 'button-clear button-positive'
+            }]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: showCouncilConnectPopup
+    // A popup for council connect 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.showCouncilConnectPopup = function () {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Council Connect',
+            template: 'Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    type: 'button-clear'
+                },
+                {
+                    text: 'Call',
+                    type: 'button-clear button-positive',
+                    onTap: function (e) {
+                    }
+                },
+            ]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: showCouncilConnectPopupOutOfHours
+    // A popup for council connect 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.showCouncilConnectPopupOutOfHours = function () {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Out of Hours',
+            template: 'Council connect details',
+            buttons: [
+                { text: 'Cancel' },
+                {
+                    text: 'Save',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                    }
+                },
+            ]
         });
         alertPopup.then(function (res) {
         });
@@ -398,19 +448,6 @@ angular.module('MyBath.Controllers', [])
         navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: councilConnectHelper
-    // Phones Council Connect during office hours.
-    // Provides information when it's closed.
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.councilConnectPopup = function () {
-        //if (isCouncilConnectHours()){
-        //  window.location.href="tel://01225394041"
-        //} else {
-        $scope.showPopup('Council Connect', 'Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.<br /><br /><b>Opening hours are 9:30-6 on a Wednesday or 8 - 6 on any other weekday.</b><br /><br />Outside of office hours there are various pre-recorded messages and email options available for you to access more information or report an emergency.<br /><br /><table><tr><td style="text-align: center; vertical-align: middle;"><a class="tab-item" ng-click="emailCouncilConnect()" ><i class="icon royal ion-at"></i></a></td>    <td>Tap the @ icon to email council connect with your query.<br /></td></tr>  <tr>    <td style="text-align: center; vertical-align: middle;"><a class="tab-item" href="tel:01225394041"><i class="icon balanced ion-ios7-telephone"></i></a></td>    <td>Tap the phone icon to call council connect.</td>  </tr></table>         ');
-        //}
-    };
-
     $scope.emailCouncilConnect = function () {
         // documentation: https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
         try {
@@ -427,10 +464,10 @@ angular.module('MyBath.Controllers', [])
 
     };
     
-    $scope.mToMi =function ( distM ) {
+    $scope.mToMi = function ( distM ) {
       // Returns the number of miles, as distance is stored in meters
       res = distM * 0.000621371192;
-      return res.toFixed(3);
+      return res.toFixed(1);
     };
 
 })
@@ -662,20 +699,9 @@ angular.module('MyBath.Controllers', [])
 })
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
 
-    $scope.markers = new Array();//{ 
-		//m1: { 
-		//	lat: 51.3821440, 
-		//	lng: -2.3589420, 
-		//	layer: 'Guildhall', 
-		//	message: "I'm the Guildhall" }, 
-		//m2: { 
-		//	lat: 51.3821440, 
-		//	lng: -2.3579420, 
-		//	layer: 'Guildhall', 
-		//	message: "I'm close to the guildhall" }
-		//};
+    $scope.markers = new Array();
 
-    MapData.layer("http://isharemaps.bathnes.gov.uk//MapGetImage.aspx?Type=json&MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&ActiveLayer=Libraries&mapid=-1&axuid=1412112591177&SearchType=findMyNearest&Distance=16094&MaxResults=50&Easting=375123.8049001&Northing=164590.70835023&_=1412112591178")
+    MapData.getLayer("libraries")
     .then(function (data) {
         if (data && data != "Failed") {
 			for (i = 0; i < data.length ; i++){
