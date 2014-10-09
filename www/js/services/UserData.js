@@ -37,6 +37,9 @@ angular.module('MyBath.UserDataService', [])
 				    return "Failed";
 				});
             return addressData_q.promise;
+        },
+        clear: function () {
+            window.localStorage.removeItem('UserData');
         }
     }
 })
