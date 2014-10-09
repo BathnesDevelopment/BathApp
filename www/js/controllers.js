@@ -371,6 +371,19 @@ angular.module('MyBath.Controllers', [])
         });
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////    
+    // Function: deleteReport
+    // Removes a single user report
+    /////////////////////////////////////////////////////////////////////////////////////////////
+     $scope.deleteReport = function( index ){
+            console.log(index);
+            if ($scope.reports[index]) {
+                $scope.reports.splice(index, 1);
+                Reports.saveReports($scope.reports);
+                console.log($scope.reports);
+            }
+        }
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
     // A popup for council connect 
