@@ -973,15 +973,19 @@ function isCouncilConnectHours() {
 }
 
 function URLtoBase64 ( url ) {
+    return url;
+    // Same origin means we can't do this atm. Might find a solution later
     // uses a canvas element to store an image as a base 64 URL
     var canvas = document.createElement("canvas");
-    img = new Image();
+    var img = new Image();
     img.src = url;
     canvas.height = img.height; 
     canvas.width = img.width;
-    canvas.getContext("2d").drawImage(img, 0, 0);
 
-    res = canvas.toDataURL("image/jpeg");
+    var cc = canvas.getContext("2d");
+    cc.drawImage(img, 0, 0);
+
+    var res = canvas.toDataURL("image/jpeg");
     canvas.remove();
     return res;
 }
