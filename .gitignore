@@ -44,3 +44,4 @@ platforms/
 plugins/
 .ToDo.txt
 test.js
+build.bat

@@ -39,11 +39,11 @@
             <b>{{councillor.number1}}</b> <br />
             {{councillor.telephone1}}
         </div>
-        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone1">
-            <a class="tab-item" browse-to="tel:{{councillor.telephone1}}">
+        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone1 || councillor.info1">
+            <a class="tab-item" ng-show="councillor.telephone1" browse-to="tel:{{councillor.telephone1}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
-            <a class="tab-item" browse-to="{{councillor.info1}}">
+            <a class="tab-item" ng-show="councillor.info1" browse-to="{{councillor.info1}}">
                 <i class="icon ion-person assertive"></i> More details
             </a>
         </div>
@@ -51,11 +51,11 @@
             <b>{{councillor.number2}}</b> <br />
             {{councillor.telephone2}}
         </div>
-        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone2">
-            <a class="tab-item" browse-to="tel:{{councillor.telephone2}}">
+        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone2 || councillor.info2">
+            <a class="tab-item" ng-show="councillor.telephone2" browse-to="tel:{{councillor.telephone2}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
-            <a class="tab-item" browse-to="{{councillor.info2}}">
+            <a class="tab-item" ng-show="councillor.info2" browse-to="{{councillor.info2}}">
                 <i class="icon ion-person assertive"></i> More details
             </a>
         </div>
@@ -63,11 +63,11 @@
             <b>{{councillor.number3}}</b> <br />
             {{councillor.telephone3}}
         </div>
-        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3">
-            <a class="tab-item" browse-to="tel:{{councillor.telephone3}}">
+        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3 || councillor.info3">
+            <a class="tab-item" ng-show="councillor.telephone3" browse-to="tel:{{councillor.telephone3}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
-            <a class="tab-item" browse-to="{{councillor.info2}}">
+            <a class="tab-item" ng-show="councillor.info3" browse-to="{{councillor.info3}}">
                 <i class="icon ion-person assertive"></i> More details
             </a>
         </div>
