@@ -36,8 +36,11 @@
             Contact details
         </div>
         <div class="item item-body" ng-show="councillor.number1">
-            <b>{{councillor.number1}}</b> <br />
-            {{councillor.telephone1}}
+            <table><tr>
+                <td><img ng-src="{{councillor.img1}}"></img></td>
+                <td><b>{{councillor.number1}}</b> <br />
+                {{councillor.telephone1}}</td>
+            </tr></table>
         </div>
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone1 || councillor.info1">
             <a class="tab-item" ng-show="councillor.telephone1" browse-to="tel:{{councillor.telephone1}}">
@@ -48,8 +51,11 @@
             </a>
         </div>
         <div class="item item-body" ng-show="councillor.number2">
-            <b>{{councillor.number2}}</b> <br />
-            {{councillor.telephone2}}
+            <table><tr>
+                <td><img ng-src="{{councillor.img2}}"></img></td>
+                <td><b>{{councillor.number2}}</b><br />
+                {{councillor.telephone2}}</td>
+            </tr></table>
         </div>
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone2 || councillor.info2">
             <a class="tab-item" ng-show="councillor.telephone2" browse-to="tel:{{councillor.telephone2}}">
@@ -60,8 +66,11 @@
             </a>
         </div>
         <div class="item item-body" ng-show="councillor.number3">
-            <b>{{councillor.number3}}</b> <br />
-            {{councillor.telephone3}}
+            <table><tr>
+                <td><img ng-src="{{councillor.img3}}"></img></td>
+                <td><b>{{councillor.number3}}</b> <br />
+                {{councillor.telephone3}}</td>
+            </tr></table>
         </div>
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3 || councillor.info3">
             <a class="tab-item" ng-show="councillor.telephone3" browse-to="tel:{{councillor.telephone3}}">

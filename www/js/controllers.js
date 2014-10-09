@@ -366,6 +366,7 @@ angular.module('MyBath.Controllers', [])
                 BathData.clear();
                 $scope.userData = {};
                 $scope.bathData = {};
+                $state.go('menu.home'); //TODO: Change this to the "new user screen, possibly - when added"
             }
         });
     }
@@ -800,40 +801,43 @@ angular.module('MyBath.Controllers', [])
         var doc = new DOMParser().parseFromString(string, 'text/html');
 
         var councillors = doc.querySelectorAll('div#myCouncillor a');
-        var telAndParty = doc.querySelectorAll('div#myCouncillor');
+        var councillorInfo = doc.querySelectorAll('div#myCouncillor');
 
         if (councillors[0]) {
             var tel = "";
             var party = "";
 
-            if (telAndParty[0] && telAndParty[0].innerText.indexOf('Telephone') != -1) {
-                tel = telAndParty[0].innerText.split('Telephone ')[1];
+            if (councillorInfo[0] && councillorInfo[0].innerText.indexOf('Telephone') != -1) {
+                tel = councillorInfo[0].innerText.split('Telephone ')[1];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number1 = councillors[0].innerHTML;
             $scope.yourCouncillors.Results.Your_Councillors.info1 = councillors[0].href;
             $scope.yourCouncillors.Results.Your_Councillors.telephone1 = tel;
+            $scope.yourCouncillors.Results.Your_Councillors.img1 = URLtoBase64(councillorInfo[0].getElementsByTagName('img')[0].src);
         }
         if (councillors[1]) {
             var tel = "";
             var party = "";
 
-            if (telAndParty[1] && telAndParty[1].innerText.indexOf('Telephone') != -1) {
-                tel = telAndParty[1].innerText.split('Telephone ')[1];
+            if (councillorInfo[1] && councillorInfo[1].innerText.indexOf('Telephone') != -1) {
+                tel = councillorInfo[1].innerText.split('Telephone ')[1];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number2 = councillors[1].innerHTML;
             $scope.yourCouncillors.Results.Your_Councillors.info2 = councillors[1].href;
             $scope.yourCouncillors.Results.Your_Councillors.telephone2 = tel;
+            $scope.yourCouncillors.Results.Your_Councillors.img2 = URLtoBase64(councillorInfo[1].getElementsByTagName('img')[0].src);
         }
         if (councillors[2]) {
             var tel = "";
             var party = "";
 
-            if (telAndParty[2] && telAndParty[2].innerText.indexOf('Telephone') != -1) {
-                tel = telAndParty[2].innerText.split('Telephone ')[1];
+            if (councillorInfo[2] && councillorInfo[2].innerText.indexOf('Telephone') != -1) {
+                tel = councillorInfo[2].innerText.split('Telephone ')[1];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number3 = councillors[3].innerHTML;
             $scope.yourCouncillors.Results.Your_Councillors.info3 = councillors[3].href;
             $scope.yourCouncillors.Results.Your_Councillors.telephone3 = tel;
+            $scope.yourCouncillors.Results.Your_Councillors.img3 = URLtoBase64(councillorInfo[1].getElementsByTagName('img')[0].src);
         }
     }
 
@@ -966,4 +970,18 @@ function isCouncilConnectHours() {
 
     return true;
     $scope.$digest();
+}
+
+function URLtoBase64 ( url ) {
+    // uses a canvas element to store an image as a base 64 URL
+    var canvas = document.createElement("canvas");
+    img = new Image();
+    img.src = url;
+    canvas.height = img.height; 
+    canvas.width = img.width;
+    canvas.getContext("2d").drawImage(img, 0, 0);
+
+    res = canvas.toDataURL("image/jpeg");
+    canvas.remove();
+    return res;
 }
