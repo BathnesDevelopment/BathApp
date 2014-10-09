@@ -21,7 +21,7 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // TEST DATA - For use when testing in browser
     /////////////////////////////////////////////////////////////////////////////////////////////
-    if ($scope.bathdata && $scope.bathdata.length == 0) {
+    /*if ($scope.bathdata && $scope.bathdata.length == 0) {
         //$scope.playSchoolsNearby = { "Results": { "Nurseries Pre Schools and Out of School Childcare Nearby": [{ "_": "SNAPDRAGONS DAY NURSERY", "__": "4 GROSVENOR PLACE", "___": null, "____": "BA1 6AX", "MapSpurE": 376033.000794, "MapSpurN": 166172.003014, "MapSpurMinE": 376033.000794, "MapSpurMinN": 166172.003014, "MapSpurMaxE": 376033.000794, "MapSpurMaxN": 166172.003014, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "APPLE TREE DAY NURSERY", "__": "SPRING LANE", "___": "LARKHALL", "____": "BA1 6NY", "MapSpurE": 375794.998861, "MapSpurN": 166774.000694, "MapSpurMinE": 375794.998861, "MapSpurMinN": 166774.000694, "MapSpurMaxE": 375794.998861, "MapSpurMaxN": 166774.000694, "Distance": 625.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Busy Bees Pre-school (Bath)", "__": "St Marks School", "___": "Baytree Road", "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.primarySchoolsNearby = { "Results": { "Primary_Schools_Nearby": [{ "_": "http://www.st-saviours-jun.bathnes.sch.uk|St Saviours CofE Junior School", "__": "Brookleaze Place", "___": "Larkhall", "____": "BA1 6RB", "MapSpurE": 375956.997821, "MapSpurN": 166668.001036, "MapSpurMinE": 375956.997821, "MapSpurMinN": 166668.001036, "MapSpurMaxE": 375956.997821, "MapSpurMaxN": 166668.001036, "Distance": 465.5, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-saviours-inf.bathnes.sch.uk|St Saviours CofE Infant School", "__": "Spring Lane", "___": "Larkhall", "____": "BA1 6NY", "MapSpurE": 375844.436247, "MapSpurN": 166670.970186, "MapSpurMinE": 375844.436247, "MapSpurMinN": 166670.970186, "MapSpurMaxE": 375844.436247, "MapSpurMaxN": 166670.970186, "Distance": 511.2, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Bathwick St Mary Church of England Primary School", "__": "Darlington Road", "___": null, "____": "BA2 6NN", "MapSpurE": 376034.996099, "MapSpurN": 165538.004494, "MapSpurMinE": 376034.996099, "MapSpurMinN": 165538.004494, "MapSpurMaxE": 376034.996099, "MapSpurMaxN": 165538.004494, "Distance": 685, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.secondarySchoolsNearby = { "Results": { "Secondary_Schools_Nearby": [{ "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.beechencliff.bathnes.sch|Beechen Cliff School", "__": "Alexandra Park", "___": null, "____": "BA2 4RE", "MapSpurE": 375015.997243, "MapSpurN": 163750.996020, "MapSpurMinE": 375015.997243, "MapSpurMinN": 163750.996020, "MapSpurMaxE": 375015.997243, "MapSpurMaxN": 163750.996020, "Distance": 2692.2, "MapSpurX": "0", "MapSpurY": "0" }] } };
@@ -45,7 +45,7 @@ angular.module('MyBath.Controllers', [])
         $scope.councilOffices = { "Results": { "____________________________": [{ "Your_nearest_Council_Office_is_": "http://www.bathnes.gov.uk/contact-us/council-offices?office=GUILDHALL|GUILDHALL", "MapSpurE": 375126.002848, "MapSpurN": 164839.004581, "MapSpurMinE": 375126.002848, "MapSpurMinN": 164839.004581, "MapSpurMaxE": 375126.002848, "MapSpurMaxN": 164839.004581, "Distance": 1683.3, "MapSpurX": "0", "MapSpurY": "0" }, { "Your_nearest_Council_Office_is_": "http://www.bathnes.gov.uk/contact-us/council-offices?office=LEWIS HOUSE|LEWIS HOUSE", "MapSpurE": 375229.997804, "MapSpurN": 164541.999598, "MapSpurMinE": 375229.997804, "MapSpurMinN": 164541.999598, "MapSpurMaxE": 375229.997804, "MapSpurMaxN": 164541.999598, "Distance": 1885.1, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.housingAllowanceZones = { "Results": { "___________": { "Your_Local_Housing_Allowance_Zone_is_": "http://www.bathnes.gov.uk/services/council-tax-benefits-and-grants/benefits/housing-benefit/local-housing-allowance-lha?Bath|Bath", "MapSpurE": 366754.986071, "MapSpurN": 166278.897416, "MapSpurMinE": 345139.968873, "MapSpurMinN": 149656.700470, "MapSpurMaxE": 388370.003269, "MapSpurMaxN": 182901.094362 } } };
         $scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
-    }
+    }*/
     //if ($scope.userData && $scope.userData.length == 0) {
     //    $scope.userData = { uprn: '10001140919', addressSearch: 'Flat 6, 22 Grosvenor Place', firstname: 'Dave', lastname: 'Rowe', email: 'david_rowe@bathnes.gov.uk', phone: '01225477356' };
     //    $scope.uprn = true;
@@ -113,6 +113,8 @@ angular.module('MyBath.Controllers', [])
         $scope.displayOptionsModal.show();
     };
     $scope.closeDisplayOptions = function () {
+        // Save
+        window.localStorage['UserData'] = angular.toJson($scope.userData);
         $scope.displayOptionsModal.hide();
     };
 
@@ -355,8 +357,17 @@ angular.module('MyBath.Controllers', [])
     // Removes the user's registered data
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.deleteData = function () {
-        UserData.clear();
-        $scope.userData = {};
+        $ionicPopup.confirm({
+            title: 'Clear data',
+            template: 'This will clear all stored data on the app.'
+        }).then(function(res) {
+            if(res) {
+                UserData.clear();
+                BathData.clear();
+                $scope.userData = {};
+                $scope.bathData = {};
+            }
+        });
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -750,7 +761,7 @@ angular.module('MyBath.Controllers', [])
                     url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
                     type: 'xyz',
                     maxZoom: 20,
-                    zoomControlPosition: 'bottomleft',
+                    zoomControlPosicloseDisplayOptionscloseDisplayOptionscion: 'bottomleft',
                     path: {
                         weight: 10,
                         color: '#800000',

@@ -113,6 +113,9 @@ angular.module('MyBath.BathDataService', [])
             }, function (error) {
 				return [];
 			});
-		}
+		},
+        clear: function () {
+            window.localStorage.removeItem('BathData');
+        }
     }
 });
