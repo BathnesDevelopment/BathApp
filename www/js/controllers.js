@@ -843,10 +843,17 @@ angular.module('MyBath.Controllers', [])
     }
 
     if ($scope.yourCouncillors && $scope.yourCouncillors.Results) {
+        var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9]{4} ?[0-9]{6}/
         var string = '<!DOCTYPE html><html><head></head><body>' + $scope.yourCouncillors.Results.Your_Councillors._ + '</body></html>';
         var doc = new DOMParser().parseFromString(string, 'text/html');
 
-        var councillors = doc.querySelectorAll('div#myCouncillor a');
+        var councillorList = doc.querySelectorAll('div#myCouncillor a');
+        var councillors = []; // Some councillors have more than one URL returned from ishare
+        for (var i = 0; i < councillorList.length; i++) {
+            if ( councillorList[i].toString().search("democracy.bathnes")  != -1 ) {
+                councillors.push(councillorList[i]);
+             }
+        };
         var councillorInfo = doc.querySelectorAll('div#myCouncillor');
 
         if (councillors[0]) {
@@ -854,7 +861,7 @@ angular.module('MyBath.Controllers', [])
             var party = "";
 
             if (councillorInfo[0] && councillorInfo[0].innerText.indexOf('Telephone') != -1) {
-                tel = councillorInfo[0].innerText.split('Telephone ')[1];
+                tel = phoneNumbers.exec(councillorInfo[0].innerText)[0];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number1 = councillors[0].innerHTML;
             $scope.yourCouncillors.Results.Your_Councillors.info1 = councillors[0].href;
@@ -866,7 +873,7 @@ angular.module('MyBath.Controllers', [])
             var party = "";
 
             if (councillorInfo[1] && councillorInfo[1].innerText.indexOf('Telephone') != -1) {
-                tel = councillorInfo[1].innerText.split('Telephone ')[1];
+                tel = phoneNumbers.exec(councillorInfo[1].innerText)[0];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number2 = councillors[1].innerHTML;
             $scope.yourCouncillors.Results.Your_Councillors.info2 = councillors[1].href;
@@ -878,7 +885,7 @@ angular.module('MyBath.Controllers', [])
             var party = "";
 
             if (councillorInfo[2] && councillorInfo[2].innerText.indexOf('Telephone') != -1) {
-                tel = councillorInfo[2].innerText.split('Telephone ')[1];
+                tel = phoneNumbers.exec(councillorInfo[2].innerText)[0];
             }
             $scope.yourCouncillors.Results.Your_Councillors.number3 = councillors[3].innerHTML;
             $scope.yourCouncillors.Results.Your_Councillors.info3 = councillors[3].href;
