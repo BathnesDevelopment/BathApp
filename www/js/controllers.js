@@ -293,11 +293,15 @@ angular.module('MyBath.Controllers', [])
     // Displays the options menu
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.options = function () {
+        var refreshText = '';
+        if ($scope.userData.uprn != undefined) {
+            refreshText = 'Refresh data';
+        }
         var optionsSheet = $ionicActionSheet.show({
             buttons: [
 				{ text: 'Register' },
                 { text: 'View instructions' },
-                { text: 'Refresh data' },
+                { text: refreshText },
                 { text: '' }],
             destructiveText: 'Clear data',
             titleText: 'App options',
@@ -307,10 +311,33 @@ angular.module('MyBath.Controllers', [])
                     // either registering or un-registering
                     $scope.register();
                 }
+                
+                if ( index == 2 && $scope.userData.uprn != undefined ) {
+                    //Refresh data
+                   $ionicLoading.show({
+                        template: 'Fetching data...'
+                    });
+                    BathData.fetchAll($scope.userData.uprn)
+                        .then(function (data) {
+                            if (data && data != []) {
+                                $scope.bathdata = data;
+                                $ionicLoading.hide();
+                            }
+                            else {
+                                $ionicLoading.hide();
+                                $ionicPopup.alert({
+                                    title: 'Error downloading data',
+                                    content: 'Please check connection and try again.'
+                                }).then(function (res) {
+                                });
+                            }
+                    });                 
+                }
                 return true;
             },
             destructiveButtonClicked: function () {
-                return $scope.deleteData();
+                $scope.deleteData();
+                return true;
             }       
         });
     };
