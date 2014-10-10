@@ -1024,15 +1024,11 @@ function isCouncilConnectHours() {
     var m = time.getMinutes()
     var d = time.getDay();
 
-    if (d == 0 || d == 6) { // weekend
+    if (d == 0 || d == 6 || h < 8 || h > 18) { // weekend or closed hours
         return false;
     }
 
     if (d == 3 && (h < 9 || (h == 9 && m < 30))) { // Wednesday
-        return false;
-    }
-
-    if (h < 8 || h > 18) {
         return false;
     }
 
@@ -1041,7 +1037,7 @@ function isCouncilConnectHours() {
 }
 
 function URLtoBase64 ( url ) {
-    return url;
+    //return url;
     // Same origin means we can't do this atm. Might find a solution later
     // uses a canvas element to store an image as a base 64 URL
     var canvas = document.createElement("canvas");
@@ -1054,6 +1050,7 @@ function URLtoBase64 ( url ) {
     cc.drawImage(img, 0, 0);
 
     var res = canvas.toDataURL("image/jpeg");
+    console.log(res);
     canvas.remove();
     return res;
 }
