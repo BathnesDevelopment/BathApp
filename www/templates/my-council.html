@@ -79,7 +79,7 @@
     <div class="list card" ng-repeat="office in councilOffices.Results.____________________________">
         <div class="item item-divider">
             {{office.title}}
-            <p>Distance: {{office.Distance}}</p>
+            <p>Distance: {{mToMi(office.Distance)}} miles</p>
         </div>
         <div class="item tabs tabs-icon-right">
             <a class="tab-item" browse-to="{{office.url}}">

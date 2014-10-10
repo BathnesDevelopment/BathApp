@@ -10,6 +10,7 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
     $scope.userData = UserData.all();
+    wa = $scope.userData.LocalHidden;
     $scope.uprn = $scope.userData.uprn;
     $scope.reports = Reports.getReports();
     $scope.currentLocation = null;
@@ -47,13 +48,12 @@ angular.module('MyBath.Controllers', [])
         $scope.housingAllowanceZones = { "Results": { "___________": { "Your_Local_Housing_Allowance_Zone_is_": "http://www.bathnes.gov.uk/services/council-tax-benefits-and-grants/benefits/housing-benefit/local-housing-allowance-lha?Bath|Bath", "MapSpurE": 366754.986071, "MapSpurN": 166278.897416, "MapSpurMinE": 345139.968873, "MapSpurMinN": 149656.700470, "MapSpurMaxE": 388370.003269, "MapSpurMaxN": 182901.094362 } } };
         $scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
     }*/
-    //if ($scope.userData && $scope.userData.length == 0) {
-    //    $scope.userData = { uprn: '10001140919', addressSearch: 'Flat 6, 22 Grosvenor Place', firstname: 'Dave', lastname: 'Rowe', email: 'david_rowe@bathnes.gov.uk', phone: '01225477356' };
-    //    $scope.uprn = true;
-    //}
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // </END TEST DATA>
-    /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    if ($scope.userData && $scope.userData.length == 0) {
+        //Defaults for LocalHidden
+        $scope.userData = {"LocalHidden": {Libraries: true, Schools: true, Roadworks: true, Bus: true, CarPark: true, Allotments: true, Bus: true, CarPark: true, Crossings: true, Libraries: true, Licenses: false, ParksAndRec: true, Planning: false, Roadworks: true, Schools: true, Sports: true}};
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
@@ -270,7 +270,7 @@ angular.module('MyBath.Controllers', [])
             template: 'Fetching data...'
         });
         $scope.uprn = uId;
-        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone });
+        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "LocalHidden": {Libraries: true, Schools: true, Roadworks: true, Bus: true, CarPark: true, Allotments: true, Bus: true, CarPark: true, Crossings: true, Libraries: true, Licenses: false, ParksAndRec: true, Planning: false, Roadworks: true, Schools: true, Sports: true}});
         $scope.userData = UserData.all();
         BathData.fetchAll(uId)
 			.then(function (data) {
@@ -519,8 +519,13 @@ angular.module('MyBath.Controllers', [])
         navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: emailCouncilConnect
+    // Test function to email Council Connect with the report
+    // Uses https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
+    // This will be replaced at some point
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.emailCouncilConnect = function () {
-        // documentation: https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
         try {
             window.plugin.email.open({
                 to: ['councilconnect@bathnes.gov.uk'],
@@ -535,8 +540,11 @@ angular.module('MyBath.Controllers', [])
 
     };
     
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: mToMi
+    // Converts meters to miles to an accuracy of 1 decimal place 
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.mToMi = function ( distM ) {
-      // Returns the number of miles, as distance is stored in meters
       res = distM * 0.000621371192;
       return res.toFixed(1);
     };
