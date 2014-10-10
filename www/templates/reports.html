@@ -16,12 +16,11 @@
                     <i class="icon ion-paper-airplane"></i>
                     Send report
                 </a>
-                <a class="tab-item" ng-click="deleteReport($index)"
-                >
+                <a class="tab-item" ng-click="deleteReport($index)">
                     <i class="icon ion-trash-a"></i>
                     Delete
                 </a>
-                <a class="tab-item" browse-to="geo:0,0?q={{report.lat}},{{report.lon}}">
+                <a class="tab-item" ng-show = "report.useUserLocation" browse-to="geo:0,0?q={{report.lat}},{{report.long}}">
                     <i class="icon ion-map"></i>
                     View map
                 </a>
