@@ -36,11 +36,8 @@
             Contact details
         </div>
         <div class="item item-body" ng-show="councillor.number1">
-            <table><tr>
-                <td><img ng-src="{{councillor.img1}}"></img></td>
-                <td><b>{{councillor.number1}}</b> <br />
-                {{councillor.telephone1}}</td>
-            </tr></table>
+            <img ng-src="{{councillor.img1}}"></img><b>{{councillor.number1}}</b> <br />
+            {{councillor.telephone1}}
         </div>
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone1 || councillor.info1">
             <a class="tab-item" ng-show="councillor.telephone1" browse-to="tel:{{councillor.telephone1}}">
@@ -51,11 +48,9 @@
             </a>
         </div>
         <div class="item item-body" ng-show="councillor.number2">
-            <table><tr>
-                <td><img ng-src="{{councillor.img2}}"></img></td>
-                <td><b>{{councillor.number2}}</b><br />
-                {{councillor.telephone2}}</td>
-            </tr></table>
+            <img ng-src="{{councillor.img2}}"></img>
+            <b>{{councillor.number2}}</b><br />
+                {{councillor.telephone2}}
         </div>
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone2 || councillor.info2">
             <a class="tab-item" ng-show="councillor.telephone2" browse-to="tel:{{councillor.telephone2}}">
@@ -66,11 +61,9 @@
             </a>
         </div>
         <div class="item item-body" ng-show="councillor.number3">
-            <table><tr>
-                <td><img ng-src="{{councillor.img3}}"></img></td>
-                <td><b>{{councillor.number3}}</b> <br />
-                {{councillor.telephone3}}</td>
-            </tr></table>
+            <img ng-src="{{councillor.img3}}"></img>
+            <b>{{councillor.number3}}</b> <br />
+                {{councillor.telephone3}}
         </div>
         <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3 || councillor.info3">
             <a class="tab-item" ng-show="councillor.telephone3" browse-to="tel:{{councillor.telephone3}}">
