@@ -326,6 +326,7 @@
     <div ng-show="userData.LocalHidden.Allotments">
         <h3>Allotments</h3>
         <p ng-show="!uprn">No location set</p>
+        <p ng-show="allotmentsOutsideBath">For allotment queries outside Bath, please contact your local Parish Council.</p>
         <div class="list card" ng-repeat="allotment in allotmentsNearby.Results.Allotments_Nearby">
             <div class="item item-divider">
                 Allotment: <span ng-bind-html="allotment._"></span>
