@@ -26,12 +26,12 @@
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="library in mobileLibrariesNearby.Results">
             <div class="item item-divider">
-                Nearest village stop: {{library.village}}
+                Nearest village stop: <span ng-bind-html="library.village"></span>
                 <p>{{mToMi(library.Distance)}} miles</p>
             </div>
             <div class="item item-body">
                 <b>Time:</b> {{library.timeAdjusted}}<br />
-                <b>Stop:</b> {{library.stop}}<br />
+                <b>Stop:</b> <span ng-bind-html="library.stop"></span><br />
                 <b>Day:</b> {{library.day}}<br />
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
@@ -168,8 +168,8 @@
                 <p>Distance: {{mToMi(busstop.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-icon-right">
-                <a class="tab-item" browse-to="http://www.nextbuses.mobi/WebView/BusStopSearch/BusStopSearchResults?id={{busstop.Bus_stop_name}}">
-                    <i class="icon ion-android-locate assertive"></i> Timetable
+                <a class="tab-item" browse-to="http://www.nextbuses.mobi/WebView/BusStopSearch/BusStopSearchResults?id={{userData.addressSearch}}">
+                    <i class="icon ion-android-locate assertive"></i> Timetable Search
                 </a>
                 <a class="tab-item" browse-to="geo:0,0?q={{busstop.lat}},{{busstop.lon}}({{busstop.Bus_stop_name}})">
                     <i class="icon ion-map calm"></i> Map
@@ -196,11 +196,11 @@
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="schoolCrossing in schoolCrossings.Results.School_Crossings_Nearby">
             <div class="item item-divider">
-                {{schoolCrossing.Name_}}
+                <span ng-bind-html="schoolCrossing.Name_"></span>
                 <p>Distance: {{mToMi(schoolCrossing.Distance)}} miles</p>
             </div>
             <div class="item item-body">
-                <b>Location:</b> {{schoolCrossing._}}<br />
+                <b>Location:</b> <span ng-bind-html="schoolCrossing._"</span><br />
                 <b>Morning times:</b> {{schoolCrossing.Morning__times}}<br />
                 <b>Afternoon times:</b> {{schoolCrossing.Afternoon___times}}<br />
             </div>
@@ -260,7 +260,7 @@
                 <p>Distance: {{mToMi(newApplication.Distance)}} miles</p>
             </div>
             <div class="item item-body">
-                <b>Who:</b> {{newApplication.Licence}}<br />
+                <b>Who:</b><span ng-bind-html="newApplication.Licence"></span><br />
                 <b>Address:</b> {{newApplication.Address}}
             </div>
             <div class="item tabs tabs-icon-right">
@@ -281,7 +281,7 @@
                 <p>Distance: {{mToMi(issuedApplication.Distance)}} miles</p>
             </div>
             <div class="item item-body">
-                <b>Who:</b> {{issuedApplication.LINK}}<br />
+                <b>Who:</b> <span ng-bind-html="issuedApplication.LINK"></span><br />
                 <b>Address:</b> {{issuedApplication.Address}}
             </div>
             <div class="item tabs tabs-icon-right">

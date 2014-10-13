@@ -546,7 +546,10 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.mToMi = function ( distM ) {
       res = distM * 0.000621371192;
-      return res.toFixed(1);
+      if (res > 1 {
+        return res.toFixed(1);
+      }
+      return res.toFixed(2);
     };
 
         /////////////////////////////////////////////////////////////////////////////////////////////
