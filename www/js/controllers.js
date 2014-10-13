@@ -909,6 +909,7 @@ angular.module('MyBath.Controllers', [])
                  }
             };
             var councillorInfo = doc.querySelectorAll('div#myCouncillor');
+
             if (councillors[0]) {
                 var tel = "";
                 var party = "";
@@ -948,7 +949,15 @@ angular.module('MyBath.Controllers', [])
         }
 
         if ($scope.councilOffices && $scope.councilOffices.Results) {
-            for (i = 0; i < $scope.councilOffices.Results.____________________________.length ; i++) {
+            // if iShare returns just one, then this fails. Re-jig the object to be a new object holding the old one
+            // Example: BA3 3UD
+            if (typeof $scope.councilOffices.Results.____________________________.length === typeof undefined){
+                res = $scope.councilOffices.Results.____________________________;
+                $scope.councilOffices.Results.____________________________ = new Object();
+                $scope.councilOffices.Results.____________________________[0] = res;
+                $scope.councilOffices.Results.____________________________.length = 1; // for iteration below
+            }
+            for (i = 0; i < $scope.councilOffices.Results.____________________________.length; i++) {
                 $scope.councilOffices.Results.____________________________[i].title = $scope.councilOffices.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[1].replace('amp;', '');
                 $scope.councilOffices.Results.____________________________[i].url = $scope.councilOffices.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[0].replace('amp;', '');
                 var geo = NEtoLL($scope.councilOffices.Results.____________________________[i].MapSpurE, $scope.councilOffices.Results.____________________________[i].MapSpurN);
