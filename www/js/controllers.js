@@ -897,7 +897,7 @@ angular.module('MyBath.Controllers', [])
         }
 
         if ($scope.yourCouncillors && $scope.yourCouncillors.Results) {
-            var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9]{4} ?[0-9]{6}/
+            var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9 ]{7,12}/
             var string = '<!DOCTYPE html><html><head></head><body>' + $scope.yourCouncillors.Results.Your_Councillors._ + '</body></html>';
             var doc = new DOMParser().parseFromString(string, 'text/html');
 
@@ -909,7 +909,6 @@ angular.module('MyBath.Controllers', [])
                  }
             };
             var councillorInfo = doc.querySelectorAll('div#myCouncillor');
-
             if (councillors[0]) {
                 var tel = "";
                 var party = "";
