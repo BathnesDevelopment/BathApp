@@ -10,7 +10,6 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
     $scope.userData = UserData.all();
-    wa = $scope.userData.LocalHidden;
     $scope.uprn = $scope.userData.uprn;
     $scope.reports = Reports.getReports();
     $scope.currentLocation = null;
@@ -50,9 +49,9 @@ angular.module('MyBath.Controllers', [])
     }*/
 
 
-    if ($scope.userData && $scope.userData.length == 0) {
+    if ($scope.userData && $scope.userData.length === 0) {
         //Defaults for LocalHidden
-        $scope.userData = {"LocalHidden": {Libraries: true, Schools: true, Roadworks: true, Bus: true, CarPark: true, Allotments: true, Bus: true, CarPark: true, Crossings: true, Libraries: true, Licenses: false, ParksAndRec: true, Planning: false, Roadworks: true, Schools: true, Sports: true}};
+        $scope.userData = {"LocalHidden": {Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true,  Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true}};
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,7 +61,7 @@ angular.module('MyBath.Controllers', [])
     // - If there is an existing user registered then their user data is loaded.
     // - Location is detected in the background (not to be used, but to save time later).
     // - The definition for the map is loaded.
-    // - Existing reports are loaded.
+    //  -Existing reports are loaded.
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,12 +99,12 @@ angular.module('MyBath.Controllers', [])
     $scope.closeSetAddress = function () {
         $scope.propertyModal.hide();
     };
-	
+    
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: Display options
     // Options screen for local data display
     /////////////////////////////////////////////////////////////////////////////////////////////
-	$ionicModal.fromTemplateUrl('templates/options-data-display.html', function (modal) {
+    $ionicModal.fromTemplateUrl('templates/options-data-display.html', function (modal) {
         $scope.displayOptionsModal = modal;
     }, {
         scope: $scope
@@ -215,7 +214,7 @@ angular.module('MyBath.Controllers', [])
         Reports.addReport($scope.currentReport);
         $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
         $scope.reports = Reports.getReports();
-    }
+    };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal Cleanup
@@ -241,24 +240,24 @@ angular.module('MyBath.Controllers', [])
                 template: 'Searching...'
             });
             UserData.fetchUprn(addressSearch)
-				.then(function (data) {
-				    // check for whether we have postcode results
-				    if (data && data != "Failed") {
-				        $ionicLoading.hide();
-				        $scope.addresses = data;
-				        $scope.setAddress();
-				    }
-				    else {
-				        $ionicLoading.hide();
-				        $ionicPopup.alert({
-				            title: 'No addresses found',
-				            content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.'
-				        }).then(function (res) {
-				        });
-				    }
-				});
+                .then(function (data) {
+                    // check for whether we have postcode results
+                    if (data && data !== "Failed") {
+                        $ionicLoading.hide();
+                        $scope.addresses = data;
+                        $scope.setAddress();
+                    }
+                    else {
+                        $ionicLoading.hide();
+                        $ionicPopup.alert({
+                            title: 'No addresses found',
+                            content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.'
+                        }).then(function (res) {
+                        });
+                    }
+                });
         }
-    }
+    };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: setProperty
@@ -270,24 +269,24 @@ angular.module('MyBath.Controllers', [])
             template: 'Fetching data...'
         });
         $scope.uprn = uId;
-        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "LocalHidden": {Libraries: true, Schools: true, Roadworks: true, Bus: true, CarPark: true, Allotments: true, Bus: true, CarPark: true, Crossings: true, Libraries: true, Licenses: false, ParksAndRec: true, Planning: false, Roadworks: true, Schools: true, Sports: true}});
+        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "LocalHidden": {Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true,  Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true}});
         $scope.userData = UserData.all();
         BathData.fetchAll(uId)
-			.then(function (data) {
-			    if (data && data != []) {
-			        $scope.bathdata = data;
-			        $ionicLoading.hide();
+            .then(function (data) {
+                if (data && data != []) {
+                    $scope.bathdata = data;
+                    $ionicLoading.hide();
                     window.location.reload(true);
-			    }
-			    else {
-			        $ionicLoading.hide();
-			        $ionicPopup.alert({
-			            title: 'Error downloading data',
-			            content: 'Please check connection and try again.'
-			        }).then(function (res) {
-			        });
-			    }
-			});
+                }
+                else {
+                    $ionicLoading.hide();
+                    $ionicPopup.alert({
+                        title: 'Error downloading data',
+                        content: 'Please check connection and try again.'
+                    }).then(function (res) {
+                    });
+                }
+            });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -296,12 +295,12 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.options = function () {
         var refreshText = '';
-        if ($scope.userData.uprn != undefined) {
+        if ($scope.userData.uprn !== undefined) {
             refreshText = 'Refresh data';
         }
         var optionsSheet = $ionicActionSheet.show({
             buttons: [
-				{ text: 'Register' },
+                { text: 'Register' },
                 { text: 'View instructions' },
                 { text: refreshText },
                 { text: '' }],
@@ -309,11 +308,11 @@ angular.module('MyBath.Controllers', [])
             titleText: 'App options',
             cancelText: 'Cancel',
             buttonClicked: function (index) {
-                if (index == 0) {
+                if (index === 0) {
                     // either registering or un-registering
                     $scope.register();
                 }
-                if ( index == 2 && $scope.userData.uprn != undefined ) {
+                if ( index === 2 && $scope.userData.uprn !== undefined ) {
                     //Refresh data
                    $ionicLoading.show({
                         template: 'Fetching data...'
@@ -351,12 +350,12 @@ angular.module('MyBath.Controllers', [])
     $scope.selectMenu = function (menuItem) {
         $ionicSideMenuDelegate.toggleLeft(false);
 
-        if (menuItem == 'home') $state.go('menu.home');
-        if (menuItem == 'map') $state.go('menu.map');
-        if (menuItem == 'reports') $state.go('menu.reports');
-        if (menuItem == 'localdata') $state.go('menu.local');
-        if (menuItem == 'details') $state.go('menu.details');
-        if (menuItem == 'mycouncil') $state.go('menu.mycouncil');
+        if (menuItem === 'home'){ $state.go('menu.home');}
+        if (menuItem === 'map'){ $state.go('menu.map');}
+        if (menuItem === 'reports'){ $state.go('menu.reports');}
+        if (menuItem === 'localdata'){ $state.go('menu.local');}
+        if (menuItem == 'details'){ $state.go('menu.details');}
+        if (menuItem == 'mycouncil'){ $state.go('menu.mycouncil');}
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -402,7 +401,7 @@ angular.module('MyBath.Controllers', [])
                 window.location.reload(true);
             }
         });
-    }
+    };
 
     /////////////////////////////////////////////////////////////////////////////////////////////    
     // Function: deleteReport
@@ -413,7 +412,7 @@ angular.module('MyBath.Controllers', [])
                 $scope.reports.splice(index, 1);
                 Reports.saveReports($scope.reports);
             }
-        }
+        };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
@@ -505,7 +504,7 @@ angular.module('MyBath.Controllers', [])
             $scope.currentReport.locationFound = true;
             $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
             $scope.reportItLocationModal.show();
-        };
+        }
 
         function onGeolocationError(error) {
             console.log('code: ' + error.code + '\n' +
@@ -580,7 +579,7 @@ angular.module('MyBath.Controllers', [])
         }
         if (aPart2) {
             if (aPart1) {
-                 res += ", " 
+                 res += ", ";
             }
             res += aPart2;
         }
@@ -825,9 +824,9 @@ angular.module('MyBath.Controllers', [])
     MapData.getLayer("libraries")
     .then(function (data) {
         if (data && data != "Failed") {
-			for (i = 0; i < data.length ; i++){
-				$scope.markers.push(data[i]);
-			}
+            for (i = 0; i < data.length ; i++){
+                $scope.markers.push(data[i]);
+            }
         }
         else {
         }
@@ -867,15 +866,15 @@ angular.module('MyBath.Controllers', [])
                 }
             },
             overlays: {
-				Libraries: {
-					type: 'group', 
-					name: 'Libraries', 
-					visible: true 
-				}
+                Libraries: {
+                    type: 'group', 
+                    name: 'Libraries', 
+                    visible: true 
+                }
             }
         },
-		markers: $scope.markers
-	};
+        markers: $scope.markers
+    };
 })
 .controller('CouncilController', function ($scope, $ionicSideMenuDelegate) {
     $scope.reload = function() {
@@ -978,7 +977,7 @@ angular.module('MyBath.Controllers', [])
                 $scope.binCollection.Results._______________.garden = collectionDates[2].innerText;
             }
         }
-    }
+    };
 
     $scope.reloadCouncilData();
 })
@@ -997,7 +996,7 @@ angular.module('MyBath.Controllers', [])
                 $ionicGesture.off(tapGesture, 'tap', handleTap);
             });
         }
-    }
+    };
 });
 
 /* 
@@ -1063,20 +1062,19 @@ function isCouncilConnectHours() {
     // Closed on weekends
     var time = new Date();
 
-    var h = time.getHours()
-    var m = time.getMinutes()
+    var h = time.getHours();
+    var m = time.getMinutes();
     var d = time.getDay();
 
-    if (d == 0 || d == 6 || h < 8 || h > 18) { // weekend or closed hours
+    if (d === 0 || d === 6 || h < 8 || h > 18) { // weekend or closed hours
         return false;
     }
 
-    if (d == 3 && (h < 9 || (h == 9 && m < 30))) { // Wednesday
+    if (d === 3 && (h < 9 || (h === 9 && m < 30))) { // Wednesday
         return false;
     }
 
     return true;
-    $scope.$digest();
 }
 
 function URLtoBase64 ( url ) {

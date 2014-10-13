@@ -21,21 +21,21 @@ angular.module('MyBath.UserDataService', [])
             var addressData = [];
             var addressData_q = $q.defer();
             $http.get("http://isharemaps.bathnes.gov.uk/getdata.aspx?service=LocationSearch&RequestType=LocationSearch&location=" + postcode + "&pagesize=200&startnum=1")
-				.success(function (data, status, headers, config) {
-				    addressData = data;
-				    if (data && data != []) {
-				    }
-				    else {
-				        addressData = "Failed";
-				    }
-				    addressData_q.resolve(data);
-				    return addressData;
-				})
-				.error(function (data, status, headers, config) {
-				    addressData = "Failed";
-				    addressData_q.resolve(addressData);
-				    return "Failed";
-				});
+                .success(function (data, status, headers, config) {
+                    addressData = data;
+                    if (data && data != []) {
+                    }
+                    else {
+                        addressData = "Failed";
+                    }
+                    addressData_q.resolve(data);
+                    return addressData;
+                })
+                .error(function (data, status, headers, config) {
+                    addressData = "Failed";
+                    addressData_q.resolve(addressData);
+                    return "Failed";
+                });
             return addressData_q.promise;
         },
         clear: function () {

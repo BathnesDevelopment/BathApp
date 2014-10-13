@@ -6,10 +6,10 @@ angular.module('MyBath.BathDataService', [])
 */
 .factory('BathData', function ($http, $q) {
     return {
-		// Method: BathData.all()
-		// Input: JSON[] / Empty
-		// Output: JSON / Empty Array
-		// gets all the data back from local storage.
+        // Method: BathData.all()
+        // Input: JSON[] / Empty
+        // Output: JSON / Empty Array
+        // gets all the data back from local storage.
         all: function () {
 
             // we need a one time only delete as there's invalid data leftover from earlier release
@@ -25,18 +25,18 @@ angular.module('MyBath.BathDataService', [])
             }
             return [];
         },
-		// Method: BathData.save
-		// Input: JSON
-		// Output: None
-		// saves the data from a JSON input, back into the local storage (overwriting previous storage)
+        // Method: BathData.save
+        // Input: JSON
+        // Output: None
+        // saves the data from a JSON input, back into the local storage (overwriting previous storage)
         save: function (bathData) {
             window.localStorage['BathData'] = angular.toJson(bathData);
         },
-		// Method: BathData.fetchAll()
-		// Input: uId string (UPRN)
-		// Output: 
-		// calls all of the iShare links and aggregates the returned data into a single JSON array, queryable by index.
-		// this data is returned as a promise.
+        // Method: BathData.fetchAll()
+        // Input: uId string (UPRN)
+        // Output: 
+        // calls all of the iShare links and aggregates the returned data into a single JSON array, queryable by index.
+        // this data is returned as a promise.
         fetchAll: function (uId) {
             return $q.all([
                 // Libraries
@@ -111,9 +111,9 @@ angular.module('MyBath.BathDataService', [])
                 window.localStorage['BathData'] = angular.toJson(aggregatedData);
                 return aggregatedData;
             }, function (error) {
-				return [];
-			});
-		},
+                return [];
+            });
+        },
         clear: function () {
             window.localStorage.removeItem('BathData');
         }
