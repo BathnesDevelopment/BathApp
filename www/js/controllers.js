@@ -549,6 +549,22 @@ angular.module('MyBath.Controllers', [])
       return res.toFixed(1);
     };
 
+        /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: formatTime
+    // Formats the time string returned by iShare for roadworks
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.formatTime = function( strTime ) {
+        if (strTime == "01/01/4000 00:00:00" ) { 
+            //This is returned when there's no date
+            return "No data avaliable";
+        }
+        if (strTime.search( " 00:00:00" ) != -1) { 
+            // Returned as a DateTime but we only really care about the date
+            return strTime.slice(0,strTime.search(" 00:00:00"));
+        }
+        return strTime;
+    };
+
 })
 .controller('LocalDataController', function ($scope, $ionicSideMenuDelegate) {
     if ($scope.bathdata[0]) {
@@ -1037,7 +1053,7 @@ function isCouncilConnectHours() {
 }
 
 function URLtoBase64 ( url ) {
-    //return url;
+    return url;
     // Same origin means we can't do this atm. Might find a solution later
     // uses a canvas element to store an image as a base 64 URL
     var canvas = document.createElement("canvas");

@@ -146,8 +146,8 @@
             <div class="item item-body">
                 {{roadworks._}}<br />
                 <b>Location:</b> {{roadworks.Location}}<br />
-                <b>Work commenced:</b> {{roadworks.Work____commenced}}<br />
-                <b>Due to be completed:</b> {{roadworks.Due_____to_____be_____completed_____on}}
+                <b>Work commenced:</b> {{formatTime(roadworks.Work____commenced)}}<br />
+                <b>Due to be completed:</b> {{formatTime(roadworks.Due_____to_____be_____completed_____on)}}
             </div>
             <div class="item tabs tabs-icon-right">
                 <a class="tab-item" browse-to="{{roadworks.url}}">
