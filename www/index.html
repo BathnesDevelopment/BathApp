@@ -17,7 +17,10 @@
     <script src="js/services/Reports.js"></script>
     <script src="js/services/UserData.js"></script>
     <script src="js/services/MapData.js"></script>
-    <script src="js/controllers.js"></script>
+    <script src="js/controllers/BathAppController.js"></script>
+    <script src="js/controllers/LocalDataController.js"></script>
+    <script src="js/controllers/CouncilController.js"></script>
+    <script src="js/controllers/MapController.js"></script>
     <script src="js/TileLayer.GeoJSON.js"></script>
     <script src="js/directives/angular-leaflet-directive.js"></script>
     <script src="js/proj4.js"></script>
@@ -26,7 +29,7 @@
     <script src="cordova.js"></script>
 </head>
 <body ng-app="BathCouncil">
-    <ion-pane ng-controller="BathCouncilController">
+    <ion-pane ng-controller="BathAppController">
         <ion-nav-view animation="no-animation"></ion-nav-view>
     </ion-pane>
 </body>

@@ -9,10 +9,11 @@ angular.module('MyBath.UserDataService', [])
     return {
         all: function () {
             var userData = window.localStorage['UserData'];
-            if (userData) {
-                return angular.fromJson(userData);
+            if (!userData) {
+                // Defaults
+                userData = { "LocalHidden": { Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true, Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true } };
             }
-            return [];
+            return angular.fromJson(userData);
         },
         save: function (userData) {
             window.localStorage['UserData'] = angular.toJson(userData);

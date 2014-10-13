@@ -1,5 +1,5 @@
-angular.module('MyBath.Controllers', [])
-.controller('BathCouncilController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup) {
+angular.module('MyBath.BathAppController', [])
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -23,7 +23,7 @@ angular.module('MyBath.Controllers', [])
     // TEST DATA - For use when testing in browser
     /////////////////////////////////////////////////////////////////////////////////////////////
     /*if ($scope.bathdata && $scope.bathdata.length == 0) {
-        //$scope.playSchoolsNearby = { "Results": { "Nurseries Pre Schools and Out of School Childcare Nearby": [{ "_": "SNAPDRAGONS DAY NURSERY", "__": "4 GROSVENOR PLACE", "___": null, "____": "BA1 6AX", "MapSpurE": 376033.000794, "MapSpurN": 166172.003014, "MapSpurMinE": 376033.000794, "MapSpurMinN": 166172.003014, "MapSpurMaxE": 376033.000794, "MapSpurMaxN": 166172.003014, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "APPLE TREE DAY NURSERY", "__": "SPRING LANE", "___": "LARKHALL", "____": "BA1 6NY", "MapSpurE": 375794.998861, "MapSpurN": 166774.000694, "MapSpurMinE": 375794.998861, "MapSpurMinN": 166774.000694, "MapSpurMaxE": 375794.998861, "MapSpurMaxN": 166774.000694, "Distance": 625.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Busy Bees Pre-school (Bath)", "__": "St Marks School", "___": "Baytree Road", "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
+        $scope.playSchoolsNearby = { "Results": { "Nurseries Pre Schools and Out of School Childcare Nearby": [{ "_": "SNAPDRAGONS DAY NURSERY", "__": "4 GROSVENOR PLACE", "___": null, "____": "BA1 6AX", "MapSpurE": 376033.000794, "MapSpurN": 166172.003014, "MapSpurMinE": 376033.000794, "MapSpurMinN": 166172.003014, "MapSpurMaxE": 376033.000794, "MapSpurMaxN": 166172.003014, "Distance": 72.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "APPLE TREE DAY NURSERY", "__": "SPRING LANE", "___": "LARKHALL", "____": "BA1 6NY", "MapSpurE": 375794.998861, "MapSpurN": 166774.000694, "MapSpurMinE": 375794.998861, "MapSpurMinN": 166774.000694, "MapSpurMaxE": 375794.998861, "MapSpurMaxN": 166774.000694, "Distance": 625.4, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Busy Bees Pre-school (Bath)", "__": "St Marks School", "___": "Baytree Road", "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.primarySchoolsNearby = { "Results": { "Primary_Schools_Nearby": [{ "_": "http://www.st-saviours-jun.bathnes.sch.uk|St Saviours CofE Junior School", "__": "Brookleaze Place", "___": "Larkhall", "____": "BA1 6RB", "MapSpurE": 375956.997821, "MapSpurN": 166668.001036, "MapSpurMinE": 375956.997821, "MapSpurMinN": 166668.001036, "MapSpurMaxE": 375956.997821, "MapSpurMaxN": 166668.001036, "Distance": 465.5, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-saviours-inf.bathnes.sch.uk|St Saviours CofE Infant School", "__": "Spring Lane", "___": "Larkhall", "____": "BA1 6NY", "MapSpurE": 375844.436247, "MapSpurN": 166670.970186, "MapSpurMinE": 375844.436247, "MapSpurMinN": 166670.970186, "MapSpurMaxE": 375844.436247, "MapSpurMaxN": 166670.970186, "Distance": 511.2, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Bathwick St Mary Church of England Primary School", "__": "Darlington Road", "___": null, "____": "BA2 6NN", "MapSpurE": 376034.996099, "MapSpurN": 165538.004494, "MapSpurMinE": 376034.996099, "MapSpurMinN": 165538.004494, "MapSpurMaxE": 376034.996099, "MapSpurMaxN": 165538.004494, "Distance": 685, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.secondarySchoolsNearby = { "Results": { "Secondary_Schools_Nearby": [{ "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.st-marks.bathnes.sch.uk|St Marks CofE School", "__": "Baytree Road", "___": null, "____": "BA1 6ND", "MapSpurE": 375688.002703, "MapSpurN": 166710.998728, "MapSpurMinE": 375688.002703, "MapSpurMinN": 166710.998728, "MapSpurMaxE": 375688.002703, "MapSpurMaxN": 166710.998728, "Distance": 631.9, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "http://www.beechencliff.bathnes.sch|Beechen Cliff School", "__": "Alexandra Park", "___": null, "____": "BA2 4RE", "MapSpurE": 375015.997243, "MapSpurN": 163750.996020, "MapSpurMinE": 375015.997243, "MapSpurMinN": 163750.996020, "MapSpurMaxE": 375015.997243, "MapSpurMaxN": 163750.996020, "Distance": 2692.2, "MapSpurX": "0", "MapSpurY": "0" }] } };
         $scope.collegesNearby = { "Results": { "Colleges_Nearby": [{ "_": "Norland College", "__": "York Place, London", "___": "Walcot", "____": "BA1 6AE", "MapSpurE": 375584.997154, "MapSpurN": 165901.000588, "MapSpurMinE": 375584.997154, "MapSpurMinN": 165901.000588, "MapSpurMaxE": 375584.997154, "MapSpurMaxN": 165901.000588, "Distance": 595.3, "MapSpurX": "0", "MapSpurY": "0" }, { "_": "Rusland College Ltd", "__": "Solsbury Way", "___": "Larkhall", "____": "BA1 6HH", "MapSpurE": 375087.003709, "MapSpurN": 166495.000557, "MapSpurMinE": 375087.003709, "MapSpurMinN": 166495.000557, "MapSpurMaxE": 375087.003709, "MapSpurMaxN": 166495.000557, "Distance": 1036.9, "MapSpurX": "0", "MapSpurY": "0" }] } };
@@ -47,12 +47,6 @@ angular.module('MyBath.Controllers', [])
         $scope.housingAllowanceZones = { "Results": { "___________": { "Your_Local_Housing_Allowance_Zone_is_": "http://www.bathnes.gov.uk/services/council-tax-benefits-and-grants/benefits/housing-benefit/local-housing-allowance-lha?Bath|Bath", "MapSpurE": 366754.986071, "MapSpurN": 166278.897416, "MapSpurMinE": 345139.968873, "MapSpurMinN": 149656.700470, "MapSpurMaxE": 388370.003269, "MapSpurMaxN": 182901.094362 } } };
         $scope.binCollection = { "Results": { "_______________": { "LLPG_UPRN": 100121173307, "_": "<table id=\"reftab\" colspan=\"2\"><tr><td> <strong>Your next weekly refuse collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection\" target=\" _blank\" ><img src=\"images/icons/refuse_sack75.png\" /></a><br>Route: M42</td></tr> <tr><td><strong>Your next weekly recycling collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle\" target=\" _blank\" ><img src=\"images/icons/recycling_box75.png\" /></a><br>Route: M402</td></tr> <tr><td><strong>Your next fortnightly garden waste collection is: </strong><br><span class=\"WasteHighlight\">Thursday, 2 October</span></td><td><a href=\"http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost\" target=\" _blank\" ><img src=\"images/icons/garden_waste75.png\" /></a><br>Route: M41b<br>Week: B</td></tr> </table><P ALIGN=\"left\"><strong>Did we miss a collection? <a href=\"http://www.bathnes.gov.uk/reportit?uprn=100121173307\">Report It</a></strong></P>" } } };
     }*/
-
-
-    if ($scope.userData && $scope.userData.length === 0) {
-        //Defaults for LocalHidden
-        $scope.userData = {"LocalHidden": {Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true,  Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true}};
-    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
@@ -99,7 +93,7 @@ angular.module('MyBath.Controllers', [])
     $scope.closeSetAddress = function () {
         $scope.propertyModal.hide();
     };
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: Display options
     // Options screen for local data display
@@ -113,8 +107,8 @@ angular.module('MyBath.Controllers', [])
         $scope.displayOptionsModal.show();
     };
     $scope.closeDisplayOptions = function () {
-        // Save
-        window.localStorage.UserData = angular.toJson($scope.userData);
+        // Save user data
+        UserData.save($scope.userData);
         $scope.displayOptionsModal.hide();
     };
 
@@ -183,9 +177,9 @@ angular.module('MyBath.Controllers', [])
     };
     // Submit
     $scope.submitReportItPage3 = function (location) {
-        if ( $scope.currentReport.useUserLocation ) {
+        if ($scope.currentReport.useUserLocation) {
             $scope.currentReport.lat = $scope.currentLocation.coords.latitude;
-            $scope.currentReport.long  = $scope.currentLocation.coords.longitude;
+            $scope.currentReport.long = $scope.currentLocation.coords.longitude;
         }
         $scope.reportItLocationModal.hide();
         $scope.reportItPersonalModal.show();
@@ -269,14 +263,14 @@ angular.module('MyBath.Controllers', [])
             template: 'Fetching data...'
         });
         $scope.uprn = uId;
-        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "LocalHidden": {Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true,  Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true}});
+        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "LocalHidden": { Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true, Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true } });
         $scope.userData = UserData.all();
         BathData.fetchAll(uId)
             .then(function (data) {
                 if (data && data != []) {
                     $scope.bathdata = data;
                     $ionicLoading.hide();
-                    window.location.reload(true);
+                    //window.location.reload(true);
                 }
                 else {
                     $ionicLoading.hide();
@@ -312,9 +306,9 @@ angular.module('MyBath.Controllers', [])
                     // either registering or un-registering
                     $scope.register();
                 }
-                if ( index === 2 && $scope.userData.uprn !== undefined ) {
+                if (index === 2 && $scope.userData.uprn !== undefined) {
                     //Refresh data
-                   $ionicLoading.show({
+                    $ionicLoading.show({
                         template: 'Fetching data...'
                     });
                     BathData.fetchAll($scope.userData.uprn)
@@ -331,7 +325,7 @@ angular.module('MyBath.Controllers', [])
                                 }).then(function (res) {
                                 });
                             }
-                    });
+                        });
                 }
                 return true;
             },
@@ -350,12 +344,12 @@ angular.module('MyBath.Controllers', [])
     $scope.selectMenu = function (menuItem) {
         $ionicSideMenuDelegate.toggleLeft(false);
 
-        if (menuItem === 'home'){ $state.go('menu.home');}
-        if (menuItem === 'map'){ $state.go('menu.map');}
-        if (menuItem === 'reports'){ $state.go('menu.reports');}
-        if (menuItem === 'localdata'){ $state.go('menu.local');}
-        if (menuItem == 'details'){ $state.go('menu.details');}
-        if (menuItem == 'mycouncil'){ $state.go('menu.mycouncil');}
+        if (menuItem == 'home') { $state.go('menu.home'); }
+        if (menuItem == 'map') { $state.go('menu.map'); }
+        if (menuItem == 'reports') { $state.go('menu.reports'); }
+        if (menuItem == 'localdata') { $state.go('menu.local'); }
+        if (menuItem == 'details') { $state.go('menu.details'); }
+        if (menuItem == 'mycouncil') { $state.go('menu.mycouncil'); }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -374,7 +368,7 @@ angular.module('MyBath.Controllers', [])
         var alertPopup = $ionicPopup.alert({
             title: title,
             template: message,
-            buttons: [ {
+            buttons: [{
                 text: 'OK',
                 type: 'button-clear button-positive'
             }]
@@ -391,14 +385,14 @@ angular.module('MyBath.Controllers', [])
         $ionicPopup.confirm({
             title: 'Clear data',
             template: 'This will clear all stored data on the app.'
-        }).then(function(res) {
-            if(res) {
+        }).then(function (res) {
+            if (res) {
                 UserData.clear();
                 BathData.clear();
                 $scope.userData = {};
                 $scope.bathData = {};
                 $state.go('menu.home'); //TODO: Change this to the "new user screen, possibly - when added"
-                window.location.reload(true);
+                //window.location.reload(true);
             }
         });
     };
@@ -407,12 +401,12 @@ angular.module('MyBath.Controllers', [])
     // Function: deleteReport
     // Removes a single user report
     /////////////////////////////////////////////////////////////////////////////////////////////
-     $scope.deleteReport = function( index ){
-            if ($scope.reports[index]) {
-                $scope.reports.splice(index, 1);
-                Reports.saveReports($scope.reports);
-            }
-        };
+    $scope.deleteReport = function (index) {
+        if ($scope.reports[index]) {
+            $scope.reports.splice(index, 1);
+            Reports.saveReports($scope.reports);
+        }
+    };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
@@ -457,7 +451,9 @@ angular.module('MyBath.Controllers', [])
                 },
             ]
         });
+
         alertPopup.then(function (res) {
+            // To do: handle the result
         });
     };
 
@@ -468,21 +464,18 @@ angular.module('MyBath.Controllers', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.takePhoto = function () {
 
-        function onSuccess(imageURI) {
-            // saves to currentReport.photo            
-            imageURI = "data:image/jpeg;base64," + imageURI;
-            $scope.$apply(function () {
-                $scope.currentReport.photo = imageURI;
-            });
-        }
-
-        function onFail(message) {
-            // alert('Failed because: ' + message);
-        }
-        navigator.camera.getPicture(onSuccess, onFail, {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL
-        });
+        navigator.camera.getPicture(
+            function (imageURI) {
+                // saves to currentReport.photo            
+                imageURI = "data:image/jpeg;base64," + imageURI;
+                $scope.$apply(function () {
+                    $scope.currentReport.photo = imageURI;
+                });
+            },
+            function (failMessage) {
+                // alert('Failed because: ' + message);
+            },
+            { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -490,32 +483,33 @@ angular.module('MyBath.Controllers', [])
     // Stores the geolocation.
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.geoLocate = function () {
-        function onGeolocationSuccess(position) {
-            $scope.currentLocation = position;
-           /*
-            * console.log('Latitude: ' + position.coords.latitude + '\n' +
-            *      'Longitude: ' + position.coords.longitude + '\n' +
-            *      'Accuracy: ' + position.coords.accuracy + '\n' +
-            *      'Timestamp: ' + position.timestamp); // debug
-            */
 
-            $ionicLoading.hide();
-            $scope.currentReport.useLocation = true;
-            $scope.currentReport.locationFound = true;
-            $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
-            $scope.reportItLocationModal.show();
-        }
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                $scope.currentLocation = position;
+                /*
+                 * console.log('Latitude: ' + position.coords.latitude + '\n' +
+                 *      'Longitude: ' + position.coords.longitude + '\n' +
+                 *      'Accuracy: ' + position.coords.accuracy + '\n' +
+                 *      'Timestamp: ' + position.timestamp); // debug
+                 */
 
-        function onGeolocationError(error) {
-            console.log('code: ' + error.code + '\n' +
-                  'message: ' + error.message + '\n'); // debug
-            $ionicLoading.hide();
-            $scope.currentReport.locationMessage = "Your location was not detected.";
-            $scope.currentReport.useLocation = false;
-            $scope.currentReport.locationFound = false;
-            $scope.reportItLocationModal.show();
-        }
-        navigator.geolocation.getCurrentPosition(onGeolocationSuccess, onGeolocationError, { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
+                $ionicLoading.hide();
+                $scope.currentReport.useLocation = true;
+                $scope.currentReport.locationFound = true;
+                $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
+                $scope.reportItLocationModal.show();
+            },
+            function (error) {
+                console.log('code: ' + error.code + '\n' +
+                      'message: ' + error.message + '\n'); // debug
+                $ionicLoading.hide();
+                $scope.currentReport.locationMessage = "Your location was not detected.";
+                $scope.currentReport.useLocation = false;
+                $scope.currentReport.locationFound = false;
+                $scope.reportItLocationModal.show();
+            },
+            { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -536,33 +530,32 @@ angular.module('MyBath.Controllers', [])
             console.log(err.message);
             window.location.href = "mailto:councilconnect@bathnes.gov.uk";
         }
-
     };
-    
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: mToMi
     // Converts meters to miles to an accuracy of 1 decimal place 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.mToMi = function ( distM ) {
-      res = distM * 0.000621371192;
-      if (res > 1) {
-        return res.toFixed(1);
-      }
-      return res.toFixed(2);
+    $scope.mToMi = function (distM) {
+        res = distM * 0.000621371192;
+        if (res > 1) {
+            return res.toFixed(1);
+        }
+        return res.toFixed(2);
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: formatTime
     // Formats the time string returned by iShare for roadworks
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.formatTime = function( strTime ) {
-        if (strTime === "01/01/4000 00:00:00" ) {
+    $scope.formatTime = function (strTime) {
+        if (strTime === "01/01/4000 00:00:00") {
             //This is returned when there's no date
             return "No data avaliable";
         }
-        if (strTime.search( " 00:00:00" ) !== -1) {
+        if (strTime.search(" 00:00:00") !== -1) {
             // Returned as a DateTime but we only really care about the date
-            return strTime.slice(0,strTime.search(" 00:00:00"));
+            return strTime.slice(0, strTime.search(" 00:00:00"));
         }
         return strTime;
     };
@@ -572,524 +565,25 @@ angular.module('MyBath.Controllers', [])
     // Function: formatAddress
     // Formats address strings returned by iShare
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.formatAddress = function ( aPart1, aPart2, aPart3 ) {
+    $scope.formatAddress = function (aPart1, aPart2, aPart3) {
         var res = "";
         if (aPart1) {
-            res += aPart1  ;
+            res += aPart1;
         }
         if (aPart2) {
             if (aPart1) {
-                 res += ", ";
+                res += ", ";
             }
             res += aPart2;
         }
         if (aPart3) {
             if (aPart2 || aPart1) {
-            res += ", ";
-        }
-        res += aPart3;
+                res += ", ";
+            }
+            res += aPart3;
         }
         return res;
     };
-})
-.controller('LocalDataController', function ($scope, $ionicSideMenuDelegate) {
-    var i = 0;
-    var geo;
-    var temp;
-    if ($scope.bathdata[0]) {
-        $scope.librariesNearby = $scope.bathdata[0];
-    }
-
-    if ($scope.bathdata[1]) {
-        $scope.mobileLibrariesNearby = $scope.bathdata[1];
-    }
-
-    if ($scope.librariesNearby && $scope.librariesNearby.Results) {
-        // Do the string manipulation to clean up - need to make sure this won't blow up
-        $scope.librariesNearby.Results.Libraries_Nearby.url = $scope.librariesNearby.Results.Libraries_Nearby._.split("|")[0];
-        $scope.librariesNearby.Results.Libraries_Nearby.name = $scope.librariesNearby.Results.Libraries_Nearby._.split("|")[1];
-        geo = NEtoLL($scope.librariesNearby.Results.Libraries_Nearby.MapSpurE, $scope.librariesNearby.Results.Libraries_Nearby.MapSpurN);
-        $scope.librariesNearby.Results.Libraries_Nearby.lat = geo.latitude;
-        $scope.librariesNearby.Results.Libraries_Nearby.lon = geo.longitude;
-    }
-    if ($scope.mobileLibrariesNearby && $scope.mobileLibrariesNearby.Results) {
-       if ($scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.Info !== "<p>No records found nearby.</p>") {
-            // Do the string manipulation to clean up - need to make sure this won't blow up
-            $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.timeAdjusted = $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.time.replace('?', '-');
-            $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.url = $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby._.split("|")[0];
-            geo = NEtoLL($scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.MapSpurE, $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.MapSpurN);
-            $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.lat = geo.latitude;
-            $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.lon = geo.longitude;
-        } else {
-            $scope.mobileLibrariesNearby = {};
-        }
-
-    }
-
-    if ($scope.bathdata[2]) {
-        $scope.playSchoolsNearby = $scope.bathdata[2];
-    }
-    if ($scope.bathdata[3]) {
-        $scope.primarySchoolsNearby = $scope.bathdata[3];
-    }
-    if ($scope.bathdata[4]) {
-        $scope.secondarySchoolsNearby = $scope.bathdata[4];
-    }
-    if ($scope.bathdata[5]) {
-        $scope.collegesNearby = $scope.bathdata[5];
-    }
-    if ($scope.bathdata[6]) {
-        $scope.universitiesNearby = $scope.bathdata[6];
-
-    }
-
-    if ($scope.universitiesNearby) {
-        if (typeof $scope.universitiesNearby.Results.Universities_Nearby.length === typeof undefined ) {
-            temp = $scope.universitiesNearby.Results.Universities_Nearby;
-            $scope.universitiesNearby.Results.Universities_Nearby = {};
-            $scope.universitiesNearby.Results.Universities_Nearby[0] = temp;
-            $scope.universitiesNearby.Results.Universities_Nearby[0].length = 1;
-        }
-        // ishare only returns 8 characters in the string for some reason
-        // This should get fixed, but at the moment, this fixes the display for the 2 major universities
-        for (i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length; i++) {
-            if ($scope.universitiesNearby.Results.Universities_Nearby[i].___ == "Claverto") {
-                $scope.universitiesNearby.Results.Universities_Nearby[i].___ = "Claverton Down";
-            }
-            if ($scope.universitiesNearby.Results.Universities_Nearby[i].___ == "Newton P") {
-                $scope.universitiesNearby.Results.Universities_Nearby[i].___ = "Newton Park";
-            }
-        }
-    }
-    if ($scope.universitiesNearby && $scope.universitiesNearby.Results) {
-        for (i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length ; i++) {
-            geo = NEtoLL($scope.universitiesNearby.Results.Universities_Nearby[i].MapSpurE, $scope.universitiesNearby.Results.Universities_Nearby[i].MapSpurN);
-            $scope.universitiesNearby.Results.Universities_Nearby[i].lat = geo.latitude;
-            $scope.universitiesNearby.Results.Universities_Nearby[i].lon = geo.longitude;
-        }
-    }
-
-    if ($scope.playSchoolsNearby && $scope.playSchoolsNearby.Results) {
-        //for (i = 0; i < $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"].length ; i++) {
-        //    var geo = NEtoLL($scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"][i].MapSpurE, $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"].MapSpurN);
-        //    $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"][i].lat = geo.latitude;
-        //    $scope.playSchoolsNearby.Results["Nurseries Pre Schools and Out of School Childcare Nearby"][i].lon = geo.longitude;
-        //}
-    }
-    if ($scope.primarySchoolsNearby && $scope.primarySchoolsNearby.Results) {
-        //for (i = 0; i < $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby.length ; i++) {
-        //    $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i].name = $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i]._.split('|')[1];
-        //    $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i].url = $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i]._.split('|')[0];
-        //    var geo = NEtoLL($scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i].MapSpurE, $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i].MapSpurN);
-        //    $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i].lat = geo.latitude;
-        //    $scope.primarySchoolsNearby.Results.Primary_Schools_Nearby[i].lon = geo.longitude;
-        //}
-    }
-    if ($scope.secondarySchoolsNearby && $scope.secondarySchoolsNearby.Results) {
-        if (typeof $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby.length === typeof undefined ) {
-            temp = $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby;
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby = {};
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[0] = temp;
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby.length ; i++) {
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].name = $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i]._.split('|')[1];
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].url = $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i]._.split('|')[0];
-            geo = NEtoLL($scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].MapSpurE, $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].MapSpurN);
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].lat = geo.latitude;
-            $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].lon = geo.longitude;
-        }
-    }
-    if ($scope.collegesNearby && $scope.collegesNearby.Results) {
-        if (typeof $scope.collegesNearby.Results.Colleges_Nearby.length === typeof undefined ) {
-            temp = $scope.collegesNearby.Results.Colleges_Nearby;
-            $scope.collegesNearby.Results.Colleges_Nearby = {};
-            $scope.collegesNearby.Results.Colleges_Nearby[0] = temp;
-            $scope.collegesNearby.Results.Colleges_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.collegesNearby.Results.Colleges_Nearby.length ; i++) {
-            geo = NEtoLL($scope.collegesNearby.Results.Colleges_Nearby[i].MapSpurE, $scope.collegesNearby.Results.Colleges_Nearby[i].MapSpurN);
-            $scope.collegesNearby.Results.Colleges_Nearby[i].lat = geo.latitude;
-            $scope.collegesNearby.Results.Colleges_Nearby[i].lon = geo.longitude;
-        }
-    }
-
-    if ($scope.bathdata[8]) {
-        $scope.roadworksNearby = $scope.bathdata[8];
-    }
-    if ($scope.bathdata[20]) {
-        $scope.busStops = $scope.bathdata[20];
-    }
-    if ($scope.bathdata[21]) {
-        $scope.schoolCrossings = $scope.bathdata[21];
-    }
-    if ($scope.bathdata[22] && $scope.bathdata[22].Results.Parking_Zones.Info !== "<p>No records found nearby.</p>") {
-        $scope.parkingNearby = $scope.bathdata[22];
-    }
-
-
-    if ($scope.parkingNearby && $scope.parkingNearby.Results) {
-        if (typeof $scope.parkingNearby.Results.Parking_Zones.length === typeof undefined ) {
-            temp = $scope.parkingNearby.Results.Parking_Zones;
-            $scope.parkingNearby.Results.Parking_Zones = {};
-            $scope.parkingNearby.Results.Parking_Zones[0] = temp;
-            $scope.parkingNearby.Results.Parking_Zones[0].length = 1;
-        }
-        for (i = 0; i < $scope.parkingNearby.Results.Parking_Zones.length ; i++) {
-            geo = NEtoLL($scope.parkingNearby.Results.Parking_Zones[i].MapSpurE, $scope.parkingNearby.Results.Parking_Zones[i].MapSpurN);
-            $scope.parkingNearby.Results.Parking_Zones[i].lat = geo.latitude;
-            $scope.parkingNearby.Results.Parking_Zones[i].lon = geo.longitude;
-        }
-    }
-
-    if ($scope.roadworksNearby && $scope.roadworksNearby.Results) {
-        if (typeof $scope.roadworksNearby.Results.Roadworks_Nearby.length === typeof undefined ) {
-            temp = $scope.roadworksNearby.Results.Roadworks_Nearby;
-            $scope.roadworksNearby.Results.Roadworks_Nearby = {};
-            $scope.roadworksNearby.Results.Roadworks_Nearby[0] = temp;
-            $scope.roadworksNearby.Results.Roadworks_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.roadworksNearby.Results.Roadworks_Nearby.length ; i++) {
-            $scope.roadworksNearby.Results.Roadworks_Nearby[i].title = $scope.roadworksNearby.Results.Roadworks_Nearby[i].Organisation.split('|')[1].replace('amp;', '');
-            $scope.roadworksNearby.Results.Roadworks_Nearby[i].url = $scope.roadworksNearby.Results.Roadworks_Nearby[i].Organisation.split('|')[0].replace('amp;', '');
-            geo = NEtoLL($scope.roadworksNearby.Results.Roadworks_Nearby[i].MapSpurE, $scope.roadworksNearby.Results.Roadworks_Nearby[i].MapSpurN);
-            $scope.roadworksNearby.Results.Roadworks_Nearby[i].lat = geo.latitude;
-            $scope.roadworksNearby.Results.Roadworks_Nearby[i].lon = geo.longitude;
-        }
-    }
-
-    if ($scope.busStops && $scope.busStops.Results) {
-        if (typeof $scope.busStops.Results.Bus_Stops_Nearby.length === typeof undefined ) {
-            temp = $scope.busStops.Results.Bus_Stops_Nearby;
-            $scope.busStops.Results.Bus_Stops_Nearby = {};
-            $scope.busStops.Results.Bus_Stops_Nearby[0] = temp;
-            $scope.busStops.Results.Bus_Stops_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.busStops.Results.Bus_Stops_Nearby.length ; i++) {
-            geo = NEtoLL($scope.busStops.Results.Bus_Stops_Nearby[i].MapSpurE, $scope.busStops.Results.Bus_Stops_Nearby[i].MapSpurN);
-            $scope.busStops.Results.Bus_Stops_Nearby[i].lat = geo.latitude;
-            $scope.busStops.Results.Bus_Stops_Nearby[i].lon = geo.longitude;
-        }
-    }
-    if ($scope.schoolCrossings && $scope.schoolCrossings.Results) {
-        if (typeof $scope.schoolCrossings.Results.School_Crossings_Nearby.length === typeof undefined ) {
-            temp = $scope.schoolCrossings.Results.School_Crossings_Nearby;
-            $scope.schoolCrossings.Results.School_Crossings_Nearby = {};
-            $scope.schoolCrossings.Results.School_Crossings_Nearby[0] = temp;
-            $scope.schoolCrossings.Results.School_Crossings_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.schoolCrossings.Results.School_Crossings_Nearby.length ; i++) {
-            geo = NEtoLL($scope.schoolCrossings.Results.School_Crossings_Nearby[i].MapSpurE, $scope.schoolCrossings.Results.School_Crossings_Nearby[i].MapSpurN);
-            $scope.schoolCrossings.Results.School_Crossings_Nearby[i].lat = geo.latitude;
-            $scope.schoolCrossings.Results.School_Crossings_Nearby[i].lon = geo.longitude;
-        }
-    }
-    if ($scope.bathdata[12]) {
-        $scope.healthAndFitnessNearby = $scope.bathdata[12];
-    }
-
-    if ($scope.healthAndFitnessNearby && $scope.healthAndFitnessNearby.Results) {
-         if (typeof $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby.length === typeof undefined ) {
-            temp = $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby;
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby = {};
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[0] = temp;
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby.length ; i++) {
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].name = $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[1].replace('amp;', '');
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].url = $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[0];
-            geo = NEtoLL($scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurE, $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurN);
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].lat = geo.latitude;
-            $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].lon = geo.longitude;
-        }
-    }
-
-    if ($scope.bathdata[15]) {
-        $scope.planningApplicationsNearby = $scope.bathdata[15];
-    }
-
-    if ($scope.planningApplicationsNearby && $scope.planningApplicationsNearby.Results) {
-        if (typeof $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby.length === typeof undefined ) {
-            temp = $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby;
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby = {};
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[0] = temp;
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby.length ; i++) {
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].title = $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].url = $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-            geo = NEtoLL($scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].MapSpurE, $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].MapSpurN);
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].lat = geo.latitude;
-            $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].lon = geo.longitude;
-        }
-    }
-
-    if ($scope.bathdata[16]) {
-        $scope.newLicensingAppsNearby = $scope.bathdata[16];
-    }
-    if ($scope.bathdata[17]) {
-        $scope.issuedLicensingAppsNearby = $scope.bathdata[17];
-    }
-
-    if ($scope.newLicensingAppsNearby && $scope.newLicensingAppsNearby.Results) {
-        if (typeof $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length === typeof undefined ) {
-            temp = $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby;
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby = {};
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[0] = temp;
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length ; i++) {
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].title = $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].url = $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-            geo = NEtoLL($scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].MapSpurE, $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].MapSpurN);
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].lat = geo.latitude;
-            $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].lon = geo.longitude;
-        }
-    }
-    if ($scope.issuedLicensingAppsNearby && $scope.issuedLicensingAppsNearby.Results) {
-        if (typeof $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length === typeof undefined ) {
-            temp = $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby;
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby = {};
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[0] = temp;
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length ; i++) {
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].title = $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].url = $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-            geo = NEtoLL($scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].lat = geo.latitude;
-            $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].lon = geo.longitude;
-        }
-    }
-    if ($scope.bathdata[9]) {
-        $scope.parksNearby = $scope.bathdata[9];
-    }
-    if ($scope.bathdata[11]) {
-        $scope.allotmentsNearby = $scope.bathdata[11];
-    }
-    if ($scope.bathdata[10]) {
-        $scope.playAreasNearby = $scope.bathdata[10];
-    }
-
-    if ($scope.parksNearby && $scope.parksNearby.Results) {
-        if (typeof $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby.length === typeof undefined ) {
-            temp = $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby;
-            $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby = {};
-            $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[0] = temp;
-            $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby.length ; i++) {
-            geo = NEtoLL($scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurE, $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurN);
-            $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].lat = geo.latitude;
-            $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].lon = geo.longitude;
-        }
-    }
-    if ($scope.allotmentsNearby && $scope.allotmentsNearby.Results) {
-        if (typeof $scope.allotmentsNearby.Results.Allotments_Nearby.Info !== typeof undefined && $scope.allotmentsNearby.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
-            $scope.allotmentsOutsideBath = true;
-            $scope.allotmentsNearby.Results = {};
-        } else {
-            if (typeof $scope.allotmentsNearby.Results.Allotments_Nearby.length === typeof undefined ) {
-                temp = $scope.allotmentsNearby.Results.Allotments_Nearby;
-                $scope.allotmentsNearby.Results.Allotments_Nearby = {};
-                $scope.allotmentsNearby.Results.Allotments_Nearby[0] = temp;
-                $scope.allotmentsNearby.Results.Allotments_Nearby[0].length = 1;
-            }
-            for (i = 0; i < $scope.allotmentsNearby.Results.Allotments_Nearby.length ; i++) {
-                $scope.allotmentsNearby.Results.Allotments_Nearby[i].ProvidedAdjusted = $scope.allotmentsNearby.Results.Allotments_Nearby[i].Provided__by.replace('amp;', '');
-                geo = NEtoLL($scope.allotmentsNearby.Results.Allotments_Nearby[i].MapSpurE, $scope.allotmentsNearby.Results.Allotments_Nearby[i].MapSpurN);
-                $scope.allotmentsNearby.Results.Allotments_Nearby[i].lat = geo.latitude;
-                $scope.allotmentsNearby.Results.Allotments_Nearby[i].lon = geo.longitude;
-            }
-        }
-    }
-    if ($scope.playAreasNearby && $scope.playAreasNearby.Results) {
-        if (typeof $scope.playAreasNearby.Results.Play_Areas_Nearby.length === typeof undefined ) {
-            temp = $scope.playAreasNearby.Results.Play_Areas_Nearby;
-            $scope.playAreasNearby.Results.Play_Areas_Nearby = {};
-            $scope.playAreasNearby.Results.Play_Areas_Nearby[0] = temp;
-            $scope.playAreasNearby.Results.Play_Areas_Nearby[0].length = 1;
-        }
-        for (i = 0; i < $scope.playAreasNearby.Results.Play_Areas_Nearby.length ; i++) {
-            geo = NEtoLL($scope.playAreasNearby.Results.Play_Areas_Nearby[i].MapSpurE, $scope.playAreasNearby.Results.Play_Areas_Nearby[i].MapSpurN);
-            $scope.playAreasNearby.Results.Play_Areas_Nearby[i].lat = geo.latitude;
-            $scope.playAreasNearby.Results.Play_Areas_Nearby[i].lon = geo.longitude;
-        }
-    }
-})
-.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
-
-    $scope.markers = [];
-
-    MapData.getLayer("libraries")
-    .then(function (data) {
-        if (data && data != "Failed") {
-            for (i = 0; i < data.length ; i++){
-                $scope.markers.push(data[i]);
-            }
-        }
-        else {
-        }
-    });
-
-    $scope.map = {
-        defaults: {
-            tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
-            attributionControl: false,
-            maxZoom: 20,
-            zoomControlPosition: 'bottomleft',
-            path: {
-                weight: 10,
-                color: '#800000',
-                opacity: 1
-            }
-        },
-        center: {
-            lat: 51.3821440,
-            lng: -2.3589420,
-            zoom: 18
-        },
-        layers: {
-            baselayers: {
-                MapBox: {
-                layerOptions:{attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>'},
-                    name: 'Map items of interest',
-                    url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
-                    type: 'xyz',
-                    maxZoom: 20,
-                    zoomControlPosicloseDisplayOptionscloseDisplayOptionscion: 'bottomleft',
-                    path: {
-                        weight: 10,
-                        color: '#800000',
-                        opacity: 1
-                    }
-                }
-            },
-            overlays: {
-                Libraries: {
-                    type: 'group',
-                    name: 'Libraries',
-                    visible: true
-                }
-            }
-        },
-        markers: $scope.markers
-    };
-})
-.controller('CouncilController', function ($scope, $ionicSideMenuDelegate) {
-    $scope.reload = function() {
-       $scope.reloadCouncilData();
-       $scope.$broadcast('scroll.refreshComplete');
-   };
-
-    $scope.reloadCouncilData = function() {
-        var i = 0;
-        var string = '';
-        var doc;
-        if ($scope.bathdata[13]) {
-            $scope.yourCouncillors = $scope.bathdata[13];
-        }
-        if ($scope.bathdata[14] && $scope.bathdata[14].Results.Listed_Building.Info !== "<p>No records found nearby.</p>") {
-            $scope.listedBuilding = $scope.bathdata[14];
-        }
-        if ($scope.bathdata[18]) {
-            $scope.councilOffices = $scope.bathdata[18];
-        }
-        if ($scope.bathdata[19]) {
-            $scope.housingAllowanceZones = $scope.bathdata[19];
-        }
-
-        if ($scope.yourCouncillors && $scope.yourCouncillors.Results) {
-            var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9 ]{7,12}/;
-            string = '<!DOCTYPE html><html><head></head><body>' + $scope.yourCouncillors.Results.Your_Councillors._ + '</body></html>';
-            doc = new DOMParser().parseFromString(string, 'text/html');
-
-            var councillorList = doc.querySelectorAll('div#myCouncillor a');
-            var councillors = []; // Some councillors have more than one URL returned from ishare
-            for (i = 0; i < councillorList.length; i++) {
-                if ( councillorList[i].toString().search("democracy.bathnes")  != -1 ) {
-                    councillors.push(councillorList[i]);
-                 }
-            }
-            var councillorInfo = doc.querySelectorAll('div#myCouncillor');
-            var tel = "";
-            var party = "";
-            if (councillors[0]) {
-
-                if (councillorInfo[0] && councillorInfo[0].innerText.indexOf('Telephone') != -1) {
-                    tel = phoneNumbers.exec(councillorInfo[0].innerText)[0];
-                }
-                $scope.yourCouncillors.Results.Your_Councillors.number1 = councillors[0].innerHTML;
-                $scope.yourCouncillors.Results.Your_Councillors.info1 = councillors[0].href;
-                $scope.yourCouncillors.Results.Your_Councillors.telephone1 = tel;
-                $scope.yourCouncillors.Results.Your_Councillors.img1 = URLtoBase64(councillorInfo[0].getElementsByTagName('img')[0].src);
-            }
-            if (councillors[1]) {
-                tel = "";
-                party = "";
-
-                if (councillorInfo[1] && councillorInfo[1].innerText.indexOf('Telephone') != -1) {
-                    tel = phoneNumbers.exec(councillorInfo[1].innerText)[0];
-                }
-                $scope.yourCouncillors.Results.Your_Councillors.number2 = councillors[1].innerHTML;
-                $scope.yourCouncillors.Results.Your_Councillors.info2 = councillors[1].href;
-                $scope.yourCouncillors.Results.Your_Councillors.telephone2 = tel;
-                $scope.yourCouncillors.Results.Your_Councillors.img2 = URLtoBase64(councillorInfo[1].getElementsByTagName('img')[0].src);
-            }
-            if (councillors[2]) {
-                tel = "";
-                party = "";
-
-                if (councillorInfo[2] && councillorInfo[2].innerText.indexOf('Telephone') != -1) {
-                    tel = phoneNumbers.exec(councillorInfo[2].innerText)[0];
-                }
-                $scope.yourCouncillors.Results.Your_Councillors.number3 = councillors[3].innerHTML;
-                $scope.yourCouncillors.Results.Your_Councillors.info3 = councillors[3].href;
-                $scope.yourCouncillors.Results.Your_Councillors.telephone3 = tel;
-                $scope.yourCouncillors.Results.Your_Councillors.img3 = URLtoBase64(councillorInfo[1].getElementsByTagName('img')[0].src);
-            }
-        }
-
-        if ($scope.councilOffices && $scope.councilOffices.Results) {
-            // if iShare returns just one, then this fails. Re-jig the object to be a new object holding the old one
-            // Example: BA3 3UD
-            if (typeof $scope.councilOffices.Results.____________________________.length === typeof undefined){
-                var res = $scope.councilOffices.Results.____________________________;
-                $scope.councilOffices.Results.____________________________ = {};
-                $scope.councilOffices.Results.____________________________[0] = res;
-                $scope.councilOffices.Results.____________________________.length = 1; // for iteration below
-            }
-            for (i = 0; i < $scope.councilOffices.Results.____________________________.length; i++) {
-                $scope.councilOffices.Results.____________________________[i].title = $scope.councilOffices.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[1].replace('amp;', '');
-                $scope.councilOffices.Results.____________________________[i].url = $scope.councilOffices.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[0].replace('amp;', '');
-                var geo = NEtoLL($scope.councilOffices.Results.____________________________[i].MapSpurE, $scope.councilOffices.Results.____________________________[i].MapSpurN);
-                $scope.councilOffices.Results.____________________________[i].lat = geo.latitude;
-                $scope.councilOffices.Results.____________________________[i].lon = geo.longitude;
-            }
-        }
-
-        if ($scope.bathdata[7]) {
-            $scope.binCollection = $scope.bathdata[7];
-        }
-
-        if ($scope.binCollection && $scope.binCollection.Results && $scope.binCollection.Results._______________) {
-            string = '<!DOCTYPE html><html><head></head><body>' + $scope.binCollection.Results._______________._ + '</body></html>';
-            doc = new DOMParser().parseFromString(string, 'text/html');
-            var collectionDates = doc.querySelectorAll('span.WasteHighlight');
-
-            if (collectionDates && collectionDates[0]) {
-                $scope.binCollection.Results._______________.waste = collectionDates[0].innerText;
-            }
-            if (collectionDates && collectionDates[1]) {
-                $scope.binCollection.Results._______________.recycling = collectionDates[1].innerText;
-            }
-            if (collectionDates && collectionDates[2]) {
-                $scope.binCollection.Results._______________.garden = collectionDates[2].innerText;
-            }
-        }
-    };
-
-    $scope.reloadCouncilData();
 })
 .directive('browseTo', function ($ionicGesture) {
     return {
@@ -1186,7 +680,7 @@ function isCouncilConnectHours() {
     return true;
 }
 
-function URLtoBase64 ( url ) {
+function URLtoBase64(url) {
     return url;
     // Same origin means we can't do this atm. Might find a solution later
     // uses a canvas element to store an image as a base 64 URL
