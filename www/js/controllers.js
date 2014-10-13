@@ -886,7 +886,7 @@ angular.module('MyBath.Controllers', [])
         if ($scope.bathdata[13]) {
             $scope.yourCouncillors = $scope.bathdata[13];
         }
-        if ($scope.bathdata[14]) {
+        if ( $scope.bathdata[14] && !($scope.bathdata[14].Results.Listed_Building.Info === "<p>No records found nearby.</p>") ) {
             $scope.listedBuilding = $scope.bathdata[14];
         }
         if ($scope.bathdata[18]) {

@@ -87,6 +87,7 @@
             </a>
         </div>
     </div>
+    <span ng-show="listedBuilding">
     <h3>Listed building status</h3>
     <p ng-show="!uprn">No location set</p>
     <div class="list card" ng-repeat="listedstatus in listedBuilding.Results">
@@ -97,7 +98,7 @@
             {{listedstatus.Description}}<br />
             <b>Grading:</b> {{listedstatus.Grading}}
         </div>
-    </div>
+    </div></span>
     <h3>Bin collection dates</h3>
     <p ng-show="!uprn">No location set</p>
     <div class="list card" ng-repeat="collection in binCollection.Results">
