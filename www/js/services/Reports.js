@@ -15,11 +15,11 @@ angular.module('MyBath.ReportsService', [])
             var reports = window.localStorage['reports'];
             var reportsArray;
             if (reports) {
-                var reportsArray = angular.fromJson(reports);
+                reportsArray = angular.fromJson(reports);
                 reportsArray.push(report);
             }
             else {
-                var reportsArray = [ report ];
+                reportsArray = [ report ];
             }
             window.localStorage['reports'] = angular.toJson(reportsArray);
         },
@@ -38,5 +38,5 @@ angular.module('MyBath.ReportsService', [])
                 });
             }
         }
-    }
+    };
 });

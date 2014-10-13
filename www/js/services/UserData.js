@@ -41,5 +41,5 @@ angular.module('MyBath.UserDataService', [])
         clear: function () {
             window.localStorage.removeItem('UserData');
         }
-    }
-})
+    };
+});

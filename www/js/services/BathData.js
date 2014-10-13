@@ -13,13 +13,13 @@ angular.module('MyBath.BathDataService', [])
         all: function () {
 
             // we need a one time only delete as there's invalid data leftover from earlier release
-            var cleanUp = window.localStorage['cleanUp'];
+            var cleanUp = window.localStorage.cleanUp;
             if (!cleanUp) {
                 window.localStorage.removeItem('BathData');
-                window.localStorage['cleanUp'] = 'cleaned';
+                window.localStorage.cleanUp = 'cleaned';
             }
 
-            var bathData = window.localStorage['BathData'];
+            var bathData = window.localStorage.BathData;
             if (bathData) {
                 return angular.fromJson(bathData);
             }
@@ -30,7 +30,7 @@ angular.module('MyBath.BathDataService', [])
         // Output: None
         // saves the data from a JSON input, back into the local storage (overwriting previous storage)
         save: function (bathData) {
-            window.localStorage['BathData'] = angular.toJson(bathData);
+            window.localStorage.BathData = angular.toJson(bathData);
         },
         // Method: BathData.fetchAll()
         // Input: uId string (UPRN)
@@ -117,5 +117,5 @@ angular.module('MyBath.BathDataService', [])
         clear: function () {
             window.localStorage.removeItem('BathData');
         }
-    }
+    };
 });

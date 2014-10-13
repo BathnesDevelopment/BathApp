@@ -1,10 +1,12 @@
 <div class="content">
     <h2>My Nearest</h2>
     <p>This page shows local data, relevant to your registered address.</p>
+    <p ng-show = "!uprn">No location set</p>
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
     <div ng-show="userData.LocalHidden.Libraries">
         <h3>Local libraries</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!librariesNearby.Results">No results</p>
         <div class="list card" ng-repeat="library in librariesNearby.Results">
             <div class="item item-divider">
                 {{library.name}}
@@ -23,7 +25,8 @@
             </div>
         </div>
         <h3>Mobile libraries</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!mobileLibariesNearby.Results">No results</p>
         <div class="list card" ng-repeat="library in mobileLibrariesNearby.Results">
             <div class="item item-divider">
                 Nearest village stop: <span ng-bind-html="library.village"></span>
@@ -46,7 +49,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Schools">
         <h3>Play schools</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">No results</p>
         <div class="list card" ng-repeat="playschool in playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">
             <div class="item item-divider">
                 Play school: {{playschool._}}
@@ -62,7 +66,8 @@
             </div>
         </div>
         <h3>Primary schools</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!primarySchoolsNearby.Results.Primary_Schools_Nearby">No results</p>
         <div class="list card" ng-repeat="primaryschool in primarySchoolsNearby.Results.Primary_Schools_Nearby">
             <div class="item item-divider">
                 Primary school: {{primaryschool.name}}
@@ -82,7 +87,8 @@
         </div>
 
         <h3>Secondary schools</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!secondarySchoolsNearby.Results.Secondary_Schools_Nearby">No results</p>
         <div class="list card" ng-repeat="secondaryschool in secondarySchoolsNearby.Results.Secondary_Schools_Nearby">
             <div class="item item-divider">
                 {{secondaryschool.name}}
@@ -102,7 +108,8 @@
         </div>
 
         <h3>Colleges</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!collegesNearby.Results.Colleges_Nearby">No results</p>
         <div class="list card" ng-repeat="college in collegesNearby.Results.Colleges_Nearby">
             <div class="item item-divider">
                 {{college._}}
@@ -119,7 +126,8 @@
         </div>
 
         <h3>Universities</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!universitiesNearby.Results.Universities_Nearby">No results</p>
         <div class="list card" ng-repeat="university in universitiesNearby.Results.Universities_Nearby">
             <div class="item item-divider">
                 {{university._}}
@@ -137,7 +145,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Roadworks">
         <h3>Scheduled roadworks</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!roadworksNearby.Results.Roadworks_Nearby">No results</p>
         <div class="list card" ng-repeat="roadworks in roadworksNearby.Results.Roadworks_Nearby">
             <div class="item item-divider">
                 {{roadworks.title}}
@@ -161,7 +170,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Bus">
         <h3>Bus stops</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!busStops.Results.Bus_Stops_Nearby">No results</p>
         <div class="list card" ng-repeat="busstop in busStops.Results.Bus_Stops_Nearby">
             <div class="item item-divider">
                 {{busstop.Bus_stop_name}}
@@ -179,7 +189,8 @@
     </div>
     <div ng-show="userData.LocalHidden.CarPark">
         <h3>Parking zone</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!parkingNearby.Results">No results</p>
         <div class="list card" ng-repeat="parking in parkingNearby.Results" ng-show="parkingNearby.Results.Parking_Zones">
             <div class="item item-divider">
                 {{parking._}}
@@ -193,7 +204,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Crossings">
         <h3>School crossings</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!schoolCrossings.Results.School_Crossings_Nearby">No results</p>
         <div class="list card" ng-repeat="schoolCrossing in schoolCrossings.Results.School_Crossings_Nearby">
             <div class="item item-divider">
                 <span ng-bind-html="schoolCrossing.Name_"></span>
@@ -213,7 +225,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Sports">
         <h3>Health and fitness centres</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">No results</p>
         <div class="list card" ng-repeat="healthcentre in healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
             <div class="item item-divider">
                 {{healthcentre.name}}
@@ -231,7 +244,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Planning">
         <h3>Planning applications</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!planningApplicationsNearby.Results.Planning_Applications_Nearby">No results</p>
         <div class="list card" ng-repeat="application in planningApplicationsNearby.Results.Planning_Applications_Nearby">
             <div class="item item-divider">
                 Planning reference: {{application.title}}
@@ -253,7 +267,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Licenses">
         <h3>New license applications</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby">No results</p>
         <div class="list card" ng-repeat="newApplication in newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby" ng-show="newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length">
             <div class="item item-divider">
                 License reference: {{newApplication.title}}
@@ -274,8 +289,9 @@
         </div>
 
         <h3>Issued license applications</h3>
-        <p ng-show="!uprn">No location set</p>
-        <div class="list card" ng-repeat="issuedApplication in issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby" ng-show="issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length">
+        
+        <p ng-show="!issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby">No results</p>
+        <div class="list card" ng-repeat="issuedApplication in issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby">
             <div class="item item-divider">
                 Reference: {{issuedApplication.title}}
                 <p>Distance: {{mToMi(issuedApplication.Distance)}} miles</p>
@@ -296,7 +312,8 @@
     </div>
     <div ng-show="userData.LocalHidden.ParksAndRec">
         <h3>Parks</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!parksNearby.Results.Parks_or_Open_Spaces_Nearby">No results</p>
         <div class="list card" ng-repeat="park in parksNearby.Results.Parks_or_Open_Spaces_Nearby">
             <div class="item item-divider">
                 Park: <span ng-bind-html="park._"></span>
@@ -310,7 +327,8 @@
         </div>
 
         <h3>Play areas</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!playAreasNearby.Results.Play_Areas_Nearby">No results</p>
         <div class="list card" ng-repeat="playarea in playAreasNearby.Results.Play_Areas_Nearby">
             <div class="item item-divider">
                 Play area: {{playarea._}}
@@ -325,7 +343,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Allotments">
         <h3>Allotments</h3>
-        <p ng-show="!uprn">No location set</p>
+        
+        <p ng-show="!allotmentsNearby.Results.Allotments_Nearby">No results</p>
         <p ng-show="allotmentsOutsideBath">For allotment queries outside Bath, please contact your local Parish Council.</p>
         <div class="list card" ng-repeat="allotment in allotmentsNearby.Results.Allotments_Nearby">
             <div class="item item-divider">

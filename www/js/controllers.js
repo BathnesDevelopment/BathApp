@@ -185,7 +185,7 @@ angular.module('MyBath.Controllers', [])
     $scope.submitReportItPage3 = function (location) {
         if ( $scope.currentReport.useUserLocation ) {
             $scope.currentReport.lat = $scope.currentLocation.coords.latitude;
-            $scope.currentReport.long  = $scope.currentLocation.coords.longitude; 
+            $scope.currentReport.long  = $scope.currentLocation.coords.longitude;
         }
         $scope.reportItLocationModal.hide();
         $scope.reportItPersonalModal.show();
@@ -331,14 +331,14 @@ angular.module('MyBath.Controllers', [])
                                 }).then(function (res) {
                                 });
                             }
-                    });                 
+                    });
                 }
                 return true;
             },
             destructiveButtonClicked: function () {
                 $scope.deleteData();
                 return true;
-            }       
+            }
         });
     };
 
@@ -556,11 +556,11 @@ angular.module('MyBath.Controllers', [])
     // Formats the time string returned by iShare for roadworks
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.formatTime = function( strTime ) {
-        if (strTime == "01/01/4000 00:00:00" ) { 
+        if (strTime === "01/01/4000 00:00:00" ) {
             //This is returned when there's no date
             return "No data avaliable";
         }
-        if (strTime.search( " 00:00:00" ) != -1) { 
+        if (strTime.search( " 00:00:00" ) !== -1) {
             // Returned as a DateTime but we only really care about the date
             return strTime.slice(0,strTime.search(" 00:00:00"));
         }
@@ -587,7 +587,7 @@ angular.module('MyBath.Controllers', [])
             if (aPart2 || aPart1) {
             res += ", ";
         }
-        res += aPart3; 
+        res += aPart3;
         }
         return res;
     };
@@ -885,9 +885,9 @@ angular.module('MyBath.Controllers', [])
         }
     }
     if ($scope.allotmentsNearby && $scope.allotmentsNearby.Results) {
-        if ($scope.allotmentsNearby.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
+        if (typeof $scope.allotmentsNearby.Results.Allotments_Nearby.Info !== typeof undefined && $scope.allotmentsNearby.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
             $scope.allotmentsOutsideBath = true;
-            $scope.allotmentsNearby.Results = {}
+            $scope.allotmentsNearby.Results = {};
         } else {
             if (typeof $scope.allotmentsNearby.Results.Allotments_Nearby.length === typeof undefined ) {
                 temp = $scope.allotmentsNearby.Results.Allotments_Nearby;
@@ -935,7 +935,7 @@ angular.module('MyBath.Controllers', [])
     $scope.map = {
         defaults: {
             tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
-            attributionControl: false,     
+            attributionControl: false,
             maxZoom: 20,
             zoomControlPosition: 'bottomleft',
             path: {
@@ -950,7 +950,7 @@ angular.module('MyBath.Controllers', [])
             zoom: 18
         },
         layers: {
-            baselayers: { 
+            baselayers: {
                 MapBox: {
                 layerOptions:{attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>'},
                     name: 'Map items of interest',
@@ -967,9 +967,9 @@ angular.module('MyBath.Controllers', [])
             },
             overlays: {
                 Libraries: {
-                    type: 'group', 
-                    name: 'Libraries', 
-                    visible: true 
+                    type: 'group',
+                    name: 'Libraries',
+                    visible: true
                 }
             }
         },
