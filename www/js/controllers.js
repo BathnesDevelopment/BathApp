@@ -568,6 +568,30 @@ angular.module('MyBath.Controllers', [])
         return strTime;
     };
 
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: formatAddress
+    // Formats address strings returned by iShare
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.formatAddress = function ( aPart1, aPart2, aPart3 ) {
+        var res = "";
+        if (aPart1) {
+            res += aPart1  ;
+        }
+        if (aPart2) {
+            if (aPart1) {
+                 res += ", " 
+            }
+            res += aPart2;
+        }
+        if (aPart3) {
+            if (aPart2 || aPart1) {
+            res += ", ";
+        }
+        res += aPart3; 
+        }
+        return res;
+    }
 })
 .controller('LocalDataController', function ($scope, $ionicSideMenuDelegate) {
     if ($scope.bathdata[0]) {
