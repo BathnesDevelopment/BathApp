@@ -114,7 +114,7 @@ angular.module('MyBath.Controllers', [])
     };
     $scope.closeDisplayOptions = function () {
         // Save
-        window.localStorage['UserData'] = angular.toJson($scope.userData);
+        window.localStorage.UserData = angular.toJson($scope.userData);
         $scope.displayOptionsModal.hide();
     };
 
@@ -184,8 +184,8 @@ angular.module('MyBath.Controllers', [])
     // Submit
     $scope.submitReportItPage3 = function (location) {
         if ( $scope.currentReport.useUserLocation ) {
-            $scope.currentReport['lat'] = $scope.currentLocation['coords']['latitude'];
-            $scope.currentReport['long']  = $scope.currentLocation['coords']['longitude']; 
+            $scope.currentReport.lat = $scope.currentLocation.coords.latitude;
+            $scope.currentReport.long  = $scope.currentLocation.coords.longitude; 
         }
         $scope.reportItLocationModal.hide();
         $scope.reportItPersonalModal.show();
@@ -590,9 +590,11 @@ angular.module('MyBath.Controllers', [])
         res += aPart3; 
         }
         return res;
-    }
+    };
 })
 .controller('LocalDataController', function ($scope, $ionicSideMenuDelegate) {
+    var i = 0;
+    var geo;
     if ($scope.bathdata[0]) {
         $scope.librariesNearby = $scope.bathdata[0];
     }
@@ -605,7 +607,7 @@ angular.module('MyBath.Controllers', [])
         // Do the string manipulation to clean up - need to make sure this won't blow up
         $scope.librariesNearby.Results.Libraries_Nearby.url = $scope.librariesNearby.Results.Libraries_Nearby._.split("|")[0];
         $scope.librariesNearby.Results.Libraries_Nearby.name = $scope.librariesNearby.Results.Libraries_Nearby._.split("|")[1];
-        var geo = NEtoLL($scope.librariesNearby.Results.Libraries_Nearby.MapSpurE, $scope.librariesNearby.Results.Libraries_Nearby.MapSpurN);
+        geo = NEtoLL($scope.librariesNearby.Results.Libraries_Nearby.MapSpurE, $scope.librariesNearby.Results.Libraries_Nearby.MapSpurN);
         $scope.librariesNearby.Results.Libraries_Nearby.lat = geo.latitude;
         $scope.librariesNearby.Results.Libraries_Nearby.lon = geo.longitude;
     }
@@ -613,7 +615,7 @@ angular.module('MyBath.Controllers', [])
         // Do the string manipulation to clean up - need to make sure this won't blow up
         $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.timeAdjusted = $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.time.replace('?', '-');
         $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.url = $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby._.split("|")[0];
-        var geo = NEtoLL($scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.MapSpurE, $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.MapSpurN);
+        geo = NEtoLL($scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.MapSpurE, $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.MapSpurN);
         $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.lat = geo.latitude;
         $scope.mobileLibrariesNearby.Results.Mobile_Libraries_Nearby.lon = geo.longitude;
     }
@@ -636,14 +638,15 @@ angular.module('MyBath.Controllers', [])
     }
 
     if ($scope.universitiesNearby) {
+        
         // ishare only returns 8 characters in the string for some reason
         // This should get fixed, but at the moment, this fixes the display for the 2 major universities
-        for (var i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length; i++) {
-            if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Claverto") {
-                $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Claverton Down";
+        for (i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length; i++) {
+            if ($scope.universitiesNearby.Results.Universities_Nearby[i].___ == "Claverto") {
+                $scope.universitiesNearby.Results.Universities_Nearby[i].___ = "Claverton Down";
             }
-            if ($scope.universitiesNearby.Results.Universities_Nearby[i]['___'] == "Newton P") {
-                $scope.universitiesNearby.Results.Universities_Nearby[i]['___'] = "Newton Park";
+            if ($scope.universitiesNearby.Results.Universities_Nearby[i].___ == "Newton P") {
+                $scope.universitiesNearby.Results.Universities_Nearby[i].___ = "Newton Park";
             }
         }
     }
@@ -667,21 +670,21 @@ angular.module('MyBath.Controllers', [])
         for (i = 0; i < $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby.length ; i++) {
             $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].name = $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i]._.split('|')[1];
             $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].url = $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i]._.split('|')[0];
-            var geo = NEtoLL($scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].MapSpurE, $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].MapSpurE, $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].MapSpurN);
             $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].lat = geo.latitude;
             $scope.secondarySchoolsNearby.Results.Secondary_Schools_Nearby[i].lon = geo.longitude;
         }
     }
     if ($scope.collegesNearby && $scope.collegesNearby.Results) {
         for (i = 0; i < $scope.collegesNearby.Results.Colleges_Nearby.length ; i++) {
-            var geo = NEtoLL($scope.collegesNearby.Results.Colleges_Nearby[i].MapSpurE, $scope.collegesNearby.Results.Colleges_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.collegesNearby.Results.Colleges_Nearby[i].MapSpurE, $scope.collegesNearby.Results.Colleges_Nearby[i].MapSpurN);
             $scope.collegesNearby.Results.Colleges_Nearby[i].lat = geo.latitude;
             $scope.collegesNearby.Results.Colleges_Nearby[i].lon = geo.longitude;
         }
     }
     if ($scope.universitiesNearby && $scope.universitiesNearby.Results) {
         for (i = 0; i < $scope.universitiesNearby.Results.Universities_Nearby.length ; i++) {
-            var geo = NEtoLL($scope.universitiesNearby.Results.Universities_Nearby[i].MapSpurE, $scope.universitiesNearby.Results.Universities_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.universitiesNearby.Results.Universities_Nearby[i].MapSpurE, $scope.universitiesNearby.Results.Universities_Nearby[i].MapSpurN);
             $scope.universitiesNearby.Results.Universities_Nearby[i].lat = geo.latitude;
             $scope.universitiesNearby.Results.Universities_Nearby[i].lon = geo.longitude;
         }
@@ -703,7 +706,7 @@ angular.module('MyBath.Controllers', [])
 
     if ($scope.parkingNearby && $scope.parkingNearby.Results) {
         for (i = 0; i < $scope.parkingNearby.Results.Parking_Zones.length ; i++) {
-            var geo = NEtoLL($scope.parkingNearby.Results.Parking_Zones[i].MapSpurE, $scope.parkingNearby.Results.Parking_Zones[i].MapSpurN);
+            geo = NEtoLL($scope.parkingNearby.Results.Parking_Zones[i].MapSpurE, $scope.parkingNearby.Results.Parking_Zones[i].MapSpurN);
             $scope.parkingNearby.Results.Parking_Zones[i].lat = geo.latitude;
             $scope.parkingNearby.Results.Parking_Zones[i].lon = geo.longitude;
         }
@@ -712,21 +715,21 @@ angular.module('MyBath.Controllers', [])
         for (i = 0; i < $scope.roadworksNearby.Results.Roadworks_Nearby.length ; i++) {
             $scope.roadworksNearby.Results.Roadworks_Nearby[i].title = $scope.roadworksNearby.Results.Roadworks_Nearby[i].Organisation.split('|')[1].replace('amp;', '');
             $scope.roadworksNearby.Results.Roadworks_Nearby[i].url = $scope.roadworksNearby.Results.Roadworks_Nearby[i].Organisation.split('|')[0].replace('amp;', '');
-            var geo = NEtoLL($scope.roadworksNearby.Results.Roadworks_Nearby[i].MapSpurE, $scope.roadworksNearby.Results.Roadworks_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.roadworksNearby.Results.Roadworks_Nearby[i].MapSpurE, $scope.roadworksNearby.Results.Roadworks_Nearby[i].MapSpurN);
             $scope.roadworksNearby.Results.Roadworks_Nearby[i].lat = geo.latitude;
             $scope.roadworksNearby.Results.Roadworks_Nearby[i].lon = geo.longitude;
         }
     }
     if ($scope.busStops && $scope.busStops.Results) {
         for (i = 0; i < $scope.busStops.Results.Bus_Stops_Nearby.length ; i++) {
-            var geo = NEtoLL($scope.busStops.Results.Bus_Stops_Nearby[i].MapSpurE, $scope.busStops.Results.Bus_Stops_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.busStops.Results.Bus_Stops_Nearby[i].MapSpurE, $scope.busStops.Results.Bus_Stops_Nearby[i].MapSpurN);
             $scope.busStops.Results.Bus_Stops_Nearby[i].lat = geo.latitude;
             $scope.busStops.Results.Bus_Stops_Nearby[i].lon = geo.longitude;
         }
     }
     if ($scope.schoolCrossings && $scope.schoolCrossings.Results) {
         for (i = 0; i < $scope.schoolCrossings.Results.School_Crossings_Nearby.length ; i++) {
-            var geo = NEtoLL($scope.schoolCrossings.Results.School_Crossings_Nearby[i].MapSpurE, $scope.schoolCrossings.Results.School_Crossings_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.schoolCrossings.Results.School_Crossings_Nearby[i].MapSpurE, $scope.schoolCrossings.Results.School_Crossings_Nearby[i].MapSpurN);
             $scope.schoolCrossings.Results.School_Crossings_Nearby[i].lat = geo.latitude;
             $scope.schoolCrossings.Results.School_Crossings_Nearby[i].lon = geo.longitude;
         }
@@ -739,7 +742,7 @@ angular.module('MyBath.Controllers', [])
         for (i = 0; i < $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby.length ; i++) {
             $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].name = $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[1].replace('amp;', '');
             $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].url = $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[0];
-            var geo = NEtoLL($scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurE, $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurE, $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurN);
             $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].lat = geo.latitude;
             $scope.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby[i].lon = geo.longitude;
         }
@@ -753,7 +756,7 @@ angular.module('MyBath.Controllers', [])
         for (i = 0; i < $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby.length ; i++) {
             $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].title = $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
             $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].url = $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-            var geo = NEtoLL($scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].MapSpurE, $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].MapSpurE, $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].MapSpurN);
             $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].lat = geo.latitude;
             $scope.planningApplicationsNearby.Results.Planning_Applications_Nearby[i].lon = geo.longitude;
         }
@@ -770,7 +773,7 @@ angular.module('MyBath.Controllers', [])
         for (i = 0; i < $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length ; i++) {
             $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].title = $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
             $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].url = $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-            var geo = NEtoLL($scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].MapSpurE, $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].MapSpurE, $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].MapSpurN);
             $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].lat = geo.latitude;
             $scope.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby[i].lon = geo.longitude;
         }
@@ -779,7 +782,7 @@ angular.module('MyBath.Controllers', [])
         for (i = 0; i < $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby.length ; i++) {
             $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].title = $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
             $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].url = $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-            var geo = NEtoLL($scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
             $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].lat = geo.latitude;
             $scope.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby[i].lon = geo.longitude;
         }
@@ -796,7 +799,7 @@ angular.module('MyBath.Controllers', [])
 
     if ($scope.parksNearby && $scope.parksNearby.Results) {
         for (i = 0; i < $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby.length ; i++) {
-            var geo = NEtoLL($scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurE, $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurE, $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurN);
             $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].lat = geo.latitude;
             $scope.parksNearby.Results.Parks_or_Open_Spaces_Nearby[i].lon = geo.longitude;
         }
@@ -804,14 +807,14 @@ angular.module('MyBath.Controllers', [])
     if ($scope.allotmentsNearby && $scope.allotmentsNearby.Results) {
         for (i = 0; i < $scope.allotmentsNearby.Results.Allotments_Nearby.length ; i++) {
             $scope.allotmentsNearby.Results.Allotments_Nearby[i].ProvidedAdjusted = $scope.allotmentsNearby.Results.Allotments_Nearby[i].Provided__by.replace('amp;', '');
-            var geo = NEtoLL($scope.allotmentsNearby.Results.Allotments_Nearby[i].MapSpurE, $scope.allotmentsNearby.Results.Allotments_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.allotmentsNearby.Results.Allotments_Nearby[i].MapSpurE, $scope.allotmentsNearby.Results.Allotments_Nearby[i].MapSpurN);
             $scope.allotmentsNearby.Results.Allotments_Nearby[i].lat = geo.latitude;
             $scope.allotmentsNearby.Results.Allotments_Nearby[i].lon = geo.longitude;
         }
     }
     if ($scope.playAreasNearby && $scope.playAreasNearby.Results) {
         for (i = 0; i < $scope.playAreasNearby.Results.Play_Areas_Nearby.length ; i++) {
-            var geo = NEtoLL($scope.playAreasNearby.Results.Play_Areas_Nearby[i].MapSpurE, $scope.playAreasNearby.Results.Play_Areas_Nearby[i].MapSpurN);
+            geo = NEtoLL($scope.playAreasNearby.Results.Play_Areas_Nearby[i].MapSpurE, $scope.playAreasNearby.Results.Play_Areas_Nearby[i].MapSpurN);
             $scope.playAreasNearby.Results.Play_Areas_Nearby[i].lat = geo.latitude;
             $scope.playAreasNearby.Results.Play_Areas_Nearby[i].lon = geo.longitude;
         }
@@ -819,7 +822,7 @@ angular.module('MyBath.Controllers', [])
 })
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
 
-    $scope.markers = new Array();
+    $scope.markers = [];
 
     MapData.getLayer("libraries")
     .then(function (data) {
@@ -880,13 +883,16 @@ angular.module('MyBath.Controllers', [])
     $scope.reload = function() {
        $scope.reloadCouncilData();
        $scope.$broadcast('scroll.refreshComplete');
-   }
+   };
 
     $scope.reloadCouncilData = function() {
+        var i = 0;
+        var string = '';
+        var doc;
         if ($scope.bathdata[13]) {
             $scope.yourCouncillors = $scope.bathdata[13];
         }
-        if ( $scope.bathdata[14] && !($scope.bathdata[14].Results.Listed_Building.Info === "<p>No records found nearby.</p>") ) {
+        if ($scope.bathdata[14] && $scope.bathdata[14].Results.Listed_Building.Info !== "<p>No records found nearby.</p>") {
             $scope.listedBuilding = $scope.bathdata[14];
         }
         if ($scope.bathdata[18]) {
@@ -897,22 +903,21 @@ angular.module('MyBath.Controllers', [])
         }
 
         if ($scope.yourCouncillors && $scope.yourCouncillors.Results) {
-            var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9 ]{7,12}/
-            var string = '<!DOCTYPE html><html><head></head><body>' + $scope.yourCouncillors.Results.Your_Councillors._ + '</body></html>';
-            var doc = new DOMParser().parseFromString(string, 'text/html');
+            var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9 ]{7,12}/;
+            string = '<!DOCTYPE html><html><head></head><body>' + $scope.yourCouncillors.Results.Your_Councillors._ + '</body></html>';
+            doc = new DOMParser().parseFromString(string, 'text/html');
 
             var councillorList = doc.querySelectorAll('div#myCouncillor a');
             var councillors = []; // Some councillors have more than one URL returned from ishare
-            for (var i = 0; i < councillorList.length; i++) {
+            for (i = 0; i < councillorList.length; i++) {
                 if ( councillorList[i].toString().search("democracy.bathnes")  != -1 ) {
                     councillors.push(councillorList[i]);
                  }
-            };
+            }
             var councillorInfo = doc.querySelectorAll('div#myCouncillor');
-
+            var tel = "";
+            var party = "";
             if (councillors[0]) {
-                var tel = "";
-                var party = "";
 
                 if (councillorInfo[0] && councillorInfo[0].innerText.indexOf('Telephone') != -1) {
                     tel = phoneNumbers.exec(councillorInfo[0].innerText)[0];
@@ -923,8 +928,8 @@ angular.module('MyBath.Controllers', [])
                 $scope.yourCouncillors.Results.Your_Councillors.img1 = URLtoBase64(councillorInfo[0].getElementsByTagName('img')[0].src);
             }
             if (councillors[1]) {
-                var tel = "";
-                var party = "";
+                tel = "";
+                party = "";
 
                 if (councillorInfo[1] && councillorInfo[1].innerText.indexOf('Telephone') != -1) {
                     tel = phoneNumbers.exec(councillorInfo[1].innerText)[0];
@@ -935,8 +940,8 @@ angular.module('MyBath.Controllers', [])
                 $scope.yourCouncillors.Results.Your_Councillors.img2 = URLtoBase64(councillorInfo[1].getElementsByTagName('img')[0].src);
             }
             if (councillors[2]) {
-                var tel = "";
-                var party = "";
+                tel = "";
+                party = "";
 
                 if (councillorInfo[2] && councillorInfo[2].innerText.indexOf('Telephone') != -1) {
                     tel = phoneNumbers.exec(councillorInfo[2].innerText)[0];
@@ -953,7 +958,7 @@ angular.module('MyBath.Controllers', [])
             // Example: BA3 3UD
             if (typeof $scope.councilOffices.Results.____________________________.length === typeof undefined){
                 res = $scope.councilOffices.Results.____________________________;
-                $scope.councilOffices.Results.____________________________ = new Object();
+                $scope.councilOffices.Results.____________________________ = {};
                 $scope.councilOffices.Results.____________________________[0] = res;
                 $scope.councilOffices.Results.____________________________.length = 1; // for iteration below
             }
@@ -971,8 +976,8 @@ angular.module('MyBath.Controllers', [])
         }
 
         if ($scope.binCollection && $scope.binCollection.Results && $scope.binCollection.Results._______________) {
-            var string = '<!DOCTYPE html><html><head></head><body>' + $scope.binCollection.Results._______________._ + '</body></html>';
-            var doc = new DOMParser().parseFromString(string, 'text/html');
+            string = '<!DOCTYPE html><html><head></head><body>' + $scope.binCollection.Results._______________._ + '</body></html>';
+            doc = new DOMParser().parseFromString(string, 'text/html');
             var collectionDates = doc.querySelectorAll('span.WasteHighlight');
 
             if (collectionDates && collectionDates[0]) {
@@ -1021,13 +1026,13 @@ angular.module('MyBath.Controllers', [])
 
 (function (DOMParser) {
     "use strict";
-    var DOMParser_proto = DOMParser.prototype
-      , real_parseFromString = DOMParser_proto.parseFromString;
+    var DOMParser_proto = DOMParser.prototype;
+    var real_parseFromString = DOMParser_proto.parseFromString;
 
     // Firefox/Opera/IE throw errors on unsupported types  
     try {
         // WebKit returns null on unsupported types  
-        if ((new DOMParser).parseFromString("", "text/html")) {
+        if ((new DOMParser()).parseFromString("", "text/html")) {
             // text/html parsing is natively supported  
             return;
         }
@@ -1035,15 +1040,14 @@ angular.module('MyBath.Controllers', [])
 
     DOMParser_proto.parseFromString = function (markup, type) {
         if (/^\s*text\/html\s*(?:;|$)/i.test(type)) {
-            var doc = document.implementation.createHTMLDocument("")
-              , doc_elt = doc.documentElement
-              , first_elt;
+            var doc = document.implementation.createHTMLDocument("");
+            var doc_elt = doc.documentElement;
+            var first_elt;
 
             doc_elt.innerHTML = markup;
             first_elt = doc_elt.firstElementChild;
 
-            if (doc_elt.childElementCount === 1
-                && first_elt.localName.toLowerCase() === "html") {
+            if (doc_elt.childElementCount === 1 && first_elt.localName.toLowerCase() === "html") {
                 doc.replaceChild(first_elt, doc_elt);
             }
 
@@ -1089,7 +1093,7 @@ function URLtoBase64 ( url ) {
     return url;
     // Same origin means we can't do this atm. Might find a solution later
     // uses a canvas element to store an image as a base 64 URL
-    var canvas = document.createElement("canvas");
+    /*var canvas = document.createElement("canvas");
     var img = new Image();
     img.src = url;
     canvas.height = img.height; 
@@ -1101,5 +1105,5 @@ function URLtoBase64 ( url ) {
     var res = canvas.toDataURL("image/jpeg");
     console.log(res);
     canvas.remove();
-    return res;
+    return res;*/
 }
