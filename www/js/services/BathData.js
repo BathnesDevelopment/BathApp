@@ -149,7 +149,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 2 : // Play Schools
                     if (res && res.Results) {
-                        if (typeof res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby )) {
                             temp = res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby;
                            res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby = {};
                            res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[0] = temp;
@@ -164,7 +164,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 3 : // Primary Schools
                     if (res && res.Results) {
-                        if (typeof res.Results.Primary_Schools_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Primary_Schools_Nearby)) {
                             temp = res.Results.Primary_Schools_Nearby;
                             res.Results.Primary_Schools_Nearby = {};
                             res.Results.Primary_Schools_Nearby[0] = temp;
@@ -184,7 +184,7 @@ angular.module('MyBath.BathDataService', [])
                     }
                     return res;
                 case 4 : // Secondary Schools
-                    if (typeof res.Results.Secondary_Schools_Nearby.length === typeof undefined) {
+                    if (!angular.isArray( res.Results.Secondary_Schools_Nearby )) {
                         temp = res.Results.Secondary_Schools_Nearby;
                         res.Results.Secondary_Schools_Nearby = {};
                         res.Results.Secondary_Schools_Nearby[0] = temp;
@@ -202,7 +202,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 5 : // Colleges
                     if (res && res.Results) {
-                        if (typeof res.Results.Colleges_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Colleges_Nearby )) {
                             temp = res.Results.Colleges_Nearby;
                             res.Results.Colleges_Nearby = {};
                             res.Results.Colleges_Nearby[0] = temp;
@@ -216,7 +216,7 @@ angular.module('MyBath.BathDataService', [])
                     }
                     return res;
                 case 6 : // Universities
-                    if (typeof res.Results.Universities_Nearby.length === typeof undefined) {
+                    if (!angular.isArray( res.Results.Universities_Nearby )) {
                         temp = res.Results.Universities_Nearby;
                         res.Results.Universities_Nearby = {};
                         res.Results.Universities_Nearby[0] = temp;
@@ -242,7 +242,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 8 : // Roadworks
                     if (res && res.Results) {
-                        if (typeof res.Results.Roadworks_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Roadworks_Nearby )) {
                             temp = res.Results.Roadworks_Nearby;
                             res.Results.Roadworks_Nearby = {};
                             res.Results.Roadworks_Nearby[0] = temp;
@@ -259,7 +259,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 9 : // Parks
                     if (res && res.Results) {
-                        if (typeof res.Results.Parks_or_Open_Spaces_Nearby.length === typeof undefined) {
+                        if (!angular.isArray(res.Results.Parks_or_Open_Spaces_Nearby)) {
                             temp = res.Results.Parks_or_Open_Spaces_Nearby;
                             res.Results.Parks_or_Open_Spaces_Nearby = {};
                             res.Results.Parks_or_Open_Spaces_Nearby[0] = temp;
@@ -274,7 +274,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 10: // Play Areas
                     if (res && res.Results) {
-                        if (typeof res.Results.Play_Areas_Nearby.length === typeof undefined) {
+                        if (!angular.isArray(res.Results.Play_Areas_Nearby)) {
                             temp = res.Results.Play_Areas_Nearby;
                             res.Results.Play_Areas_Nearby = {};
                             res.Results.Play_Areas_Nearby[0] = temp;
@@ -286,14 +286,15 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Play_Areas_Nearby[i].lon = geo.longitude;
                         }
                     }
-                return res;
+                    return res;
                 case 11: // Allotments
                     if (res && res.Results) {
                         if (typeof res.Results.Allotments_Nearby.Info !== typeof undefined && res.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
-                            $scope.allotmentsOutsideBath = true;
+                            //$scope.allotmentsOutsideBath = true;
                             res.Results = {};
+                            return res;
                         } else {
-                            if (typeof res.Results.Allotments_Nearby.length === typeof undefined) {
+                            if (!angular.isArray(res.Results.Allotments_Nearby)) {
                                 temp = res.Results.Allotments_Nearby;
                                 res.Results.Allotments_Nearby = {};
                                 res.Results.Allotments_Nearby[0] = temp;
@@ -310,7 +311,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 12: // Health and Fitness
                     if (res && res.Results) {
-                        if (typeof res.Results.Health_and_Fitness_Centres_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Health_and_Fitness_Centres_Nearby )) {
                             temp = res.Results.Health_and_Fitness_Centres_Nearby;
                             res.Results.Health_and_Fitness_Centres_Nearby = {};
                             res.Results.Health_and_Fitness_Centres_Nearby[0] = temp;
@@ -327,7 +328,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 15: // Planning Applications
                     if (res && res.Results) {
-                        if (typeof res.Results.Planning_Applications_Nearby.length === typeof undefined) {
+                        if (!angular.isArray(res.Results.Planning_Applications_Nearby)) {
                             temp = res.Results.Planning_Applications_Nearby;
                             res.Results.Planning_Applications_Nearby = {};
                             res.Results.Planning_Applications_Nearby[0] = temp;
@@ -341,9 +342,10 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Planning_Applications_Nearby[i].lon = geo.longitude;
                         }
                     }
+                    return res;
                 case 16: // New Licencing
                     if (res && res.Results && res.Results.New_Licensing_Applications_Nearby ) {
-                        if (typeof res.Results.New_Licensing_Applications_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.New_Licensing_Applications_Nearby )) {
                             temp = res.Results.New_Licensing_Applications_Nearby;
                             res.Results.New_Licensing_Applications_Nearby = {};
                             res.Results.New_Licensing_Applications_Nearby[0] = temp;
@@ -360,7 +362,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 17: // Issued ditto
                     if (res && res.Results) {
-                            if (typeof res.Results.Issued_Licensing_Applications_Nearby.length === typeof undefined) {
+                            if (!angular.isArray( res.Results.Issued_Licensing_Applications_Nearby )) {
                                 temp = res.Results.Issued_Licensing_Applications_Nearby;
                                 res.Results.Issued_Licensing_Applications_Nearby = {};
                                 res.Results.Issued_Licensing_Applications_Nearby[0] = temp;
@@ -377,7 +379,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 20: // Bus Stops
                     if (res && res.Results) {
-                        if (typeof res.Results.Bus_Stops_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Bus_Stops_Nearby )) {
                             temp = res.Results.Bus_Stops_Nearby;
                             res.Results.Bus_Stops_Nearby = {};
                             res.Results.Bus_Stops_Nearby[0] = temp;
@@ -392,7 +394,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 21: // Bus Stops
                     if (res && res.Results) {
-                        if (typeof res.Results.School_Crossings_Nearby.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.School_Crossings_Nearby.length )) {
                             temp = res.Results.School_Crossings_Nearby;
                             res.Results.School_Crossings_Nearby = {};
                             res.Results.School_Crossings_Nearby[0] = temp;
@@ -410,7 +412,7 @@ angular.module('MyBath.BathDataService', [])
                         return {};
                     }
                     if (res && res.Results) {
-                        if (typeof res.Results.Parking_Zones.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.Parking_Zones )) {
                             temp = res.Results.Parking_Zones;
                             res.Results.Parking_Zones = {};
                             res.Results.Parking_Zones[0] = temp;
@@ -504,7 +506,7 @@ angular.module('MyBath.BathDataService', [])
                     if (res && res.Results) {
                         // if iShare returns just one, then this fails. Re-jig the object to be a new object holding the old one
                         // Example: BA3 3UD
-                        if (typeof res.Results.____________________________.length === typeof undefined) {
+                        if (!angular.isArray( res.Results.____________________________)) {
                             var toAppend = res.Results.____________________________;
                             res.Results.____________________________ = {};
                             res.Results.____________________________[0] = toAppend;
@@ -513,7 +515,7 @@ angular.module('MyBath.BathDataService', [])
                         for (i = 0; i < res.Results.____________________________.length; i++) {
                             res.Results.____________________________[i].title = res.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[1].replace('amp;', '');
                             res.Results.____________________________[i].url = res.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[0].replace('amp;', '');
-                            var geo = NEtoLL(res.Results.____________________________[i].MapSpurE, res.Results.____________________________[i].MapSpurN);
+                            geo = NEtoLL(res.Results.____________________________[i].MapSpurE, res.Results.____________________________[i].MapSpurN);
                             res.Results.____________________________[i].lat = geo.latitude;
                             res.Results.____________________________[i].lon = geo.longitude;
                         }

@@ -8,7 +8,7 @@ angular.module('MyBath.UserDataService', [])
 .factory('UserData', function ($http, $q) {
     return {
         all: function () {
-            var userData = window.localStorage['UserData'];
+            var userData = window.localStorage.UserData;
             if (!userData) {
                 // Defaults
                 userData = { "LocalHidden": { Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true, Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true } };
@@ -16,7 +16,7 @@ angular.module('MyBath.UserDataService', [])
             return angular.fromJson(userData);
         },
         save: function (userData) {
-            window.localStorage['UserData'] = angular.toJson(userData);
+            window.localStorage.UserData = angular.toJson(userData);
         },
         fetchUprn: function (postcode) {
             var addressData = [];

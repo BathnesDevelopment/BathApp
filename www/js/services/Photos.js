@@ -6,5 +6,5 @@ angular.module('MyBath.PhotoService', [])
 .factory('Photos', function ($http, $q) {
     return {
 
-    }
-})
+    };
+});

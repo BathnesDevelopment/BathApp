@@ -2,17 +2,17 @@ angular.module('MyBath.ReportsService', [])
 .factory('Reports', function () {
     return {
         getReports: function () {
-            var reports = window.localStorage['reports'];
+            var reports = window.localStorage.reports;
             if (reports) {
                 return angular.fromJson(reports);
             }
             return [];
         },
         saveReports: function (reports) {
-            window.localStorage['reports'] = angular.toJson(reports);
+            window.localStorage.reports = angular.toJson(reports);
         },
         addReport: function (report) {
-            var reports = window.localStorage['reports'];
+            var reports = window.localStorage.reports;
             var reportsArray;
             if (reports) {
                 reportsArray = angular.fromJson(reports);
@@ -21,7 +21,7 @@ angular.module('MyBath.ReportsService', [])
             else {
                 reportsArray = [ report ];
             }
-            window.localStorage['reports'] = angular.toJson(reportsArray);
+            window.localStorage.reports = angular.toJson(reportsArray);
         },
         submitReports: function () {
             var reports = window.localStorage['reports'];
