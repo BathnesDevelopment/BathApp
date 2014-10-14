@@ -335,6 +335,9 @@ angular.module('MyBath.BathDataService', [])
                                 geo = NEtoLL(res.Results.Allotments_Nearby[i].MapSpurE, res.Results.Allotments_Nearby[i].MapSpurN);
                                 res.Results.Allotments_Nearby[i].lat = geo.latitude;
                                 res.Results.Allotments_Nearby[i].lon = geo.longitude;
+                                if (res.Results.Allotments_Nearby[i].ProvidedAdjusted === "B&NES") {
+                                    res.Results.Allotments_Nearby[i].ProvidedAdjusted = "Bath & North East Somerset Council";
+                                }
                             }
                         }
                     }
@@ -422,9 +425,9 @@ angular.module('MyBath.BathDataService', [])
                         }
                     }
                     return res;
-                case 21: // Bus Stops
+                case 21: // Crossings
                     if (res && res.Results) {
-                        if (!angular.isArray( res.Results.School_Crossings_Nearby.length )) {
+                        if (!angular.isArray( res.Results.School_Crossings_Nearby)) {
                             temp = res.Results.School_Crossings_Nearby;
                             res.Results.School_Crossings_Nearby = {};
                             res.Results.School_Crossings_Nearby[0] = temp;
