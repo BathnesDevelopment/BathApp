@@ -121,7 +121,309 @@ angular.module('MyBath.BathDataService', [])
             var i = 0;
             var res = angular.fromJson(window.localStorage.BathData)[id];
             var doc;
+            var geo;
             switch (id) {
+                //Local Data
+                case 0 : // libraries Nearby
+                    if (res && res.Results) {
+                        // Do the string manipulation to clean up - need to make sure this won't blow up
+                        res.Results.Libraries_Nearby.url = res.Results.Libraries_Nearby._.split("|")[0];
+                        res.Results.Libraries_Nearby.name = res.Results.Libraries_Nearby._.split("|")[1];
+                        geo = NEtoLL(res.Results.Libraries_Nearby.MapSpurE, res.Results.Libraries_Nearby.MapSpurN);
+                        res.Results.Libraries_Nearby.lat = geo.latitude;
+                        res.Results.Libraries_Nearby.lon = geo.longitude;
+                    }
+                    return res;
+                case 1 : // Mobile libaries
+                    if (res && res.Results) {
+                        if (res.Results.Mobile_Libraries_Nearby.Info !== "<p>No records found nearby.</p>") {
+                            // Do the string manipulation to clean up - need to make sure this won't blow up
+                            res.Results.Mobile_Libraries_Nearby.timeAdjusted = res.Results.Mobile_Libraries_Nearby.time.replace('?', '-');
+                            res.Results.Mobile_Libraries_Nearby.url = res.Results.Mobile_Libraries_Nearby._.split("|")[0];
+                            geo = NEtoLL(res.Results.Mobile_Libraries_Nearby.MapSpurE, res.Results.Mobile_Libraries_Nearby.MapSpurN);
+                            res.Results.Mobile_Libraries_Nearby.lat = geo.latitude;
+                            res.Results.Mobile_Libraries_Nearby.lon = geo.longitude;
+                        }
+                        else { return {}; }
+                    }
+                    return res;
+                case 2 : // Play Schools
+                    if (res && res.Results) {
+                        if (typeof res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.length === typeof undefined) {
+                            temp = res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby;
+                           res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby = {};
+                           res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[0] = temp;
+                           res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i <  res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.length ; i++) {
+                            geo = NEtoLL( res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].MapSpurE, res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.MapSpurN);
+                            res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].lat = geo.latitude;
+                            res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 3 : // Primary Schools
+                    if (res && res.Results) {
+                        if (typeof res.Results.Primary_Schools_Nearby.length === typeof undefined) {
+                            temp = res.Results.Primary_Schools_Nearby;
+                            res.Results.Primary_Schools_Nearby = {};
+                            res.Results.Primary_Schools_Nearby[0] = temp;
+                            res.Results.Primary_Schools_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Primary_Schools_Nearby.length ; i++) {
+                            res.Results.Primary_Schools_Nearby[i].name = res.Results.Primary_Schools_Nearby[i]._.split('|')[1];
+                            if (typeof res.Results.Primary_Schools_Nearby[i].name === typeof undefined) {
+                                res.Results.Primary_Schools_Nearby[i].name = res.Results.Primary_Schools_Nearby[i]._;
+                            } else {
+                                res.Results.Primary_Schools_Nearby[i].url = res.Results.Primary_Schools_Nearby[i]._.split('|')[0];
+                            }
+                            geo = NEtoLL(res.Results.Primary_Schools_Nearby[i].MapSpurE, res.Results.Primary_Schools_Nearby[i].MapSpurN);
+                            res.Results.Primary_Schools_Nearby[i].lat = geo.latitude;
+                            res.Results.Primary_Schools_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 4 : // Secondary Schools
+                    if (typeof res.Results.Secondary_Schools_Nearby.length === typeof undefined) {
+                        temp = res.Results.Secondary_Schools_Nearby;
+                        res.Results.Secondary_Schools_Nearby = {};
+                        res.Results.Secondary_Schools_Nearby[0] = temp;
+                        res.Results.Secondary_Schools_Nearby[0].length = 1;
+                    }
+                    if (res && res.Results) {
+                        for (i = 0; i < res.Results.Secondary_Schools_Nearby.length ; i++) {
+                            res.Results.Secondary_Schools_Nearby[i].name = res.Results.Secondary_Schools_Nearby[i]._.split('|')[1];
+                            res.Results.Secondary_Schools_Nearby[i].url = res.Results.Secondary_Schools_Nearby[i]._.split('|')[0];
+                            geo = NEtoLL(res.Results.Secondary_Schools_Nearby[i].MapSpurE, res.Results.Secondary_Schools_Nearby[i].MapSpurN);
+                            res.Results.Secondary_Schools_Nearby[i].lat = geo.latitude;
+                            res.Results.Secondary_Schools_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 5 : // Colleges
+                    if (res && res.Results) {
+                        if (typeof res.Results.Colleges_Nearby.length === typeof undefined) {
+                            temp = res.Results.Colleges_Nearby;
+                            res.Results.Colleges_Nearby = {};
+                            res.Results.Colleges_Nearby[0] = temp;
+                            res.Results.Colleges_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Colleges_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.Colleges_Nearby[i].MapSpurE, res.Results.Colleges_Nearby[i].MapSpurN);
+                            res.Results.Colleges_Nearby[i].lat = geo.latitude;
+                            res.Results.Colleges_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 6 : // Universities
+                    if (typeof res.Results.Universities_Nearby.length === typeof undefined) {
+                        temp = res.Results.Universities_Nearby;
+                        res.Results.Universities_Nearby = {};
+                        res.Results.Universities_Nearby[0] = temp;
+                        res.Results.Universities_Nearby[0].length = 1;
+                    }
+                    // ishare only returns 8 characters in the string for some reason
+                    // This should get fixed, but at the moment, this fixes the display for the 2 major universities
+                    for (i = 0; i < res.Results.Universities_Nearby.length; i++) {
+                        if (res.Results.Universities_Nearby[i].___ == "Claverto") {
+                            res.Results.Universities_Nearby[i].___ = "Claverton Down";
+                        }
+                        if (res.Results.Universities_Nearby[i].___ == "Newton P") {
+                            res.Results.Universities_Nearby[i].___ = "Newton Park";
+                        }
+                    }
+                    if (res && res.Results) {
+                        for (i = 0; i < res.Results.Universities_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.Universities_Nearby[i].MapSpurE, res.Results.Universities_Nearby[i].MapSpurN);
+                            res.Results.Universities_Nearby[i].lat = geo.latitude;
+                            res.Results.Universities_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 8 : // Roadworks
+                    if (res && res.Results) {
+                        if (typeof res.Results.Roadworks_Nearby.length === typeof undefined) {
+                            temp = res.Results.Roadworks_Nearby;
+                            res.Results.Roadworks_Nearby = {};
+                            res.Results.Roadworks_Nearby[0] = temp;
+                            res.Results.Roadworks_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Roadworks_Nearby.length ; i++) {
+                            res.Results.Roadworks_Nearby[i].title = res.Results.Roadworks_Nearby[i].Organisation.split('|')[1].replace('amp;', '');
+                            res.Results.Roadworks_Nearby[i].url = res.Results.Roadworks_Nearby[i].Organisation.split('|')[0].replace('amp;', '');
+                            geo = NEtoLL(res.Results.Roadworks_Nearby[i].MapSpurE, res.Results.Roadworks_Nearby[i].MapSpurN);
+                            res.Results.Roadworks_Nearby[i].lat = geo.latitude;
+                            res.Results.Roadworks_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 9 : // Parks
+                    if (res && res.Results) {
+                        if (typeof res.Results.Parks_or_Open_Spaces_Nearby.length === typeof undefined) {
+                            temp = res.Results.Parks_or_Open_Spaces_Nearby;
+                            res.Results.Parks_or_Open_Spaces_Nearby = {};
+                            res.Results.Parks_or_Open_Spaces_Nearby[0] = temp;
+                            res.Results.Parks_or_Open_Spaces_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Parks_or_Open_Spaces_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurE, res.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurN);
+                            res.Results.Parks_or_Open_Spaces_Nearby[i].lat = geo.latitude;
+                            res.Results.Parks_or_Open_Spaces_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 10: // Play Areas
+                    if (res && res.Results) {
+                        if (typeof res.Results.Play_Areas_Nearby.length === typeof undefined) {
+                            temp = res.Results.Play_Areas_Nearby;
+                            res.Results.Play_Areas_Nearby = {};
+                            res.Results.Play_Areas_Nearby[0] = temp;
+                            res.Results.Play_Areas_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Play_Areas_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.Play_Areas_Nearby[i].MapSpurE, res.Results.Play_Areas_Nearby[i].MapSpurN);
+                            res.Results.Play_Areas_Nearby[i].lat = geo.latitude;
+                            res.Results.Play_Areas_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                return res;
+                case 11: // Allotments
+                    if (res && res.Results) {
+                        if (typeof res.Results.Allotments_Nearby.Info !== typeof undefined && res.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
+                            $scope.allotmentsOutsideBath = true;
+                            res.Results = {};
+                        } else {
+                            if (typeof res.Results.Allotments_Nearby.length === typeof undefined) {
+                                temp = res.Results.Allotments_Nearby;
+                                res.Results.Allotments_Nearby = {};
+                                res.Results.Allotments_Nearby[0] = temp;
+                                res.Results.Allotments_Nearby[0].length = 1;
+                            }
+                            for (i = 0; i < res.Results.Allotments_Nearby.length ; i++) {
+                                res.Results.Allotments_Nearby[i].ProvidedAdjusted = res.Results.Allotments_Nearby[i].Provided__by.replace('amp;', '');
+                                geo = NEtoLL(res.Results.Allotments_Nearby[i].MapSpurE, res.Results.Allotments_Nearby[i].MapSpurN);
+                                res.Results.Allotments_Nearby[i].lat = geo.latitude;
+                                res.Results.Allotments_Nearby[i].lon = geo.longitude;
+                            }
+                        }
+                    }
+                    return res;
+                case 12: // Health and Fitness
+                    if (res && res.Results) {
+                        if (typeof res.Results.Health_and_Fitness_Centres_Nearby.length === typeof undefined) {
+                            temp = res.Results.Health_and_Fitness_Centres_Nearby;
+                            res.Results.Health_and_Fitness_Centres_Nearby = {};
+                            res.Results.Health_and_Fitness_Centres_Nearby[0] = temp;
+                            res.Results.Health_and_Fitness_Centres_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Health_and_Fitness_Centres_Nearby.length ; i++) {
+                            res.Results.Health_and_Fitness_Centres_Nearby[i].name = res.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[1].replace('amp;', '');
+                            res.Results.Health_and_Fitness_Centres_Nearby[i].url = res.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[0];
+                            geo = NEtoLL(res.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurE, res.Results.Health_and_Fitness_Centres_Nearby[i].MapSpurN);
+                            res.Results.Health_and_Fitness_Centres_Nearby[i].lat = geo.latitude;
+                            res.Results.Health_and_Fitness_Centres_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 15: // Planning Applications
+                    if (res && res.Results) {
+                        if (typeof res.Results.Planning_Applications_Nearby.length === typeof undefined) {
+                            temp = res.Results.Planning_Applications_Nearby;
+                            res.Results.Planning_Applications_Nearby = {};
+                            res.Results.Planning_Applications_Nearby[0] = temp;
+                            res.Results.Planning_Applications_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Planning_Applications_Nearby.length ; i++) {
+                            res.Results.Planning_Applications_Nearby[i].title = res.Results.Planning_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
+                            res.Results.Planning_Applications_Nearby[i].url = res.Results.Planning_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                            geo = NEtoLL(res.Results.Planning_Applications_Nearby[i].MapSpurE, res.Results.Planning_Applications_Nearby[i].MapSpurN);
+                            res.Results.Planning_Applications_Nearby[i].lat = geo.latitude;
+                            res.Results.Planning_Applications_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                case 16: // New Licencing
+                    if (res && res.Results && res.Results.New_Licensing_Applications_Nearby ) {
+                        if (typeof res.Results.New_Licensing_Applications_Nearby.length === typeof undefined) {
+                            temp = res.Results.New_Licensing_Applications_Nearby;
+                            res.Results.New_Licensing_Applications_Nearby = {};
+                            res.Results.New_Licensing_Applications_Nearby[0] = temp;
+                            res.Results.New_Licensing_Applications_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.New_Licensing_Applications_Nearby.length ; i++) {
+                            res.Results.New_Licensing_Applications_Nearby[i].title = res.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
+                            res.Results.New_Licensing_Applications_Nearby[i].url = res.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                            geo = NEtoLL(res.Results.New_Licensing_Applications_Nearby[i].MapSpurE, res.Results.New_Licensing_Applications_Nearby[i].MapSpurN);
+                            res.Results.New_Licensing_Applications_Nearby[i].lat = geo.latitude;
+                            res.Results.New_Licensing_Applications_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 17: // Issued ditto
+                    if (res && res.Results) {
+                            if (typeof res.Results.Issued_Licensing_Applications_Nearby.length === typeof undefined) {
+                                temp = res.Results.Issued_Licensing_Applications_Nearby;
+                                res.Results.Issued_Licensing_Applications_Nearby = {};
+                                res.Results.Issued_Licensing_Applications_Nearby[0] = temp;
+                                res.Results.Issued_Licensing_Applications_Nearby[0].length = 1;
+                            }
+                            for (i = 0; i < res.Results.Issued_Licensing_Applications_Nearby.length ; i++) {
+                                res.Results.Issued_Licensing_Applications_Nearby[i].title = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
+                                res.Results.Issued_Licensing_Applications_Nearby[i].url = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                                geo = NEtoLL(res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
+                                res.Results.Issued_Licensing_Applications_Nearby[i].lat = geo.latitude;
+                                res.Results.Issued_Licensing_Applications_Nearby[i].lon = geo.longitude;
+                            }
+                        }
+                    return res;
+                case 20: // Bus Stops
+                    if (res && res.Results) {
+                        if (typeof res.Results.Bus_Stops_Nearby.length === typeof undefined) {
+                            temp = res.Results.Bus_Stops_Nearby;
+                            res.Results.Bus_Stops_Nearby = {};
+                            res.Results.Bus_Stops_Nearby[0] = temp;
+                            res.Results.Bus_Stops_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Bus_Stops_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.Bus_Stops_Nearby[i].MapSpurE, res.Results.Bus_Stops_Nearby[i].MapSpurN);
+                            res.Results.Bus_Stops_Nearby[i].lat = geo.latitude;
+                            res.Results.Bus_Stops_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 21: // Bus Stops
+                    if (res && res.Results) {
+                        if (typeof res.Results.School_Crossings_Nearby.length === typeof undefined) {
+                            temp = res.Results.School_Crossings_Nearby;
+                            res.Results.School_Crossings_Nearby = {};
+                            res.Results.School_Crossings_Nearby[0] = temp;
+                            res.Results.School_Crossings_Nearby[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.School_Crossings_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.School_Crossings_Nearby[i].MapSpurE, res.Results.School_Crossings_Nearby[i].MapSpurN);
+                            res.Results.School_Crossings_Nearby[i].lat = geo.latitude;
+                            res.Results.School_Crossings_Nearby[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+                case 22:
+                    if (res.Parking_Zones && res.Parking_Zones.Info === "<p>No records found nearby.</p>" ) {
+                        return {};
+                    }
+                    if (res && res.Results) {
+                        if (typeof res.Results.Parking_Zones.length === typeof undefined) {
+                            temp = res.Results.Parking_Zones;
+                            res.Results.Parking_Zones = {};
+                            res.Results.Parking_Zones[0] = temp;
+                            res.Results.Parking_Zones[0].length = 1;
+                        }
+                        for (i = 0; i < res.Results.Parking_Zones.length ; i++) {
+                            geo = NEtoLL(res.Results.Parking_Zones[i].MapSpurE, res.Results.Parking_Zones[i].MapSpurN);
+                            res.Results.Parking_Zones[i].lat = geo.latitude;
+                            res.Results.Parking_Zones[i].lon = geo.longitude;
+                        }
+                    }
+                    return res;
+
                 // My council
                 case 7 :  // Collection dates
                     if (res && res.Results && res.Results._______________) {
@@ -219,7 +521,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
 
                 default:
-                    return res;
+                    return {};
             }
                 
         }
