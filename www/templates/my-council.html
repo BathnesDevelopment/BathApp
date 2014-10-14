@@ -31,7 +31,7 @@
     </div>
     <h3>Your councillors</h3>
     <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="councillor in yourCouncillors.Results">
+    <div class="list card" ng-repeat="councillor in bathDataObject.yourCouncillors.Results">
         <div class="item item-divider">
             Contact details
         </div>
@@ -76,7 +76,7 @@
     </div>
     <h3>Nearest council offices</h3>
     <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="office in councilOffices.Results.____________________________">
+    <div class="list card" ng-repeat="office in bathDataObject.councilOffices.Results.____________________________">
         <div class="item item-divider">
             {{office.title}}
             <p>Distance: {{mToMi(office.Distance)}} miles</p>
@@ -90,7 +90,7 @@
     <span ng-show="listedBuilding">
     <h3>Listed building status</h3>
     <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="listedstatus in listedBuilding.Results">
+    <div class="list card" ng-repeat="listedstatus in bathDataObject.listedBuilding.Results">
         <div class="item item-divider">
             Address
         </div>
@@ -101,7 +101,7 @@
     </div></span>
     <h3>Bin collection dates</h3>
     <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="collection in binCollection.Results">
+    <div class="list card" ng-repeat="collection in bathDataObject.binCollection.Results">
         <div class="item item-divider">
             Waste: {{collection.waste}}
         </div>

@@ -18,6 +18,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.bathdata = BathData.all();
     $scope.addresses = [];
     $scope.binCollection = [];
+    $scope.bathDataObject = BathData.toObj();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // TEST DATA - For use when testing in browser
@@ -247,6 +248,7 @@ angular.module('MyBath.BathAppController', [])
                             title: 'No addresses found',
                             content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.'
                         }).then(function (res) {
+
                         });
                     }
                 });
@@ -269,7 +271,9 @@ angular.module('MyBath.BathAppController', [])
             .then(function (data) {
                 if (data && data != []) {
                     $scope.bathdata = data;
+                    $scope.bathDataObject = BathData.toObj();
                     $ionicLoading.hide();
+                    //$scope.apply();
                     //window.location.reload(true);
                 }
                 else {

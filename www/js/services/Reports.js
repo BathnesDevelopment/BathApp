@@ -24,7 +24,7 @@ angular.module('MyBath.ReportsService', [])
             window.localStorage.reports = angular.toJson(reportsArray);
         },
         submitReports: function () {
-            var reports = window.localStorage['reports'];
+            var reports = window.localStorage.reports;
             var reportsArray = angular.fromJson(reports);
             // reports is an array (of whatever length).
             // iterate through and submit to the web service.  as successes are recorded, remove from array.

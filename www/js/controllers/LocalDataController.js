@@ -1,7 +1,9 @@
 angular.module('MyBath.LocalDataController', [])
 .controller('LocalDataController', function ($scope, $ionicSideMenuDelegate, BathData) {
 
-    $scope.librariesNearby = BathData.get(0);
+    
+
+    /*$scope.librariesNearby = BathData.get(0);
     $scope.mobileLibrariesNearby = BathData.get(1);
     $scope.playSchoolsNearby = BathData.get(2);
     $scope.primarySchoolsNearby = BathData.get(3);
@@ -18,5 +20,5 @@ angular.module('MyBath.LocalDataController', [])
     $scope.issuedLicensingAppsNearby = BathData.get(17);
     $scope.parksNearby = BathData.get(9);
     $scope.playAreasNearby = BathData.get(10);
-    $scope.allotmentsNearby = BathData.get(11);
+    $scope.allotmentsNearby = BathData.get(11);*/
 });
