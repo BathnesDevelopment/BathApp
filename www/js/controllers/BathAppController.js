@@ -393,9 +393,10 @@ angular.module('MyBath.BathAppController', [])
             if (res) {
                 UserData.clear();
                 BathData.clear();
-                $scope.userData = {};
+                $scope.userData = UserData.all(); //Get defaults
                 $scope.bathData = {};
-                $state.go('menu.home'); //TODO: Change this to the "new user screen, possibly - when added"
+                $scope.bathDataObject = {};
+                //$state.go('menu.home'); //TODO: Change this to the "new user screen, possibly - when added"
                 //window.location.reload(true);
             }
         });
