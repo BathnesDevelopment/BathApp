@@ -21,7 +21,7 @@ angular.module('MyBath.MapDataService', [])
 		healthAndFitness: start + NorthEastString + '&ActiveLayer=HealthandFitnessCentres',
 		playAreas: start + NorthEastString + '&ActiveLayer=PlayAreas',
 		tennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
-		allotments: start + NorthEastString + '&ActiveLayer=Allotments'
+		allotments: start + NorthEastString + '&ActiveLayer=Allotments',
 		mobileLibaries: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
 		busStops: start + NorthEastString + '&ActiveLayer=BusStops',
 		roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
