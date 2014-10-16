@@ -8,7 +8,7 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
+    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '' };
     $scope.userData = UserData.all();
     $scope.uprn = $scope.userData.uprn;
     $scope.reports = Reports.getReports();
@@ -207,7 +207,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.submitReportItPage4 = function (report) {
         $scope.reportItPersonalModal.hide();
         Reports.addReport($scope.currentReport);
-        $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', lon: '' };
+        $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '' };
         $scope.reports = Reports.getReports();
     };
 
