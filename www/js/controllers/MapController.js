@@ -28,7 +28,7 @@ angular.module('MyBath.MapController', [])
     addLayer("conservationAreas");
     addLayer("wasteAndRecyling");
     addLayer("healthAndFitness");
-    addLayer("playAreas"); // Doesn't really return much useful
+    addLayer("playAreas"); // Doesn't really return much useful info
     addLayer("tennisCourts");
     addLayer("allotments");
     addLayer("mobileLibaries");
@@ -135,7 +135,7 @@ angular.module('MyBath.MapController', [])
                 },
                 Allotments: {
                     type: 'group',
-                    name: 'allotments',
+                    name: 'Allotments',
                     visible: false
                 },
                 MobileLibraryStops: {
@@ -146,7 +146,7 @@ angular.module('MyBath.MapController', [])
                 BusStops: {
                     type: 'group',
                     name: 'Bus Stops',
-                    visible: false
+                    visible: true
                 },
                 Roadworks: {
                     type: 'group',

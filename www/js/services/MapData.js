@@ -35,7 +35,13 @@ angular.module('MyBath.MapDataService', [])
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-location"></i>'
+            html: '<i class="icon calm ion-bug  "></i>'
+        },
+        conservationIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon balanced ion-leaf></i>'
         },
         libraryIcon: {
             type: 'div',
@@ -57,9 +63,57 @@ angular.module('MyBath.MapDataService', [])
         },
         parkIcon: {
             type: 'div',
-            iconsize: [30, 30],
+            iconSize: [30, 30],
             popupAnchor: [0, 0],
             html: '<i class="icon calm ion-ios7-tennisball"></i>'
+        },
+        wasteIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-ios7-trash"></i>'
+        },
+        carParkIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-model-s"></i>'
+        },
+        schoolIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-ios7-home"></i>'
+        },
+        roadworksIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-wrench"></i>'
+        },
+        universityIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-university"></i>'
+        },
+        fitnessIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-happy"></i>'
+        },
+        playSchoolIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon balanced on-ios7-paw"></i>'
+        },
+        busIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-pin"></i>'
         }
 
     };
@@ -71,17 +125,41 @@ angular.module('MyBath.MapDataService', [])
         getLayer: function (layer) {
             var getIcon = function(layer) {
             switch (layer){
+                case "mobileLibaries":
                 case "libraries":
                     return icons.libraryIcon;
+                case "wasteAndRecyling":
+                    return icons.wasteIcon;
+                case "carParks":
+                    return icons.carParkIcon;
                 case "councilOffices":
                     return icons.officeIcon;
                 case "wc":
                     return icons.toiletIcon;
+                case "healthAndFitness":
+                    return icons.fitnessIcon;
+                case "busStops":
+                    return icons.busIcon;
+                case "primarySchools":
+                case "secondarySchools":
+                case "colleges":
+                    return icons.schoolIcon;
+                case "roadworks":
+                    return icons.roadworksIcon;
+                case "universities":
+                    return icons.universityIcon;
                 case "parks":
                 case "playAreas":
                 case "tennisCourts":
+                case "openSpaces":
                     return icons.parkIcon;
+                case "conservationAreas":
+                case "allotments":
+                    return icons.conservationIcon;
+                case "playSchools":
+                    return icons.playSchoolIcon;
                 default:
+                    console.log("default layer: " + layer);
                     return icons.defaultIcon;
             }
             
@@ -102,9 +180,7 @@ angular.module('MyBath.MapDataService', [])
                             var title = data[0].features[i].properties.fields._;
                             if ( title ) {
                                 if ( layer == "playAreas" ) {
-                                    //  console.log(data[0].features[i]);
                                     title = data[0].features[i].properties.html;
-                                    console.log(title);
                                 } else if (titleAndUrl.indexOf('|') != -1) {
                                 title = titleAndUrl.split('|')[1];
                                 }
