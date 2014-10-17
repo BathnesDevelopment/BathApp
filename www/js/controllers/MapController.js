@@ -3,7 +3,9 @@ angular.module('MyBath.MapController', [])
 
     $scope.markers = [];
 
-    MapData.getLayer("libraries")
+
+    function addLayer(name) {
+      MapData.getLayer(name)
     .then(function (data) {
         if (data && data != "Failed") {
             for (i = 0; i < data.length ; i++) {
@@ -13,6 +15,29 @@ angular.module('MyBath.MapController', [])
         else {
         }
     });
+
+    }
+
+    addLayer("libraries");
+    addLayer("primarySchools");
+    addLayer("councilOffices");
+    addLayer("playSchools");
+    addLayer("secondarySchools");
+    addLayer("colleges");
+    addLayer("universities");
+    addLayer("conservationAreas");
+    addLayer("wasteAndRecyling");
+    addLayer("healthAndFitness");
+    addLayer("playAreas");
+    addLayer("tennisCourts");
+    addLayer("allotments");
+    addLayer("mobileLibaries");
+    addLayer("busStops");
+    addLayer("roadworks");
+    addLayer("carParks");
+    addLayer("parks");
+    addLayer("openSpaces");
+    addLayer("wc");
 
     $scope.map = {
         defaults: {
@@ -52,6 +77,101 @@ angular.module('MyBath.MapController', [])
                     type: 'group',
                     name: 'Libraries',
                     visible: true
+                },
+                PrimarySchools: {
+                    type: 'group',
+                    name: 'Primary Schools',
+                    visible: true
+                },
+                Council_Offices: {
+                    type: 'group',
+                    name: 'Council Offices',
+                    visible: false
+                },
+                NurseryPlaySchools: {
+                    type: 'group',
+                    name: 'Play Schools',
+                    visible: false
+                },
+                SecondarySchools: {
+                    type: 'group',
+                    name: 'Secondary Schools',
+                    visible: true
+                },
+                Colleges: {
+                    type: 'group',
+                    name: 'Colleges',
+                    visible: false
+                },
+                Universities: {
+                    type: 'group',
+                    name: 'Universities',
+                    visible: false
+                },
+                ConAreas: { //TODO: Update the display of this
+                    type: 'group',
+                    name: 'Conservation Areas',
+                    visible: false
+                },
+                CivicAmenitySites: {
+                    type: 'group',
+                    name: 'Wase & Recyling Sites',
+                    visible: false
+                },
+                HealthandFitnessCentres: {
+                    type: 'group',
+                    name: 'Health & Fitness Centres',
+                    visible: false
+                },
+                PlayAreas: {
+                    type: 'group',
+                    name: 'Play Areas',
+                    visible: false
+                },
+                TennisCourts: {
+                    type: 'group',
+                    name: 'Tennis Courts',
+                    visible: false
+                },
+                Allotments: {
+                    type: 'group',
+                    name: 'allotments',
+                    visible: false
+                },
+                MobileLibraryStops: {
+                    type: 'group',
+                    name: 'Mobile Library Stops',
+                    visible: false
+                },
+                BusStops: {
+                    type: 'group',
+                    name: 'Bus Stops',
+                    visible: false
+                },
+                Roadworks: {
+                    type: 'group',
+                    name: 'Roadworks',
+                    visible: false
+                },
+                CarParks: {
+                    type: 'group',
+                    name: 'Car Parks',
+                    visible: false
+                },
+                Parks: {
+                    type: 'group',
+                    name: 'Parks',
+                    visible: false
+                },
+                OpenSpaces: {
+                    type: 'group',
+                    name: 'Open Spaces',
+                    visible: false
+                },
+                PublicConveniences: {
+                    type: 'group',
+                    name: 'Public Conveniences',
+                    visible: false
                 }
             }
         },

@@ -29,15 +29,39 @@ angular.module('MyBath.MapDataService', [])
         openSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
         wc: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString
     };
-    console.log(layerList);
-
+    
     var icons = {
+        defaultIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-location"></i>'
+        },
         libraryIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
             html: '<i class="icon calm ion-android-book"></i>'
+        },
+        officeIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-coffee"></i>'
+        },
+        toiletIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: '<i class="icon calm ion-woman"></i><i class="icon calm ion-man"></i>'
+        },
+        parkIcon: {
+            type: 'div',
+            iconsize: [30, 30],
+            popupAnchor: [0,0],
+            html: '<i class="icon calm ion-ios7-tennisball"></i>'
         }
+
     };
 
     return {
@@ -45,6 +69,23 @@ angular.module('MyBath.MapDataService', [])
             return layerList;
         },
         getLayer: function (layer) {
+            var getIcon = function(layer) {
+            switch (layer){
+                case "libraries":
+                    return icons.libraryIcon;
+                case "councilOffices":
+                    return icons.officeIcon;
+                case "wc":
+                    return icons.toiletIcon;
+                case "parks":
+                case "playAreas":
+                case "tennisCourts":
+                    return icons.parkIcon;
+                default:
+                    return icons.defaultIcon;
+            }
+            
+            };
             var url = layerList[layer];
 
             var layerData = [];
@@ -52,21 +93,27 @@ angular.module('MyBath.MapDataService', [])
 
             $http.get(url)
                 .success(function (data, status, headers, config) {
-                    if (data && data != []) {
+                    if (data && data != [] && !(data.error)) {
+
                         for (i = 0; i < data[0].features.length ; i++) {
                             var northing = data[0].features[i].geometry.coordinates[0][0];
                             var easting = data[0].features[i].geometry.coordinates[0][1];
                             var titleAndUrl = data[0].features[i].properties.fields._;
                             var title = data[0].features[i].properties.fields._;
-                            if (titleAndUrl.indexOf('|') != -1) {
+                            if (title){
+                                if (titleAndUrl.indexOf('|') != -1) {
                                 title = titleAndUrl.split('|')[1];
+                                }
+                            } else {
+                                //Add the HTML data - to display *something*
+                                title = data[0].features[i].properties.html;
                             }
+                        
                             var latlng = NEtoLL(northing, easting);
-                            layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: icons.libraryIcon, layer: data[0].properties.layerName, message: title });
+                            layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: getIcon(layer), layer: data[0].properties.layerName, message: title });
                         }
-                    }
-                    else {
-                        layerData = "Failed";
+                    } else {
+                        layerData =  "Failed";
                     }
                     layerData_q.resolve(layerData);
                     return layerData;
