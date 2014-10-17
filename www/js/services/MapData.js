@@ -58,7 +58,7 @@ angular.module('MyBath.MapDataService', [])
         parkIcon: {
             type: 'div',
             iconsize: [30, 30],
-            popupAnchor: [0,0],
+            popupAnchor: [0, 0],
             html: '<i class="icon calm ion-ios7-tennisball"></i>'
         }
 
@@ -94,14 +94,18 @@ angular.module('MyBath.MapDataService', [])
             $http.get(url)
                 .success(function (data, status, headers, config) {
                     if (data && data != [] && !(data.error)) {
-
+                        
                         for (i = 0; i < data[0].features.length ; i++) {
                             var northing = data[0].features[i].geometry.coordinates[0][0];
                             var easting = data[0].features[i].geometry.coordinates[0][1];
                             var titleAndUrl = data[0].features[i].properties.fields._;
                             var title = data[0].features[i].properties.fields._;
-                            if (title){
-                                if (titleAndUrl.indexOf('|') != -1) {
+                            if ( title ) {
+                                if ( layer == "playAreas" ) {
+                                    //  console.log(data[0].features[i]);
+                                    title = data[0].features[i].properties.html;
+                                    console.log(title);
+                                } else if (titleAndUrl.indexOf('|') != -1) {
                                 title = titleAndUrl.split('|')[1];
                                 }
                             } else {

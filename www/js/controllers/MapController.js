@@ -28,7 +28,7 @@ angular.module('MyBath.MapController', [])
     addLayer("conservationAreas");
     addLayer("wasteAndRecyling");
     addLayer("healthAndFitness");
-    addLayer("playAreas");
+    addLayer("playAreas"); // Doesn't really return much useful
     addLayer("tennisCourts");
     addLayer("allotments");
     addLayer("mobileLibaries");
