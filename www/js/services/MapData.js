@@ -161,16 +161,15 @@ angular.module('MyBath.MapDataService', [])
                 tennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
                 allotments: start + NorthEastString + '&ActiveLayer=Allotments',
                 mobileLibaries: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
-                busStops: start + NorthEastString + '&ActiveLayer=BusStops',
+                busStops: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=25' + NorthEastString + '&ActiveLayer=BusStops',
                 roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
                 carParks: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastString,
                 parks: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastString,
                 openSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
                 wc: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString
             };
-    
+        
             var url = layerList[layer];
-
             var layerData = [];
             var layerData_q = $q.defer();
 

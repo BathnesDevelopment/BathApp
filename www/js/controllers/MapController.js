@@ -1,21 +1,72 @@
 angular.module('MyBath.MapController', [])
-.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData) {
+.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents) {
 
     $scope.markers = [];
 
+    $scope.fetching = {};
     function addLayer(name,lat,lng) {
-      MapData.getLayer(name,lat,lng)
-    .then(function (data) {
-        if (data && data != "Failed") {
-            for (i = 0; i < data.length ; i++) {
-                $scope.markers.push(data[i]);
+        if ($scope.fetching[name]) {
+            //console.log($scope.fetching);
+            //console.log("didn't fetch " + name);
+            return false;
+        } else {
+            $scope.fetching[name] = true;
+            MapData.getLayer(name,lat,lng)
+            .then(function (data) {
+                if (data && data != "Failed") {
+                    if (! data[0].layer ){
+                    console.log("what? " + name);
+                    console.log(data[0]);
+                    }
+                    for (i = 0; i < data.length ; i++) {
+                        if (! alreadyMarked(data[i].message) ) {
+                            $scope.markers.push(data[i]);
+                            if ($scope.markers.length%10 === 0) {
+                                console.log($scope.markers.length);
+                            }
+                            if ($scope.markers.length > 300) {
+                                // Gets laggy at about 300 markers, user may well have moved away from starting position
+                                $scope.markers = $scope.markers.slice($scope.markers.length-100);
+                            }
+                        }
+                    }
+                } else {
+                }
+                $scope.fetching[name] = false;
+            });
+        }
+    }
+
+    function alreadyMarked(markerData) {
+        for (var i = 0; i < $scope.markers.length; i++) {
+            if (markerData === $scope.markers[i].message) {
+                return true;
             }
         }
-        else {
-        }
-    });
-
+        return false;
     }
+
+    $scope.$on('leafletDirectiveMap.moveend', function(event) {
+        addLayer("libraries",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("primarySchools",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("councilOffices",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("playSchools",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("secondarySchools",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("colleges",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("universities",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("conservationAreas",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("wasteAndRecyling",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("healthAndFitness",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("playAreas",$scope.map.center.lat, $scope.map.center.lng); // Doesn't really return much useful info
+        addLayer("tennisCourts",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("allotments",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("mobileLibaries",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("busStops",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("roadworks",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("carParks",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("parks",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("openSpaces",$scope.map.center.lat, $scope.map.center.lng);
+    });
 
     $scope.map = {
         defaults: {
@@ -178,4 +229,3 @@ angular.module('MyBath.MapController', [])
     addLayer("parks",$scope.map.center.lat, $scope.map.center.lng);
     addLayer("openSpaces",$scope.map.center.lat, $scope.map.center.lng);
 });
-
