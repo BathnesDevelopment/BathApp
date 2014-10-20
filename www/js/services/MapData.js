@@ -4,31 +4,7 @@ angular.module('MyBath.MapDataService', [])
  * 
 */
 .factory('MapData', function ($http, $q) {
-    var start = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=50';
-    var start2 = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=50&MapSource=BathNES/';
-    var NorthEastString = "&Easting=375123.8049001&Northing=164590.7083502";
-    var layerList = {
-        libraries: start + NorthEastString + '&ActiveLayer=Libraries',
-        primarySchools: start + NorthEastString + '&ActiveLayer=PrimarySchools',
-        councilOffices: start + NorthEastString + '&ActiveLayer=Council_Offices',
-        playSchools: start + NorthEastString + '&ActiveLayer=NurseryPlaySchools',
-        secondarySchools: start + NorthEastString + '&ActiveLayer=SecondarySchools',
-        colleges: start + NorthEastString + '&ActiveLayer=Colleges',
-        universities: start + NorthEastString + '&ActiveLayer=Universities',
-        conservationAreas: start + NorthEastString + '&ActiveLayer=ConAreas',
-        wasteAndRecyling: start + NorthEastString + '&ctiveLayer=CivicAmenitySites',
-        healthAndFitness: start + NorthEastString + '&ActiveLayer=HealthandFitnessCentres',
-        playAreas: start + NorthEastString + '&ActiveLayer=PlayAreas',
-        tennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
-        allotments: start + NorthEastString + '&ActiveLayer=Allotments',
-        mobileLibaries: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
-        busStops: start + NorthEastString + '&ActiveLayer=BusStops',
-        roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
-        carParks: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastString,
-        parks: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastString,
-        openSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
-        wc: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString
-    };
+
     
     var icons = {
         defaultIcon: {
@@ -122,48 +98,77 @@ angular.module('MyBath.MapDataService', [])
         layerList: function () {
             return layerList;
         },
-        getLayer: function (layer) {
+        getLayer: function (layer, lat, lng) {
             var getIcon = function(layer) {
-            switch (layer){
-                case "mobileLibaries":
-                case "libraries":
-                    return icons.libraryIcon;
-                case "wasteAndRecyling":
-                    return icons.wasteIcon;
-                case "carParks":
-                    return icons.carParkIcon;
-                case "councilOffices":
-                    return icons.officeIcon;
-                case "wc":
-                    return icons.toiletIcon;
-                case "healthAndFitness":
-                    return icons.fitnessIcon;
-                case "busStops":
-                    return icons.busIcon;
-                case "primarySchools":
-                case "secondarySchools":
-                case "colleges":
-                    return icons.schoolIcon;
-                case "roadworks":
-                    return icons.roadworksIcon;
-                case "universities":
-                    return icons.universityIcon;
-                case "parks":
-                case "playAreas":
-                case "tennisCourts":
-                case "openSpaces":
-                    return icons.parkIcon;
-                case "conservationAreas":
-                case "allotments":
-                    return icons.conservationIcon;
-                case "playSchools":
-                    return icons.playSchoolIcon;
-                default:
-                    console.log("default layer: " + layer);
-                    return icons.defaultIcon;
-            }
+                switch (layer){
+                    case "mobileLibaries":
+                    case "libraries":
+                        return icons.libraryIcon;
+                    case "wasteAndRecyling":
+                        return icons.wasteIcon;
+                    case "carParks":
+                        return icons.carParkIcon;
+                    case "councilOffices":
+                        return icons.officeIcon;
+                    case "wc":
+                        return icons.toiletIcon;
+                    case "healthAndFitness":
+                        return icons.fitnessIcon;
+                    case "busStops":
+                        return icons.busIcon;
+                    case "primarySchools":
+                    case "secondarySchools":
+                    case "colleges":
+                        return icons.schoolIcon;
+                    case "roadworks":
+                        return icons.roadworksIcon;
+                    case "universities":
+                        return icons.universityIcon;
+                    case "parks":
+                    case "playAreas":
+                    case "tennisCourts":
+                    case "openSpaces":
+                        return icons.parkIcon;
+                    case "conservationAreas":
+                    case "allotments":
+                        return icons.conservationIcon;
+                    case "playSchools":
+                        return icons.playSchoolIcon;
+                    default:
+                        console.log("default layer: " + layer);
+                        return icons.defaultIcon;
+                }
             
             };
+
+            var pos = LLtoNE(lat, lng);
+            var start = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10';
+            var start2 = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10&MapSource=BathNES/';
+            var NorthEastString = "&Easting=" + pos.east + "&Northing="+pos.north;
+
+            var layerList = {
+                libraries: start + NorthEastString + '&ActiveLayer=Libraries',
+                primarySchools: start + NorthEastString + '&ActiveLayer=PrimarySchools',
+                councilOffices: start + NorthEastString + '&ActiveLayer=Council_Offices',
+                playSchools: start + NorthEastString + '&ActiveLayer=NurseryPlaySchools',
+                secondarySchools: start + NorthEastString + '&ActiveLayer=SecondarySchools',
+                colleges: start + NorthEastString + '&ActiveLayer=Colleges',
+                universities: start + NorthEastString + '&ActiveLayer=Universities',
+                conservationAreas: start + NorthEastString + '&ActiveLayer=ConAreas',
+                wasteAndRecyling: start + NorthEastString + '&ctiveLayer=CivicAmenitySites',
+                healthAndFitness: start + NorthEastString + '&ActiveLayer=HealthandFitnessCentres',
+                playAreas: start + NorthEastString + '&ActiveLayer=PlayAreas',
+                tennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
+                allotments: start + NorthEastString + '&ActiveLayer=Allotments',
+                mobileLibaries: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
+                busStops: start + NorthEastString + '&ActiveLayer=BusStops',
+                roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
+                carParks: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastString,
+                parks: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastString,
+                openSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
+                wc: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString
+            };
+    
             var url = layerList[layer];
 
             var layerData = [];

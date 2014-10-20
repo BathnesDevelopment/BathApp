@@ -663,6 +663,14 @@ function NEtoLL(east, north) {
     return { latitude: res[1], longitude: res[0] };
 }
 
+function LLtoNE(lat, lng) {
+    // Does the opposite conversion
+    proj4.defs("NationalGrid", "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs");
+    var res = proj4('WGS84', 'NationalGrid', [lng,lat]);
+    return { east: res[0], north: res[1]};
+}
+
+
 function isCouncilConnectHours() {
     // Returns true if it is currently Council Connect Hours
     // Council Connect hours are 8-6 MTTF
