@@ -5,31 +5,27 @@ angular.module('MyBath.MapController', [])
 
     $scope.fetching = {};
     function addLayer(name,lat,lng) {
-        if ($scope.fetching[name]) {
+        lat = $scope.map.center.lat;
+        lng = $scope.map.center.lng;
+
+        if ($scope.fetching[name] && $scope.fetching[name][0]) {
             return false;
         } else {
-            $scope.fetching[name] = true;
+            $scope.fetching[name] = [true, new Date()];
             MapData.getLayer(name,lat,lng)
             .then(function (data) {
                 if (data && data != "Failed") {
-                    if (! data[0].layer ){
-                    console.log("what? " + name);
-                    console.log(data[0]);
-                    }
                     for (i = 0; i < data.length ; i++) {
                         if (! alreadyMarked(data[i].message) ) {
                             $scope.markers.push(data[i]);
-                            if ($scope.markers.length%10 === 0) {
-                                console.log($scope.markers.length);
-                            }
-                            if ($scope.markers.length > 300) {
+                            //if ($scope.markers.length > 300) {
                                 // Gets laggy at about 300 markers, user may well have moved away from starting position
-                                $scope.markers = $scope.markers.slice($scope.markers.length-100);
-                            }
+                                //$scope.markers = $scope.markers.slice($scope.markers.length-100);
+                            //}
                         }
                     }
                 }
-                $scope.fetching[name] = false;
+                $scope.fetching[name][0] = false;
             });
         }
     }
@@ -44,26 +40,26 @@ angular.module('MyBath.MapController', [])
     }
 
     $scope.$on('leafletDirectiveMap.moveend', function(event) {
-        addLayer("Libraries",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("PrimarySchools",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("Council_Offices",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("NurseryPlaySchools",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("SecondarySchools",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("Colleges",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("Universities",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("ConAreas",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("CivicAmenitySites",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("HealthandFitnessCentres",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("PlayAreas",$scope.map.center.lat, $scope.map.center.lng); // Doesn't really return much useful info
-        addLayer("TennisCourts",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("Allotments",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("MobileLibraryStops",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("BusStops",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("Roadworks",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("CarParks",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("Parks",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("OpenSpaces",$scope.map.center.lat, $scope.map.center.lng);
-        addLayer("PublicConveniences",$scope.map.center.lat, $scope.map.center.lng);
+        addLayer("Libraries");
+        addLayer("PrimarySchools");
+        addLayer("Council_Offices");
+        addLayer("NurseryPlaySchools");
+        addLayer("SecondarySchools");
+        addLayer("Colleges");
+        addLayer("ConAreas");
+        addLayer("CivicAmenitySites");
+        addLayer("HealthandFitnessCentres");
+        addLayer("PlayAreas"); // Doesn't really return much useful info
+        addLayer("TennisCourts");
+        addLayer("Allotments");
+        addLayer("MobileLibraryStops");
+        addLayer("BusStops");
+        addLayer("Roadworks");
+        //addLayer("CarParks");
+        addLayer("Parks");
+        addLayer("OpenSpaces");
+        addLayer("PublicConveniences");
+        
     });
 
     $scope.map = {
@@ -125,7 +121,7 @@ angular.module('MyBath.MapController', [])
                 SecondarySchools: {
                     type: 'group',
                     name: 'Secondary Schools',
-                    visible: true
+                    visible: false
                 },
                 Colleges: {
                     type: 'group',
@@ -182,10 +178,15 @@ angular.module('MyBath.MapController', [])
                     name: 'Roadworks',
                     visible: false
                 },
-                CarParks: {
+                /*CarParks: {
                     type: 'group',
                     name: 'Car Parks',
                     visible: false
+                },*/
+                 CarParksLive: {
+                    type: 'group',
+                    name: 'Car Parks',
+                    visible: true
                 },
                 Parks: {
                     type: 'group',
@@ -207,25 +208,26 @@ angular.module('MyBath.MapController', [])
         markers: $scope.markers
     };
 
-    addLayer("Libraries",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("PrimarySchools",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("Council_Offices",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("NurseryPlaySchools",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("SecondarySchools",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("Colleges",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("Universities",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("ConAreas",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("CivicAmenitySites",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("HealthandFitnessCentres",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("PlayAreas",$scope.map.center.lat, $scope.map.center.lng); // Doesn't really return much useful info
-    addLayer("TennisCourts",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("Allotments",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("MobileLibraryStops",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("BusStops",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("Roadworks",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("CarParks",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("Parks",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("OpenSpaces",$scope.map.center.lat, $scope.map.center.lng);
-    addLayer("PublicConveniences",$scope.map.center.lat, $scope.map.center.lng);
+    addLayer("Libraries");
+    addLayer("PrimarySchools");
+    addLayer("Council_Offices");
+    addLayer("NurseryPlaySchools");
+    addLayer("SecondarySchools");
+    addLayer("Colleges");
+    addLayer("Universities");
+    addLayer("ConAreas");
+    addLayer("CivicAmenitySites");
+    addLayer("HealthandFitnessCentres");
+    addLayer("PlayAreas");
+    addLayer("TennisCourts");
+    addLayer("Allotments");
+    addLayer("MobileLibraryStops");
+    addLayer("BusStops");
+    addLayer("Roadworks");
+    //addLayer("CarParks");
+    addLayer("Parks");
+    addLayer("OpenSpaces");
+    addLayer("PublicConveniences");
+    addLayer("CarParksLive");
 
 });

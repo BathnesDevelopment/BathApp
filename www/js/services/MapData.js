@@ -106,7 +106,8 @@ angular.module('MyBath.MapDataService', [])
                         return icons.libraryIcon;
                     case "CivicAmenitySites":
                         return icons.wasteIcon;
-                    case "CarParks":
+                    case "carParks":
+                    case "CarParksLive":
                         return icons.carParkIcon;
                     case "Council_Offices":
                         return icons.officeIcon;
@@ -135,12 +136,11 @@ angular.module('MyBath.MapDataService', [])
                     case "NurseryPlaySchools":
                         return icons.playSchoolIcon;
                     default:
-                        console.log("default layer: " + layer);
+                        console.warn("default layer: " + layer);
                         return icons.defaultIcon;
                 }
             
             };
-
             var pos = LLtoNE(lat, lng);
             var start = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10';
             var start2 = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10&MapSource=BathNES/';
@@ -161,12 +161,13 @@ angular.module('MyBath.MapDataService', [])
                 TennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
                 Allotments: start + NorthEastString + '&ActiveLayer=Allotments',
                 MobileLibraryStops: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
-                BusStops: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=25' + NorthEastString + '&ActiveLayer=BusStops',
+                BusStops: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=100' + NorthEastString + '&ActiveLayer=BusStops',
                 Roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
                 CarParks: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastString,
                 Parks: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastString,
                 OpenSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
-                PublicConveniences: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString
+                PublicConveniences: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString,
+                CarParksLive: "http://data.bathhacked.org/resource/u3w2-9yme.json"
             };
         
             var url = layerList[layer];
@@ -175,13 +176,41 @@ angular.module('MyBath.MapDataService', [])
 
             $http.get(url)
                 .success(function (data, status, headers, config) {
-                    if (data && data != [] && !(data.error)) {
+                    var northing = "";
+                    var easting = "";
+                    var latLng = [];
+                    var title = "";
+                    if ( layer === "CarParksLive") {
+                        for (i = 0; i < data.length ; i++) {
+                            northing = data[i].northing;
+                            easting = data[i].easting;
+
+                            latlng = NEtoLL(easting, northing);
+                            var rem = parseInt(data[i].capacity, 10) - parseInt(data[i].occupancy, 10);
+                            if (rem < 0) {
+                                rem = 0;
+                            }
+                            var icon = Object.create(getIcon(layer));
+                            var bgC = "#66cc33";
+                            var pFull = parseInt(data[i].percentage,10);
+                            if (pFull > 75) {
+                                bgC = "#d39211";
+                            }
+                            if (pFull > 95) {
+                                bgC = "#cc2311";
+                            }
+                            icon.html = '<p style="padding-bottom: 10px; word-wrap: normal; height: 3em; width: 3em; margin-left: auto; margin-right: auto;  vertical-align: middle; background:' + bgC + '; border:5px solid rgba(255,255,255,0.5);  color:#fff;  font-weight:bold;  text-align:center;  border-radius:50%;  line-height:30px;">' + rem + '</p>';
+                            title = data[i].name + "<br>" + pFull    + "% full";
+                            layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: icon, layer: "CarParksLive", message: title });
+                        }
+                    }
+                    else if (data && data != [] && !(data.error) && layer !== "CarParksLive" ) {
                         
                         for (i = 0; i < data[0].features.length ; i++) {
-                            var northing = data[0].features[i].geometry.coordinates[0][0];
-                            var easting = data[0].features[i].geometry.coordinates[0][1];
+                            northing = data[0].features[i].geometry.coordinates[0][0];
+                            easting = data[0].features[i].geometry.coordinates[0][1];
                             var titleAndUrl = data[0].features[i].properties.fields._;
-                            var title = data[0].features[i].properties.fields._;
+                            title = data[0].features[i].properties.fields._;
                             if ( title ) {
                                 if ( layer == "PlayAreas" ) {
                                     title = data[0].features[i].properties.html;
@@ -193,7 +222,7 @@ angular.module('MyBath.MapDataService', [])
                                 title = data[0].features[i].properties.html;
                             }
                         
-                            var latlng = NEtoLL(northing, easting);
+                            latlng = NEtoLL(northing, easting);
                             layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: getIcon(layer), layer: data[0].properties.layerName, message: title });
                         }
                     } else {
