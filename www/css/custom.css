@@ -92,3 +92,8 @@ ion-nav-view {
     border-radius:50%;
     line-height:30px
 }
+
+.leaflet-control-layers-selector {
+    min-width: 20px;
+    min-height: 20px;
+}

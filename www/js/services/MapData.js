@@ -4,7 +4,13 @@ angular.module('MyBath.MapDataService', [])
  * 
 */
 .factory('MapData', function ($http, $q) {
-
+    function toTitleCase(str)
+        {
+            // Converts a string to title case
+            // Source http://stackoverflow.com/a/196991
+            return str.replace(/\w\S*/g, function(txt){
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+        }
     
     var icons = {
         defaultIcon: {
@@ -193,10 +199,10 @@ angular.module('MyBath.MapDataService', [])
                             var icon = Object.create(getIcon(layer));
                             var bgC = "#66cc33";
                             var pFull = parseInt(data[i].percentage, 10);
-                            if (pFull > 75) {
+                            if (pFull > 80 || rem < 30) {
                                 bgC = "#d39211";
                             }
-                            if (pFull > 95) {
+                            if (pFull > 95 || rem < 15) {
                                 bgC = "#cc2311";
                             }
                             icon.html = '<p class = "circle-marker" style="background:' + bgC + '">' + rem + '</p>';
@@ -221,6 +227,13 @@ angular.module('MyBath.MapDataService', [])
                                 // Add the HTML data - to display *something*
                                 title = data[0].features[i].properties.html;
                             }
+                            if (title.search( /Distance from.* pin [0-9]+\)/ ) !== -1) {
+                                title = title.slice(0,title.search(/Distance from.* pin [0-9]+\)/));
+                            }
+                            if (title.search( /[A-Z ]{8}/ ) !== -1) {
+                                title = toTitleCase(title);
+                            }
+                            
                         
                             latlng = NEtoLL(northing, easting);
                             layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: getIcon(layer), layer: data[0].properties.layerName, message: title });

@@ -149,7 +149,7 @@ angular.module('MyBath.MapController', [])
                 },
                 CivicAmenitySites: {
                     type: 'group',
-                    name: 'Wase & Recyling Sites',
+                    name: 'Waste & Recyling Sites',
                     visible: false
                 },
                 HealthandFitnessCentres: {
@@ -187,11 +187,11 @@ angular.module('MyBath.MapController', [])
                     name: 'Roadworks',
                     visible: false
                 },
-                /*CarParks: {
+                CarParks: {
                     type: 'group',
-                    name: 'Car Parks',
+                    name: 'Car Parks (static)',
                     visible: false
-                },*/
+                },
                  CarParksLive: {
                     type: 'group',
                     name: 'Car Parks',
