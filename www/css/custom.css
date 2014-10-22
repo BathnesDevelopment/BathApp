@@ -76,3 +76,19 @@ ion-nav-view {
 .leaflet-marker-icon i {
     font-size: 24px;
 }
+
+.circle-marker {
+    padding-bottom: 10px;
+    word-wrap: normal;
+    height: 3em;
+    width: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+    border:5px solid rgba(255,255,255,0.5);
+    color:#fff;
+    font-weight:bold;
+    text-align:center;
+    border-radius:50%;
+    line-height:30px
+}

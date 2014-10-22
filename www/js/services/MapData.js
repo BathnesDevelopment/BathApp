@@ -144,7 +144,7 @@ angular.module('MyBath.MapDataService', [])
             var pos = LLtoNE(lat, lng);
             var start = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10';
             var start2 = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10&MapSource=BathNES/';
-            var NorthEastString = "&Easting=" + pos.east + "&Northing="+pos.north;
+            var NorthEastString = "&Easting=" + pos.east + "&Northing=" + pos.north;
 
             var layerList = {
                 Libraries: start + NorthEastString + '&ActiveLayer=Libraries',
@@ -161,7 +161,7 @@ angular.module('MyBath.MapDataService', [])
                 TennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
                 Allotments: start + NorthEastString + '&ActiveLayer=Allotments',
                 MobileLibraryStops: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
-                BusStops: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=100' + NorthEastString + '&ActiveLayer=BusStops',
+                BusStops: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=25' + NorthEastString + '&ActiveLayer=BusStops',
                 Roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
                 CarParks: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastString,
                 Parks: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastString,
@@ -192,14 +192,14 @@ angular.module('MyBath.MapDataService', [])
                             }
                             var icon = Object.create(getIcon(layer));
                             var bgC = "#66cc33";
-                            var pFull = parseInt(data[i].percentage,10);
+                            var pFull = parseInt(data[i].percentage, 10);
                             if (pFull > 75) {
                                 bgC = "#d39211";
                             }
                             if (pFull > 95) {
                                 bgC = "#cc2311";
                             }
-                            icon.html = '<p style="padding-bottom: 10px; word-wrap: normal; height: 3em; width: 3em; margin-left: auto; margin-right: auto;  vertical-align: middle; background:' + bgC + '; border:5px solid rgba(255,255,255,0.5);  color:#fff;  font-weight:bold;  text-align:center;  border-radius:50%;  line-height:30px;">' + rem + '</p>';
+                            icon.html = '<p class = "circle-marker" style="background:' + bgC + '">' + rem + '</p>';
                             title = data[i].name + "<br>" + pFull    + "% full";
                             layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: icon, layer: "CarParksLive", message: title });
                         }
@@ -218,7 +218,7 @@ angular.module('MyBath.MapDataService', [])
                                 title = titleAndUrl.split('|')[1];
                                 }
                             } else {
-                                //Add the HTML data - to display *something*
+                                // Add the HTML data - to display *something*
                                 title = data[0].features[i].properties.html;
                             }
                         

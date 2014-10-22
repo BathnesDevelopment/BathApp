@@ -2,7 +2,6 @@ angular.module('MyBath.MapController', [])
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents) {
 
     $scope.markers = [];
-
     $scope.fetching = {};
     function addLayer(name,lat,lng) {
         lat = $scope.map.center.lat;
@@ -32,15 +31,27 @@ angular.module('MyBath.MapController', [])
 
     function alreadyMarked(markerData) {
         for (var i = 0; i < $scope.markers.length; i++) {
-            if (markerData === $scope.markers[i].message) {
-                return true;
-            }
+            if (markerData === $scope.markers[i].message) { return true; }
         }
         return false;
     }
 
+   $scope.$on('leafletDirectiveMap.overlayremove', function(event, target){
+                    angular.noop();
+                });
+
+     $scope.$on('leafletDirectiveMap.overlayadd', function(event, target){
+                    for (var overlay in $scope.map.layers.overlays) {
+                        // Loop to get the real name
+                        if ($scope.map.layers.overlays[overlay].name === target.leafletEvent.name) {
+                            addLayer(overlay);
+                            return;
+                        }
+                    }
+                });
+
     $scope.$on('leafletDirectiveMap.moveend', function(event) {
-        addLayer("Libraries");
+        /*addLayer("Libraries");
         addLayer("PrimarySchools");
         addLayer("Council_Offices");
         addLayer("NurseryPlaySchools");
@@ -53,12 +64,10 @@ angular.module('MyBath.MapController', [])
         addLayer("TennisCourts");
         addLayer("Allotments");
         addLayer("MobileLibraryStops");
-        addLayer("BusStops");
         addLayer("Roadworks");
-        //addLayer("CarParks");
         addLayer("Parks");
         addLayer("OpenSpaces");
-        addLayer("PublicConveniences");
+        addLayer("PublicConveniences");*/
         
     });
 
@@ -171,7 +180,7 @@ angular.module('MyBath.MapController', [])
                 BusStops: {
                     type: 'group',
                     name: 'Bus Stops',
-                    visible: true
+                    visible: false
                 },
                 Roadworks: {
                     type: 'group',
@@ -208,7 +217,7 @@ angular.module('MyBath.MapController', [])
         markers: $scope.markers
     };
 
-    addLayer("Libraries");
+    /*addLayer("Libraries");
     addLayer("PrimarySchools");
     addLayer("Council_Offices");
     addLayer("NurseryPlaySchools");
@@ -229,5 +238,7 @@ angular.module('MyBath.MapController', [])
     addLayer("OpenSpaces");
     addLayer("PublicConveniences");
     addLayer("CarParksLive");
+    addLayer("BusStops");*/
+
 
 });
