@@ -76,16 +76,17 @@
     </div>
     <h3>Nearest council offices</h3>
     <p ng-show="!uprn">No location set</p>
+    <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information avalible on the Council's website</button>
     <div class="list card" ng-repeat="office in bathDataObject.councilOffices.Results.____________________________">
         <div class="item item-divider">
-            {{office.title}}
+            {{office.title | title}}
             <p>Distance: {{mToMi(office.Distance)}} miles</p>
         </div>
-        <div class="item tabs tabs-icon-right">
+        <!--<div class="item tabs tabs-icon-right">
             <a class="tab-item" browse-to="{{office.url}}">
                 <i class="icon ion-earth assertive"></i> More info
             </a>
-        </div>
+        </div>-->
     </div>
     <span ng-show="listedBuilding">
     <h3>Listed building status</h3>

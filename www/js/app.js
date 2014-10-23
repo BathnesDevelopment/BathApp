@@ -58,4 +58,20 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataSer
             }
         });
         $urlRouterProvider.otherwise("/menu/home");
+})
+.filter('title', function() {
+    // converts ALLCAPS to Sentence case
+    return function (original) {
+        var res = "";
+        var words = original.toLowerCase().split(' ');
+        var i = 0;
+        while (i < words.length) {
+            res += words[i].charAt(0).toUpperCase() + words[i].slice(1);
+            i++;
+            if (i !== words.length){
+                res += " ";
+            }
+        }
+        return res;
+    };
 });
