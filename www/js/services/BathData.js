@@ -148,6 +148,18 @@ angular.module('MyBath.BathDataService', [])
             window.localStorage.removeItem('BathData');
         },
         get: function ( id ) {
+            function removeDupes( array ) {
+                var names = [];
+                function isNotDupe(element) {
+                    if (names.indexOf(element.name) !== -1) { return false; }
+
+                    names.push(element.name);
+                    return true;
+                }
+                array = array.filter(isNotDupe);
+                return array;
+            }
+
             var i = 0;
             var res = angular.fromJson(window.localStorage.BathData)[id];
             var doc;
@@ -231,6 +243,7 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Secondary_Schools_Nearby[i].lat = geo.latitude;
                             res.Results.Secondary_Schools_Nearby[i].lon = geo.longitude;
                         }
+                    res.Results.Secondary_Schools_Nearby = removeDupes(res.Results.Secondary_Schools_Nearby);
                     }
                     return res;
                 case 5 : // Colleges

@@ -60,18 +60,28 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataSer
         $urlRouterProvider.otherwise("/menu/home");
 })
 .filter('title', function() {
-    // converts ALLCAPS to Sentence case
+    // converts a string (i.e. one in allcaps) to Sentence case
     return function (original) {
         var res = "";
         var words = original.toLowerCase().split(' ');
         var i = 0;
+        var j = 0;
         while (i < words.length) {
-            res += words[i].charAt(0).toUpperCase() + words[i].slice(1);
+            if (words[i].charAt(j) === '(') {
+                // Deal with ( by adding it to res and processing the string as if it were not there
+                res += words[i].charAt(j);
+                j++;
+                continue;
+            }
+            res += words[i].charAt(j).toUpperCase() + words[i].slice(j+1);
             i++;
+            j = 0;
             if (i !== words.length){
                 res += " ";
             }
         }
         return res;
     };
-});
+})
+//.filter('firstCap')
+;

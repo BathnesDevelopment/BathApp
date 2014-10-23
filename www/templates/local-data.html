@@ -149,7 +149,7 @@
         <p ng-show="!bathDataObject.roadworksNearby.Results.Roadworks_Nearby">No results</p>
         <div class="list card" ng-repeat="roadworks in bathDataObject.roadworksNearby.Results.Roadworks_Nearby">
             <div class="item item-divider">
-                {{roadworks.title}}
+                {{roadworks.title | title }}
                 <p>Distance: {{mToMi(roadworks.Distance)}} miles</p>
             </div>
             <div class="item item-body">
@@ -224,12 +224,12 @@
         </div>
     </div>
     <div ng-show="userData.LocalHidden.Sports">
-        <h3>Health and fitness centres</h3>
+        <h3>Health and Fitness Centres</h3>
         
         <p ng-show="!bathDataObject.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">No results</p>
         <div class="list card" ng-repeat="healthcentre in bathDataObject.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
             <div class="item item-divider">
-                {{healthcentre.name}}
+                {{healthcentre.name | title}}
                 <p>Distance: {{mToMi(healthcentre.Distance)}} miles</p>
             </div>
             <div class="item tabs tabs-icon-right">
