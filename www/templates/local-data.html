@@ -153,8 +153,8 @@
                 <p>Distance: {{mToMi(roadworks.Distance)}} miles</p>
             </div>
             <div class="item item-body">
-                {{roadworks._}}<br />
-                <b>Location:</b> {{roadworks.Location}}<br />
+                {{roadworks._ | sentence }}<br />
+                <b>Location:</b> {{roadworks.Location | sentence }}<br />
                 <b>Work commenced:</b> {{formatTime(roadworks.Work____commenced)}}<br />
                 <b>Due to be completed:</b> {{formatTime(roadworks.Due_____to_____be_____completed_____on)}}
             </div>

@@ -83,5 +83,8 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataSer
         return res;
     };
 })
-//.filter('firstCap')
-;
+.filter('sentence', function() {
+    return function (original) {
+        return original.charAt(0).toUpperCase() + original.toLowerCase().slice(1);
+    };
+});
