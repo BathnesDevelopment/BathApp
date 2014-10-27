@@ -6,8 +6,8 @@
     <div ng-show="userData.LocalHidden.Libraries">
         <h3>Local libraries</h3>
         
-        <p ng-show="!bathDataObject.librariesNearby.Results">No results</p>
-        <div class="list card" ng-repeat="library in bathDataObject.librariesNearby.Results">
+        <p ng-show="!bathDataObject.librariesNearby">No results</p>
+        <div class="list card" ng-repeat="library in bathDataObject.librariesNearby">
             <div class="item item-divider">
                 {{library.name}}
                 <p>{{mToMi(library.Distance)}} miles</p>
@@ -26,8 +26,8 @@
         </div>
         <h3>Mobile libraries</h3>
         
-        <p ng-show="!bathDataObject.mobileLibrariesNearby.Results">No results</p>
-        <div class="list card" ng-repeat="library in bathDataObject.mobileLibrariesNearby.Results">
+        <p ng-show="!bathDataObject.mobileLibrariesNearby">No results</p>
+        <div class="list card" ng-repeat="library in bathDataObject.mobileLibrariesNearby">
             <div class="item item-divider">
                 Nearest village stop: <span ng-bind-html="library.village"></span>
                 <p>{{mToMi(library.Distance)}} miles</p>
@@ -50,8 +50,8 @@
     <div ng-show="userData.LocalHidden.Schools">
         <h3>Play schools</h3>
         
-        <p ng-show="!bathDataObject.playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">No results</p>
-        <div class="list card" ng-repeat="playschool in bathDataObject.playSchoolsNearby.Results.Play_Schools_and_Nurseries_Nearby">
+        <p ng-show="!bathDataObject.playSchoolsNearby">No results</p>
+        <div class="list card" ng-repeat="playschool in bathDataObject.playSchoolsNearby">
             <div class="item item-divider">
                 Play school: {{playschool._}}
                 <p>{{mToMi(playschool.Distance)}} miles</p>
@@ -67,8 +67,8 @@
         </div>
         <h3>Primary schools</h3>
         
-        <p ng-show="!bathDataObject.primarySchoolsNearby.Results.Primary_Schools_Nearby">No results</p>
-        <div class="list card" ng-repeat="primaryschool in bathDataObject.primarySchoolsNearby.Results.Primary_Schools_Nearby">
+        <p ng-show="!bathDataObject.primarySchoolsNearby">No results</p>
+        <div class="list card" ng-repeat="primaryschool in bathDataObject.primarySchoolsNearby">
             <div class="item item-divider">
                 Primary school: {{primaryschool.name}}
                 <p>{{mToMi(primaryschool.Distance)}} miles</p>
@@ -88,8 +88,8 @@
 
         <h3>Secondary schools</h3>
         
-        <p ng-show="!bathDataObject.secondarySchoolsNearby.Results.Secondary_Schools_Nearby">No results</p>
-        <div class="list card" ng-repeat="secondaryschool in bathDataObject.secondarySchoolsNearby.Results.Secondary_Schools_Nearby">
+        <p ng-show="!bathDataObject.secondarySchoolsNearby">No results</p>
+        <div class="list card" ng-repeat="secondaryschool in bathDataObject.secondarySchoolsNearby">
             <div class="item item-divider">
                 {{secondaryschool.name}}
                 <p>{{mToMi(secondaryschool.Distance)}} miles</p>
@@ -109,8 +109,8 @@
 
         <h3>Colleges</h3>
         
-        <p ng-show="!bathDataObject.collegesNearby.Results.Colleges_Nearby">No results</p>
-        <div class="list card" ng-repeat="college in bathDataObject.collegesNearby.Results.Colleges_Nearby">
+        <p ng-show="!bathDataObject.collegesNearby">No results</p>
+        <div class="list card" ng-repeat="college in bathDataObject.collegesNearby">
             <div class="item item-divider">
                 {{college._}}
                 <p>{{mToMi(college.Distance)}} miles</p>
@@ -127,8 +127,8 @@
 
         <h3>Universities</h3>
         
-        <p ng-show="!bathDataObject.universitiesNearby.Results.Universities_Nearby">No results</p>
-        <div class="list card" ng-repeat="university in bathDataObject.universitiesNearby.Results.Universities_Nearby">
+        <p ng-show="!bathDataObject.universitiesNearby">No results</p>
+        <div class="list card" ng-repeat="university in bathDataObject.universitiesNearby">
             <div class="item item-divider">
                 {{university._}}
                 <p>{{mToMi(university.Distance)}} miles</p>
@@ -146,8 +146,8 @@
     <div ng-show="userData.LocalHidden.Roadworks">
         <h3>Scheduled roadworks</h3>
         
-        <p ng-show="!bathDataObject.roadworksNearby.Results.Roadworks_Nearby">No results</p>
-        <div class="list card" ng-repeat="roadworks in bathDataObject.roadworksNearby.Results.Roadworks_Nearby">
+        <p ng-show="!bathDataObject.roadworksNearby">No results</p>
+        <div class="list card" ng-repeat="roadworks in bathDataObject.roadworksNearby">
             <div class="item item-divider">
                 {{roadworks.title | title }}
                 <p>Distance: {{mToMi(roadworks.Distance)}} miles</p>
@@ -171,8 +171,8 @@
     <div ng-show="userData.LocalHidden.Bus">
         <h3>Bus stops</h3>
         
-        <p ng-show="!bathDataObject.busStops.Results.Bus_Stops_Nearby">No results</p>
-        <div class="list card" ng-repeat="busstop in bathDataObject.busStops.Results.Bus_Stops_Nearby">
+        <p ng-show="!bathDataObject.busStops">No results</p>
+        <div class="list card" ng-repeat="busstop in bathDataObject.busStops">
             <div class="item item-divider">
                 {{busstop.Bus_stop_name}}
                 <p>Distance: {{mToMi(busstop.Distance)}} miles</p>
@@ -190,8 +190,8 @@
     <div ng-show="userData.LocalHidden.CarPark">
         <h3>Parking zone</h3>
         
-        <p ng-show="!bathDataObject.parkingNearby.Results">No results</p>
-        <div class="list card" ng-repeat="parking in bathDataObject.parkingNearby.Results" ng-show="parkingNearby.Results.Parking_Zones">
+        <p ng-show="!bathDataObject.parkingNearby">No results</p>
+        <div class="list card" ng-repeat="parking in bathDataObject.parkingNearby" ng-show="parkingNearby">
             <div class="item item-divider">
                 {{parking._}}
             </div>
@@ -205,8 +205,8 @@
     <div ng-show="userData.LocalHidden.Crossings">
         <h3>School crossings</h3>
         
-        <p ng-show="!bathDataObject.schoolCrossings.Results.School_Crossings_Nearby">No results</p>
-        <div class="list card" ng-repeat="schoolCrossing in bathDataObject.schoolCrossings.Results.School_Crossings_Nearby">
+        <p ng-show="!bathDataObject.schoolCrossings">No results</p>
+        <div class="list card" ng-repeat="schoolCrossing in bathDataObject.schoolCrossings">
             <div class="item item-divider">
                 <span ng-bind-html="schoolCrossing.Name_"></span>
                 <p>Distance: {{mToMi(schoolCrossing.Distance)}} miles</p>
@@ -226,8 +226,8 @@
     <div ng-show="userData.LocalHidden.Sports">
         <h3>Health and Fitness Centres</h3>
         
-        <p ng-show="!bathDataObject.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">No results</p>
-        <div class="list card" ng-repeat="healthcentre in bathDataObject.healthAndFitnessNearby.Results.Health_and_Fitness_Centres_Nearby">
+        <p ng-show="!bathDataObject.healthAndFitnessNearby">No results</p>
+        <div class="list card" ng-repeat="healthcentre in bathDataObject.healthAndFitnessNearby">
             <div class="item item-divider">
                 {{healthcentre.name | title}}
                 <p>Distance: {{mToMi(healthcentre.Distance)}} miles</p>
@@ -245,8 +245,8 @@
     <div ng-show="userData.LocalHidden.Planning">
         <h3>Planning applications</h3>
         
-        <p ng-show="!bathDataObject.planningApplicationsNearby.Results.Planning_Applications_Nearby">No results</p>
-        <div class="list card" ng-repeat="application in bathDataObject.planningApplicationsNearby.Results.Planning_Applications_Nearby">
+        <p ng-show="!bathDataObject.planningApplicationsNearby">No results</p>
+        <div class="list card" ng-repeat="application in bathDataObject.planningApplicationsNearby">
             <div class="item item-divider">
                 Planning reference: {{application.title}}
                 <p>Distance: {{mToMi(application.Distance)}} miles</p>
@@ -268,8 +268,8 @@
     <div ng-show="userData.LocalHidden.Licenses">
         <h3>New license applications</h3>
         
-        <p ng-show="!bathDataObject.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby">No results</p>
-        <div class="list card" ng-repeat="newApplication in bathDataObject.newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby" ng-show="newLicensingAppsNearby.Results.New_Licensing_Applications_Nearby.length">
+        <p ng-show="!bathDataObject.newLicensingAppsNearby">No results</p>
+        <div class="list card" ng-repeat="newApplication in bathDataObject.newLicensingAppsNearby" ng-show="newLicensingAppsNearby.length">
             <div class="item item-divider">
                 License reference: {{newApplication.title}}
                 <p>Distance: {{mToMi(newApplication.Distance)}} miles</p>
@@ -290,8 +290,8 @@
 
         <h3>Issued license applications</h3>
         
-        <p ng-show="!bathDataObject.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby">No results</p>
-        <div class="list card" ng-repeat="issuedApplication in bathDataObject.issuedLicensingAppsNearby.Results.Issued_Licensing_Applications_Nearby">
+        <p ng-show="!bathDataObject.issuedLicensingAppsNearby">No results</p>
+        <div class="list card" ng-repeat="issuedApplication in bathDataObject.issuedLicensingAppsNearby">
             <div class="item item-divider">
                 Reference: {{issuedApplication.title}}
                 <p>Distance: {{mToMi(issuedApplication.Distance)}} miles</p>
@@ -313,8 +313,8 @@
     <div ng-show="userData.LocalHidden.ParksAndRec">
         <h3>Parks</h3>
         
-        <p ng-show="!bathDataObject.parksNearby.Results.Parks_or_Open_Spaces_Nearby">No results</p>
-        <div class="list card" ng-repeat="park in bathDataObject.parksNearby.Results.Parks_or_Open_Spaces_Nearby">
+        <p ng-show="!bathDataObject.parksNearby">No results</p>
+        <div class="list card" ng-repeat="park in bathDataObject.parksNearby">
             <div class="item item-divider">
                 Park: <span ng-bind-html="park._"></span>
                 <p>Distance: {{mToMi(park.Distance)}} miles</p>
@@ -328,8 +328,8 @@
 
         <h3>Play areas</h3>
         
-        <p ng-show="!bathDataObject.playAreasNearby.Results.Play_Areas_Nearby">No results</p>
-        <div class="list card" ng-repeat="playarea in bathDataObject.playAreasNearby.Results.Play_Areas_Nearby">
+        <p ng-show="!bathDataObject.playAreasNearby">No results</p>
+        <div class="list card" ng-repeat="playarea in bathDataObject.playAreasNearby">
             <div class="item item-divider">
                 Play area: {{playarea._}}
                 <p>Distance: {{mToMi(playarea.Distance)}} miles</p>
@@ -344,9 +344,9 @@
     <div ng-show="userData.LocalHidden.Allotments">
         <h3>Allotments</h3>
         
-        <p ng-show="!bathDataObject.allotmentsNearby.Results.Allotments_Nearby">No results</p>
+        <p ng-show="!bathDataObject.allotmentsNearby">No results</p>
         <p ng-show="allotmentsOutsideBath">For allotment queries outside Bath, please contact your local Parish Council.</p>
-        <div class="list card" ng-repeat="allotment in bathDataObject.allotmentsNearby.Results.Allotments_Nearby">
+        <div class="list card" ng-repeat="allotment in bathDataObject.allotmentsNearby">
             <div class="item item-divider">
                 Allotment: <span ng-bind-html="allotment._"></span>
                 <p>Distance: {{mToMi(allotment.Distance)}} miles</p>

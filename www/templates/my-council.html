@@ -31,45 +31,46 @@
     </div>
     <h3>Your councillors</h3>
     <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="councillor in bathDataObject.yourCouncillors.Results">
+    <div class="list card">
         <div class="item item-divider">
             Contact details
         </div>
-        <div class="item item-body" ng-show="councillor.number1">
-            <img ng-src="{{councillor.img1}}"></img><b>{{councillor.number1}}</b> <br />
-            {{councillor.telephone1}}
+        <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number1">
+            <img ng-src="{{bathDataObject.yourCouncillors.img1}}" />
+            <h2>{{bathDataObject.yourCouncillors.number1}}</h2>
+            <p>{{bathDataObject.yourCouncillors.telephone1}}</p>
         </div>
-        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone1 || councillor.info1">
-            <a class="tab-item" ng-show="councillor.telephone1" browse-to="tel:{{councillor.telephone1}}">
+        <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone1 || bathDataObject.yourCouncillors.info1">
+            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone1" browse-to="tel:{{bathDataObject.yourCouncillors.telephone1}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
-            <a class="tab-item" ng-show="councillor.info1" browse-to="{{councillor.info1}}">
+            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info1" browse-to="{{bathDataObject.yourCouncillors.info1}}">
                 <i class="icon ion-person assertive"></i> More details
             </a>
         </div>
-        <div class="item item-body" ng-show="councillor.number2">
-            <img ng-src="{{councillor.img2}}"></img>
-            <b>{{councillor.number2}}</b><br />
-                {{councillor.telephone2}}
+        <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number2">
+            <img ng-src="{{bathDataObject.yourCouncillors.img2}}" />
+            <h2>{{bathDataObject.yourCouncillors.number2}}</h2>
+            <p>{{bathDataObject.yourCouncillors.telephone2}}</p>
         </div>
-        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone2 || councillor.info2">
-            <a class="tab-item" ng-show="councillor.telephone2" browse-to="tel:{{councillor.telephone2}}">
+        <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone2 || councillor.info2">
+            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone2" browse-to="tel:{{bathDataObject.yourCouncillors.telephone2}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
-            <a class="tab-item" ng-show="councillor.info2" browse-to="{{councillor.info2}}">
+            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info2" browse-to="{{bathDataObject.yourCouncillors.info2}}">
                 <i class="icon ion-person assertive"></i> More details
             </a>
         </div>
-        <div class="item item-body" ng-show="councillor.number3">
-            <img ng-src="{{councillor.img3}}"></img>
-            <b>{{councillor.number3}}</b> <br />
-                {{councillor.telephone3}}
+        <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number3">
+            <img ng-src="{{bathDataObject.yourCouncillors.img3}}" />
+            <h2>{{bathDataObject.yourCouncillors.number3}}</h2>
+            <p>{{bathDataObject.yourCouncillors.telephone3}}</p>
         </div>
-        <div class="item tabs tabs-icon-right" ng-show="councillor.telephone3 || councillor.info3">
-            <a class="tab-item" ng-show="councillor.telephone3" browse-to="tel:{{councillor.telephone3}}">
+        <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone3 || bathDataObject.yourCouncillors.info3">
+            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone3" browse-to="tel:{{bathDataObject.yourCouncillors.telephone3}}">
                 <i class="icon ion-ios7-telephone positive"></i> Call
             </a>
-            <a class="tab-item" ng-show="councillor.info3" browse-to="{{councillor.info3}}">
+            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info3" browse-to="{{bathDataObject.yourCouncillors.info3}}">
                 <i class="icon ion-person assertive"></i> More details
             </a>
         </div>

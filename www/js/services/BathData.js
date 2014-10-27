@@ -4,21 +4,19 @@ angular.module('MyBath.BathDataService', [])
  * The bath data factory includes methods to return and save data from iShare to local storage
  * and returns that data from local storage.
 */
-.factory('BathData', function ($http, $q) {
+.factory('BathData', function ($http, $q, DataTransformations) {
     return {
         // Method: BathData.all()
         // Input: JSON[] / Empty
         // Output: JSON / Empty Array
         // gets all the data back from local storage.
         all: function () {
-
             // we need a one time only delete as there's invalid data leftover from earlier release
             var cleanUp = window.localStorage.cleanUp;
             if (!cleanUp) {
                 window.localStorage.removeItem('BathData');
                 window.localStorage.cleanUp = 'cleaned';
             }
-
             var bathData = window.localStorage.BathData;
             if (bathData) {
                 return angular.fromJson(bathData);
@@ -35,7 +33,7 @@ angular.module('MyBath.BathDataService', [])
                 res.primarySchoolsNearby = this.get(3);
                 res.secondarySchoolsNearby = this.get(4);
                 res.collegesNearby = this.get(5);
-                res.universitiesNearby =this.get(6);
+                res.universitiesNearby = this.get(6);
                 res.binCollection = this.get(7);
                 res.roadworksNearby = this.get(8);
                 res.parksNearby = this.get(9);
@@ -147,74 +145,61 @@ angular.module('MyBath.BathDataService', [])
         clear: function () {
             window.localStorage.removeItem('BathData');
         },
-        get: function ( id ) {
-            function removeDupes( array ) {
-                var names = [];
-                function isNotDupe(element) {
-                    if (names.indexOf(element.name) !== -1) { return false; }
-
-                    names.push(element.name);
-                    return true;
-                }
-                array = array.filter(isNotDupe);
-                return array;
-            }
-
+        get: function (id) {
             var i = 0;
             var res = angular.fromJson(window.localStorage.BathData)[id];
             var doc;
             var geo;
             switch (id) {
                 //Local Data
-                case 0 : // libraries Nearby
-                    if (res.Results.Libraries_Nearby.Info){
-                        return {};
-                    }
-                    if (res && res.Results) {
+                case 0: // libraries Nearby
+                    if (res && res.Results && res.Results.Libraries_Nearby) {
+                        if (res.Results.Libraries_Nearby.Info) {
+                            return {};
+                        }
+                        res.Results.Libraries_Nearby = DataTransformations.objectToArray(res.Results.Libraries_Nearby);
                         // Do the string manipulation to clean up - need to make sure this won't blow up
-                        res.Results.Libraries_Nearby.url = res.Results.Libraries_Nearby._.split("|")[0];
-                        res.Results.Libraries_Nearby.name = res.Results.Libraries_Nearby._.split("|")[1];
-                        geo = NEtoLL(res.Results.Libraries_Nearby.MapSpurE, res.Results.Libraries_Nearby.MapSpurN);
-                        res.Results.Libraries_Nearby.lat = geo.latitude;
-                        res.Results.Libraries_Nearby.lon = geo.longitude;
+                        for (i = 0; i < res.Results.Libraries_Nearby.length ; i++) {
+                            res.Results.Libraries_Nearby[i].url = res.Results.Libraries_Nearby[i]._.split("|")[0];
+                            res.Results.Libraries_Nearby[i].name = res.Results.Libraries_Nearby[i]._.split("|")[1];
+                            geo = NEtoLL(res.Results.Libraries_Nearby[i].MapSpurE, res.Results.Libraries_Nearby[i].MapSpurN);
+                            res.Results.Libraries_Nearby[i].lat = geo.latitude;
+                            res.Results.Libraries_Nearby[i].lon = geo.longitude;
+                        }
+                        return res.Results.Libraries_Nearby;
                     }
-                    return res;
-                case 1 : // Mobile libaries
+                    return {};
+                case 1: // Mobile libaries
                     if (res && res.Results) {
                         if (res.Results.Mobile_Libraries_Nearby.Info !== "<p>No records found nearby.</p>") {
+                            res.Results.Mobile_Libraries_Nearby = DataTransformations.objectToArray(res.Results.Mobile_Libraries_Nearby);
                             // Do the string manipulation to clean up - need to make sure this won't blow up
-                            res.Results.Mobile_Libraries_Nearby.timeAdjusted = res.Results.Mobile_Libraries_Nearby.time.replace('?', '-');
-                            res.Results.Mobile_Libraries_Nearby.url = res.Results.Mobile_Libraries_Nearby._.split("|")[0];
-                            geo = NEtoLL(res.Results.Mobile_Libraries_Nearby.MapSpurE, res.Results.Mobile_Libraries_Nearby.MapSpurN);
-                            res.Results.Mobile_Libraries_Nearby.lat = geo.latitude;
-                            res.Results.Mobile_Libraries_Nearby.lon = geo.longitude;
+                            for (i = 0; i < res.Results.Mobile_Libraries_Nearby.length ; i++) {
+                                res.Results.Mobile_Libraries_Nearby[i].timeAdjusted = res.Results.Mobile_Libraries_Nearby[i].time.replace('?', '-');
+                                res.Results.Mobile_Libraries_Nearby[i].url = res.Results.Mobile_Libraries_Nearby[i]._.split("|")[0];
+                                geo = NEtoLL(res.Results.Mobile_Libraries_Nearby[i].MapSpurE, res.Results.Mobile_Libraries_Nearby[i].MapSpurN);
+                                res.Results.Mobile_Libraries_Nearby[i].lat = geo.latitude;
+                                res.Results.Mobile_Libraries_Nearby[i].lon = geo.longitude;
+                                return res.Results.Mobile_Libraries_Nearby;
+                            }
                         }
                         else { return {}; }
                     }
-                    return res;
-                case 2 : // Play Schools
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby )) {
-                            temp = res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby;
-                           res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby = {};
-                           res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[0] = temp;
-                           res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[0].length = 1;
-                        }
-                        for (i = 0; i <  res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.length ; i++) {
-                            geo = NEtoLL( res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].MapSpurE, res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.MapSpurN);
+                    return {};
+                case 2: // Play Schools
+                    if (res && res.Results && res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby) {
+                        res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby = DataTransformations.objectToArray(res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby);
+                        for (i = 0; i < res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.length ; i++) {
+                            geo = NEtoLL(res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].MapSpurE, res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.MapSpurN);
                             res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].lat = geo.latitude;
                             res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby;
                     }
-                    return res;
-                case 3 : // Primary Schools
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Primary_Schools_Nearby)) {
-                            temp = res.Results.Primary_Schools_Nearby;
-                            res.Results.Primary_Schools_Nearby = {};
-                            res.Results.Primary_Schools_Nearby[0] = temp;
-                            res.Results.Primary_Schools_Nearby[0].length = 1;
-                        }
+                    return {};
+                case 3: // Primary Schools
+                    if (res && res.Results && res.Results.Primary_Schools_Nearby) {
+                        res.Results.Primary_Schools_Nearby = DataTransformations.objectToArray(res.Results.Primary_Schools_Nearby);
                         for (i = 0; i < res.Results.Primary_Schools_Nearby.length ; i++) {
                             res.Results.Primary_Schools_Nearby[i].name = res.Results.Primary_Schools_Nearby[i]._.split('|')[1];
                             if (typeof res.Results.Primary_Schools_Nearby[i].name === typeof undefined) {
@@ -226,74 +211,58 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Primary_Schools_Nearby[i].lat = geo.latitude;
                             res.Results.Primary_Schools_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Primary_Schools_Nearby;
                     }
-                    return res;
-                case 4 : // Secondary Schools
-                    if (!angular.isArray( res.Results.Secondary_Schools_Nearby )) {
-                        temp = res.Results.Secondary_Schools_Nearby;
-                        res.Results.Secondary_Schools_Nearby = {};
-                        res.Results.Secondary_Schools_Nearby[0] = temp;
-                        res.Results.Secondary_Schools_Nearby[0].length = 1;
-                    }
-                    if (res && res.Results) {
+                    return {};
+                case 4: // Secondary Schools
+                    if (res && res.Results && res.Results.Secondary_Schools_Nearby) {
+                        res.Results.Secondary_Schools_Nearby = DataTransformations.objectToArray(res.Results.Secondary_Schools_Nearby);
                         for (i = 0; i < res.Results.Secondary_Schools_Nearby.length ; i++) {
                             res.Results.Secondary_Schools_Nearby[i].name = res.Results.Secondary_Schools_Nearby[i]._.split('|')[1];
                             res.Results.Secondary_Schools_Nearby[i].url = res.Results.Secondary_Schools_Nearby[i]._.split('|')[0];
                             geo = NEtoLL(res.Results.Secondary_Schools_Nearby[i].MapSpurE, res.Results.Secondary_Schools_Nearby[i].MapSpurN);
                             res.Results.Secondary_Schools_Nearby[i].lat = geo.latitude;
                             res.Results.Secondary_Schools_Nearby[i].lon = geo.longitude;
+                            res.Results.Secondary_Schools_Nearby = DataTransformations.objectToArray(res.Results.Secondary_Schools_Nearby);
                         }
-                    res.Results.Secondary_Schools_Nearby = removeDupes(res.Results.Secondary_Schools_Nearby);
+                        return res.Results.Secondary_Schools_Nearby;
                     }
-                    return res;
-                case 5 : // Colleges
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Colleges_Nearby )) {
-                            temp = res.Results.Colleges_Nearby;
-                            res.Results.Colleges_Nearby = {};
-                            res.Results.Colleges_Nearby[0] = temp;
-                            res.Results.Colleges_Nearby[0].length = 1;
-                        }
+                    return {};
+                case 5: // Colleges
+                    if (res && res.Results && res.Results.Colleges_Nearby) {
+                        res.Results.Colleges_Nearby = DataTransformations.objectToArray(res.Results.Colleges_Nearby);
                         for (i = 0; i < res.Results.Colleges_Nearby.length ; i++) {
                             geo = NEtoLL(res.Results.Colleges_Nearby[i].MapSpurE, res.Results.Colleges_Nearby[i].MapSpurN);
                             res.Results.Colleges_Nearby[i].lat = geo.latitude;
                             res.Results.Colleges_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Colleges_Nearby;
                     }
-                    return res;
-                case 6 : // Universities
-                    if (!angular.isArray( res.Results.Universities_Nearby )) {
-                        temp = res.Results.Universities_Nearby;
-                        res.Results.Universities_Nearby = {};
-                        res.Results.Universities_Nearby[0] = temp;
-                        res.Results.Universities_Nearby[0].length = 1;
-                    }
-                    // ishare only returns 8 characters in the string for some reason
-                    // This should get fixed, but at the moment, this fixes the display for the 2 major universities
-                    for (i = 0; i < res.Results.Universities_Nearby.length; i++) {
-                        if (res.Results.Universities_Nearby[i].___ == "Claverto") {
-                            res.Results.Universities_Nearby[i].___ = "Claverton Down";
+                    return {};
+                case 6: // Universities
+                    if (res && res.Results && res.Results.Universities_Nearby) {
+                        res.Results.Universities_Nearby = DataTransformations.objectToArray(res.Results.Universities_Nearby);
+                        // ishare only returns 8 characters in the string for some reason
+                        // This should get fixed, but at the moment, this fixes the display for the 2 major universities
+                        for (i = 0; i < res.Results.Universities_Nearby.length; i++) {
+                            if (res.Results.Universities_Nearby[i].___ == "Claverto") {
+                                res.Results.Universities_Nearby[i].___ = "Claverton Down";
+                            }
+                            if (res.Results.Universities_Nearby[i].___ == "Newton P") {
+                                res.Results.Universities_Nearby[i].___ = "Newton Park";
+                            }
                         }
-                        if (res.Results.Universities_Nearby[i].___ == "Newton P") {
-                            res.Results.Universities_Nearby[i].___ = "Newton Park";
-                        }
-                    }
-                    if (res && res.Results) {
                         for (i = 0; i < res.Results.Universities_Nearby.length ; i++) {
                             geo = NEtoLL(res.Results.Universities_Nearby[i].MapSpurE, res.Results.Universities_Nearby[i].MapSpurN);
                             res.Results.Universities_Nearby[i].lat = geo.latitude;
                             res.Results.Universities_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Universities_Nearby;
                     }
-                    return res;
-                case 8 : // Roadworks
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Roadworks_Nearby )) {
-                            temp = res.Results.Roadworks_Nearby;
-                            res.Results.Roadworks_Nearby = {};
-                            res.Results.Roadworks_Nearby[0] = temp;
-                            res.Results.Roadworks_Nearby[0].length = 1;
-                        }
+                    return {};
+                case 8: // Roadworks
+                    if (res && res.Results && res.Results.Roadworks_Nearby) {
+                        res.Results.Roadworks_Nearby = DataTransformations.objectToArray(res.Results.Roadworks_Nearby);
                         for (i = 0; i < res.Results.Roadworks_Nearby.length ; i++) {
                             res.Results.Roadworks_Nearby[i].title = res.Results.Roadworks_Nearby[i].Organisation.split('|')[1].replace('amp;', '');
                             res.Results.Roadworks_Nearby[i].url = res.Results.Roadworks_Nearby[i].Organisation.split('|')[0].replace('amp;', '');
@@ -301,16 +270,12 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Roadworks_Nearby[i].lat = geo.latitude;
                             res.Results.Roadworks_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Roadworks_Nearby;
                     }
-                    return res;
-                case 9 : // Parks
+                    return {};
+                case 9: // Parks
                     if (res && res.Results) {
-                        if (!angular.isArray(res.Results.Parks_or_Open_Spaces_Nearby)) {
-                            temp = res.Results.Parks_or_Open_Spaces_Nearby;
-                            res.Results.Parks_or_Open_Spaces_Nearby = {};
-                            res.Results.Parks_or_Open_Spaces_Nearby[0] = temp;
-                            res.Results.Parks_or_Open_Spaces_Nearby[0].length = 1;
-                        }
+                        res.Results.Parks_or_Open_Spaces_Nearby = DataTransformations.objectToArray(res.Results.Parks_or_Open_Spaces_Nearby);
                         for (i = 0; i < res.Results.Parks_or_Open_Spaces_Nearby.length ; i++) {
                             geo = NEtoLL(res.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurE, res.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurN);
                             res.Results.Parks_or_Open_Spaces_Nearby[i].lat = geo.latitude;
@@ -319,33 +284,23 @@ angular.module('MyBath.BathDataService', [])
                     }
                     return res;
                 case 10: // Play Areas
-                    if (res && res.Results) {
-                        if (!angular.isArray(res.Results.Play_Areas_Nearby)) {
-                            temp = res.Results.Play_Areas_Nearby;
-                            res.Results.Play_Areas_Nearby = {};
-                            res.Results.Play_Areas_Nearby[0] = temp;
-                            res.Results.Play_Areas_Nearby[0].length = 1;
-                        }
+                    if (res && res.Results && res.Results.Play_Areas_Nearby) {
+                        res.Results.Play_Areas_Nearby = DataTransformations.objectToArray(res.Results.Play_Areas_Nearby);
                         for (i = 0; i < res.Results.Play_Areas_Nearby.length ; i++) {
                             geo = NEtoLL(res.Results.Play_Areas_Nearby[i].MapSpurE, res.Results.Play_Areas_Nearby[i].MapSpurN);
                             res.Results.Play_Areas_Nearby[i].lat = geo.latitude;
                             res.Results.Play_Areas_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Play_Areas_Nearby;
                     }
-                    return res;
+                    return {};
                 case 11: // Allotments
-                    if (res && res.Results) {
+                    if (res && res.Results && res.Results.Allotments_Nearby) {
                         if (typeof res.Results.Allotments_Nearby.Info !== typeof undefined && res.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
                             //res.allotmentsOutsideBath = true;
-                            res.Results = {};
-                            return res;
+                            return {};
                         } else {
-                            if (!angular.isArray(res.Results.Allotments_Nearby)) {
-                                temp = res.Results.Allotments_Nearby;
-                                res.Results.Allotments_Nearby = {};
-                                res.Results.Allotments_Nearby[0] = temp;
-                                res.Results.Allotments_Nearby[0].length = 1;
-                            }
+                            res.Results.Allotments_Nearby = DataTransformations.objectToArray(res.Results.Allotments_Nearby);
                             for (i = 0; i < res.Results.Allotments_Nearby.length ; i++) {
                                 res.Results.Allotments_Nearby[i].ProvidedAdjusted = res.Results.Allotments_Nearby[i].Provided__by.replace('amp;', '');
                                 geo = NEtoLL(res.Results.Allotments_Nearby[i].MapSpurE, res.Results.Allotments_Nearby[i].MapSpurN);
@@ -355,17 +310,13 @@ angular.module('MyBath.BathDataService', [])
                                     res.Results.Allotments_Nearby[i].ProvidedAdjusted = "Bath & North East Somerset Council";
                                 }
                             }
+                            return res.Results.Allotments_Nearby;
                         }
                     }
-                    return res;
+                    return {};
                 case 12: // Health and Fitness
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Health_and_Fitness_Centres_Nearby )) {
-                            temp = res.Results.Health_and_Fitness_Centres_Nearby;
-                            res.Results.Health_and_Fitness_Centres_Nearby = {};
-                            res.Results.Health_and_Fitness_Centres_Nearby[0] = temp;
-                            res.Results.Health_and_Fitness_Centres_Nearby[0].length = 1;
-                        }
+                    if (res && res.Results && res.Results.Health_and_Fitness_Centres_Nearby) {
+                        res.Results.Health_and_Fitness_Centres_Nearby = DataTransformations.objectToArray(res.Results.Health_and_Fitness_Centres_Nearby);
                         for (i = 0; i < res.Results.Health_and_Fitness_Centres_Nearby.length ; i++) {
                             res.Results.Health_and_Fitness_Centres_Nearby[i].name = res.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[1].replace('amp;', '');
                             res.Results.Health_and_Fitness_Centres_Nearby[i].url = res.Results.Health_and_Fitness_Centres_Nearby[i]._.split('|')[0];
@@ -373,16 +324,12 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Health_and_Fitness_Centres_Nearby[i].lat = geo.latitude;
                             res.Results.Health_and_Fitness_Centres_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Health_and_Fitness_Centres_Nearby;
                     }
-                    return res;
+                    return {};
                 case 15: // Planning Applications
-                    if (res && res.Results) {
-                        if (!angular.isArray(res.Results.Planning_Applications_Nearby)) {
-                            temp = res.Results.Planning_Applications_Nearby;
-                            res.Results.Planning_Applications_Nearby = {};
-                            res.Results.Planning_Applications_Nearby[0] = temp;
-                            res.Results.Planning_Applications_Nearby[0].length = 1;
-                        }
+                    if (res && res.Results && res.Results.Planning_Applications_Nearby) {
+                        res.Results.Planning_Applications_Nearby = DataTransformations.objectToArray(res.Results.Planning_Applications_Nearby);
                         for (i = 0; i < res.Results.Planning_Applications_Nearby.length ; i++) {
                             res.Results.Planning_Applications_Nearby[i].title = res.Results.Planning_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
                             res.Results.Planning_Applications_Nearby[i].url = res.Results.Planning_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
@@ -390,16 +337,15 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Planning_Applications_Nearby[i].lat = geo.latitude;
                             res.Results.Planning_Applications_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Planning_Applications_Nearby;
                     }
-                    return res;
+                    return {};
                 case 16: // New Licencing
-                    if (res && res.Results && res.Results.New_Licensing_Applications_Nearby ) {
-                        if (!angular.isArray( res.Results.New_Licensing_Applications_Nearby )) {
-                            temp = res.Results.New_Licensing_Applications_Nearby;
-                            res.Results.New_Licensing_Applications_Nearby = {};
-                            res.Results.New_Licensing_Applications_Nearby[0] = temp;
-                            res.Results.New_Licensing_Applications_Nearby[0].length = 1;
+                    if (res && res.Results && res.Results.New_Licensing_Applications_Nearby) {
+                        if (res.Results.New_Licensing_Applications_Nearby.Info) {
+                            return {};
                         }
+                        res.Results.New_Licensing_Applications_Nearby = DataTransformations.objectToArray(res.Results.New_Licensing_Applications_Nearby);
                         for (i = 0; i < res.Results.New_Licensing_Applications_Nearby.length ; i++) {
                             res.Results.New_Licensing_Applications_Nearby[i].title = res.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
                             res.Results.New_Licensing_Applications_Nearby[i].url = res.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
@@ -407,76 +353,61 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.New_Licensing_Applications_Nearby[i].lat = geo.latitude;
                             res.Results.New_Licensing_Applications_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.New_Licensing_Applications_Nearby;
                     }
-                    return res;
+                    return {};
                 case 17: // Issued ditto
-                    if (res && res.Results) {
-                            if (!angular.isArray( res.Results.Issued_Licensing_Applications_Nearby )) {
-                                temp = res.Results.Issued_Licensing_Applications_Nearby;
-                                res.Results.Issued_Licensing_Applications_Nearby = {};
-                                res.Results.Issued_Licensing_Applications_Nearby[0] = temp;
-                                res.Results.Issued_Licensing_Applications_Nearby[0].length = 1;
-                            }
-                            for (i = 0; i < res.Results.Issued_Licensing_Applications_Nearby.length ; i++) {
-                                res.Results.Issued_Licensing_Applications_Nearby[i].title = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
-                                res.Results.Issued_Licensing_Applications_Nearby[i].url = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
-                                geo = NEtoLL(res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
-                                res.Results.Issued_Licensing_Applications_Nearby[i].lat = geo.latitude;
-                                res.Results.Issued_Licensing_Applications_Nearby[i].lon = geo.longitude;
-                            }
+                    if (res && res.Results && res.Results.Issued_Licensing_Applications_Nearby) {
+                        res.Results.Issued_Licensing_Applications_Nearby = DataTransformations.objectToArray(res.Results.Issued_Licensing_Applications_Nearby);
+                        for (i = 0; i < res.Results.Issued_Licensing_Applications_Nearby.length ; i++) {
+                            res.Results.Issued_Licensing_Applications_Nearby[i].title = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
+                            res.Results.Issued_Licensing_Applications_Nearby[i].url = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                            geo = NEtoLL(res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
+                            res.Results.Issued_Licensing_Applications_Nearby[i].lat = geo.latitude;
+                            res.Results.Issued_Licensing_Applications_Nearby[i].lon = geo.longitude;
                         }
-                    return res;
+                        return res.Results.Issued_Licensing_Applications_Nearby;
+                    }
+                    return {};
                 case 20: // Bus Stops
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Bus_Stops_Nearby )) {
-                            temp = res.Results.Bus_Stops_Nearby;
-                            res.Results.Bus_Stops_Nearby = {};
-                            res.Results.Bus_Stops_Nearby[0] = temp;
-                            res.Results.Bus_Stops_Nearby[0].length = 1;
-                        }
+                    if (res && res.Results && res.Results.Bus_Stops_Nearby) {
+                        res.Results.Bus_Stops_Nearby = DataTransformations.objectToArray(res.Results.Bus_Stops_Nearby);
                         for (i = 0; i < res.Results.Bus_Stops_Nearby.length ; i++) {
                             geo = NEtoLL(res.Results.Bus_Stops_Nearby[i].MapSpurE, res.Results.Bus_Stops_Nearby[i].MapSpurN);
                             res.Results.Bus_Stops_Nearby[i].lat = geo.latitude;
                             res.Results.Bus_Stops_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.Bus_Stops_Nearby;
                     }
-                    return res;
+                    return {};
                 case 21: // Crossings
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.School_Crossings_Nearby)) {
-                            temp = res.Results.School_Crossings_Nearby;
-                            res.Results.School_Crossings_Nearby = {};
-                            res.Results.School_Crossings_Nearby[0] = temp;
-                            res.Results.School_Crossings_Nearby[0].length = 1;
-                        }
+                    if (res && res.Results && res.Results.School_Crossings_Nearby) {
+                        res.Results.School_Crossings_Nearby = DataTransformations.objectToArray(res.Results.School_Crossings_Nearby);
                         for (i = 0; i < res.Results.School_Crossings_Nearby.length ; i++) {
                             geo = NEtoLL(res.Results.School_Crossings_Nearby[i].MapSpurE, res.Results.School_Crossings_Nearby[i].MapSpurN);
                             res.Results.School_Crossings_Nearby[i].lat = geo.latitude;
                             res.Results.School_Crossings_Nearby[i].lon = geo.longitude;
                         }
+                        return res.Results.School_Crossings_Nearby;
                     }
-                    return res;
+                    return {};
                 case 22:
-                    if (res.Parking_Zones && res.Parking_Zones.Info === "<p>No records found nearby.</p>" ) {
-                        return {};
-                    }
-                    if (res && res.Results) {
-                        if (!angular.isArray( res.Results.Parking_Zones )) {
-                            temp = res.Results.Parking_Zones;
-                            res.Results.Parking_Zones = {};
-                            res.Results.Parking_Zones[0] = temp;
-                            res.Results.Parking_Zones[0].length = 1;
+                    if (res && res.Results && res.Results["Parking Zones"]) {
+                        if (res.Parking_Zones.Info && res["Parking Zones"].Info === "<p>No records found nearby.</p>") {
+                            return {};
                         }
+                        res.Results["Parking Zones"] = DataTransformations.objectToArray(res.Results["Parking Zones"]);
                         for (i = 0; i < res.Results.Parking_Zones.length ; i++) {
                             geo = NEtoLL(res.Results.Parking_Zones[i].MapSpurE, res.Results.Parking_Zones[i].MapSpurN);
                             res.Results.Parking_Zones[i].lat = geo.latitude;
                             res.Results.Parking_Zones[i].lon = geo.longitude;
                         }
+                        return res.Parking_Zones;
                     }
-                    return res;
+                    return {};
 
-                // My council
-                case 7 :  // Collection dates
+                    // My council
+                case 7:  // Collection dates
                     if (res && res.Results && res.Results._______________) {
                         string = '<!DOCTYPE html><html><head></head><body>' + res.Results._______________._ + '</body></html>';
                         doc = new DOMParser().parseFromString(string, 'text/html');
@@ -495,7 +426,7 @@ angular.module('MyBath.BathDataService', [])
                     return res;
                 case 13:  // Councillor 
                     var yourCouncillors = res;
-                    if (res && res.Results) {
+                    if (res && res.Results && res.Results.Your_Councillors) {
                         var phoneNumbers = /(\+[0-9]{1,2}|0)[0-9 ]{7,12}/;
                         string = '<!DOCTYPE html><html><head></head><body>' + yourCouncillors.Results.Your_Councillors._ + '</body></html>';
                         doc = new DOMParser().parseFromString(string, 'text/html');
@@ -544,23 +475,22 @@ angular.module('MyBath.BathDataService', [])
                             yourCouncillors.Results.Your_Councillors.telephone3 = tel;
                             yourCouncillors.Results.Your_Councillors.img3 = URLtoBase64(councillorInfo[1].getElementsByTagName('img')[0].src);
                         }
+                        return yourCouncillors.Results.Your_Councillors;
                     }
-                    return yourCouncillors;
+                    return {};
                 case 14:  // Listed Building
-                    if ( res.Results.Listed_Building.Info === "<p>No records found nearby.</p>" ) {
-                        return {};
+                    if (res && res.Results && res.Results.Listed_Building) {
+                        if (res.Results.Listed_Building.Info === "<p>No records found nearby.</p>") {
+                            return {};
+                        }
+                        return res.Results.Listed_Building;
                     }
-                    return res;
+                    return {};
                 case 18:  // Council offices
-                    if (res && res.Results) {
+                    if (res && res.Results && res.Results.____________________________) {
                         // if iShare returns just one, then this fails. Re-jig the object to be a new object holding the old one
                         // Example: BA3 3UD
-                        if (!angular.isArray( res.Results.____________________________)) {
-                            var toAppend = res.Results.____________________________;
-                            res.Results.____________________________ = {};
-                            res.Results.____________________________[0] = toAppend;
-                            res.Results.____________________________.length = 1; // for iteration below
-                        }
+                        res.Results.____________________________ = DataTransformations.objectToArray(res.Results.____________________________);
                         for (i = 0; i < res.Results.____________________________.length; i++) {
                             res.Results.____________________________[i].title = res.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[1].replace('amp;', '');
                             res.Results.____________________________[i].url = res.Results.____________________________[i].Your_nearest_Council_Office_is_.split('|')[0].replace('amp;', '');
@@ -568,13 +498,12 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.____________________________[i].lat = geo.latitude;
                             res.Results.____________________________[i].lon = geo.longitude;
                         }
+                        return res.Results.____________________________;
                     }
-                    return res;
-
+                    return {};
                 default:
                     return {};
             }
-                
         }
     };
 });
