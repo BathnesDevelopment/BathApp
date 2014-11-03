@@ -1,4 +1,8 @@
-<div class="content">
+    <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="pullRefresh()">
+    </ion-refresher>
+    <div class="content">
     <h2>My Nearest</h2>
     <p>This page shows local data, relevant to your registered address.</p>
     <p ng-show = "!uprn">No location set</p>
@@ -138,6 +142,94 @@
             </div>
             <div class="item tabs tabs-icon-right">
                 <a class="tab-item" browse-to="geo:0,0?q={{university.lat}},{{university.lon}}({{university._}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="userData.LocalHidden.GPs">
+        <h3>GP Surgeries</h3>
+        <img src = "http://www.nhs.uk/nhscwebservices/documents/logo1.jpg"></img><span ng-if="userData.LocalHidden.GPs" ng-bind-html="feedDataObject.tracking[0]"></span>
+        <p ng-show="!feedDataObject.gpsNearby">No results</p>
+        <div class="list card" ng-repeat="gp in feedDataObject.gpsNearby">
+            <div class="item item-divider">
+                {{gp.title}}<p>{{mToMi(gp.distance)}} miles</p>
+            </div>
+            <div class="item item-body">            
+            {{gp.address}}<br>
+            {{gp.tel}}
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="{{gp.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{gp.lat}},{{gp.lon}}({{gp.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="userData.LocalHidden.Hospitals">
+        <h3>Hospitals</h3>
+        <img src = "http://www.nhs.uk/nhscwebservices/documents/logo1.jpg"></img><span ng-if="userData.LocalHidden.Hospitals" ng-bind-html="feedDataObject.tracking[1]"></span>
+        <p ng-show="!feedDataObject.hospitalsNearby">No results</p>
+        <div class="list card" ng-repeat="hospital in feedDataObject.hospitalsNearby">
+            <div class="item item-divider">
+                {{hospital.title}}<p>{{mToMi(hospital.distance)}} miles</p>
+            </div>
+            <div class="item item-body">            
+            {{hospital.address}}<br>
+            {{hospital.tel}}
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="{{hospital.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{hospital.lat}},{{hospital.lon}}({{hospital.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="userData.LocalHidden.Dentists">
+        <h3>Dentists</h3>
+        <img src = "http://www.nhs.uk/nhscwebservices/documents/logo1.jpg"></img><span ng-if="userData.LocalHidden.Dentists" ng-bind-html="feedDataObject.tracking[2]"></span>
+        <p ng-show="!feedDataObject.dentistsNearby">No results</p>
+        <div class="list card" ng-repeat="dentist in feedDataObject.dentistsNearby">
+            <div class="item item-divider">
+                {{dentist.title}}<p>{{mToMi(dentist.distance)}} miles</p>
+            </div>
+            <div class="item item-body">            
+            {{dentist.address}}<br>
+            {{dentist.tel}}
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="{{dentist.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{dentist.lat}},{{dentist.lon}}({{dentist.title}})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
+            </div>
+        </div>
+    </div>
+    <div ng-show="userData.LocalHidden.Pharmacies">
+        <h3>Pharmacies</h3>
+        <img src = "http://www.nhs.uk/nhscwebservices/documents/logo1.jpg"></img><span ng-if="userData.LocalHidden.Pharmacies" ng-bind-html="feedDataObject.tracking[3]"></span>
+        <p ng-show="!feedDataObject.pharmaciesNearby">No results</p>
+        <div class="list card" ng-repeat="pharmacy in feedDataObject.pharmaciesNearby">
+            <div class="item item-divider">
+                {{pharmacy.title}}<p>{{mToMi(pharmacy.distance)}} miles</p>
+            </div>
+            <div class="item item-body">            
+            {{pharmacy.address}}<br>
+            {{pharmacy.tel}}
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" browse-to="{{pharmacy.url}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a class="tab-item" browse-to="geo:0,0?q={{pharmacy.lat}},{{pharmacy.lon}}({{pharmacy.title}})">
                     <i class="icon ion-map calm"></i> Map
                 </a>
             </div>

@@ -192,12 +192,17 @@ angular.module('MyBath.MapDataService', [])
                             easting = data[i].easting;
 
                             latlng = NEtoLL(easting, northing);
+
+                            // Remaining spaces
                             var rem = parseInt(data[i].capacity, 10) - parseInt(data[i].occupancy, 10);
                             if (rem < 0) {
                                 rem = 0;
                             }
+
                             var icon = Object.create(getIcon(layer));
                             var bgC = "#66cc33";
+
+                            // Change the colour if it's almost full
                             var pFull = parseInt(data[i].percentage, 10);
                             if (pFull > 80 || rem < 30) {
                                 bgC = "#d39211";
@@ -207,6 +212,8 @@ angular.module('MyBath.MapDataService', [])
                             }
                             icon.html = '<p class = "circle-marker" style="background:' + bgC + '">' + rem + '</p>';
                             title = data[i].name + "<br>" + pFull    + "% full";
+                            title = title.replace("CP", "Car Park");
+                            title = title.replace("P+R", "Park & Ride");
                             layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: icon, layer: "CarParksLive", message: title });
                         }
                     }

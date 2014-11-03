@@ -1,5 +1,5 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -19,6 +19,12 @@ angular.module('MyBath.BathAppController', [])
     $scope.addresses = [];
     $scope.binCollection = [];
     $scope.bathDataObject = BathData.toObj();
+    $scope.feedData = FeedData.all();
+    $scope.feedDataObject = FeedData.toObj();
+    //FeedData.fetchAll().then(function() {
+    //    $scope.feedDataObject = FeedData.toObj();
+        //console.log($scope.feedDataObject); // TODO: add this to localData
+    //});
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // TEST DATA - For use when testing in browser
@@ -259,14 +265,22 @@ angular.module('MyBath.BathAppController', [])
     // Function: setProperty
     // Sets the user selected property during registration
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.setProperty = function (uId) {
+    $scope.setProperty = function (uId, X, Y, address) {
         $scope.propertyModal.hide();
         $ionicLoading.show({
             template: 'Fetching data...'
         });
         $scope.uprn = uId;
-        UserData.save({ "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "LocalHidden": { Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true, Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true } });
+        var LatLong = NEtoLL(parseFloat(X),parseFloat(Y));
+        UserData.save({ "address": address, "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "lat": LatLong.latitude, "lon": LatLong.longitude, "LocalHidden": { Dentists: false, Pharmicies: false, Hospitals: false, GPs: true, Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true, Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true } });
         $scope.userData = UserData.all();
+        FeedData.fetchAll(LatLong.latitude,LatLong.longitude)
+            .then( function (data) {
+                if (data && data != []) {
+                    $scope.feedData = data;
+                    $scope.feedDataObject = FeedData.toObj();
+                }
+            });
         BathData.fetchAll(uId)
             .then(function (data) {
                 if (data && data != []) {
@@ -285,6 +299,31 @@ angular.module('MyBath.BathAppController', [])
                     });
                 }
             });
+    };
+
+    $scope.pullRefresh = function () {
+        if ($scope.userData === undefined){
+            $scope.$broadcast('scroll.refreshComplete');
+            return;
+        }
+        FeedData.fetchAll($scope.userData.latitude,$scope.userData.longitude)
+            .then( function (data) {
+                if (data && data != []) {
+                    $scope.feedData = data;
+                    $scope.feedDataObject = FeedData.toObj();
+                }
+            });
+        BathData.fetchAll($scope.userData.uprn)
+            .then(function (data) {
+                if (data && data != []) {
+                    $scope.bathdata = data;
+                    $scope.bathDataObject = BathData.toObj();
+                    $scope.$broadcast('scroll.refreshComplete');
+                }
+                else {
+                $scope.$broadcast('scroll.refreshComplete');
+                }
+        });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -315,6 +354,13 @@ angular.module('MyBath.BathAppController', [])
                     $ionicLoading.show({
                         template: 'Fetching data...'
                     });
+                    FeedData.fetchAll($scope.userData.latitude,$scope.userData.longitude)
+                        .then( function (data) {
+                            if (data && data != []) {
+                                $scope.feedData = data;
+                                $scope.feedDataObject = FeedData.toObj();
+                            }
+                        });
                     BathData.fetchAll($scope.userData.uprn)
                         .then(function (data) {
                             if (data && data != []) {
@@ -396,6 +442,8 @@ angular.module('MyBath.BathAppController', [])
                 $scope.userData = UserData.all(); //Get defaults
                 $scope.bathData = {};
                 $scope.bathDataObject = {};
+                $scope.feedData = {};
+                $scope.feedDataObject = {};
                 //$state.go('menu.home'); //TODO: Change this to the "new user screen, possibly - when added"
                 //window.location.reload(true);
             }

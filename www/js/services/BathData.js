@@ -24,32 +24,40 @@ angular.module('MyBath.BathDataService', [])
             return [];
         },
         toObj: function () {
-            var bathData = window.localStorage.BathData;
             var res = {};
-            if (bathData) {
-                res.librariesNearby = this.get(0);
-                res.mobileLibrariesNearby = this.get(1);
-                res.playSchoolsNearby = this.get(2);
-                res.primarySchoolsNearby = this.get(3);
-                res.secondarySchoolsNearby = this.get(4);
-                res.collegesNearby = this.get(5);
-                res.universitiesNearby = this.get(6);
-                res.binCollection = this.get(7);
-                res.roadworksNearby = this.get(8);
-                res.parksNearby = this.get(9);
-                res.playAreasNearby = this.get(10);
-                res.allotmentsNearby = this.get(11);
-                res.healthAndFitnessNearby = this.get(12);
-                res.yourCouncillors = this.get(13);
-                res.listedBuilding = this.get(14);
-                res.planningApplicationsNearby = this.get(15);
-                res.newLicensingAppsNearby = this.get(16);
-                res.issuedLicensingAppsNearby = this.get(17);
-                res.councilOffices = this.get(18);
-                res.housingAllowanceZones = this.get(19);
-                res.busStops = this.get(20);
-                res.schoolCrossings = this.get(21);
-                res.parkingNearby = this.get(22);
+            var bathData = window.localStorage.BathData;
+            try {
+                if (bathData) {
+                    res.librariesNearby = this.get(0);
+                    res.mobileLibrariesNearby = this.get(1);
+                    res.playSchoolsNearby = this.get(2);
+                    res.primarySchoolsNearby = this.get(3);
+                    res.secondarySchoolsNearby = this.get(4);
+                    res.collegesNearby = this.get(5);
+                    res.universitiesNearby =this.get(6);
+                    res.binCollection = this.get(7);
+                    res.roadworksNearby = this.get(8);
+                    res.parksNearby = this.get(9);
+                    res.playAreasNearby = this.get(10);
+                    res.allotmentsNearby = this.get(11);
+                    res.healthAndFitnessNearby = this.get(12);
+                    res.yourCouncillors = this.get(13);
+                    res.listedBuilding = this.get(14);
+                    res.planningApplicationsNearby = this.get(15);
+                    res.newLicensingAppsNearby = this.get(16);
+                    res.issuedLicensingAppsNearby = this.get(17);
+                    res.councilOffices = this.get(18);
+                    res.housingAllowanceZones = this.get(19);
+                    res.busStops = this.get(20);
+                    res.schoolCrossings = this.get(21);
+                    res.parkingNearby = this.get(22);
+                }
+            } catch (e) {
+                // if app crashed half way through a data refresh, this will sometimes fail
+                // An uncaught exception breaks the app
+                // Insead, log, and just don't return data
+                console.warn(e);
+                return {};
             }
             return res;
         },
