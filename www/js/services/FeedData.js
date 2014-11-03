@@ -44,61 +44,70 @@ angular.module('MyBath.FeedDataService', [])
             return res;
         },
         get: function ( id ) {
-            var data = window.localStorage.FeedData;
-            var i = 0;
-            var l = 0;
-            var j = 0;
-            var results = [];
-            data = angular.fromJson(data)[id];
-            if (!data) {
-                console.warn("No data feed for ID " + id);
-                return [];
-            }
-            switch (id) {
-                case 0: // 0 - GPs
-                     results = [];
-                     for (i = 0; i < data.feed.entry.length && i < 4; i++) {
-                        results[i] = {};
-                        results[i].title = data.feed.entry[i].title.__text;
-                        results[i].url = data.feed.entry[i].link[1]._href;
-                        results[i].address = "";
-                        results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
-                        l = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
-                        for (j = 1; j < l ; j++) {
-                           results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
+            try {
+                var data = window.localStorage.FeedData;
+                var i = 0;
+                var l = 0;
+                var j = 0;
+                var results = [];
+                data = angular.fromJson(data)[id];
+                if (!data) {
+                    console.warn("No data feed for ID " + id);
+                    return [];
+                }            switch (id) {
+                    case 0: // 0 - GPs
+                         results = [];
+                         for (i = 0; i < data.feed.entry.length && i < 4; i++) {
+                            results[i] = {};
+                            results[i].title = data.feed.entry[i].title.__text;
+                            results[i].url = data.feed.entry[i].link[1]._href;
+                            results[i].address = "";
+                            results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
+                            l = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
+                            for (j = 1; j < l ; j++) {
+                               results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
+                            }
+                            results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
+                            if (data.feed.entry[i].content.organisationSummary.contact.telephone) {
+                                results[i].tel = data.feed.entry[i].content.organisationSummary.contact.telephone.__text;
+                            }
+                            results[i].lat = data.feed.entry[i].content.organisationSummary.geographicCoordinates.latitude.__text;
+                            results[i].lon = data.feed.entry[i].content.organisationSummary.geographicCoordinates.longitude.__text;
                         }
-                        results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
-                        results[i].tel = data.feed.entry[i].content.organisationSummary.contact.telephone.__text;
-                        results[i].lat = data.feed.entry[i].content.organisationSummary.geographicCoordinates.latitude.__text;
-                        results[i].lon = data.feed.entry[i].content.organisationSummary.geographicCoordinates.longitude.__text;
-                    }
-                    return results;
-                case 1: // 1 - Hospitals
-                case 2: //2 - dentists
-                case 3: //3 - pharmacies
-                    results = [];
-                    for (i = 0; i < data.feed.entry.length && i < 4; i++) {
-                        results[i] = {};
-                        results[i].title = data.feed.entry[i].title.__text;
-                        results[i].url = data.feed.entry[i].link[1]._href;
-                        results[i].address = "";
-                        results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
-                        l = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
-                        for (j = 0; j < l ; j++) {
-                           results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
+                        return results;
+                    case 1: // 1 - Hospitals
+                    case 2: //2 - dentists
+                    case 3: //3 - pharmacies
+                        results = [];
+                        for (i = 0; i < data.feed.entry.length && i < 4; i++) {
+                            results[i] = {};
+                            results[i].title = data.feed.entry[i].title.__text;
+                            results[i].url = data.feed.entry[i].link[1]._href;
+                            results[i].address = "";
+                            results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
+                            l = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
+                            for (j = 0; j < l ; j++) {
+                               results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
+                            }
+                            results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
+                            if (data.feed.entry[i].content.organisationSummary.contact.telephone) {
+                                results[i].tel = data.feed.entry[i].content.organisationSummary.contact.telephone.__text;
+                            } //else {
+                            //  console.warn("no tel: ",data.feed.entry[i]);
+                            //}
+                            results[i].lat = data.feed.entry[i].content.organisationSummary.geographicCoordinates.latitude.__text;
+                            results[i].lon = data.feed.entry[i].content.organisationSummary.geographicCoordinates.longitude.__text;
                         }
-                        results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
-                        if (data.feed.entry[i].content.organisationSummary.contact.telephone) {
-                            results[i].tel = data.feed.entry[i].content.organisationSummary.contact.telephone.__text;
-                        } //else {
-                        //  console.warn("no tel: ",data.feed.entry[i]);
-                        //}
-                        results[i].lat = data.feed.entry[i].content.organisationSummary.geographicCoordinates.latitude.__text;
-                        results[i].lon = data.feed.entry[i].content.organisationSummary.geographicCoordinates.longitude.__text;
-                    }
-                    return results;
+                        return results;
+                }
+                return data;
+            } catch (e) {
+                // if app crashed half way through a data refresh, this will sometimes fail
+                // An uncaught exception breaks the app
+                // Insead, log, and just don't return data
+                console.warn(e);
+                return undefined;
             }
-            return data;
         },
         toObj: function() {
             var feedData = window.localStorage.FeedData;
