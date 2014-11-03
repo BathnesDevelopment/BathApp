@@ -54,7 +54,8 @@ angular.module('MyBath.FeedDataService', [])
                 if (!data) {
                     console.warn("No data feed for ID " + id);
                     return [];
-                }            switch (id) {
+                }
+                switch (id) {
                     case 0: // 0 - GPs
                          results = [];
                          for (i = 0; i < data.feed.entry.length && i < 4; i++) {

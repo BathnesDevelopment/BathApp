@@ -156,7 +156,7 @@ angular.module('MyBath.BathDataService', [])
                     case 0: // libraries Nearby
                         if (res && res.Results && res.Results.Libraries_Nearby) {
                             if (res.Results.Libraries_Nearby.Info) {
-                                return {};
+                                return null;
                             }
                             res.Results.Libraries_Nearby = DataTransformations.objectToArray(res.Results.Libraries_Nearby);
                             // Do the string manipulation to clean up - need to make sure this won't blow up
@@ -169,7 +169,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Libraries_Nearby;
                         }
-                        return {};
+                        return null;
                     case 1: // Mobile libaries
                         if (res && res.Results) {
                             if (res.Results.Mobile_Libraries_Nearby.Info !== "<p>No records found nearby.</p>") {
@@ -184,9 +184,9 @@ angular.module('MyBath.BathDataService', [])
                                     return res.Results.Mobile_Libraries_Nearby;
                                 }
                             }
-                            else { return {}; }
+                            else { return null; }
                         }
-                        return {};
+                        return null;
                     case 2: // Play Schools
                         if (res && res.Results && res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby) {
                             res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby = DataTransformations.objectToArray(res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby);
@@ -197,7 +197,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby;
                         }
-                        return {};
+                        return null;
                     case 3: // Primary Schools
                         if (res && res.Results && res.Results.Primary_Schools_Nearby) {
                             res.Results.Primary_Schools_Nearby = DataTransformations.objectToArray(res.Results.Primary_Schools_Nearby);
@@ -214,7 +214,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Primary_Schools_Nearby;
                         }
-                        return {};
+                        return null;
                     case 4: // Secondary Schools
                         if (res && res.Results && res.Results.Secondary_Schools_Nearby) {
                             res.Results.Secondary_Schools_Nearby = DataTransformations.objectToArray(res.Results.Secondary_Schools_Nearby);
@@ -228,7 +228,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Secondary_Schools_Nearby;
                         }
-                        return {};
+                        return null;
                     case 5: // Colleges
                         if (res && res.Results && res.Results.Colleges_Nearby) {
                             res.Results.Colleges_Nearby = DataTransformations.objectToArray(res.Results.Colleges_Nearby);
@@ -239,7 +239,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Colleges_Nearby;
                         }
-                        return {};
+                        return null;
                     case 6: // Universities
                         if (res && res.Results && res.Results.Universities_Nearby) {
                             res.Results.Universities_Nearby = DataTransformations.objectToArray(res.Results.Universities_Nearby);
@@ -260,11 +260,14 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Universities_Nearby;
                         }
-                        return {};
+                        return null;
                     case 8: // Roadworks
+                        if  (res.Results.Roadworks_Nearby.Info) {
+                                return null;
+                            }
                         if (res && res.Results && res.Results.Roadworks_Nearby) {
                             res.Results.Roadworks_Nearby = DataTransformations.objectToArray(res.Results.Roadworks_Nearby);
-                            for (i = 0; i < res.Results.Roadworks_Nearby.length ; i++) {
+                            for (i = 0; i < res.Results.Roadworks_Nearby.length; i++) {
                                 res.Results.Roadworks_Nearby[i].title = res.Results.Roadworks_Nearby[i].Organisation.split('|')[1].replace('amp;', '');
                                 res.Results.Roadworks_Nearby[i].url = res.Results.Roadworks_Nearby[i].Organisation.split('|')[0].replace('amp;', '');
                                 geo = NEtoLL(res.Results.Roadworks_Nearby[i].MapSpurE, res.Results.Roadworks_Nearby[i].MapSpurN);
@@ -273,7 +276,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Roadworks_Nearby;
                         }
-                        return {};
+                        return null;
                     case 9: // Parks
                         if (res && res.Results) {
                             res.Results.Parks_or_Open_Spaces_Nearby = DataTransformations.objectToArray(res.Results.Parks_or_Open_Spaces_Nearby);
@@ -294,12 +297,12 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Play_Areas_Nearby;
                         }
-                        return {};
+                        return null;
                     case 11: // Allotments
                         if (res && res.Results && res.Results.Allotments_Nearby) {
                             if (typeof res.Results.Allotments_Nearby.Info !== typeof undefined && res.Results.Allotments_Nearby.Info == "For allotment queries outside Bath, please contact your local Parish Council.") {
                                 //res.allotmentsOutsideBath = true;
-                                return {};
+                                return null;
                             } else {
                                 res.Results.Allotments_Nearby = DataTransformations.objectToArray(res.Results.Allotments_Nearby);
                                 for (i = 0; i < res.Results.Allotments_Nearby.length ; i++) {
@@ -314,7 +317,7 @@ angular.module('MyBath.BathDataService', [])
                                 return res.Results.Allotments_Nearby;
                             }
                         }
-                        return {};
+                        return null;
                     case 12: // Health and Fitness
                         if (res && res.Results && res.Results.Health_and_Fitness_Centres_Nearby) {
                             res.Results.Health_and_Fitness_Centres_Nearby = DataTransformations.objectToArray(res.Results.Health_and_Fitness_Centres_Nearby);
@@ -327,10 +330,10 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Health_and_Fitness_Centres_Nearby;
                         }
-                        return {};
+                        return null;
                     case 15: // Planning Applications
                         if (res.Results.Planning_Applications_Nearby.Info){
-                            return undefined;
+                            return null;
                          }
                         if (res && res.Results && res.Results.Planning_Applications_Nearby) {
                             res.Results.Planning_Applications_Nearby = DataTransformations.objectToArray(res.Results.Planning_Applications_Nearby);
@@ -343,11 +346,11 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Planning_Applications_Nearby;
                         }
-                        return {};
+                        return null;
                     case 16: // New Licencing
                         if (res && res.Results && res.Results.New_Licensing_Applications_Nearby) {
                             if (res.Results.New_Licensing_Applications_Nearby.Info) {
-                                return {};
+                                return null;
                             }
                             res.Results.New_Licensing_Applications_Nearby = DataTransformations.objectToArray(res.Results.New_Licensing_Applications_Nearby);
                             for (i = 0; i < res.Results.New_Licensing_Applications_Nearby.length ; i++) {
@@ -359,7 +362,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.New_Licensing_Applications_Nearby;
                         }
-                        return {};
+                        return null;
                     case 17: // Issued ditto
                         if (res && res.Results && res.Results.Issued_Licensing_Applications_Nearby) {
                             res.Results.Issued_Licensing_Applications_Nearby = DataTransformations.objectToArray(res.Results.Issued_Licensing_Applications_Nearby);
@@ -372,7 +375,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Issued_Licensing_Applications_Nearby;
                         }
-                        return {};
+                        return null;
                     case 20: // Bus Stops
                         if (res && res.Results && res.Results.Bus_Stops_Nearby) {
                             res.Results.Bus_Stops_Nearby = DataTransformations.objectToArray(res.Results.Bus_Stops_Nearby);
@@ -383,7 +386,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.Bus_Stops_Nearby;
                         }
-                        return {};
+                        return null;
                     case 21: // Crossings
                         if (res && res.Results && res.Results.School_Crossings_Nearby) {
                             res.Results.School_Crossings_Nearby = DataTransformations.objectToArray(res.Results.School_Crossings_Nearby);
@@ -394,11 +397,11 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.School_Crossings_Nearby;
                         }
-                        return {};
+                        return null;
                     case 22:
                         if (res && res.Results && res.Results["Parking Zones"]) {
                             if (res.Parking_Zones.Info && res["Parking Zones"].Info === "<p>No records found nearby.</p>") {
-                                return {};
+                                return null;
                             }
                             res.Results["Parking Zones"] = DataTransformations.objectToArray(res.Results["Parking Zones"]);
                             for (i = 0; i < res.Results.Parking_Zones.length ; i++) {
@@ -408,7 +411,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Parking_Zones;
                         }
-                        return {};
+                        return null;
 
                         // My council
                     case 7:  // Collection dates
@@ -481,15 +484,15 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return yourCouncillors.Results.Your_Councillors;
                         }
-                        return {};
+                        return null;
                     case 14:  // Listed Building
                         if (res && res.Results && res.Results.Listed_Building) {
                             if (res.Results.Listed_Building.Info === "<p>No records found nearby.</p>") {
-                                return {};
+                                return null;
                             }
                             return res.Results.Listed_Building;
                         }
-                        return {};
+                        return null;
                     case 18:  // Council offices
                         if (res && res.Results && res.Results.____________________________) {
                             // if iShare returns just one, then this fails. Re-jig the object to be a new object holding the old one
@@ -504,16 +507,16 @@ angular.module('MyBath.BathDataService', [])
                             }
                             return res.Results.____________________________;
                         }
-                        return {};
+                        return null;
                     default:
-                        return {};
+                        return null;
                 }
             } catch (e) {
                 // if app crashed half way through a data refresh, this will sometimes fail
                 // An uncaught exception breaks the app
                 // Insead, log, and just don't return data
                 console.warn(e);
-                return undefined;
+                return null;
             }
         }
     };
