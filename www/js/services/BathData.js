@@ -290,7 +290,7 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Parks_or_Open_Spaces_Nearby[i].lon = geo.longitude;
                         }
                     }
-                    return res;
+                    return res.Results.Parks_or_Open_Spaces_Nearby;
                 case 10: // Play Areas
                     if (res && res.Results && res.Results.Play_Areas_Nearby) {
                         res.Results.Play_Areas_Nearby = DataTransformations.objectToArray(res.Results.Play_Areas_Nearby);

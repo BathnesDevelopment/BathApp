@@ -435,7 +435,8 @@
     </div>
     <div ng-show="userData.LocalHidden.Allotments">
         <h3>Allotments</h3>
-        
+        <button browse-to="http://www.bathnes.gov.uk/services/sport-leisure-and-parks/allotments" class="button button-full button-clear button-positive">More Information</button>
+        <!--<p><a browse-to="http://www.bathnes.gov.uk/services/sport-leisure-and-parks/allotments">More Information</a></p>-->
         <p ng-show="!bathDataObject.allotmentsNearby">No results</p>
         <p ng-show="allotmentsOutsideBath">For allotment queries outside Bath, please contact your local Parish Council.</p>
         <div class="list card" ng-repeat="allotment in bathDataObject.allotmentsNearby">
