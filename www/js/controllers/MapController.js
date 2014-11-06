@@ -211,6 +211,11 @@ angular.module('MyBath.MapController', [])
                     type: 'group',
                     name: 'Public Conveniences',
                     visible: false
+                },
+                AirQuality: {
+                    type: 'group',
+                    name: 'Air Quality',
+                    visible: true
                 }
             }
         },
