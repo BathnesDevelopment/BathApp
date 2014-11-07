@@ -214,8 +214,8 @@ angular.module('MyBath.MapController', [])
                 },
                 AirQuality: {
                     type: 'group',
-                    name: 'Air Quality',
-                    visible: true
+                    name: 'Air Quality Monitoring',
+                    visible: false
                 }
             }
         },

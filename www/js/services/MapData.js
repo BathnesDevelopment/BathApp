@@ -96,6 +96,12 @@ angular.module('MyBath.MapDataService', [])
             iconSize: [30, 30],
             popupAnchor: [0, 0],
             html: '<i class="icon calm ion-pin"></i>'
+        },
+        emptyIcon: {
+            type: 'div',
+            iconSize: [30, 30],
+            popupAnchor: [0, 0],
+            html: ''
         }
 
     };
@@ -106,14 +112,13 @@ angular.module('MyBath.MapDataService', [])
         },
         getLayer: function (layer, lat, lng) {
             var getIcon = function(layer) {
-                switch (layer){
+                switch (layer) {
                     case "MobileLibraryStops":
                     case "Libraries":
                         return icons.libraryIcon;
                     case "CivicAmenitySites":
                         return icons.wasteIcon;
                     case "carParks":
-                    case "CarParksLive":
                         return icons.carParkIcon;
                     case "Council_Offices":
                         return icons.officeIcon;
@@ -141,6 +146,9 @@ angular.module('MyBath.MapDataService', [])
                         return icons.conservationIcon;
                     case "NurseryPlaySchools":
                         return icons.playSchoolIcon;
+                    case "CarParksLive":
+                    case "AirQuality":
+                        return icons.emptyIcon;
                     default:
                         console.warn("default layer: " + layer);
                         return icons.defaultIcon;
@@ -222,24 +230,78 @@ angular.module('MyBath.MapDataService', [])
                             layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: icon, layer: "CarParksLive", message: title });
                         }
                     } else if ( layer === "AirQuality" ) {
+
+                        var adv = function( array ) {
+                            // returns the adverage of an array
+                            // TODO: Possibly
+                            res = 0.0;
+                            for (var i = 0; i < array.length; i++) {
+                                res += array[i];
+                            }
+                            return (res/(array.length)).toFixed(1);
+                        };
+
                         // Data is sorted by the server in decending order.
                         // Store the latest for each sensor
                         i = 0;
                         aqData = {};
-                        while ( i < 900 ) {
+                        now = new Date();
+                        captureTime = 28800000; // 8 hours in ms
+                        while ( i < 400 ) { // 400 pieces of data are pleanty - stops it looping forever
                             curr_slug = data[i].sensor_location_slug;
+
                             if ( !aqData[curr_slug] ) {
-                               aqData[curr_slug] = data[i];
+                                // first time we've seen this slug
+                                aqData[curr_slug] = data[i];
+                                // Convert to array of floats
+                                if (aqData[curr_slug].nox) {
+                                    aqData[curr_slug].nox = [parseFloat(aqData[curr_slug].nox)];
+                                }
+                                if (aqData[curr_slug].no) {
+                                    aqData[curr_slug].no = [parseFloat(aqData[curr_slug].no)];
+                                }
+                                if (aqData[curr_slug].no2) {
+                                    aqData[curr_slug].no2 = [parseFloat(aqData[curr_slug].no2)];
+                                }
+                                if (aqData[curr_slug].co) {
+                                    aqData[curr_slug].co = [parseFloat(aqData[curr_slug].co)];
+                                }
+                                if (aqData[curr_slug].pm10) {
+                                    aqData[curr_slug].pm10 = [parseFloat(aqData[curr_slug].pm10)];
+                                }
+                                if (aqData[curr_slug].o3) {
+                                    aqData[curr_slug].o3 = [parseFloat(aqData[curr_slug].o3)];
+                                }
+                            } else {
+                                if (now - new Date(data[i].datetime) > captureTime) {
+                                    // Data sorted by server. So we can know that there
+                                    // are no more records after this
+                                    break;
+                                } else { // add to the relevent array
+                                         // this assumes that each sensor gives all the data every time
+                                    if (aqData[curr_slug].nox) {
+                                        aqData[curr_slug].nox.push(parseFloat(data[i].nox));
+                                    }
+                                    if (aqData[curr_slug].no) {
+                                        aqData[curr_slug].no.push(parseFloat(data[i].no));
+                                    }
+                                    if (aqData[curr_slug].no2) {
+                                        aqData[curr_slug].no2.push(parseFloat(data[i].no2));
+                                    }
+                                    if (aqData[curr_slug].co) {
+                                        aqData[curr_slug].co.push(parseFloat(data[i].co));
+                                    }
+                                    if (aqData[curr_slug].pm10) {
+                                        aqData[curr_slug].pm10.push(parseFloat(data[i].pm10));
+                                    }
+                                    if (aqData[curr_slug].o3) {
+                                        aqData[curr_slug].o3.push(parseFloat(data[i].o3));
+                                    }
+                                }
                             }
-                            if (aqData.guildhall && aqData.londonrdenc &&
-                                aqData.londonrdaurn && aqData.royalvicpark &&
-                                aqData.windsorbridge) {
-                                data = aqData;
-                                break;
-                            }
+
                             i++;
                         }
-
                         var aqMon = ["guildhall", "londonrdenc", "londonrdaurn",
                                     "royalvicpark", "windsorbridge"];
                         for (i = 0; i < aqMon.length; i++) {
@@ -247,21 +309,26 @@ angular.module('MyBath.MapDataService', [])
                             // If there's an index band on
                             // http://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant
                             // Colour code
-
+                            if (!aqData[aqMon[i]]) {
+                                // If there's no data in the last 8h, show nothing
+                                // The sensor is probably not reporting due to maintanance
+                                continue;
+                            }
                             var maxLevel = 0;
                             title = aqData[aqMon[i]].sensor_location_name;
 
+
                             if(aqData[aqMon[i]].nox) {
-                                title += "<br />NO<sub>x</sub>: "+ aqData[aqMon[i]].nox + " ppb";
+                                title += "<br />NO<sub>x</sub>: "+ adv(aqData[aqMon[i]].nox) + " ppb";
                             }
 
                             if(aqData[aqMon[i]].no) {
-                                title += "<br />NO: "+ aqData[aqMon[i]].no + " ppb";
+                                title += "<br />NO: "+ adv(aqData[aqMon[i]].no) + " ppb";
                             }
 
                             if(aqData[aqMon[i]].no2) {
-                                title += "<br />NO<sub>2</sub>: " + aqData[aqMon[i]].no2 + " ppb ";
-                                var numno2 = parseFloat(aqData[aqMon[i]].no2);
+                                var numno2 = adv(aqData[aqMon[i]].no2);
+                                title += "<br />NO<sub>2</sub>: " + numno2 + " ppb ";
                                 if (numno2 < 67) {
                                     title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
                                     maxLevel = 1;
@@ -298,12 +365,12 @@ angular.module('MyBath.MapDataService', [])
                             }
 
                             if(aqData[aqMon[i]].co) {
-                                title += "<br />CO: "+ aqData[aqMon[i]].co + " ppm";
+                                title += "<br />CO: "+ adv(aqData[aqMon[i]].co) + " ppm";
                             }
 
                             if(aqData[aqMon[i]].pm10) {
-                                title += "<br />PM10: "+ aqData[aqMon[i]].pm10 + " μg/m³ ";
-                                var numpm10 = parseFloat(aqData[aqMon[i]].pm10);
+                                var numpm10 = adv(aqData[aqMon[i]].pm10);
+                                title += "<br />PM10: "+ numpm10 + " μg/m³ ";
                                 if (numpm10 < 16) {
                                     title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
                                     if (maxLevel < 1) maxLevel=1;
@@ -340,8 +407,8 @@ angular.module('MyBath.MapDataService', [])
                             }
 
                             if(aqData[aqMon[i]].o3) {
-                                title += "<br />O<sub>3</sub>: "+ aqData[aqMon[i]].o3 + " ppb ";
-                                var numo3 = parseFloat(aqData[aqMon[i]].o3);
+                                var numo3 = adv(aqData[aqMon[i]].o3);
+                                title += "<br />O<sub>3</sub>: "+ numo3 + " ppb ";
                                 if (numo3 < 33) {
                                     title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
                                     if (maxLevel < 1) maxLevel=1;
