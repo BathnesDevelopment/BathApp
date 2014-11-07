@@ -29,19 +29,19 @@ angular.module('MyBath.MapDataService', [])
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-large"><i class="icon calm ion-android-book"></i></span>'
+            html: '<span class = "circle-marker marker-icon-large"><i class="icon assertive ion-android-book"></i></span>'
         },
         officeIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-coffee"></i></span>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon stable ion-coffee"></i></span>'
         },
         toiletIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-woman"><i class="icon calm ion-man"></i></i>'
+            html: '<span class = "circle-marker marker-icon-round"><i class="icon assertive ion-woman"><i class="icon assertive ion-man"></i></i>'
         },
         parkIcon: {
             type: 'div',
@@ -65,7 +65,7 @@ angular.module('MyBath.MapDataService', [])
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-ios7-home"></i></span>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon energized ion-ios7-home"></i></span>'
         },
         roadworksIcon: {
             type: 'div',
