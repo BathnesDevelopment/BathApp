@@ -85,12 +85,16 @@ ion-nav-view {
     margin-left: auto;
     margin-right: auto;
     vertical-align: middle;
-    border:5px solid rgba(255,255,255,0.5);
+    border: 5px solid rgba(255,255,255,0.5);
     color:#fff;
     font-weight:bold;
     text-align:center;
     border-radius:50%;
-    line-height:30px
+    line-height:30px;
+}
+
+.circle-light {
+    border: 5px solid rgba(255,255,255,0.8);
 }
 
 .leaflet-control-layers-selector {

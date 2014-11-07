@@ -243,7 +243,7 @@ angular.module('MyBath.MapDataService', [])
                         var aqMon = ["guildhall", "londonrdenc", "londonrdaurn",
                                     "royalvicpark", "windsorbridge"];
                         for (i = 0; i < aqMon.length; i++) {
-                            // Create labels for our monitors
+                            // Create labels for each of our monitors
                             // If there's an index band on
                             // http://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant
                             // Colour code
@@ -278,19 +278,19 @@ angular.module('MyBath.MapDataService', [])
                                     title += "<span style='background:#FFCF00'>(5 - Moderate)</span>";
                                     maxLevel = 5;
                                 } else if (numno2 < 400) {
-                                    title += "<span style='background:#FFCF00'>(6 - Moderate)</span>";
+                                    title += "<span style='background:#FF9A00'>(6 - Moderate)</span>";
                                     maxLevel = 6;
                                 } else if (numno2 < 467) {
-                                    title += "<span style='background:#FF9A00'>(7 - High)</span>";
+                                    title += "<span style='background:#FF6464'>(7 - High)</span>";
                                     maxLevel = 7;
                                 } else if (numno2 < 534) {
-                                    title += "<span style='background:#FF0000'>(8 - High)</span>";
+                                    title += "<span style='background:#FF0000; color:white'>(8 - High)</span>";
                                     maxLevel = 8;
                                 } else if (numno2 < 600) {
-                                    title += "<span style='background:#990000'>(9 - High)</span>";
+                                    title += "<span style='background:#990000; color:white'>(9 - High)</span>";
                                     maxLevel = 9;
                                 } else if (numno2 < 1000) {
-                                    title += "<span style='background:#CE30FF'>(10 - Very High)</span>";
+                                    title += "<span style='background:#CE30FF; color:white'>(10 - Very High)</span>";
                                     maxLevel = 10;
                                 } else {
                                     title += "(outlier)";
@@ -302,8 +302,8 @@ angular.module('MyBath.MapDataService', [])
                             }
 
                             if(aqData[aqMon[i]].pm10) {
-                                title += "<br />PM10: "+ aqData[aqMon[i]]["pm10"] + " μg/m³ ";
-                                var numpm10 = parseFloat(aqData[aqMon[i]]["pm10"]);
+                                title += "<br />PM10: "+ aqData[aqMon[i]].pm10 + " μg/m³ ";
+                                var numpm10 = parseFloat(aqData[aqMon[i]].pm10);
                                 if (numpm10 < 16) {
                                     title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
                                     if (maxLevel < 1) maxLevel=1;
@@ -320,19 +320,19 @@ angular.module('MyBath.MapDataService', [])
                                     title += "<span style='background:#FFCF00'>(5 - Moderate)</span>";
                                     if (maxLevel < 5) maxLevel=5;
                                 } else if (numpm10 < 75) {
-                                    title += "<span style='background:#FFCF00'>(6 - Moderate)</span>";
+                                    title += "<span style='background:#FF9A00'>(6 - Moderate)</span>";
                                     if (maxLevel < 6) maxLevel=6;
                                 } else if (numpm10 < 83) {
-                                    title += "<span style='background:#FF9A00'>(7 - High)</span>";
+                                    title += "<span style='background:#FF6464'>(7 - High)</span>";
                                     if (maxLevel < 7) maxLevel=7;
                                 } else if (numpm10 < 91) {
-                                    title += "<span style='background:#FF0000'>(8 - High)</span>";
+                                    title += "<span style='background:#FF0000; color:white'>(8 - High)</span>";
                                     if (maxLevel < 8) maxLevel=8;
                                 } else if (numpm10 < 100) {
-                                    title += "<span style='background:#990000'>(9 - High)</span>";
+                                    title += "<span style='background:#990000; color:white'>(9 - High)</span>";
                                     if (maxLevel < 9) maxLevel=9;
                                 } else if (numpm10 < 450) {
-                                    title += "<span style='background:#CE30FF'>(10 - Very High)</span>";
+                                    title += "<span style='background:#CE30FF; color:white'>(10 - Very High)</span>";
                                     maxLevel = 10;
                                 } else {
                                     title += "(outlier)";
@@ -340,8 +340,8 @@ angular.module('MyBath.MapDataService', [])
                             }
 
                             if(aqData[aqMon[i]].o3) {
-                                title += "<br />O<sub>3</sub>: "+ aqData[aqMon[i]]["o3"] + " ppb ";
-                                var numo3 = parseFloat(aqData[aqMon[i]]["o3"]);
+                                title += "<br />O<sub>3</sub>: "+ aqData[aqMon[i]].o3 + " ppb ";
+                                var numo3 = parseFloat(aqData[aqMon[i]].o3);
                                 if (numo3 < 33) {
                                     title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
                                     if (maxLevel < 1) maxLevel=1;
@@ -358,19 +358,19 @@ angular.module('MyBath.MapDataService', [])
                                     title += "<span style='background:#FFCF00'>(5 - Moderate)</span>";
                                     if (maxLevel < 5) maxLevel=5;
                                 } else if (numo3 < 160) {
-                                    title += "<span style='background:#FFCF00'>(6 - Moderate)</span>";
+                                    title += "<span style='background:#FF9A00'>(6 - Moderate)</span>";
                                     if (maxLevel < 6) maxLevel=6;
                                 } else if (numo3 < 187) {
-                                    title += "<span style='background:#FF9A00'>(7 - High)</span>";
+                                    title += "<span style='background:#FF6464'>(7 - High)</span>";
                                     if (maxLevel < 7) maxLevel=7;
                                 } else if (numo3 < 213) {
-                                    title += "<span style='background:#FF0000'>(8 - High)</span>";
+                                    title += "<span style='background:#FF0000; color:white'>(8 - High)</span>";
                                     if (maxLevel < 8) maxLevel=8;
                                 } else if (numo3 < 240) {
-                                    title += "<span style='background:#990000'>(9 - High)</span>";
+                                    title += "<span style='background:#990000; color:white'>(9 - High)</span>";
                                     if (maxLevel < 9) maxLevel=9;
                                 } else if (numo3 < 450) {
-                                    title += "<span style='background:#CE30FF'>(10 - Very High)</span>";
+                                    title += "<span style='background:#CE30FF; color:white'>(10 - Very High)</span>";
                                     maxLevel = 10;
                                 } else {
                                     title += "(outlier)";
@@ -381,7 +381,15 @@ angular.module('MyBath.MapDataService', [])
 
                             icon = Object.create(getIcon(layer));
                             bgC = "";
-                            switch (maxLevel) {
+                            fgC = "";
+
+                            if (maxLevel < 8) {
+                                fgC = "#666666";
+                            } else {
+                                fgC = "white";
+                            }
+
+                            switch (maxLevel) { // possibly refactor this into a function
                                 case 1:
                                     bgC = "#9CFF9C";
                                     break;
@@ -414,7 +422,7 @@ angular.module('MyBath.MapDataService', [])
                                     break;
                             }
 
-                            icon.html = '<p class = "circle-marker" style="background:' + bgC + '">' + maxLevel + '</p>';
+                            icon.html = '<p class = "circle-marker circle-light" style="background:' + bgC + '; color:' + fgC + '">' + maxLevel + '</p>';
 
                             
                             layerData.push({ lat: parseFloat(aqData[aqMon[i]].sensor_location.latitude), lng: parseFloat(aqData[aqMon[i]].sensor_location.longitude), icon: icon, layer: "AirQuality", message: title });
