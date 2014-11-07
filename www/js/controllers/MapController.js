@@ -95,7 +95,7 @@ angular.module('MyBath.MapController', [])
                 MapBox: {
                     layerOptions: { attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>' },
                     name: 'Map items of interest',
-                    url: 'http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png',
+                    url: 'http://{s}.tiles.mapbox.com/v3/brysona.k5b5fb46/{z}/{x}/{y}.png',
                     type: 'xyz',
                     maxZoom: 20,
                     zoomControlPosicloseDisplayOptionscloseDisplayOptionscion: 'bottomleft',
@@ -110,12 +110,12 @@ angular.module('MyBath.MapController', [])
                 Libraries: {
                     type: 'group',
                     name: 'Libraries',
-                    visible: true
+                    visible: false
                 },
                 PrimarySchools: {
                     type: 'group',
                     name: 'Primary Schools',
-                    visible: true
+                    visible: false
                 },
                 Council_Offices: {
                     type: 'group',
@@ -140,18 +140,18 @@ angular.module('MyBath.MapController', [])
                 Universities: {
                     type: 'group',
                     name: 'Universities',
-                    visible: false
+                    visible: true
                 },
                 ConAreas: { //TODO: Update the display of this
                     type: 'group',
                     name: 'Conservation Areas',
                     visible: false
                 },
-                CivicAmenitySites: {
+                /*CivicAmenitySites: {
                     type: 'group',
                     name: 'Waste & Recyling Sites',
                     visible: false
-                },
+                },*/
                 HealthandFitnessCentres: {
                     type: 'group',
                     name: 'Health & Fitness Centres',

@@ -17,85 +17,85 @@ angular.module('MyBath.MapDataService', [])
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-bug  "></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-bug"></i></span>'
         },
         conservationIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon balanced ion-leaf></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon balanced ion-leaf"></i></span>'
         },
         libraryIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-android-book"></i>'
+            html: '<span class = "circle-marker marker-icon-large"><i class="icon calm ion-android-book"></i></span>'
         },
         officeIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-coffee"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-coffee"></i></span>'
         },
         toiletIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-woman"></i><i class="icon calm ion-man"></i>'
+            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-woman"><i class="icon calm ion-man"></i></i>'
         },
         parkIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-ios7-tennisball"></i>'
+            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-ios7-tennisball"></i></span>'
         },
         wasteIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-ios7-trash"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-ios7-trash"></i></span>'
         },
         carParkIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-model-s"></i>'
+            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-model-s"></i></span>'
         },
         schoolIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-ios7-home"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-ios7-home"></i></span>'
         },
         roadworksIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-wrench"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-wrench"></i></span>'
         },
         universityIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-university"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon light ion-university"></i></span>'
         },
         fitnessIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-happy"></i>'
+            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-happy"></i></span>'
         },
         playSchoolIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon balanced on-ios7-paw"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon balanced ion-ios7-paw"></i></span>'
         },
         busIcon: {
             type: 'div',
             iconSize: [30, 30],
             popupAnchor: [0, 0],
-            html: '<i class="icon calm ion-pin"></i>'
+            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-pin"></i></span>'
         },
         emptyIcon: {
             type: 'div',
@@ -118,7 +118,7 @@ angular.module('MyBath.MapDataService', [])
                         return icons.libraryIcon;
                     case "CivicAmenitySites":
                         return icons.wasteIcon;
-                    case "carParks":
+                    case "CarParks":
                         return icons.carParkIcon;
                     case "Council_Offices":
                         return icons.officeIcon;
