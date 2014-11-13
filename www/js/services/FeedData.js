@@ -47,7 +47,7 @@ angular.module('MyBath.FeedDataService', [])
             try {
                 var data = window.localStorage.FeedData;
                 var i = 0;
-                var l = 0;
+                var len = 0;
                 var j = 0;
                 var results = [];
                 data = angular.fromJson(data)[id];
@@ -64,8 +64,8 @@ angular.module('MyBath.FeedDataService', [])
                             results[i].url = data.feed.entry[i].link[1]._href;
                             results[i].address = "";
                             results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
-                            l = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
-                            for (j = 1; j < l ; j++) {
+                            len = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
+                            for (j = 1; j < len ; j++) {
                                results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
                             }
                             results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
@@ -86,8 +86,8 @@ angular.module('MyBath.FeedDataService', [])
                             results[i].url = data.feed.entry[i].link[1]._href;
                             results[i].address = "";
                             results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
-                            l = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
-                            for (j = 0; j < l ; j++) {
+                            len = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
+                            for (j = 0; j < len ; j++) {
                                results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
                             }
                             results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;

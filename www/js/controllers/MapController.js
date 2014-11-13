@@ -110,7 +110,7 @@ angular.module('MyBath.MapController', [])
                 Libraries: {
                     type: 'group',
                     name: 'Libraries',
-                    visible: false
+                    visible: true
                 },
                 PrimarySchools: {
                     type: 'group',
@@ -120,7 +120,7 @@ angular.module('MyBath.MapController', [])
                 Council_Offices: {
                     type: 'group',
                     name: 'Council Offices',
-                    visible: false
+                    visible: true
                 },
                 NurseryPlaySchools: {
                     type: 'group',
@@ -170,7 +170,7 @@ angular.module('MyBath.MapController', [])
                 Allotments: {
                     type: 'group',
                     name: 'Allotments',
-                    visible: false
+                    visible: true
                 },
                 MobileLibraryStops: {
                     type: 'group',

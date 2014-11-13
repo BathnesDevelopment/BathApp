@@ -232,25 +232,36 @@ angular.module('MyBath.MapDataService', [])
                     } else if ( layer === "AirQuality" ) {
 
                         var adv = function( array ) {
-                            // returns the adverage of an array
+                            // returns the average of an array
                             // TODO: Possibly
                             res = 0.0;
                             for (var i = 0; i < array.length; i++) {
                                 res += array[i];
                             }
-                            return (res/(array.length)).toFixed(1);
+                            res = (res/(array.length)).toFixed(1);
+                            if ( res > 0 ) {
+                                return res;
+                            }
+                            return 0;
                         };
 
                         // Data is sorted by the server in decending order.
                         // Store the latest for each sensor
                         i = 0;
-                        aqData = {};
-                        now = new Date();
-                        captureTime = 28800000; // 8 hours in ms
+                        var aqData = {};
+                        var now = "";
+                        var diff = 0;
+                        var hour = 3600000; // 1 hour in ms
+                        captureTime = hour * 24; // 8 hours in ms
                         while ( i < 400 ) { // 400 pieces of data are pleanty - stops it looping forever
                             curr_slug = data[i].sensor_location_slug;
-
+                            diff = 0;
+                            if (now === "") {
+                                    now = new Date(data[i].datetime);
+                                }
+                            diff = now - new Date(data[i].datetime);
                             if ( !aqData[curr_slug] ) {
+                                
                                 // first time we've seen this slug
                                 aqData[curr_slug] = data[i];
                                 // Convert to array of floats
@@ -279,22 +290,22 @@ angular.module('MyBath.MapDataService', [])
                                     break;
                                 } else { // add to the relevent array
                                          // this assumes that each sensor gives all the data every time
-                                    if (aqData[curr_slug].nox) {
+                                    if (aqData[curr_slug].nox && diff < hour * 8 ) {
                                         aqData[curr_slug].nox.push(parseFloat(data[i].nox));
                                     }
-                                    if (aqData[curr_slug].no) {
+                                    if (aqData[curr_slug].no && diff < hour * 8 ) {
                                         aqData[curr_slug].no.push(parseFloat(data[i].no));
                                     }
-                                    if (aqData[curr_slug].no2) {
+                                    if (aqData[curr_slug].no2 && diff < hour * 1) {
                                         aqData[curr_slug].no2.push(parseFloat(data[i].no2));
                                     }
-                                    if (aqData[curr_slug].co) {
+                                    if (aqData[curr_slug].co && diff < hour * 8) {
                                         aqData[curr_slug].co.push(parseFloat(data[i].co));
                                     }
-                                    if (aqData[curr_slug].pm10) {
+                                    if (aqData[curr_slug].pm10 && diff < hour * 24) {
                                         aqData[curr_slug].pm10.push(parseFloat(data[i].pm10));
                                     }
-                                    if (aqData[curr_slug].o3) {
+                                    if (aqData[curr_slug].o3 && diff < hour * 8) {
                                         aqData[curr_slug].o3.push(parseFloat(data[i].o3));
                                     }
                                 }
@@ -408,7 +419,7 @@ angular.module('MyBath.MapDataService', [])
 
                             if(aqData[aqMon[i]].o3) {
                                 var numo3 = adv(aqData[aqMon[i]].o3);
-                                title += "<br />O<sub>3</sub>: "+ numo3 + " ppb ";
+                                title += "<br />O<sub>3 (8 hour average)</sub>: "+ numo3 + " ppb ";
                                 if (numo3 < 33) {
                                     title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
                                     if (maxLevel < 1) maxLevel=1;
@@ -443,9 +454,9 @@ angular.module('MyBath.MapDataService', [])
                                     title += "(outlier)";
                                 }
                             }
+                            title += "<br>Air quality data last updated " + ((new Date() - now)/(hour/60)).toFixed() + " mins ago.";
 
                             // make an icon
-
                             icon = Object.create(getIcon(layer));
                             bgC = "";
                             fgC = "";
