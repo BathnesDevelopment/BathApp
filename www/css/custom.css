@@ -112,8 +112,8 @@ ion-nav-view {
 }
 
 .leaflet-control-layers-selector {
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 25px;
+    min-height: 25px;
 }
 
 .ion-woman:before, .ion-man:before {

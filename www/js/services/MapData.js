@@ -527,6 +527,13 @@ angular.module('MyBath.MapDataService', [])
                             if (title.search( /[A-Z ]{8}/ ) !== -1) {
                                 title = toTitleCase(title);
                             }
+                            if (layer === "Roadworks") {
+                                console.log(title);
+                                //title = title.replace(/(T|t)arget="_top"/,'target="system"');
+                                // above would filter the HTML to title, but currently this URL is broken anyway
+                                title = title.replace(/<a\b[^>]*>/i,"").replace("<//a>",""); // Strip broken URL
+                                //
+                            }
                             
                         
                             latlng = NEtoLL(northing, easting);
