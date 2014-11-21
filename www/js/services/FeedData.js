@@ -17,10 +17,10 @@ angular.module('MyBath.FeedDataService', [])
             i = 0;
             var key = '';
             return $q.all([
-                $http.get("http://v1.syndication.nhschoices.nhs.uk/organisations/gppractices/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
-                $http.get("http://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
-                $http.get("http://v1.syndication.nhschoices.nhs.uk/organisations/dentists/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
-                $http.get("http://v1.syndication.nhschoices.nhs.uk/organisations/pharmacies/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon)
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/gppractices/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/dentists/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/pharmacies/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon)
             ]).then(function (results) {
                 var aggregatedData = [];
                 angular.forEach(results, function (result) {
@@ -36,12 +36,18 @@ angular.module('MyBath.FeedDataService', [])
             });
         },
         getTracking: function () {
-            res = [];
-            var data = angular.fromJson(window.localStorage.FeedData);
-            for (var i = 0; i < data.length; i++) {
-                res[i] = data[i].feed.tracking.__text;
+            try {
+                res = [];
+                var data = angular.fromJson(window.localStorage.FeedData);
+                for (var i = 0; i < data.length; i++) {
+                    res[i] = data[i].feed.tracking.__text;
+                }
+                return res;
+            } catch (e) {
+                console.warn("getTracking failed");
+                console.warn(e);
+                return "";
             }
-            return res;
         },
         get: function ( id ) {
             try {

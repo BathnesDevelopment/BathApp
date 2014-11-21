@@ -21,7 +21,7 @@ angular.module('MyBath.UserDataService', [])
         fetchUprn: function (postcode) {
             var addressData = [];
             var addressData_q = $q.defer();
-            $http.get("http://isharemaps.bathnes.gov.uk/getdata.aspx?service=LocationSearch&RequestType=LocationSearch&location=" + postcode + "&pagesize=200&startnum=1")
+            $http.get("https://isharemaps.bathnes.gov.uk/getdata.aspx?service=LocationSearch&RequestType=LocationSearch&location=" + postcode + "&pagesize=200&startnum=1")
                 .success(function (data, status, headers, config) {
                     addressData = data;
                     if (data && data != []) {
