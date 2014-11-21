@@ -185,7 +185,7 @@ angular.module('MyBath.MapController', [])
                 Roadworks: {
                     type: 'group',
                     name: 'Roadworks',
-                    visible: false
+                    visible: true
                 },
                 CarParks: {
                     type: 'group',
@@ -216,6 +216,11 @@ angular.module('MyBath.MapController', [])
                     type: 'group',
                     name: 'Air Quality Monitoring',
                     visible: false
+                },
+                GPSurgeries: {
+                    type: 'group',
+                    name: 'GP Surgeries',
+                    visible: true
                 }
             }
         },

@@ -102,6 +102,12 @@ angular.module('MyBath.MapDataService', [])
             iconSize: [30, 30],
             popupAnchor: [0, 0],
             html: ''
+        },
+        gpIcon: {
+            type: 'div',
+            iconSize: [30,30],
+            popupAnchor: [0,0],
+            html: '<span class = "circle-marker marker-icon-round"><i class="icon assertive ion-heart"></i></span>'
         }
 
     };
@@ -146,6 +152,8 @@ angular.module('MyBath.MapDataService', [])
                         return icons.conservationIcon;
                     case "NurseryPlaySchools":
                         return icons.playSchoolIcon;
+                    case "GPSurgeries":
+                        return icons.gpIcon;
                     case "CarParksLive":
                     case "AirQuality":
                         return icons.emptyIcon;
@@ -182,7 +190,8 @@ angular.module('MyBath.MapDataService', [])
                 OpenSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
                 PublicConveniences: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString,
                 CarParksLive: "http://data.bathhacked.org/resource/u3w2-9yme.json",
-                AirQuality: "http://data.bathhacked.org/resource/hqr9-djir.json?$order=datetime%20desc"
+                AirQuality: "http://data.bathhacked.org/resource/hqr9-djir.json?$order=datetime%20desc",
+                GPSurgeries: "http://data.bathhacked.org/resource/pt6r-rckg.json"
             };
         
             var url = layerList[layer];
@@ -197,6 +206,7 @@ angular.module('MyBath.MapDataService', [])
                     var title = "";
                     var bgC = "";
                     var icon = {};
+                    var i = 0;
                     
                     if ( layer === "CarParksLive") {
                         for (i = 0; i < data.length ; i++) {
@@ -505,7 +515,12 @@ angular.module('MyBath.MapDataService', [])
                             
                             layerData.push({ lat: parseFloat(aqData[aqMon[i]].sensor_location.latitude), lng: parseFloat(aqData[aqMon[i]].sensor_location.longitude), icon: icon, layer: "AirQuality", message: title });
                         }
-                    } else if (data && data != [] && !(data.error) && layer !== "CarParksLive" ) {
+                    } else if ( layer === "GPSurgeries") {
+                        for (i = 0; i < data.length; i++) {
+                            layerData.push({ lat: parseFloat(data[i].location_1.latitude), lng: parseFloat(data[i].location_1.longitude), icon: getIcon(layer), layer: layer, message: data[i].name });
+                        }
+                        //layerData.push({ lat: parseFloat(data[i])});
+                    } else if (data && data != [] && !(data.error)) {
                         for (i = 0; i < data[0].features.length ; i++) {
                             northing = data[0].features[i].geometry.coordinates[0][0];
                             easting = data[0].features[i].geometry.coordinates[0][1];
@@ -528,11 +543,9 @@ angular.module('MyBath.MapDataService', [])
                                 title = toTitleCase(title);
                             }
                             if (layer === "Roadworks") {
-                                console.log(title);
                                 //title = title.replace(/(T|t)arget="_top"/,'target="system"');
                                 // above would filter the HTML to title, but currently this URL is broken anyway
                                 title = title.replace(/<a\b[^>]*>/i,"").replace("<//a>",""); // Strip broken URL
-                                //
                             }
                             
                         
