@@ -120,3 +120,5 @@ ion-nav-view {
     display: inline;
 }
 
+.card {
+    overflow: inherit;}

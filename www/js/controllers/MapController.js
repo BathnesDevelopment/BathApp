@@ -1,5 +1,6 @@
 angular.module('MyBath.MapController', [])
-.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents) {
+.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents, $ionicScrollDelegate) {
+    $ionicScrollDelegate.scrollTop();
 
     $scope.markers = [];
     $scope.fetching = {};

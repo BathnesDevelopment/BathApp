@@ -45,3 +45,5 @@ plugins/
 .ToDo.txt
 test.js
 build.bat
+*.sublime-project
+*.sublime-workspace
