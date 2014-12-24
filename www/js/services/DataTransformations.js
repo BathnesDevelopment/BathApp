@@ -20,13 +20,23 @@ angular.module('MyBath.DataTransformations', [])
             });
             return array;
         },
-        // Method: DataTransformations.objectToArray()
+        // Method: DataTransformations.objectToArray(object)
         // Input: Object
         // Output: Array
         // Checks if an object is an array, if not converts it to a single item array.
         objectToArray: function (object) {
             if (!angular.isArray(object)) return [object];
             return object;
+        },
+        // Method: DataTransformations.toTitleCase(str)
+        // Input: String
+        // Output: String
+        // Converts a string to title case
+		// Source http://stackoverflow.com/a/196991
+        toTitleCase: function (str) {
+            return str.replace(/\w\S*/g, function(txt) {
+				return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+			});
         }
     };
 });

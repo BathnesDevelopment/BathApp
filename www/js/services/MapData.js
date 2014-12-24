@@ -3,198 +3,70 @@ angular.module('MyBath.MapDataService', [])
  * Factory: Map Data
  * 
 */
-.factory('MapData', function ($http, $q) {
-    function toTitleCase(str)
-        {
-            // Converts a string to title case
-            // Source http://stackoverflow.com/a/196991
-            return str.replace(/\w\S*/g, function(txt){
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-        }
-    
-    var icons = {
-        defaultIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-bug"></i></span>'
-        },
-        conservationIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon balanced ion-leaf"></i></span>'
-        },
-        libraryIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-large"><i class="icon assertive ion-android-book"></i></span>'
-        },
-        officeIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon stable ion-coffee"></i></span>'
-        },
-        toiletIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-round"><i class="icon assertive ion-woman"><i class="icon assertive ion-man"></i></i>'
-        },
-        parkIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-ios7-tennisball"></i></span>'
-        },
-        wasteIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-ios7-trash"></i></span>'
-        },
-        carParkIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-model-s"></i></span>'
-        },
-        schoolIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon energized ion-ios7-home"></i></span>'
-        },
-        roadworksIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-wrench"></i></span>'
-        },
-        universityIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon light ion-university"></i></span>'
-        },
-        fitnessIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon-round"><i class="icon calm ion-happy"></i></span>'
-        },
-        playSchoolIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon balanced ion-ios7-paw"></i></span>'
-        },
-        busIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: '<span class = "circle-marker marker-icon"><i class="icon calm ion-pin"></i></span>'
-        },
-        emptyIcon: {
-            type: 'div',
-            iconSize: [30, 30],
-            popupAnchor: [0, 0],
-            html: ''
-        },
-        gpIcon: {
-            type: 'div',
-            iconSize: [30,30],
-            popupAnchor: [0,0],
-            html: '<span class = "circle-marker marker-icon-round"><i class="icon assertive ion-heart"></i></span>'
-        }
+.factory('MapData', function ($http, $q, DataTransformations) {
 
+	// URLs.  To do: move these out of web project
+	var start = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10';
+	var start2 = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10&MapSource=BathNES/';
+
+	// Position - will update when calling layers.
+	var NorthEastPlaceholder = "[NORTHINGEASTING]";
+	
+	// List of icons - used in the layer list object
+	var icons = {
+        defaultIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-bug"></i></span>' },
+        conservationIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon balanced ion-leaf"></i></span>' },
+        libraryIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-large"><i class="icon assertive ion-android-book"></i></span>' },
+        officeIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon stable ion-coffee"></i></span>' },
+        toiletIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon assertive ion-woman"><i class="icon assertive ion-man"></i></i>' },
+        parkIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon calm ion-ios7-tennisball"></i></span>' },
+        wasteIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-ios7-trash"></i></span>' },
+        carParkIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon calm ion-model-s"></i></span>' },
+        schoolIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon energized ion-ios7-home"></i></span>' },
+        roadworksIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-wrench"></i></span>' },
+        universityIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon light ion-university"></i></span>' },
+        fitnessIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon calm ion-happy"></i></span>' },
+        playSchoolIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon balanced ion-ios7-paw"></i></span>' },
+        busIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-pin"></i></span>' },
+        emptyIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '' },
+        gpIcon: { type: 'div', iconSize: [30,30], popupAnchor: [0,0], html: '<span class="circle-marker marker-icon-round"><i class="icon assertive ion-heart"></i></span>' }
     };
 
-    return {
-        layerList: function () {
-            return layerList;
-        },
-        getLayer: function (layer, lat, lng) {
-            var getIcon = function(layer) {
-                switch (layer) {
-                    case "MobileLibraryStops":
-                    case "Libraries":
-                        return icons.libraryIcon;
-                    case "CivicAmenitySites":
-                        return icons.wasteIcon;
-                    case "CarParks":
-                        return icons.carParkIcon;
-                    case "Council_Offices":
-                        return icons.officeIcon;
-                    case "PublicConveniences":
-                        return icons.toiletIcon;
-                    case "HealthandFitnessCentres":
-                        return icons.fitnessIcon;
-                    case "BusStops":
-                        return icons.busIcon;
-                    case "PrimarySchools":
-                    case "SecondarySchools":
-                    case "Colleges":
-                        return icons.schoolIcon;
-                    case "Roadworks":
-                        return icons.roadworksIcon;
-                    case "Universities":
-                        return icons.universityIcon;
-                    case "Parks":
-                    case "PlayAreas":
-                    case "TennisCourts":
-                    case "OpenSpaces":
-                        return icons.parkIcon;
-                    case "ConAreas":
-                    case "Allotments":
-                        return icons.conservationIcon;
-                    case "NurseryPlaySchools":
-                        return icons.playSchoolIcon;
-                    case "GPSurgeries":
-                        return icons.gpIcon;
-                    case "CarParksLive":
-                    case "AirQuality":
-                        return icons.emptyIcon;
-                    default:
-                        console.warn("default layer: " + layer);
-                        return icons.defaultIcon;
-                }
-            
-            };
-            var pos = LLtoNE(lat, lng);
-            var start = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10';
-            var start2 = 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=16094&MaxResults=10&MapSource=BathNES/';
-            var NorthEastString = "&Easting=" + pos.east + "&Northing=" + pos.north;
+	// List of layers - consist of a url and an icon (selected from icons object).
+	var layerList = {
+	    Libraries: { url: start + NorthEastPlaceholder + '&ActiveLayer=Libraries', icon: icons.libraryIcon },
+	    MobileLibraryStops: { url: start + NorthEastPlaceholder + '&ActiveLayer=MobileLibraryStops', icon: icons.libraryIcon },
+	    CouncilOffices: { url: start + NorthEastPlaceholder + '&ActiveLayer=Council_Offices', icon: icons.officeIcon },
+	    NurseryPlaySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=NurseryPlaySchools', icon: icons.playSchoolIcon },
+	    PrimarySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=PrimarySchools', icon: icons.schoolIcon },
+	    SecondarySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=SecondarySchools', icon: icons.schoolIcon },
+	    Colleges: { url: start + NorthEastPlaceholder + '&ActiveLayer=Colleges', icon: icons.schoolIcon },
+	    Universities: { url: start + NorthEastPlaceholder + '&ActiveLayer=Universities', icon: icons.universityIcon },
+	    CivicAmenitySites: { url: start + NorthEastPlaceholder + '&ctiveLayer=CivicAmenitySites', icon: icons.wasteIcon },
+	    HealthandFitnessCentres: { url: start + NorthEastPlaceholder + '&ActiveLayer=HealthandFitnessCentres', icon: icons.fitnessIcon },
+	    PlayAreas: { url: start + NorthEastPlaceholder + '&ActiveLayer=PlayAreas', icon: icons.parkIcon },
+	    TennisCourts: { url: start + NorthEastPlaceholder + '&ActiveLayer=TennisCourts', icon: icons.parkIcon },
+	    Parks: { url: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastPlaceholder, icon: icons.parkIcon },
+	    OpenSpaces: { url: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastPlaceholder, icon: icons.parkIcon },
+	    Allotments: { url: start + NorthEastPlaceholder + '&ActiveLayer=Allotments', icon: icons.conservationIcon },
+	    ConAreas: { url: start + NorthEastPlaceholder + '&ActiveLayer=ConAreas', icon: icons.conservationIcon },
+	    BusStops: { url: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=25' + NorthEastPlaceholder + '&ActiveLayer=BusStops', icon: icons.busIcon },
+	    Roadworks: { url: start + NorthEastPlaceholder + '&ActiveLayer=Roadworks', icon: icons.roadworksIcon },
+	    CarParks: { url: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastPlaceholder, icon: icons.carParkIcon },
+	    PublicConveniences: { url: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastPlaceholder, icon: icons.toiletIcon },
+		CarParksLive: { url: "http://data.bathhacked.org/resource/u3w2-9yme.json", icon: icons.emptyIcon },
+		AirQuality: { url: "http://data.bathhacked.org/resource/hqr9-djir.json?$order=datetime%20desc", icon: icons.emptyIcon },
+		GPSurgeries: { url: "http://data.bathhacked.org/resource/pt6r-rckg.json", icon: icons.gpIcon },
+	};
 
-            var layerList = {
-                Libraries: start + NorthEastString + '&ActiveLayer=Libraries',
-                PrimarySchools: start + NorthEastString + '&ActiveLayer=PrimarySchools',
-                Council_Offices: start + NorthEastString + '&ActiveLayer=Council_Offices',
-                NurseryPlaySchools: start + NorthEastString + '&ActiveLayer=NurseryPlaySchools',
-                SecondarySchools: start + NorthEastString + '&ActiveLayer=SecondarySchools',
-                Colleges: start + NorthEastString + '&ActiveLayer=Colleges',
-                Universities: start + NorthEastString + '&ActiveLayer=Universities',
-                ConAreas: start + NorthEastString + '&ActiveLayer=ConAreas',
-                CivicAmenitySites: start + NorthEastString + '&ctiveLayer=CivicAmenitySites',
-                HealthandFitnessCentres: start + NorthEastString + '&ActiveLayer=HealthandFitnessCentres',
-                PlayAreas: start + NorthEastString + '&ActiveLayer=PlayAreas',
-                TennisCourts: start + NorthEastString + '&ActiveLayer=TennisCourts',
-                Allotments: start + NorthEastString + '&ActiveLayer=Allotments',
-                MobileLibraryStops: start + NorthEastString + '&ActiveLayer=MobileLibraryStops',
-                BusStops: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=25' + NorthEastString + '&ActiveLayer=BusStops',
-                Roadworks: start + NorthEastString + '&ActiveLayer=Roadworks',
-                CarParks: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastString,
-                Parks: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastString,
-                OpenSpaces: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastString,
-                PublicConveniences: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastString,
-                CarParksLive: "http://data.bathhacked.org/resource/u3w2-9yme.json",
-                AirQuality: "http://data.bathhacked.org/resource/hqr9-djir.json?$order=datetime%20desc",
-                GPSurgeries: "http://data.bathhacked.org/resource/pt6r-rckg.json"
-            };
-        
-            var url = layerList[layer];
+    return {
+        getLayer: function (layer, lat, lng) {
+
+			var pos = LLtoNE(lat, lng);
+			var NorthEastString = "&Easting=" + pos.east + "&Northing=" + pos.north;
+
+            var url = layerList[layer].url;
+			url = url.replace(NorthEastPlaceholder,NorthEastString);
             var layerData = [];
             var layerData_q = $q.defer();
 
@@ -207,7 +79,7 @@ angular.module('MyBath.MapDataService', [])
                     var bgC = "";
                     var icon = {};
                     var i = 0;
-                    
+
                     if ( layer === "CarParksLive") {
                         for (i = 0; i < data.length ; i++) {
                             northing = data[i].northing;
@@ -221,7 +93,7 @@ angular.module('MyBath.MapDataService', [])
                                 rem = 0;
                             }
 
-                            icon = Object.create(getIcon(layer));
+                            icon = Object.create(layerList[layer].icon);
                             bgC = "#66cc33";
 
                             // Change the colour if it's almost full
@@ -233,8 +105,8 @@ angular.module('MyBath.MapDataService', [])
                                 bgC = "#cc2311";
                             }
 
-                            icon.html = '<p class = "circle-marker" style="background:' + bgC + '">' + rem + '</p>';
-                            title = data[i].name + "<br>" + pFull    + "% full";
+                            icon.html = '<p class="circle-marker" style="background:' + bgC + '">' + rem + '</p>';
+                            title = data[i].name + "<br/>" + pFull    + "% full";
                             title = title.replace("CP", "Car Park");
                             title = title.replace("P+R", "Park & Ride");
                             layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: icon, layer: "CarParksLive", message: title });
@@ -255,7 +127,7 @@ angular.module('MyBath.MapDataService', [])
                             return 0;
                         };
 
-                        // Data is sorted by the server in decending order.
+                        // Data is sorted by the server in descending order.
                         // Store the latest for each sensor
                         i = 0;
                         var aqData = {};
@@ -263,7 +135,7 @@ angular.module('MyBath.MapDataService', [])
                         var diff = 0;
                         var hour = 3600000; // 1 hour in ms
                         captureTime = hour * 24; // 8 hours in ms
-                        while ( i < 400 ) { // 400 pieces of data are pleanty - stops it looping forever
+                        while ( i < 400 ) { // 400 pieces of data are plenty - stops it looping forever
                             curr_slug = data[i].sensor_location_slug;
                             diff = 0;
                             if (now === "") {
@@ -298,7 +170,7 @@ angular.module('MyBath.MapDataService', [])
                                     // Data sorted by server. So we can know that there
                                     // are no more records after this
                                     break;
-                                } else { // add to the relevent array
+                                } else { // add to the relevant array
                                          // this assumes that each sensor gives all the data every time
                                     if (aqData[curr_slug].nox && diff < hour * 8 ) {
                                         aqData[curr_slug].nox.push(parseFloat(data[i].nox));
@@ -332,7 +204,7 @@ angular.module('MyBath.MapDataService', [])
                             // Colour code
                             if (!aqData[aqMon[i]]) {
                                 // If there's no data in the last 8h, show nothing
-                                // The sensor is probably not reporting due to maintanance
+                                // The sensor is probably not reporting due to maintenance
                                 continue;
                             }
                             var maxLevel = 0;
@@ -467,7 +339,7 @@ angular.module('MyBath.MapDataService', [])
                             title += "<br>Air quality data last updated " + ((new Date() - now)/(hour/60)).toFixed() + " mins ago.";
 
                             // make an icon
-                            icon = Object.create(getIcon(layer));
+                            icon = Object.create(layerList[layer].icon);
                             bgC = "";
                             fgC = "";
 
@@ -517,7 +389,7 @@ angular.module('MyBath.MapDataService', [])
                         }
                     } else if ( layer === "GPSurgeries") {
                         for (i = 0; i < data.length; i++) {
-                            layerData.push({ lat: parseFloat(data[i].location_1.latitude), lng: parseFloat(data[i].location_1.longitude), icon: getIcon(layer), layer: layer, message: data[i].name });
+                            layerData.push({ lat: parseFloat(data[i].location_1.latitude), lng: parseFloat(data[i].location_1.longitude), icon: layerList[layer].icon, layer: layer, message: data[i].name });
                         }
                         //layerData.push({ lat: parseFloat(data[i])});
                     } else if (data && data != [] && !(data.error)) {
@@ -540,17 +412,15 @@ angular.module('MyBath.MapDataService', [])
                                 title = title.slice(0,title.search(/Distance from.* pin [0-9]+\)/));
                             }
                             if (title.search( /[A-Z ]{8}/ ) !== -1) {
-                                title = toTitleCase(title);
+                                title = DataTransformations.toTitleCase(title);
                             }
                             if (layer === "Roadworks") {
                                 //title = title.replace(/(T|t)arget="_top"/,'target="system"');
                                 // above would filter the HTML to title, but currently this URL is broken anyway
                                 title = title.replace(/<a\b[^>]*>/i,"").replace("<//a>",""); // Strip broken URL
                             }
-                            
-                        
                             latlng = NEtoLL(northing, easting);
-                            layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: getIcon(layer), layer: data[0].properties.layerName, message: title });
+                            layerData.push({ lat: latlng.latitude, lng: latlng.longitude, icon: layerList[layer].icon, layer: data[0].properties.layerName, message: title });
                         }
                     } else {
                         layerData =  "Failed";

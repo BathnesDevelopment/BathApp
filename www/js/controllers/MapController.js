@@ -1,76 +1,11 @@
 angular.module('MyBath.MapController', [])
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents, $ionicScrollDelegate) {
-    $ionicScrollDelegate.scrollTop();
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Variables: Global
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.markers = [];
     $scope.fetching = {};
-    function addLayer(name,lat,lng) {
-        lat = $scope.map.center.lat;
-        lng = $scope.map.center.lng;
-
-        if ($scope.fetching[name] && $scope.fetching[name][0]) {
-            return false;
-        } else {
-            $scope.fetching[name] = [true, new Date()];
-            MapData.getLayer(name,lat,lng)
-            .then(function (data) {
-                if (data && data != "Failed") {
-                    for (i = 0; i < data.length ; i++) {
-                        if (! alreadyMarked(data[i].message) ) {
-                            $scope.markers.push(data[i]);
-                            //if ($scope.markers.length > 300) {
-                                // Gets laggy at about 300 markers, user may well have moved away from starting position
-                                //$scope.markers = $scope.markers.slice($scope.markers.length-100);
-                            //}
-                        }
-                    }
-                }
-                $scope.fetching[name][0] = false;
-            });
-        }
-    }
-
-    function alreadyMarked(markerData) {
-        for (var i = 0; i < $scope.markers.length; i++) {
-            if (markerData === $scope.markers[i].message) { return true; }
-        }
-        return false;
-    }
-
-   $scope.$on('leafletDirectiveMap.overlayremove', function(event, target){
-                    angular.noop();
-                });
-
-     $scope.$on('leafletDirectiveMap.overlayadd', function(event, target){
-                    for (var overlay in $scope.map.layers.overlays) {
-                        // Loop to get the real name
-                        if ($scope.map.layers.overlays[overlay].name === target.leafletEvent.name) {
-                            addLayer(overlay);
-                            return;
-                        }
-                    }
-                });
-
-    $scope.$on('leafletDirectiveMap.moveend', function(event) {
-        /*addLayer("Libraries");
-        addLayer("PrimarySchools");
-        addLayer("Council_Offices");
-        addLayer("NurseryPlaySchools");
-        addLayer("SecondarySchools");
-        addLayer("Colleges");
-        addLayer("ConAreas");
-        addLayer("CivicAmenitySites");
-        addLayer("HealthandFitnessCentres");
-        addLayer("PlayAreas"); // Doesn't really return much useful info
-        addLayer("TennisCourts");
-        addLayer("Allotments");
-        addLayer("MobileLibraryStops");
-        addLayer("Roadworks");
-        addLayer("Parks");
-        addLayer("OpenSpaces");
-        addLayer("PublicConveniences");*/
-        
-    });
 
     $scope.map = {
         defaults: {
@@ -89,7 +24,6 @@ angular.module('MyBath.MapController', [])
             lng: -2.3589420,
             zoom: 18,
             autoDiscover: true,
-
         },
         layers: {
             baselayers: {
@@ -193,7 +127,7 @@ angular.module('MyBath.MapController', [])
                     name: 'Car Parks (static)',
                     visible: false
                 },
-                 CarParksLive: {
+                CarParksLive: {
                     type: 'group',
                     name: 'Car Parks',
                     visible: true
@@ -228,28 +162,58 @@ angular.module('MyBath.MapController', [])
         markers: $scope.markers
     };
 
-    /*addLayer("Libraries");
-    addLayer("PrimarySchools");
-    addLayer("Council_Offices");
-    addLayer("NurseryPlaySchools");
-    addLayer("SecondarySchools");
-    addLayer("Colleges");
-    addLayer("Universities");
-    addLayer("ConAreas");
-    addLayer("CivicAmenitySites");
-    addLayer("HealthandFitnessCentres");
-    addLayer("PlayAreas");
-    addLayer("TennisCourts");
-    addLayer("Allotments");
-    addLayer("MobileLibraryStops");
-    addLayer("BusStops");
-    addLayer("Roadworks");
-    //addLayer("CarParks");
-    addLayer("Parks");
-    addLayer("OpenSpaces");
-    addLayer("PublicConveniences");
-    addLayer("CarParksLive");
-    addLayer("BusStops");*/
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // CONTROLLER FUNCTIONS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: addLayer
+    // Adds a layer to the map
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.addLayer = function(name, lat, lng) {
+        lat = $scope.map.center.lat;
+        lng = $scope.map.center.lng;
 
+        if ($scope.fetching[name] && $scope.fetching[name][0]) {
+            return false;
+        } else {
+            $scope.fetching[name] = [true, new Date()];
+            MapData.getLayer(name, lat, lng)
+            .then(function (data) {
+                if (data && data != "Failed") {
+                    for (i = 0; i < data.length ; i++) {
+                        if (!$scope.alreadyMarked(data[i].message)) {
+                            $scope.markers.push(data[i]);
+                        }
+                    }
+                }
+                $scope.fetching[name][0] = false;
+            });
+        }
+    }
+
+    $scope.alreadyMarked = function(markerData) {
+        for (var i = 0; i < $scope.markers.length; i++) {
+            if (markerData === $scope.markers[i].message) { return true; }
+        }
+        return false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // CONTROLLER EVENTS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $scope.$on('leafletDirectiveMap.overlayremove', function (event, target) {
+        angular.noop();
+    });
+
+    $scope.$on('leafletDirectiveMap.overlayadd', function (event, target) {
+        for (var overlay in $scope.map.layers.overlays) {
+            // Loop to get the real name
+            if ($scope.map.layers.overlays[overlay].name === target.leafletEvent.name) {
+                $scope.addLayer(overlay);
+                return;
+            }
+        }
+    });
 });
