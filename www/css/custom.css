@@ -2,16 +2,12 @@ header h1 {
     font-weight: bold;
 }
 
-.content { 
-    padding: 10px;
-}
-
 i.listIcons {
     font-size: 24px;
 }
 
 .slider {
-    height: 100%;
+    /* height: 100%; */
 }
 
 .slider-slide {
@@ -56,7 +52,11 @@ i.listIcons {
         font-size: 32px;
     }
 
-.scroll, .angular-leaflet-map {
+.scroll {
+    min-height: 100%;
+}
+
+.angular-leaflet-map {
     height: 100%;
 }
 
@@ -123,3 +123,8 @@ ion-nav-view {
 .card {
     overflow: inherit;
 }
+
+#divCardLogo {
+	/* background-color: #FFF; */
+}
+

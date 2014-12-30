@@ -1,5 +1,5 @@
 angular.module('MyBath.MapController', [])
-.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents, $ionicScrollDelegate) {
+.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents) {
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global

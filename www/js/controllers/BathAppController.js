@@ -266,14 +266,15 @@ angular.module('MyBath.BathAppController', [])
                     }).then(function (res) {
                     });
                 }
-            });
+		});
     };
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: pullRefresh
+    // Called by the pull to refresh control
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.pullRefresh = function () {
-        if ($scope.userData === undefined) {
-            $scope.$broadcast('scroll.refreshComplete');
-            return;
-        }
+        if ($scope.userData && $scope.userData.uprn) {
         FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
             .then(function (data) {
                 if (data && data != []) {
@@ -286,12 +287,13 @@ angular.module('MyBath.BathAppController', [])
                 if (data && data != []) {
                     $scope.bathdata = data;
                     $scope.bathDataObject = BathData.toObj();
-                    $scope.$broadcast('scroll.refreshComplete');
                 }
-                else {
-                    $scope.$broadcast('scroll.refreshComplete');
-                }
+				$scope.$broadcast('scroll.refreshComplete');
             });
+		}
+		else {
+			$scope.$broadcast('scroll.refreshComplete');
+		}
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
