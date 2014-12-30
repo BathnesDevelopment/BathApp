@@ -1,14 +1,14 @@
-<ion-refresher
-    pulling-text="Pull to refresh..."
-    on-refresh="pullRefresh()">
+<ion-refresher on-refresh="pullRefresh()"
+	pulling-text="Pull to refresh..."
+	refreshing-text="Refreshing!"
+	refreshing-icon="ion-loading-c">
 </ion-refresher>
 <div class="content">
     <h2>My Council</h2>
     <div class="card">
-        <div class="item item-avatar">
-            <img src="images/logo.svg">
+        <div class="item">
             <h2>Bath & North East Somerset Council</h2>
-            <p><i>The</i> place to live and work</p>
+            <p><em>The</em> place to live and work</p>
         </div>
         <div class="item tabs tabs-primary tabs-icon-left">
             <a class="tab-item" ng-click="showPopup('Bath & North East Somerset Council App', 'The Bath & North East Somerset Council app provides reporting facilities to easily connect with the Council and report issues')">
@@ -81,17 +81,12 @@
     </div>
     <h3>Nearest council offices</h3>
     <p ng-show="!uprn">No location set</p>
-    <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information avalible on the Council's website</button>
+    <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information available on the Council's website</button>
     <div class="list card" ng-repeat="office in bathDataObject.councilOffices.Results.____________________________">
         <div class="item item-divider">
             {{office.title | title}}
-            <p>Distance: {{mToMi(office.Distance)}} miles</p>
+            <p>Distance: {{office.Distance | MetresToMiles}} miles</p>
         </div>
-        <!--<div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="{{office.url}}">
-                <i class="icon ion-earth assertive"></i> More info
-            </a>
-        </div>-->
     </div>
     <span ng-show="listedBuilding">
     <h3>Listed building status</h3>

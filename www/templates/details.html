@@ -1,6 +1,6 @@
 <div class="content">
     <h3>My Details</h3>
-    <p>See below for your registration data, as held on this device.  </p>
+    <p>See below for your registration data, as held on this device.</p>
     <div class="card">
         <div class="item item-divider">
             {{ userData.firstname + ' ' + userData.lastname }}
@@ -25,9 +25,8 @@
             Email: {{ userData.email }}
         </div>
     </div>
-    To clear the data held on the device, use the link below:
-
-    Note: this will also clear any existing reports data stored.
+    To clear the data held on the device, use the link below:<br/>
+    <strong>Note: this will also clear any existing reports data stored.</strong>
     <button type="button" ng-click="deleteData()" class="button button-full button-clear button-positive">
         Remove personal data
     </button>

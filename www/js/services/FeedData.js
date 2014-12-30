@@ -2,25 +2,24 @@ angular.module('MyBath.FeedDataService', [])
 .factory('FeedData', function ($http, $q) {
 
     return {
-        all: function() {
+        all: function () {
             var data = window.localStorage.FeedData;
-            if (data){
+            if (data) {
                 return angular.fromJson(data);
             } else {
                 return [];
             }
-            
         },
-         fetchAll: function(lat, lon) {
+        fetchAll: function (lat, lon) {
             lat = lat || 51.37;
             lon = lon || -2.35;
             i = 0;
             var key = '';
             return $q.all([
-                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/gppractices/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
-                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
-                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/dentists/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon),
-                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/pharmacies/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" +lon)
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/gppractices/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" + lon),
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/hospitals/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" + lon),
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/dentists/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" + lon),
+                $http.get("https://v1.syndication.nhschoices.nhs.uk/organisations/pharmacies/location.xml?apikey=" + key + "&latitude=" + lat + "&longitude=" + lon)
             ]).then(function (results) {
                 var aggregatedData = [];
                 angular.forEach(results, function (result) {
@@ -49,7 +48,7 @@ angular.module('MyBath.FeedDataService', [])
                 return "";
             }
         },
-        get: function ( id ) {
+        get: function (id) {
             try {
                 var data = window.localStorage.FeedData;
                 var i = 0;
@@ -63,8 +62,8 @@ angular.module('MyBath.FeedDataService', [])
                 }
                 switch (id) {
                     case 0: // 0 - GPs
-                         results = [];
-                         for (i = 0; i < data.feed.entry.length && i < 4; i++) {
+                        results = [];
+                        for (i = 0; i < data.feed.entry.length && i < 4; i++) {
                             results[i] = {};
                             results[i].title = data.feed.entry[i].title.__text;
                             results[i].url = data.feed.entry[i].link[1]._href;
@@ -72,7 +71,7 @@ angular.module('MyBath.FeedDataService', [])
                             results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
                             len = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
                             for (j = 1; j < len ; j++) {
-                               results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
+                                results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
                             }
                             results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
                             if (data.feed.entry[i].content.organisationSummary.contact.telephone) {
@@ -94,7 +93,7 @@ angular.module('MyBath.FeedDataService', [])
                             results[i].distance = parseFloat(data.feed.entry[i].content.organisationSummary.Distance.__text) * 1000;
                             len = data.feed.entry[i].content.organisationSummary.address.addressLine.length;
                             for (j = 0; j < len ; j++) {
-                               results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
+                                results[i].address += data.feed.entry[i].content.organisationSummary.address.addressLine[j].__text + ", ";
                             }
                             results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
                             if (data.feed.entry[i].content.organisationSummary.contact.telephone) {
@@ -116,10 +115,10 @@ angular.module('MyBath.FeedDataService', [])
                 return undefined;
             }
         },
-        toObj: function() {
+        toObj: function () {
             var feedData = window.localStorage.FeedData;
             var res = {};
-            if (feedData){
+            if (feedData) {
                 res.gpsNearby = this.get(0);
                 res.hospitalsNearby = this.get(1);
                 res.dentistsNearby = this.get(2);

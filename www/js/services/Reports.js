@@ -19,7 +19,7 @@ angular.module('MyBath.ReportsService', [])
                 reportsArray.push(report);
             }
             else {
-                reportsArray = [ report ];
+                reportsArray = [report];
             }
             window.localStorage.reports = angular.toJson(reportsArray);
         },
@@ -34,7 +34,7 @@ angular.module('MyBath.ReportsService', [])
                     method: 'POST',
                     url: 'request-url',
                     data: "message=" + message,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 });
             }
         }

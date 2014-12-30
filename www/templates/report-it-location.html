@@ -1,9 +1,9 @@
 <div class="modal">
-    <ion-header-bar>
+    <ion-header-bar class="bar-balanced">
         <h1 class="title">Report It</h1>
         <button class="button button-clear button-primary" ng-click="reportItLocationModal.hide()">Cancel</button>
     </ion-header-bar>
-    <ion-content>
+    <ion-content padding="true">
         <div class="list list-inset">
             <h3>Location</h3>
             <p>{{ currentReport.locationMessage }}</p>
@@ -16,7 +16,7 @@
                         Use my current location for report location
                     </li>
                 </ul>
-                <button type="submit" class="button button-full button-clear button-positive">Next</button>
+                <button type="submit" class="button button-full button-clear button-clear button-positive">Next</button>
             </form>
         </div>
     </ion-content>

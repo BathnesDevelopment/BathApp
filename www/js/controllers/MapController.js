@@ -42,121 +42,29 @@ angular.module('MyBath.MapController', [])
                 }
             },
             overlays: {
-                Libraries: {
-                    type: 'group',
-                    name: 'Libraries',
-                    visible: true
-                },
-                PrimarySchools: {
-                    type: 'group',
-                    name: 'Primary Schools',
-                    visible: false
-                },
-                Council_Offices: {
-                    type: 'group',
-                    name: 'Council Offices',
-                    visible: true
-                },
-                NurseryPlaySchools: {
-                    type: 'group',
-                    name: 'Play Schools',
-                    visible: false
-                },
-                SecondarySchools: {
-                    type: 'group',
-                    name: 'Secondary Schools',
-                    visible: false
-                },
-                Colleges: {
-                    type: 'group',
-                    name: 'Colleges',
-                    visible: false
-                },
-                Universities: {
-                    type: 'group',
-                    name: 'Universities',
-                    visible: true
-                },
-                ConAreas: { //TODO: Update the display of this
-                    type: 'group',
-                    name: 'Conservation Areas',
-                    visible: false
-                },
-                /*CivicAmenitySites: {
-                    type: 'group',
-                    name: 'Waste & Recyling Sites',
-                    visible: false
-                },*/
-                HealthandFitnessCentres: {
-                    type: 'group',
-                    name: 'Health & Fitness Centres',
-                    visible: false
-                },
-                PlayAreas: {
-                    type: 'group',
-                    name: 'Play Areas',
-                    visible: false
-                },
-                TennisCourts: {
-                    type: 'group',
-                    name: 'Tennis Courts',
-                    visible: false
-                },
-                Allotments: {
-                    type: 'group',
-                    name: 'Allotments',
-                    visible: true
-                },
-                MobileLibraryStops: {
-                    type: 'group',
-                    name: 'Mobile Library Stops',
-                    visible: false
-                },
-                BusStops: {
-                    type: 'group',
-                    name: 'Bus Stops',
-                    visible: false
-                },
-                Roadworks: {
-                    type: 'group',
-                    name: 'Roadworks',
-                    visible: true
-                },
-                CarParks: {
-                    type: 'group',
-                    name: 'Car Parks (static)',
-                    visible: false
-                },
-                CarParksLive: {
-                    type: 'group',
-                    name: 'Car Parks',
-                    visible: true
-                },
-                Parks: {
-                    type: 'group',
-                    name: 'Parks',
-                    visible: false
-                },
-                OpenSpaces: {
-                    type: 'group',
-                    name: 'Open Spaces',
-                    visible: false
-                },
-                PublicConveniences: {
-                    type: 'group',
-                    name: 'Public Conveniences',
-                    visible: false
-                },
-                AirQuality: {
-                    type: 'group',
-                    name: 'Air Quality Monitoring',
-                    visible: false
-                },
-                GPSurgeries: {
-                    type: 'group',
-                    name: 'GP Surgeries',
-                    visible: true
-                }
+                Libraries: { type: 'group', name: 'Libraries', visible: true },
+                PrimarySchools: { type: 'group', name: 'Primary Schools', visible: false },
+                Council_Offices: { type: 'group', name: 'Council Offices', visible: true },
+                NurseryPlaySchools: { type: 'group', name: 'Play Schools', visible: false },
+                SecondarySchools: { type: 'group', name: 'Secondary Schools', visible: false },
+                Colleges: { type: 'group', name: 'Colleges', visible: false },
+                Universities: { type: 'group', name: 'Universities', visible: true },
+                ConAreas: { /* TODO: Update the display of this */ type: 'group', name: 'Conservation Areas', visible: false },
+                //CivicAmenitySites: { type: 'group', name: 'Waste & Recyling Sites', visible: false },
+                HealthandFitnessCentres: { type: 'group', name: 'Health & Fitness Centres', visible: false },
+                PlayAreas: { type: 'group', name: 'Play Areas', visible: false },
+                TennisCourts: { type: 'group', name: 'Tennis Courts', visible: false },
+                Allotments: { type: 'group', name: 'Allotments', visible: true },
+                MobileLibraryStops: { type: 'group', name: 'Mobile Library Stops', visible: false },
+                BusStops: { type: 'group', name: 'Bus Stops', visible: false },
+                Roadworks: { type: 'group', name: 'Roadworks', visible: true },
+                CarParks: { type: 'group', name: 'Car Parks (static)', visible: false },
+                CarParksLive: { type: 'group', name: 'Car Parks', visible: true },
+                Parks: { type: 'group', name: 'Parks', visible: false },
+                OpenSpaces: { type: 'group', name: 'Open Spaces', visible: false },
+                PublicConveniences: { type: 'group', name: 'Public Conveniences', visible: false },
+                AirQuality: { type: 'group', name: 'Air Quality Monitoring', visible: false },
+                GPSurgeries: { type: 'group', name: 'GP Surgeries', visible: true }
             }
         },
         markers: $scope.markers
@@ -170,9 +78,9 @@ angular.module('MyBath.MapController', [])
     // Function: addLayer
     // Adds a layer to the map
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.addLayer = function(name, lat, lng) {
-        lat = $scope.map.center.lat;
-        lng = $scope.map.center.lng;
+    $scope.addLayer = function (name) {
+        var lat = $scope.map.center.lat;
+        var lng = $scope.map.center.lng;
 
         if ($scope.fetching[name] && $scope.fetching[name][0]) {
             return false;
@@ -192,7 +100,7 @@ angular.module('MyBath.MapController', [])
         }
     }
 
-    $scope.alreadyMarked = function(markerData) {
+    $scope.alreadyMarked = function (markerData) {
         for (var i = 0; i < $scope.markers.length; i++) {
             if (markerData === $scope.markers[i].message) { return true; }
         }
