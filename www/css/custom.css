@@ -68,6 +68,7 @@ ion-nav-view {
     background-color: #fff;
 }
 
+/*
 .leaflet-marker-icon {
     background: none !important;
     border: none !important;
@@ -110,6 +111,8 @@ ion-nav-view {
 .circle-light {
     border: 5px solid rgba(255,255,255,0.8);
 }
+
+*/
 
 .leaflet-control-layers-selector {
     min-width: 25px;

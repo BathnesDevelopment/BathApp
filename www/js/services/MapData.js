@@ -14,22 +14,22 @@ angular.module('MyBath.MapDataService', [])
 
     // List of icons - used in the layer list object
     var icons = {
-        defaultIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-bug"></i></span>' },
-        conservationIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon balanced ion-leaf"></i></span>' },
-        libraryIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-large"><i class="icon assertive ion-android-book"></i></span>' },
-        officeIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon stable ion-coffee"></i></span>' },
-        toiletIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon assertive ion-woman"><i class="icon assertive ion-man"></i></i>' },
-        parkIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon calm ion-ios7-tennisball"></i></span>' },
-        wasteIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-ios7-trash"></i></span>' },
-        carParkIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon calm ion-model-s"></i></span>' },
-        schoolIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon energized ion-ios7-home"></i></span>' },
-        roadworksIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-wrench"></i></span>' },
-        universityIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon light ion-university"></i></span>' },
-        fitnessIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon calm ion-happy"></i></span>' },
-        playSchoolIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon balanced ion-ios7-paw"></i></span>' },
-        busIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon"><i class="icon calm ion-pin"></i></span>' },
-        emptyIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '' },
-        gpIcon: { type: 'div', iconSize: [30, 30], popupAnchor: [0, 0], html: '<span class="circle-marker marker-icon-round"><i class="icon assertive ion-heart"></i></span>' }
+        defaultIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-bug"></i></span></div>' },
+        conservationIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon balanced ion-leaf"></i></span></div>' },
+        libraryIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon assertive ion-android-book"></i></span></div>' },
+        officeIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon stable ion-coffee"></i></span></div>' },
+        toiletIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon assertive ion-woman"></i><i class="icon assertive ion-man"></i></span></div>' },
+        parkIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-ios7-tennisball"></i></span></div>' },
+        wasteIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-ios7-trash"></i></span></div>' },
+        carParkIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-model-s"></i></span></div>' },
+        schoolIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon energized ion-ios7-home"></i></span></div>' },
+        roadworksIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-wrench"></i></span></div>' },
+        universityIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon light ion-university"></i></span></div>' },
+        fitnessIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-happy"></i></span></div>' },
+        playSchoolIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon balanced ion-ios7-paw"></i></span></div>' },
+        busIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-pin"></i></span></div>' },
+        emptyIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '' },
+        gpIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon assertive ion-heart"></i></span></div>'}
     };
 
     // List of layers - consist of a url and an icon (selected from icons object).
@@ -105,7 +105,8 @@ angular.module('MyBath.MapDataService', [])
                                 bgC = "#cc2311";
                             }
 
-                            icon.html = '<p class="circle-marker" style="background:' + bgC + '">' + rem + '</p>';
+                            icon.html = '<div><span>' + rem + '</span></div>';
+							icon.className = "marker-cluster marker-cluster-small";
                             title = data[i].name + "<br/>" + pFull + "% full";
                             title = title.replace("CP", "Car Park");
                             title = title.replace("P+R", "Park & Ride");

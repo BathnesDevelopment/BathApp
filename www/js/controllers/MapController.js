@@ -9,7 +9,7 @@ angular.module('MyBath.MapController', [])
 
     $scope.map = {
         defaults: {
-            tileLayer: "http://{s}.tiles.mapbox.com/v3/librarieshacked.jefmk67b/{z}/{x}/{y}.png",
+            tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
             attributionControl: false,
             maxZoom: 20,
             zoomControlPosition: 'bottomleft',
@@ -30,7 +30,7 @@ angular.module('MyBath.MapController', [])
                 MapBox: {
                     layerOptions: { attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>' },
                     name: 'Map items of interest',
-                    url: 'http://{s}.tiles.mapbox.com/v3/brysona.k5b5fb46/{z}/{x}/{y}.png',
+                    url: 'http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w',
                     type: 'xyz',
                     maxZoom: 20,
                     zoomControlPosicloseDisplayOptionscloseDisplayOptionscion: 'bottomleft',
