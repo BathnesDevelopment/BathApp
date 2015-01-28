@@ -105,8 +105,11 @@ angular.module('MyBath.MapDataService', [])
                                 bgC = "#cc2311";
                             }
 
+							icon.type = 'div';
+							icon.iconSize = [40, 40];
+							icon.popupAnchor = [0, 0];
                             icon.html = '<div><span>' + rem + '</span></div>';
-							icon.className = "marker-cluster marker-cluster-small";
+							icon.className = "marker-cluster marker-cluster-medium";
                             title = data[i].name + "<br/>" + pFull + "% full";
                             title = title.replace("CP", "Car Park");
                             title = title.replace("P+R", "Park & Ride");
@@ -222,34 +225,34 @@ angular.module('MyBath.MapDataService', [])
                                 var numno2 = adv(aqData[aqMon[i]].no2);
                                 title += "<br />NO<sub>2</sub>: " + numno2 + " ppb ";
                                 if (numno2 < 67) {
-                                    title += "<span style='background:#9CFF9C'>(1 - Low)</span>";
+                                    title += "<div><span style='background:#9CFF9C'>(1 - Low)</span></div>";
                                     maxLevel = 1;
                                 } else if (numno2 < 134) {
-                                    title += "<span style='background:#31FF00'>(2 - Low)</span>";
+                                    title += "<div><span style='background:#31FF00'>(2 - Low)</span></div>";
                                     maxLevel = 2;
                                 } else if (numno2 < 200) {
-                                    title += "<span style='background:#31CF00'>(3 - Low)</span>";
+                                    title += "<div><span style='background:#31CF00'>(3 - Low)</span></div>";
                                     maxLevel = 3;
                                 } else if (numno2 < 267) {
-                                    title += "<span style='background:#FFFF00'>(4 - Moderate)</span>";
+                                    title += "<div><span style='background:#FFFF00'>(4 - Moderate)</span></div>";
                                     maxLevel = 4;
                                 } else if (numno2 < 334) {
-                                    title += "<span style='background:#FFCF00'>(5 - Moderate)</span>";
+                                    title += "<div><span style='background:#FFCF00'>(5 - Moderate)</span></div>";
                                     maxLevel = 5;
                                 } else if (numno2 < 400) {
-                                    title += "<span style='background:#FF9A00'>(6 - Moderate)</span>";
+                                    title += "<div><span style='background:#FF9A00'>(6 - Moderate)</span></div>";
                                     maxLevel = 6;
                                 } else if (numno2 < 467) {
-                                    title += "<span style='background:#FF6464'>(7 - High)</span>";
+                                    title += "<div><span style='background:#FF6464'>(7 - High)</span></div>";
                                     maxLevel = 7;
                                 } else if (numno2 < 534) {
-                                    title += "<span style='background:#FF0000; color:white'>(8 - High)</span>";
+                                    title += "<div><span style='background:#FF0000; color:white'>(8 - High)</span></div>";
                                     maxLevel = 8;
                                 } else if (numno2 < 600) {
-                                    title += "<span style='background:#990000; color:white'>(9 - High)</span>";
+                                    title += "<div><span style='background:#990000; color:white'>(9 - High)</span></div>";
                                     maxLevel = 9;
                                 } else if (numno2 < 1000) {
-                                    title += "<span style='background:#CE30FF; color:white'>(10 - Very High)</span>";
+                                    title += "<div><span style='background:#CE30FF; color:white'>(10 - Very High)</span></div>";
                                     maxLevel = 10;
                                 } else {
                                     title += "(outlier)";
@@ -381,7 +384,11 @@ angular.module('MyBath.MapDataService', [])
                                     break;
                             }
 
-                            icon.html = '<p class = "circle-marker circle-light" style="background:' + bgC + '; color:' + fgC + '">' + maxLevel + '</p>';
+							icon.type = 'div';
+							icon.iconSize = [40, 40];
+							icon.popupAnchor = [0, 0];
+							icon.className = "marker-cluster marker-cluster-medium";
+                            icon.html = '<div><span style="background:' + bgC + '; color:' + fgC + '">' + maxLevel + '</span></div>';
                             layerData.push({ lat: parseFloat(aqData[aqMon[i]].sensor_location.latitude), lng: parseFloat(aqData[aqMon[i]].sensor_location.longitude), icon: icon, layer: "AirQuality", message: title });
                         }
                     } else if (layer === "GPSurgeries") {

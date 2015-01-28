@@ -5,11 +5,12 @@ angular.module('MyBath.MapController', [])
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.markers = [];
+
     $scope.fetching = {};
 
     $scope.map = {
         defaults: {
-            tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
+            tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
             attributionControl: false,
             maxZoom: 20,
             zoomControlPosition: 'bottomleft',
@@ -17,6 +18,16 @@ angular.module('MyBath.MapController', [])
                 weight: 10,
                 color: '#800000',
                 opacity: 1
+            }
+        },
+        maxbounds: {
+            northEast: {
+                lat: 51.439536,
+                lng: -2.278544
+            },
+            southWest: {
+                lat: 51.273101,
+                lng: -2.705955
             }
         },
         center: {
@@ -30,7 +41,7 @@ angular.module('MyBath.MapController', [])
                 MapBox: {
                     layerOptions: { attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>' },
                     name: 'Map items of interest',
-                    url: 'http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w',
+                    url: 'http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w',
                     type: 'xyz',
                     maxZoom: 20,
                     zoomControlPosicloseDisplayOptionscloseDisplayOptionscion: 'bottomleft',
@@ -49,7 +60,7 @@ angular.module('MyBath.MapController', [])
                 SecondarySchools: { type: 'group', name: 'Secondary Schools', visible: false },
                 Colleges: { type: 'group', name: 'Colleges', visible: false },
                 Universities: { type: 'group', name: 'Universities', visible: true },
-                ConAreas: { /* TODO: Update the display of this */ type: 'group', name: 'Conservation Areas', visible: false },
+                ConAreas: { type: 'group', name: 'Conservation Areas', visible: false },
                 //CivicAmenitySites: { type: 'group', name: 'Waste & Recyling Sites', visible: false },
                 HealthandFitnessCentres: { type: 'group', name: 'Health & Fitness Centres', visible: false },
                 PlayAreas: { type: 'group', name: 'Play Areas', visible: false },
@@ -68,6 +79,10 @@ angular.module('MyBath.MapController', [])
             }
         },
         markers: $scope.markers
+    };
+
+    $scope.controls = {
+        custom: [L.control.locate({ follow: true })]
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -7,7 +7,7 @@ i.listIcons {
 }
 
 .slider {
-    /* height: 100%; */
+    height: 100%;
 }
 
 .slider-slide {
@@ -34,12 +34,12 @@ i.listIcons {
             text-align: left;
             margin: 10px 0px;
         }
-        
+
 .toggle.toggle-balanced .track {
-  border-color: #ef4e3a;
-  background-color: #ef4e3a;
- }
-   
+    border-color: #ef4e3a;
+    background-color: #ef4e3a;
+}
+
 .home-card {
     text-align: center;
 }
@@ -68,72 +68,33 @@ ion-nav-view {
     background-color: #fff;
 }
 
-/*
-.leaflet-marker-icon {
-    background: none !important;
-    border: none !important;
-}
-
-.leaflet-marker-icon i {
-    font-size: 24px;
-}
-
-.circle-marker {
-    word-wrap: normal;
-    height: 3em;
-    width: 3em;
-    margin-left: auto;
-    margin-right: auto;
-    vertical-align: middle;
-    border: 5px solid rgba(255,255,255,0.5);
-    color:#fff;
-    font-weight:bold;
-    text-align:center;
-    border-radius:50%;
-    line-height:30px;
-}
-
-.marker-icon {
-    padding: 10px 5px 5px 5px;
-    background: black;
-}
-
-.marker-icon-large {
-    padding: 15px 5px 5px 5px;
-    background: black;
-}
-
-.marker-icon-round {
-    padding: 15px 6px 5px 6px;
-    background: black;
-}
-
-.circle-light {
-    border: 5px solid rgba(255,255,255,0.8);
-}
-
-*/
-
-.leaflet-control-layers-selector {
-    min-width: 25px;
-    min-height: 25px;
-}
-/*
-.ion-woman:before, .ion-man:before {
-    display: inline;
-}
-*/
 .card {
     overflow: inherit;
-}
-
-#divCardLogo {
-	/* background-color: #FFF; */
 }
 
 /*Overwrite cards hiding extra information
 This happens on portrait phone screens, and is unhelpful at best
 */
 .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
-white-space: normal;
+    white-space: normal;
+}
+
+.leaflet-popup-content-wrapper {
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 0px !important;
+}
+
+a.leaflet-popup-close-button{
+    font-size: 24px !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 5px 5px 5px 5px !important;
+    color: #0094ff !important;
+}
+
+.leaflet-popup-content{
+    margin-top: 20px !important;
 }
