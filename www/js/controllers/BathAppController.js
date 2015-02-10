@@ -335,6 +335,7 @@ angular.module('MyBath.BathAppController', [])
                         .then(function (data) {
                             if (data && data != []) {
                                 $scope.bathdata = data;
+								$scope.bathDataObject = BathData.toObj();
                                 $ionicLoading.hide();
                             }
                             else {
