@@ -88,6 +88,26 @@ angular.module('MyBath.BathAppController', [])
         // Save user data
         UserData.save($scope.userData);
         $scope.displayOptionsModal.hide();
+
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: Map Display options
+    // Options screen for map data display
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $ionicModal.fromTemplateUrl('templates/options-map-display.html', function (modal) {
+        $scope.mapDisplayOptionsModal = modal;
+    }, {
+        scope: $scope
+    });
+    $scope.mapDisplayOptions = function () {
+        $scope.mapDisplayOptionsModal.show();
+    };
+    $scope.closeMapDisplayOptions = function () {
+        // Save user data
+        UserData.save($scope.userData);
+        $scope.mapDisplayOptionsModal.hide();
+        window.updateMapData = true;
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////

@@ -54,35 +54,76 @@ angular.module('MyBath.MapController', [])
             },
             overlays: {
                 Libraries: { type: 'group', name: 'Libraries', visible: true },
-                PrimarySchools: { type: 'group', name: 'Primary Schools', visible: false },
+                PrimarySchools: { type: 'group', name: 'Primary Schools', visible: true },
                 Council_Offices: { type: 'group', name: 'Council Offices', visible: true },
-                NurseryPlaySchools: { type: 'group', name: 'Play Schools', visible: false },
-                SecondarySchools: { type: 'group', name: 'Secondary Schools', visible: false },
-                Colleges: { type: 'group', name: 'Colleges', visible: false },
+                NurseryPlaySchools: { type: 'group', name: 'Play Schools', visible: true },
+                SecondarySchools: { type: 'group', name: 'Secondary Schools', visible: true },
+                Colleges: { type: 'group', name: 'Colleges', visible: true },
                 Universities: { type: 'group', name: 'Universities', visible: true },
-                ConAreas: { type: 'group', name: 'Conservation Areas', visible: false },
-                HealthandFitnessCentres: { type: 'group', name: 'Health & Fitness Centres', visible: false },
-                PlayAreas: { type: 'group', name: 'Play Areas', visible: false },
-                TennisCourts: { type: 'group', name: 'Tennis Courts', visible: false },
+                ConAreas: { type: 'group', name: 'Conservation Areas', visible: true },
+                HealthandFitnessCentres: { type: 'group', name: 'Health & Fitness Centres', visible: true },
+                PlayAreas: { type: 'group', name: 'Play Areas', visible: true },
+                TennisCourts: { type: 'group', name: 'Tennis Courts', visible: true },
                 Allotments: { type: 'group', name: 'Allotments', visible: true },
-                MobileLibraryStops: { type: 'group', name: 'Mobile Library Stops', visible: false },
-                BusStops: { type: 'group', name: 'Bus Stops', visible: false },
+                MobileLibraryStops: { type: 'group', name: 'Mobile Library Stops', visible: true },
+                BusStops: { type: 'group', name: 'Bus Stops', visible: true },
                 Roadworks: { type: 'group', name: 'Roadworks', visible: true },
-                CarParks: { type: 'group', name: 'Car Parks (static)', visible: false },
+                CarParks: { type: 'group', name: 'Car Parks (static)', visible: true },
                 CarParksLive: { type: 'group', name: 'Car Parks', visible: true },
-                Parks: { type: 'group', name: 'Parks', visible: false },
-                OpenSpaces: { type: 'group', name: 'Open Spaces', visible: false },
-                PublicConveniences: { type: 'group', name: 'Public Conveniences', visible: false },
-                AirQuality: { type: 'group', name: 'Air Quality Monitoring', visible: false },
+                Parks: { type: 'group', name: 'Parks', visible: true },
+                OpenSpaces: { type: 'group', name: 'Open Spaces', visible: true },
+                PublicConveniences: { type: 'group', name: 'Public Conveniences', visible: true },
+                AirQuality: { type: 'group', name: 'Air Quality Monitoring', visible: true },
                 GPSurgeries: { type: 'group', name: 'GP Surgeries', visible: true }
             }
         },
         markers: $scope.markers
     };
 
+
     $scope.controls = {
         custom: [L.control.locate({ follow: true })]
     };
+
+
+    $scope.update = function() {
+        if (window.updateMapData) {
+            window.updateMapData = false;
+            console.log($scope.markers);
+            var layers = [];
+            for (var e in $scope.userData.MapDisplay) {
+                if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
+                    layers.push(e);
+                }
+            }
+
+            var isActiveLayer = function(layer) {
+                for (j = 0; j < layers.length; j++ ) {
+                    var test = layers[j];
+                    if (layer === layers[j]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            var i = $scope.markers.length;
+            var j = layers.length;
+            while (i--) {
+                if (i === -1) { break; }
+                if (!isActiveLayer($scope.markers[i].layer)) {
+                    console.warn("removed", i);
+                    $scope.markers.splice(i,1);
+                }
+            }
+            for (var e in $scope.userData.MapDisplay) {
+                if ($scope.userData.MapDisplay.hasOwnProperty(e)) {
+                    $scope.addLayer(e);
+                }
+            }
+        }
+    }
+    setInterval($scope.update,1000);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CONTROLLER FUNCTIONS
@@ -93,9 +134,13 @@ angular.module('MyBath.MapController', [])
     // Adds a layer to the map
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.addLayer = function (name) {
+        console.log($scope.markers);
         var lat = $scope.map.center.lat;
         var lng = $scope.map.center.lng;
-
+        if (!$scope.userData.MapDisplay[name]) {
+            console.log(name);
+            return;
+        }
         if ($scope.fetching[name] && $scope.fetching[name][0]) {
             return false;
         } else {
