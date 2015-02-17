@@ -14,29 +14,104 @@ angular.module('MyBath.MapDataService', [])
 
     // List of icons - used in the layer list object
     var icons = {
-        defaultIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-bug"></i></span></div>' },
-        conservationIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon balanced ion-leaf"></i></span></div>' },
-        libraryIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon assertive ion-android-book"></i></span></div>' },
-        officeIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon stable ion-coffee"></i></span></div>' },
-        toiletIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon assertive ion-woman"></i><i class="icon assertive ion-man"></i></span></div>' },
-        parkIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-ios7-tennisball"></i></span></div>' },
-        wasteIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-ios7-trash"></i></span></div>' },
-        carParkIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-model-s"></i></span></div>' },
-        schoolIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon energized ion-ios7-home"></i></span></div>' },
-        roadworksIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-wrench"></i></span></div>' },
-        universityIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon light ion-university"></i></span></div>' },
-        fitnessIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-happy"></i></span></div>' },
-        playSchoolIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon balanced ion-ios7-paw"></i></span></div>' },
-        busIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon calm ion-pin"></i></span></div>' },
+        defaultIcon: {
+            type: "awesomeMarker",
+            icon: "bug",
+            markerColor: "red",
+            prefix: "ion"
+        },
+        conservationIcon: {
+            type: "awesomeMarker",
+            icon: "leaf",
+            markerColor: "darkred",
+            prefix: "ion"
+        },
+        libraryIcon: {
+            type: "awesomeMarker",
+            icon: "android-book",
+            markerColor: "orange",
+            prefix: "ion"
+        },
+        officeIcon: {
+            type: "awesomeMarker",
+            icon: "coffee",
+            markerColor: "green",
+            prefix: "ion"
+        },
+        toiletIcon: {
+            type: "awesomeMarker",
+            icon: "woman",
+            markerColor: "darkgreen",
+            prefix: "ion"
+        },
+        parkIcon: {
+            type: "awesomeMarker",
+            icon: "tennisball",
+            markerColor: "blue",
+            prefix: "ion"
+        },
+        wasteIcon: {
+            type: "awesomeMarker",
+            icon: "trash",
+            markerColor: "purple",
+            prefix: "ion"
+        },
+        carParkIcon: {
+            type: "awesomeMarker",
+            icon: "model-s",
+            markerColor: "darkpuple",
+            prefix: "ion"
+        },
+        schoolIcon: {
+            type: "awesomeMarker",
+            icon: "home",
+            markerColor: "cadetblue",
+            prefix: "ion"
+        },
+        roadworksIcon: {
+            type: "awesomeMarker",
+            icon: "wrench",
+            markerColor: "red",
+            prefix: "ion"
+        },
+        universityIcon: {
+            type: "awesomeMarker",
+            icon: "university",
+            markerColor: "darkred",
+            prefix: "ion"
+        },
+        fitnessIcon: {
+            type: "awesomeMarker",
+            icon: "happy",
+            markerColor: "orange",
+            prefix: "ion"
+        },
+        playSchoolIcon: {
+            type: "awesomeMarker",
+            icon: "ios7-paw",
+            markerColor: "green",
+            prefix: "ion"
+        },
+        busIcon: {
+            type: "awesomeMarker",
+            icon: "ios7-paw",
+            markerColor: "darkgreen",
+            prefix: "ion"
+        },
         emptyIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '' },
-        gpIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '<div><span><i class="icon assertive ion-heart"></i></span></div>'}
+        gpIcon: {
+            type: "awesomeMarker",
+            icon: "heart",
+            markerColor: "blue",
+            prefix: "ion"
+        }
     };
 
     // List of layers - consist of a url and an icon (selected from icons object).
     var layerList = {
         Libraries: { url: start + NorthEastPlaceholder + '&ActiveLayer=Libraries', icon: icons.libraryIcon },
         MobileLibraryStops: { url: start + NorthEastPlaceholder + '&ActiveLayer=MobileLibraryStops', icon: icons.libraryIcon },
-        CouncilOffices: { url: start + NorthEastPlaceholder + '&ActiveLayer=Council_Offices', icon: icons.officeIcon },
+        Council_Offices: { url: start + NorthEastPlaceholder + '&ActiveLayer=Council_Offices', icon: icons.officeIcon},
         NurseryPlaySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=NurseryPlaySchools', icon: icons.playSchoolIcon },
         PrimarySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=PrimarySchools', icon: icons.schoolIcon },
         SecondarySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=SecondarySchools', icon: icons.schoolIcon },
@@ -93,7 +168,7 @@ angular.module('MyBath.MapDataService', [])
                                 rem = 0;
                             }
 
-                            icon = Object.create(layerList[layer].icon);
+                            icon = Object.create(layerList[layer].icon); //copy
                             bgC = "#66cc33";
 
                             // Change the colour if it's almost full
