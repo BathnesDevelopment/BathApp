@@ -1,7 +1,7 @@
 angular.module('MyBath.MapDataService', [])
 /**
  * Factory: Map Data
- * 
+ *
 */
 .factory('MapData', function ($http, $q, DataTransformations) {
 
@@ -98,7 +98,12 @@ angular.module('MyBath.MapDataService', [])
             markerColor: "darkgreen",
             prefix: "ion"
         },
-        emptyIcon: { type: 'div', iconSize: [40, 40], popupAnchor: [0, 0], className:'marker-cluster marker-cluster-medium', html: '' },
+        emptyIcon: {
+            type: 'div',
+            iconSize: [40, 40],
+            popupAnchor: [0, 0],
+            className: 'marker-cluster marker-cluster-medium',
+            html: '' },
         gpIcon: {
             type: "awesomeMarker",
             icon: "heart",
@@ -109,29 +114,98 @@ angular.module('MyBath.MapDataService', [])
 
     // List of layers - consist of a url and an icon (selected from icons object).
     var layerList = {
-        Libraries: { url: start + NorthEastPlaceholder + '&ActiveLayer=Libraries', icon: icons.libraryIcon },
-        MobileLibraryStops: { url: start + NorthEastPlaceholder + '&ActiveLayer=MobileLibraryStops', icon: icons.libraryIcon },
-        Council_Offices: { url: start + NorthEastPlaceholder + '&ActiveLayer=Council_Offices', icon: icons.officeIcon},
-        NurseryPlaySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=NurseryPlaySchools', icon: icons.playSchoolIcon },
-        PrimarySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=PrimarySchools', icon: icons.schoolIcon },
-        SecondarySchools: { url: start + NorthEastPlaceholder + '&ActiveLayer=SecondarySchools', icon: icons.schoolIcon },
-        Colleges: { url: start + NorthEastPlaceholder + '&ActiveLayer=Colleges', icon: icons.schoolIcon },
-        Universities: { url: start + NorthEastPlaceholder + '&ActiveLayer=Universities', icon: icons.universityIcon },
-        CivicAmenitySites: { url: start + NorthEastPlaceholder + '&ctiveLayer=CivicAmenitySites', icon: icons.wasteIcon },
-        HealthandFitnessCentres: { url: start + NorthEastPlaceholder + '&ActiveLayer=HealthandFitnessCentres', icon: icons.fitnessIcon },
-        PlayAreas: { url: start + NorthEastPlaceholder + '&ActiveLayer=PlayAreas', icon: icons.parkIcon },
-        TennisCourts: { url: start + NorthEastPlaceholder + '&ActiveLayer=TennisCourts', icon: icons.parkIcon },
-        Parks: { url: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastPlaceholder, icon: icons.parkIcon },
-        OpenSpaces: { url: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastPlaceholder, icon: icons.parkIcon },
-        Allotments: { url: start + NorthEastPlaceholder + '&ActiveLayer=Allotments', icon: icons.conservationIcon },
-        ConAreas: { url: start + NorthEastPlaceholder + '&ActiveLayer=ConAreas', icon: icons.conservationIcon },
-        BusStops: { url: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=25' + NorthEastPlaceholder + '&ActiveLayer=BusStops', icon: icons.busIcon },
-        Roadworks: { url: start + NorthEastPlaceholder + '&ActiveLayer=Roadworks', icon: icons.roadworksIcon },
-        CarParks: { url: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastPlaceholder, icon: icons.carParkIcon },
-        PublicConveniences: { url: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastPlaceholder, icon: icons.toiletIcon },
-        CarParksLive: { url: "http://data.bathhacked.org/resource/u3w2-9yme.json", icon: icons.emptyIcon },
-        AirQuality: { url: "http://data.bathhacked.org/resource/hqr9-djir.json?$order=datetime%20desc", icon: icons.emptyIcon },
-        GPSurgeries: { url: "http://data.bathhacked.org/resource/pt6r-rckg.json", icon: icons.gpIcon },
+        Libraries: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=Libraries',
+            icon: icons.libraryIcon
+        },
+        MobileLibraryStops: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=MobileLibraryStops',
+            icon: icons.libraryIcon
+        },
+        Council_Offices: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=Council_Offices',
+            icon: icons.officeIcon
+        },
+        NurseryPlaySchools: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=NurseryPlaySchools',
+            icon: icons.playSchoolIcon
+        },
+        PrimarySchools: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=PrimarySchools',
+            icon: icons.schoolIcon
+        },
+        SecondarySchools: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=SecondarySchools',
+            icon: icons.schoolIcon
+        },
+        Colleges: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=Colleges',
+            icon: icons.schoolIcon
+        },
+        Universities: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=Universities',
+            icon: icons.universityIcon
+        },
+        CivicAmenitySites: {
+            url: start + NorthEastPlaceholder + '&ctiveLayer=CivicAmenitySites',
+            icon: icons.wasteIcon
+        },
+        HealthandFitnessCentres: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=HealthandFitnessCentres',
+            icon: icons.fitnessIcon
+        },
+        PlayAreas: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=PlayAreas',
+            icon: icons.parkIcon
+        },
+        TennisCourts: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=TennisCourts',
+            icon: icons.parkIcon
+        },
+        Parks: {
+            url: start2 + 'ParksOpenSpaces&ActiveLayer=Parks' + NorthEastPlaceholder,
+            icon: icons.parkIcon
+        },
+        OpenSpaces: {
+            url: start2 + 'ParksOpenSpaces&ActiveLayer=OpenSpaces' + NorthEastPlaceholder,
+            icon: icons.parkIcon
+        },
+        Allotments: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=Allotments',
+            icon: icons.conservationIcon
+        },
+        ConAreas: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=ConAreas',
+            icon: icons.conservationIcon
+        },
+        BusStops: {
+            url: 'https://isharemaps.bathnes.gov.uk/MapGetImage.aspx?MapSource=BathNES/banes&RequestType=GeoJSON&ServiceAction=ShowMyClosest&ActiveTool=MultiInfo&mapid=-1&SearchType=findMyNearest&Distance=500&MaxResults=25' + NorthEastPlaceholder + '&ActiveLayer=BusStops',
+            icon: icons.busIcon
+        },
+        Roadworks: {
+            url: start + NorthEastPlaceholder + '&ActiveLayer=Roadworks',
+            icon: icons.roadworksIcon
+        },
+        CarParks: {
+            url: start2 + 'CarParks&ActiveLayer=CarParks' + NorthEastPlaceholder,
+            icon: icons.carParkIcon
+        },
+        PublicConveniences: {
+            url: start2 + 'Public_Infrastructure&ActiveLayer=PublicConveniences' + NorthEastPlaceholder,
+            icon: icons.toiletIcon
+        },
+        CarParksLive: {
+            url: "http://data.bathhacked.org/resource/u3w2-9yme.json",
+            icon: icons.emptyIcon
+        },
+        AirQuality: {
+            url: "http://data.bathhacked.org/resource/hqr9-djir.json?$order=datetime%20desc",
+            icon: icons.emptyIcon
+        },
+        GPSurgeries: {
+            url: "http://data.bathhacked.org/resource/pt6r-rckg.json",
+            icon: icons.gpIcon
+        }
     };
 
     return {
