@@ -61,7 +61,6 @@ angular.module('MyBath.MapController', [])
                 Colleges: { type: 'group', name: 'Colleges', visible: false },
                 Universities: { type: 'group', name: 'Universities', visible: true },
                 ConAreas: { type: 'group', name: 'Conservation Areas', visible: false },
-                //CivicAmenitySites: { type: 'group', name: 'Waste & Recyling Sites', visible: false },
                 HealthandFitnessCentres: { type: 'group', name: 'Health & Fitness Centres', visible: false },
                 PlayAreas: { type: 'group', name: 'Play Areas', visible: false },
                 TennisCourts: { type: 'group', name: 'Tennis Courts', visible: false },
