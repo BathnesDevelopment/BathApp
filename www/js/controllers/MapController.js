@@ -80,10 +80,26 @@ angular.module('MyBath.MapController', [])
         markers: $scope.markers
     };
 
-
     $scope.controls = {
         custom: [L.control.locate({ follow: true })]
     };
+
+    window.mapDisplayOptions = function() {
+        // MyControl.onAdd doesn't have access to the correct $scope
+        $scope.mapDisplayOptionsModal.show();
+    };
+
+    var layerControl = L.control();
+    layerControl.setPosition('topright');
+    layerControl.onAdd = function () {
+        var container = L.DomUtil.create('div', 'leaflet-bar');
+        container.innerHTML = '<button onclick="mapDisplayOptions()"><i class="fa fa-cog"></i></button>'
+        return container;
+    }
+
+    $scope.controls.custom.push(layerControl);
+    console.warn($scope.controls.custom);
+
 
 
     $scope.update = function() {
@@ -112,7 +128,6 @@ angular.module('MyBath.MapController', [])
             while (i--) {
                 if (i === -1) { break; }
                 if (!isActiveLayer($scope.markers[i].layer)) {
-                    console.warn("removed", i);
                     $scope.markers.splice(i,1);
                 }
             }
@@ -134,11 +149,9 @@ angular.module('MyBath.MapController', [])
     // Adds a layer to the map
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.addLayer = function (name) {
-        console.log($scope.markers);
         var lat = $scope.map.center.lat;
         var lng = $scope.map.center.lng;
         if (!$scope.userData.MapDisplay[name]) {
-            console.log(name);
             return;
         }
         if ($scope.fetching[name] && $scope.fetching[name][0]) {

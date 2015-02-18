@@ -98,3 +98,12 @@ a.leaflet-popup-close-button{
 .leaflet-popup-content{
     margin-top: 20px !important;
 }
+
+/**
+  * Removes the layers control
+  * doesn't look like there's an easy fix for this
+  * https://github.com/tombatossals/angular-leaflet-directive/issues/130
+**/
+.leaflet-control-layers.leaflet-control {
+    display: none;
+}
