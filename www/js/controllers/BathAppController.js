@@ -21,10 +21,6 @@ angular.module('MyBath.BathAppController', [])
     $scope.bathDataObject = BathData.toObj();
     $scope.feedData = FeedData.all();
     $scope.feedDataObject = FeedData.toObj();
-    //FeedData.fetchAll().then(function() {
-    //    $scope.feedDataObject = FeedData.toObj();
-    //console.log($scope.feedDataObject); // TODO: add this to localData
-    //});
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
@@ -529,12 +525,6 @@ angular.module('MyBath.BathAppController', [])
         navigator.geolocation.getCurrentPosition(
             function (position) {
                 $scope.currentLocation = position;
-                /*
-                 * console.log('Latitude: ' + position.coords.latitude + '\n' +
-                 *      'Longitude: ' + position.coords.longitude + '\n' +
-                 *      'Accuracy: ' + position.coords.accuracy + '\n' +
-                 *      'Timestamp: ' + position.timestamp); // debug
-                 */
 
                 $ionicLoading.hide();
                 $scope.currentReport.useLocation = true;
@@ -543,7 +533,7 @@ angular.module('MyBath.BathAppController', [])
                 $scope.reportItLocationModal.show();
             },
             function (error) {
-                console.log('code: ' + error.code + '\n' +
+                console.warn('code: ' + error.code + '\n' +
                       'message: ' + error.message + '\n'); // debug
                 $ionicLoading.hide();
                 $scope.currentReport.locationMessage = "Your location was not detected.";
@@ -569,7 +559,7 @@ angular.module('MyBath.BathAppController', [])
                 isHtml: false
             });
         } catch (err) {
-            console.log(err.message);
+            console.warn(err.message);
             window.location.href = "mailto:councilconnect@bathnes.gov.uk";
         }
     };

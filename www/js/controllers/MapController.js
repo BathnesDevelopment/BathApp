@@ -98,14 +98,10 @@ angular.module('MyBath.MapController', [])
     }
 
     $scope.controls.custom.push(layerControl);
-    console.warn($scope.controls.custom);
-
-
 
     $scope.update = function() {
         if (window.updateMapData) {
             window.updateMapData = false;
-            console.log($scope.markers);
             var layers = [];
             for (var e in $scope.userData.MapDisplay) {
                 if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
