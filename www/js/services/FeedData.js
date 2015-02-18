@@ -98,9 +98,7 @@ angular.module('MyBath.FeedDataService', [])
                             results[i].address += data.feed.entry[i].content.organisationSummary.address.postcode.__text;
                             if (data.feed.entry[i].content.organisationSummary.contact.telephone) {
                                 results[i].tel = data.feed.entry[i].content.organisationSummary.contact.telephone.__text;
-                            } //else {
-                            //  console.warn("no tel: ",data.feed.entry[i]);
-                            //}
+                            }
                             results[i].lat = data.feed.entry[i].content.organisationSummary.geographicCoordinates.latitude.__text;
                             results[i].lon = data.feed.entry[i].content.organisationSummary.geographicCoordinates.longitude.__text;
                         }

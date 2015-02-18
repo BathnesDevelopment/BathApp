@@ -1,0 +1,50 @@
+<div class="modal">
+    <ion-header-bar class="bar-balanced">
+        <h1 class="title">Display options</h1>
+        <button class="button button-clear button-primary" ng-click="closeMapDisplayOptions()">Close</button>
+    </ion-header-bar>
+    <ion-content>
+        <ul class="list">
+            <li class="item item-toggle">Libraries
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.Libraries">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">Council Offices
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.Council_Offices">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">Colleges
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.Colleges">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">Universities
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.Universities">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">Live Car Park Data
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.CarParksLive">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+    </ion-content>
+</div>

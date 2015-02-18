@@ -66,19 +66,6 @@ angular.module('MyBath.DataTransformations', [])
         // uses a canvas element to store an image as a base 64 URL
         URLtoBase64: function (url) {
             return url;
-            /* var canvas = document.createElement("canvas");
-            var img = new Image();
-            img.src = url;
-            canvas.height = img.height; 
-            canvas.width = img.width;
-    
-            var cc = canvas.getContext("2d");
-            cc.drawImage(img, 0, 0);
-    
-            var res = canvas.toDataURL("image/jpeg");
-            console.log(res);
-            canvas.remove();
-            return res; */
         },
         // Method: DataTransformations.NEtoLL()
         // Input: Northing/Easting Coordinates
