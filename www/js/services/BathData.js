@@ -191,6 +191,7 @@ angular.module('MyBath.BathDataService', [])
                         if (res && res.Results && res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby) {
                             res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby = DataTransformations.objectToArray(res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby);
                             for (i = 0; i < res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.length ; i++) {
+                                res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].name = res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i]._;
                                 geo = DataTransformations.NEtoLL(res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].MapSpurE, res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby.MapSpurN);
                                 res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].lat = geo.latitude;
                                 res.Results.Nurseries_Pre_Schools_and_Out_of_School_Childcare_Nearby[i].lon = geo.longitude;
@@ -233,6 +234,7 @@ angular.module('MyBath.BathDataService', [])
                         if (res && res.Results && res.Results.Colleges_Nearby) {
                             res.Results.Colleges_Nearby = DataTransformations.objectToArray(res.Results.Colleges_Nearby);
                             for (i = 0; i < res.Results.Colleges_Nearby.length ; i++) {
+                                res.Results.Colleges_Nearby[i].name = res.Results.Colleges_Nearby[i]._;
                                 geo = DataTransformations.NEtoLL(res.Results.Colleges_Nearby[i].MapSpurE, res.Results.Colleges_Nearby[i].MapSpurN);
                                 res.Results.Colleges_Nearby[i].lat = geo.latitude;
                                 res.Results.Colleges_Nearby[i].lon = geo.longitude;
@@ -246,6 +248,7 @@ angular.module('MyBath.BathDataService', [])
                             // ishare only returns 8 characters in the string for some reason
                             // This should get fixed, but at the moment, this fixes the display for the 2 major universities
                             for (i = 0; i < res.Results.Universities_Nearby.length; i++) {
+                                res.Results.Universities_Nearby[i].name = res.Results.Universities_Nearby[i]._;
                                 if (res.Results.Universities_Nearby[i].___ == "Claverto") {
                                     res.Results.Universities_Nearby[i].___ = "Claverton Down";
                                 }
@@ -281,6 +284,7 @@ angular.module('MyBath.BathDataService', [])
                         if (res && res.Results) {
                             res.Results.Parks_or_Open_Spaces_Nearby = DataTransformations.objectToArray(res.Results.Parks_or_Open_Spaces_Nearby);
                             for (i = 0; i < res.Results.Parks_or_Open_Spaces_Nearby.length ; i++) {
+                                res.Results.Parks_or_Open_Spaces_Nearby[i].name = res.Results.Parks_or_Open_Spaces_Nearby[i]._.replace("&#39;","'");
                                 geo = DataTransformations.NEtoLL(res.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurE, res.Results.Parks_or_Open_Spaces_Nearby[i].MapSpurN);
                                 res.Results.Parks_or_Open_Spaces_Nearby[i].lat = geo.latitude;
                                 res.Results.Parks_or_Open_Spaces_Nearby[i].lon = geo.longitude;
@@ -291,6 +295,7 @@ angular.module('MyBath.BathDataService', [])
                         if (res && res.Results && res.Results.Play_Areas_Nearby) {
                             res.Results.Play_Areas_Nearby = DataTransformations.objectToArray(res.Results.Play_Areas_Nearby);
                             for (i = 0; i < res.Results.Play_Areas_Nearby.length ; i++) {
+                                res.Results.Play_Areas_Nearby[i].name = res.Results.Play_Areas_Nearby[i]._;
                                 geo = DataTransformations.NEtoLL(res.Results.Play_Areas_Nearby[i].MapSpurE, res.Results.Play_Areas_Nearby[i].MapSpurN);
                                 res.Results.Play_Areas_Nearby[i].lat = geo.latitude;
                                 res.Results.Play_Areas_Nearby[i].lon = geo.longitude;
@@ -306,6 +311,7 @@ angular.module('MyBath.BathDataService', [])
                             } else {
                                 res.Results.Allotments_Nearby = DataTransformations.objectToArray(res.Results.Allotments_Nearby);
                                 for (i = 0; i < res.Results.Allotments_Nearby.length ; i++) {
+                                    res.Results.Allotments_Nearby[i].name = res.Results.Allotments_Nearby[i]._.replace("&#39;","'");
                                     res.Results.Allotments_Nearby[i].ProvidedAdjusted = res.Results.Allotments_Nearby[i].Provided__by.replace('amp;', '');
                                     geo = DataTransformations.NEtoLL(res.Results.Allotments_Nearby[i].MapSpurE, res.Results.Allotments_Nearby[i].MapSpurN);
                                     res.Results.Allotments_Nearby[i].lat = geo.latitude;
@@ -340,6 +346,7 @@ angular.module('MyBath.BathDataService', [])
                             for (i = 0; i < res.Results.Planning_Applications_Nearby.length ; i++) {
                                 res.Results.Planning_Applications_Nearby[i].title = res.Results.Planning_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
                                 res.Results.Planning_Applications_Nearby[i].url = res.Results.Planning_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                                res.Results.Planning_Applications_Nearby[i].url = "http://isharemaps.bathnes.gov.uk" + res.Results.Planning_Applications_Nearby[i].url
                                 geo = DataTransformations.NEtoLL(res.Results.Planning_Applications_Nearby[i].MapSpurE, res.Results.Planning_Applications_Nearby[i].MapSpurN);
                                 res.Results.Planning_Applications_Nearby[i].lat = geo.latitude;
                                 res.Results.Planning_Applications_Nearby[i].lon = geo.longitude;
@@ -356,6 +363,7 @@ angular.module('MyBath.BathDataService', [])
                             for (i = 0; i < res.Results.New_Licensing_Applications_Nearby.length ; i++) {
                                 res.Results.New_Licensing_Applications_Nearby[i].title = res.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
                                 res.Results.New_Licensing_Applications_Nearby[i].url = res.Results.New_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                                res.Results.New_Licensing_Applications_Nearby[i].url = "http://isharemaps.bathnes.gov.uk" + res.Results.New_Licensing_Applications_Nearby[i].url
                                 geo = DataTransformations.NEtoLL(res.Results.New_Licensing_Applications_Nearby[i].MapSpurE, res.Results.New_Licensing_Applications_Nearby[i].MapSpurN);
                                 res.Results.New_Licensing_Applications_Nearby[i].lat = geo.latitude;
                                 res.Results.New_Licensing_Applications_Nearby[i].lon = geo.longitude;
@@ -369,6 +377,8 @@ angular.module('MyBath.BathDataService', [])
                             for (i = 0; i < res.Results.Issued_Licensing_Applications_Nearby.length ; i++) {
                                 res.Results.Issued_Licensing_Applications_Nearby[i].title = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[1].replace('amp;', '');
                                 res.Results.Issued_Licensing_Applications_Nearby[i].url = res.Results.Issued_Licensing_Applications_Nearby[i].Reference.split('|')[0].split('amp;').join('');
+                                res.Results.Issued_Licensing_Applications_Nearby[i].url = "http://isharemaps.bathnes.gov.uk" + res.Results.Issued_Licensing_Applications_Nearby[i].url
+                                res.Results.Issued_Licensing_Applications_Nearby[i].Licence = res.Results.Issued_Licensing_Applications_Nearby[i].LINK;
                                 geo = DataTransformations.NEtoLL(res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurE, res.Results.Issued_Licensing_Applications_Nearby[i].MapSpurN);
                                 res.Results.Issued_Licensing_Applications_Nearby[i].lat = geo.latitude;
                                 res.Results.Issued_Licensing_Applications_Nearby[i].lon = geo.longitude;
@@ -381,6 +391,7 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.Bus_Stops_Nearby = DataTransformations.objectToArray(res.Results.Bus_Stops_Nearby);
                             for (i = 0; i < res.Results.Bus_Stops_Nearby.length ; i++) {
                                 geo = DataTransformations.NEtoLL(res.Results.Bus_Stops_Nearby[i].MapSpurE, res.Results.Bus_Stops_Nearby[i].MapSpurN);
+                                res.Results.Bus_Stops_Nearby[i].name = res.Results.Bus_Stops_Nearby[i].Bus_stop_name;
                                 res.Results.Bus_Stops_Nearby[i].lat = geo.latitude;
                                 res.Results.Bus_Stops_Nearby[i].lon = geo.longitude;
                             }
@@ -392,6 +403,7 @@ angular.module('MyBath.BathDataService', [])
                             res.Results.School_Crossings_Nearby = DataTransformations.objectToArray(res.Results.School_Crossings_Nearby);
                             for (i = 0; i < res.Results.School_Crossings_Nearby.length ; i++) {
                                 geo = DataTransformations.NEtoLL(res.Results.School_Crossings_Nearby[i].MapSpurE, res.Results.School_Crossings_Nearby[i].MapSpurN);
+                                res.Results.School_Crossings_Nearby[i].name = res.Results.School_Crossings_Nearby[i]._;
                                 res.Results.School_Crossings_Nearby[i].lat = geo.latitude;
                                 res.Results.School_Crossings_Nearby[i].lon = geo.longitude;
                             }
@@ -405,6 +417,7 @@ angular.module('MyBath.BathDataService', [])
                             }
                             res.Results["Parking Zones"] = DataTransformations.objectToArray(res.Results["Parking Zones"]);
                             for (i = 0; i < res.Results.Parking_Zones.length ; i++) {
+                                res.Results.Parking_Zones[i].name = res.Results.Parking_Zones[i]._;
                                 geo = DataTransformations.NEtoLL(res.Results.Parking_Zones[i].MapSpurE, res.Results.Parking_Zones[i].MapSpurN);
                                 res.Results.Parking_Zones[i].lat = geo.latitude;
                                 res.Results.Parking_Zones[i].lon = geo.longitude;

@@ -12,20 +12,6 @@ angular.module('MyBath.UserDataService', [])
             if (!userData) {
                 // Defaults
                 userData = { "LocalHidden": {
-                        Dentists: false,
-                        Pharmicies: false,
-                        Hospitals: false,
-                        GPs: true,
-                        Libraries: true,
-                        Schools: true,
-                        Roadworks: true,
-                        CarPark: true,
-                        Allotments: true,
-                        Bus: true,
-                        Crossings: true,
-                        Licenses: false,
-                        ParksAndRec: true,
-                        Planning: false, Sports: true
                     }};
             }
             return angular.fromJson(userData);

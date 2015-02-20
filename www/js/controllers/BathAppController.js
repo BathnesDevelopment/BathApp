@@ -270,7 +270,7 @@ angular.module('MyBath.BathAppController', [])
         });
         $scope.uprn = uId;
         var LatLong = DataTransformations.NEtoLL(parseFloat(X), parseFloat(Y));
-        UserData.save({ "address": address, "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "lat": LatLong.latitude, "lon": LatLong.longitude, "LocalHidden": { Dentists: false, Pharmicies: false, Hospitals: false, GPs: true, Libraries: true, Schools: true, Roadworks: true, CarPark: true, Allotments: true, Bus: true, Crossings: true, Licenses: false, ParksAndRec: true, Planning: false, Sports: true } });
+        UserData.save({ "address": address, "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "lat": LatLong.latitude, "lon": LatLong.longitude, "LocalHidden": { } });
         $scope.userData = UserData.all();
         FeedData.fetchAll(LatLong.latitude, LatLong.longitude)
             .then(function (data) {
