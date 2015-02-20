@@ -5,127 +5,135 @@
 		refreshing-icon="ion-loading-c">
 	</ion-refresher>
     <h2>My Council</h2>
-    <div class="card">
-        <div class="item">
-            <h2>Bath & North East Somerset Council</h2>
-            <p><em>The</em> place to live and work</p>
+    <div class="row responsive-md">
+        <div class="col col-center">
+            <div class="card">
+                <div class="item">
+                    <h2>Bath & North East Somerset Council</h2>
+                    <p><em>The</em> place to live and work</p>
+                </div>
+                <div class="item tabs tabs-primary tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('Bath & North East Somerset Council App', 'The Bath & North East Somerset Council app provides reporting facilities to easily connect with the Council and report issues')">
+                        <i class="icon positive ion-ios7-information"></i>
+                    </a>
+                    <a class="tab-item" browse-to="http://www.bathnes.gov.uk">
+                        <i class="icon positive ion-android-earth"></i>
+                    </a>
+                    <a class="tab-item" browse-to="https://twitter.com/bathnes">
+                        <i class="icon calm ion-social-twitter"></i>
+                    </a>
+                </div>
+                <div class="item tabs tabs-primary tabs-icon-left">
+                    <a class="tab-item" href="sms://07797806545?body=BathAppMessage: ">
+                        <i class="icn energized ion-android-keypad"></i>
+                    </a>
+                    <a class="tab-item" ng-click="emailCouncilConnect()">
+                        <i class="icon royal ion-at"></i>
+                    </a>
+                    <a class="tab-item" href="tel:01225394041">
+                        <i class="icon balanced ion-ios7-telephone"></i>
+                    </a>
+                </div>
+            </div>
+        </div><div class="col col-center">
+            <h3 style = "text-align:center">Your councillors</h3>
+            <p ng-show="!uprn">No location set</p>
+            <div class="list card">
+                <div class="item item-divider">
+                    Contact details
+                </div>
+                <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number1">
+                    <img ng-src="{{bathDataObject.yourCouncillors.img1}}" />
+                    <h2>{{bathDataObject.yourCouncillors.number1}}</h2>
+                    <p>{{bathDataObject.yourCouncillors.telephone1}}</p>
+                </div>
+                <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone1 || bathDataObject.yourCouncillors.info1">
+                    <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone1" browse-to="tel:{{bathDataObject.yourCouncillors.telephone1}}">
+                        <i class="icon ion-ios7-telephone positive"></i> Call
+                    </a>
+                    <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info1" browse-to="{{bathDataObject.yourCouncillors.info1}}">
+                        <i class="icon ion-person assertive"></i> More details
+                    </a>
+                </div>
+                <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number2">
+                    <img ng-src="{{bathDataObject.yourCouncillors.img2}}" />
+                    <h2>{{bathDataObject.yourCouncillors.number2}}</h2>
+                    <p>{{bathDataObject.yourCouncillors.telephone2}}</p>
+                </div>
+                <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone2 || councillor.info2">
+                    <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone2" browse-to="tel:{{bathDataObject.yourCouncillors.telephone2}}">
+                        <i class="icon ion-ios7-telephone positive"></i> Call
+                    </a>
+                    <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info2" browse-to="{{bathDataObject.yourCouncillors.info2}}">
+                        <i class="icon ion-person assertive"></i> More details
+                    </a>
+                </div>
+                <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number3">
+                    <img ng-src="{{bathDataObject.yourCouncillors.img3}}" />
+                    <h2>{{bathDataObject.yourCouncillors.number3}}</h2>
+                    <p>{{bathDataObject.yourCouncillors.telephone3}}</p>
+                </div>
+                <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone3 || bathDataObject.yourCouncillors.info3">
+                    <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone3" browse-to="tel:{{bathDataObject.yourCouncillors.telephone3}}">
+                        <i class="icon ion-ios7-telephone positive"></i> Call
+                    </a>
+                    <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info3" browse-to="{{bathDataObject.yourCouncillors.info3}}">
+                        <i class="icon ion-person assertive"></i> More details
+                    </a>
+                </div>
+            </div>
+        </div><div class="col">
+            <h3 style = "text-align:center">Nearest council offices</h3>
+            <p ng-show="!uprn">No location set</p>
+            <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information available on the Council's website</button>
+            <div class="list card" ng-repeat="office in bathDataObject.councilOffices.Results.____________________________">
+                <div class="item item-divider">
+                    {{office.title | title}}
+                    <p>Distance: {{office.Distance | MetresToMiles}} miles</p>
+                </div>
+            </div>
         </div>
-        <div class="item tabs tabs-primary tabs-icon-left">
-            <a class="tab-item" ng-click="showPopup('Bath & North East Somerset Council App', 'The Bath & North East Somerset Council app provides reporting facilities to easily connect with the Council and report issues')">
-                <i class="icon positive ion-ios7-information"></i>
-            </a>
-            <a class="tab-item" browse-to="http://www.bathnes.gov.uk">
-                <i class="icon positive ion-android-earth"></i>
-            </a>
-            <a class="tab-item" browse-to="https://twitter.com/bathnes">
-                <i class="icon calm ion-social-twitter"></i>
-            </a>
+    </div><div class="row responsive-md">
+    <div class="col" ng-show="listedBuilding">
+        <h3 style = "text-align:center">Listed building status</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="listedstatus in bathDataObject.listedBuilding.Results">
+            <div class="item item-divider">
+                Address
+            </div>
+            <div class="item item-body">
+                {{listedstatus.Description}}<br />
+                <b>Grading:</b> {{listedstatus.Grading}}
+            </div>
         </div>
-        <div class="item tabs tabs-primary tabs-icon-left">
-            <a class="tab-item" href="sms://07797806545?body=BathAppMessage: ">
-                <i class="icn energized ion-android-keypad"></i>
-            </a>
-            <a class="tab-item" ng-click="emailCouncilConnect()">
-                <i class="icon royal ion-at"></i>
-            </a>
-            <a class="tab-item" href="tel:01225394041">
-                <i class="icon balanced ion-ios7-telephone"></i>
-            </a>
+    </div><div class ="col">
+        <h3>Bin collection dates</h3>
+        <p ng-show="!uprn">No location set</p>
+        <div class="list card" ng-repeat="collection in bathDataObject.binCollection.Results">
+            <div class="item item-divider">
+                Waste: {{collection.waste}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection">
+                    <i class="icon ion-earth assertive"></i> Waste info
+                </a>
+            </div>
+            <div class="item item-divider">
+                Recycling: {{collection.recycling}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle">
+                    <i class="icon ion-earth assertive"></i> Recycling info
+                </a>
+            </div>
+            <div class="item item-divider">
+                Garden: {{collection.garden}}
+            </div>
+            <div class="item tabs tabs-icon-right">
+                <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost">
+                    <i class="icon ion-earth assertive"></i> Garden waste
+                </a>
+            </div>
         </div>
-    </div>
-    <h3>Your councillors</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card">
-        <div class="item item-divider">
-            Contact details
-        </div>
-        <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number1">
-            <img ng-src="{{bathDataObject.yourCouncillors.img1}}" />
-            <h2>{{bathDataObject.yourCouncillors.number1}}</h2>
-            <p>{{bathDataObject.yourCouncillors.telephone1}}</p>
-        </div>
-        <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone1 || bathDataObject.yourCouncillors.info1">
-            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone1" browse-to="tel:{{bathDataObject.yourCouncillors.telephone1}}">
-                <i class="icon ion-ios7-telephone positive"></i> Call
-            </a>
-            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info1" browse-to="{{bathDataObject.yourCouncillors.info1}}">
-                <i class="icon ion-person assertive"></i> More details
-            </a>
-        </div>
-        <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number2">
-            <img ng-src="{{bathDataObject.yourCouncillors.img2}}" />
-            <h2>{{bathDataObject.yourCouncillors.number2}}</h2>
-            <p>{{bathDataObject.yourCouncillors.telephone2}}</p>
-        </div>
-        <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone2 || councillor.info2">
-            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone2" browse-to="tel:{{bathDataObject.yourCouncillors.telephone2}}">
-                <i class="icon ion-ios7-telephone positive"></i> Call
-            </a>
-            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info2" browse-to="{{bathDataObject.yourCouncillors.info2}}">
-                <i class="icon ion-person assertive"></i> More details
-            </a>
-        </div>
-        <div class="item item-avatar" ng-show="bathDataObject.yourCouncillors.number3">
-            <img ng-src="{{bathDataObject.yourCouncillors.img3}}" />
-            <h2>{{bathDataObject.yourCouncillors.number3}}</h2>
-            <p>{{bathDataObject.yourCouncillors.telephone3}}</p>
-        </div>
-        <div class="item tabs tabs-icon-right" ng-show="bathDataObject.yourCouncillors.telephone3 || bathDataObject.yourCouncillors.info3">
-            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.telephone3" browse-to="tel:{{bathDataObject.yourCouncillors.telephone3}}">
-                <i class="icon ion-ios7-telephone positive"></i> Call
-            </a>
-            <a class="tab-item" ng-show="bathDataObject.yourCouncillors.info3" browse-to="{{bathDataObject.yourCouncillors.info3}}">
-                <i class="icon ion-person assertive"></i> More details
-            </a>
-        </div>
-    </div>
-    <h3>Nearest council offices</h3>
-    <p ng-show="!uprn">No location set</p>
-    <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information available on the Council's website</button>
-    <div class="list card" ng-repeat="office in bathDataObject.councilOffices.Results.____________________________">
-        <div class="item item-divider">
-            {{office.title | title}}
-            <p>Distance: {{office.Distance | MetresToMiles}} miles</p>
-        </div>
-    </div>
-    <span ng-show="listedBuilding">
-    <h3>Listed building status</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="listedstatus in bathDataObject.listedBuilding.Results">
-        <div class="item item-divider">
-            Address
-        </div>
-        <div class="item item-body">
-            {{listedstatus.Description}}<br />
-            <b>Grading:</b> {{listedstatus.Grading}}
-        </div>
-    </div></span>
-    <h3>Bin collection dates</h3>
-    <p ng-show="!uprn">No location set</p>
-    <div class="list card" ng-repeat="collection in bathDataObject.binCollection.Results">
-        <div class="item item-divider">
-            Waste: {{collection.waste}}
-        </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/collections-recycling-and-rubbish/rubbish-collection">
-                <i class="icon ion-earth assertive"></i> Waste info
-            </a>
-        </div>
-        <div class="item item-divider">
-            Recycling: {{collection.recycling}}
-        </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/recycling-and-rubbish/what-you-can-recycle">
-                <i class="icon ion-earth assertive"></i> Recycling info
-            </a>
-        </div>
-        <div class="item item-divider">
-            Garden: {{collection.garden}}
-        </div>
-        <div class="item tabs tabs-icon-right">
-            <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost">
-                <i class="icon ion-earth assertive"></i> Garden waste
-            </a>
-        </div>
-    </div>
+    </div></div>
 </ion-content>
