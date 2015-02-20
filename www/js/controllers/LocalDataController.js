@@ -53,7 +53,9 @@ angular.module('MyBath.LocalDataController', [])
             case "playAreasNearby":
                 return "Play Areas";
             case "allotmentsNearby":
-                return "Allotments"
+                return "Allotments";
+            case "universitiesNearby":
+                return "Universities";
         }
         console.warn("no description for "+ item);
         return item;

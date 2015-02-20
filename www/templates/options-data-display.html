@@ -4,39 +4,14 @@
         <button class="button button-clear button-primary" ng-click="closeDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
-        <ul class="list">
-            <li class="item item-toggle">School Crossings
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.schoolCrossings">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Parking
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.parkingNearby">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Libraries
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.librariesNearby">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Mobile Libraries
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.mobileLibrariesNearby">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
+        <ion-item class="item-stable"
+                        ng-click="toggleGroup('schools')"
+                        ng-class="{active: isGroupShown('schools')}">
+                  <i class="icon" ng-class="isGroupShown('schools') ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                Schools
+          </ion-item>
+        <ul class="list" ng-show = "isGroupShown('schools')">
             <li class="item item-toggle">Play Schools
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.LocalHidden.playSchoolsNearby">
@@ -77,6 +52,46 @@
                     </div>
                 </label>
             </li>
+            <li class="item item-toggle">School Crossings
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.LocalHidden.schoolCrossings">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            </ul><ion-item class="item-stable"
+                        ng-click="toggleGroup('libraries')"
+                        ng-class="{active: isGroupShown('libraries')}">
+                  <i class="icon" ng-class="isGroupShown('libraries') ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                Libraries
+          </ion-item>
+        <ul class="list" ng-show = "isGroupShown('libraries')">
+            <li class="item item-toggle">Libraries
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.LocalHidden.librariesNearby">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">Mobile Libraries
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.LocalHidden.mobileLibrariesNearby">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            </ul><ion-item class="item-stable"
+                        ng-click="toggleGroup('NHS Services')"
+                        ng-class="{active: isGroupShown('NHS Services')}">
+                  <i class="icon" ng-class="isGroupShown('NHS Services') ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                NHS Services
+          </ion-item>
+        <ul class="list" ng-show = "isGroupShown('NHS Services')">
             <li class="item item-toggle">GP Surgeries
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.LocalHidden.GPs">
@@ -108,7 +123,15 @@
                         <div class="handle"></div>
                     </div>
                 </label>
-            </li>
+            </li></ul>
+            <ion-item class="item-stable"
+                        ng-click="toggleGroup('Transport')"
+                        ng-class="{active: isGroupShown('Transport')}">
+                  <i class="icon" ng-class="isGroupShown('Transport') ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                Transport
+            </ion-item>
+            <ul class="list" ng-show = "isGroupShown('Transport')">
             <li class="item item-toggle">Roadworks
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.LocalHidden.roadworksNearby">
@@ -133,33 +156,18 @@
                     </div>
                 </label>
             </li>
+            </ul>
+            <ion-item class="item-stable"
+                        ng-click="toggleGroup('Leasure')"
+                        ng-class="{active: isGroupShown('Leasure')}">
+                  <i class="icon" ng-class="isGroupShown('Leasure') ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                Leasure
+            </ion-item>
+            <ul class="list" ng-show = "isGroupShown('Leasure')">
             <li class="item item-toggle">Health &amp; Fitness centres
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.LocalHidden.healthAndFitnessNearby">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Planning Applications
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.planningApplicationsNearby">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">New License Applications
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.newLicensingAppsNearby">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Issued License Applications
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.LocalHidden.issuedLicensingAppsNearby">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -184,6 +192,39 @@
             <li class="item item-toggle">Allotments
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.LocalHidden.allotmentsNearby">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            </ul>
+            <ion-item class="item-stable"
+                        ng-click="toggleGroup('Planning')"
+                        ng-class="{active: isGroupShown('Planning')}">
+                  <i class="icon" ng-class="isGroupShown('Planning') ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                Planning &amp; Licensing
+            </ion-item>
+            <ul class="list" ng-show = "isGroupShown('Planning')">
+            <li class="item item-toggle">Planning Applications
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.LocalHidden.planningApplicationsNearby">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">New License Applications
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.LocalHidden.newLicensingAppsNearby">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">Issued License Applications
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.LocalHidden.issuedLicensingAppsNearby">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
