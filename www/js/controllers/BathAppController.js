@@ -106,6 +106,18 @@ angular.module('MyBath.BathAppController', [])
         window.updateMapData = true;
     };
 
+    $scope.toggleGroup = function(group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
+    };
+
+    $scope.isGroupShown = function(group) {
+        return $scope.shownGroup === group;
+    };
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: ReportIt
     // The first report it screen

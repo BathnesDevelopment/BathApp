@@ -28,15 +28,15 @@ angular.module('MyBath.MapDataService', [])
         },
         libraryIcon: {
             type: "awesomeMarker",
-            icon: "android-book",
+            icon: "book",
             markerColor: "orange",
-            prefix: "ion"
+            prefix: "fa"
         },
         officeIcon: {
             type: "awesomeMarker",
-            icon: "coffee",
+            icon: "building",
             markerColor: "green",
-            prefix: "ion"
+            prefix: "fa"
         },
         toiletIcon: {
             type: "awesomeMarker",
@@ -64,9 +64,21 @@ angular.module('MyBath.MapDataService', [])
         },
         schoolIcon: {
             type: "awesomeMarker",
-            icon: "home",
+            icon: "university",
             markerColor: "cadetblue",
-            prefix: "ion"
+            prefix: "fa"
+        },
+        secondarySchoolIcon: {
+            type: "awesomeMarker",
+            icon: "university",
+            markerColor: "darkred",
+            prefix: "fa"
+        },
+        collegeIcon: {
+            type: "awesomeMarker",
+            icon: "university",
+            markerColor: "green",
+            prefix: "fa"
         },
         roadworksIcon: {
             type: "awesomeMarker",
@@ -136,11 +148,11 @@ angular.module('MyBath.MapDataService', [])
         },
         SecondarySchools: {
             url: start + NorthEastPlaceholder + '&ActiveLayer=SecondarySchools',
-            icon: icons.schoolIcon
+            icon: icons.secondarySchoolIcon
         },
         Colleges: {
             url: start + NorthEastPlaceholder + '&ActiveLayer=Colleges',
-            icon: icons.schoolIcon
+            icon: icons.collegeIcon
         },
         Universities: {
             url: start + NorthEastPlaceholder + '&ActiveLayer=Universities',

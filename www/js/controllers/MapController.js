@@ -93,17 +93,19 @@ angular.module('MyBath.MapController', [])
     layerControl.setPosition('topright');
     layerControl.onAdd = function () {
         var container = L.DomUtil.create('div', 'leaflet-bar');
-        container.innerHTML = '<button onclick="mapDisplayOptions()"><i class="fa fa-cog"></i></button>'
+        container.innerHTML = '<button onclick="mapDisplayOptions()"><i style = "font-size:2em" class="fa fa-sliders"></i></button>'
         return container;
     }
 
     $scope.controls.custom.push(layerControl);
 
     $scope.update = function() {
+        // Polls updateMapData (set on moving out of the sliders)
         if (window.updateMapData) {
             window.updateMapData = false;
+
             var layers = [];
-            for (var e in $scope.userData.MapDisplay) {
+            for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
                 if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
                     layers.push(e);
                 }
@@ -121,16 +123,17 @@ angular.module('MyBath.MapController', [])
 
             var i = $scope.markers.length;
             var j = layers.length;
+
+            // Loop through markers, remove any that are from inactive layers
             while (i--) {
                 if (i === -1) { break; }
                 if (!isActiveLayer($scope.markers[i].layer)) {
                     $scope.markers.splice(i,1);
                 }
             }
-            for (var e in $scope.userData.MapDisplay) {
-                if ($scope.userData.MapDisplay.hasOwnProperty(e)) {
-                    $scope.addLayer(e);
-                }
+
+            for (i = 0; i < layers.length; i++) {
+                $scope.addLayer(layers[i]);
             }
         }
     }
