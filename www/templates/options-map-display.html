@@ -4,7 +4,14 @@
         <button class="button button-clear button-primary" ng-click="closeMapDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
-        <ul class="list">
+     <ion-item class="item-stable"
+                    ng-click="toggleGroup(1)"
+                    ng-class="{active: isGroupShown(1)}">
+              <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;
+            Services
+      </ion-item>
+      <ul class="list"  ng-show = "isGroupShown(1)">
             <li class="item item-toggle">Libraries
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.MapDisplay.Libraries">
@@ -21,6 +28,31 @@
                     </div>
                 </label>
             </li>
+            <li class="item item-toggle">Live Car Park Data
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.CarParksLive">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+      <ion-item class="item-stable"
+                    ng-click="toggleGroup(2)"
+                    ng-class="{active: isGroupShown(2)}">
+              <i class="icon" ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'"></i>
+            &nbsp;
+            Schools
+      </ion-item>
+        <ul class = "list" ng-show = "isGroupShown(2)">
+            <li class="item item-toggle">Primary Schools
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="userData.MapDisplay.PrimarySchools">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
             <li class="item item-toggle">Colleges
                 <label class="toggle toggle-balanced">
                     <input type="checkbox" ng-model="userData.MapDisplay.Colleges">
@@ -29,17 +61,17 @@
                     </div>
                 </label>
             </li>
-            <li class="item item-toggle">Universities
+            <li class="item item-toggle">Secondary Schools
                 <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.Universities">
+                    <input type="checkbox" ng-model="userData.MapDisplay.SecondarySchool">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
             </li>
-            <li class="item item-toggle">Live Car Park Data
+            <li class="item item-toggle">Universities
                 <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.CarParksLive">
+                    <input type="checkbox" ng-model="userData.MapDisplay.Universities">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
