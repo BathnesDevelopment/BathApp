@@ -51,11 +51,11 @@ angular.module('MyBath.BathAppFilters', [])
 })
 .filter('formatTime', function() {
     return function (strTime) {
-		if (strTime === "01/01/4000 00:00:00") {
+        if (strTime && strTime === "01/01/4000 00:00:00") {
 			//This is returned when there's no date
 			return "No data available";
 		}
-		if (strTime.search(" 00:00:00") !== -1) {
+        if (strTime && strTime.search(" 00:00:00") !== -1) {
 			// Returned as a DateTime but we only really care about the date
 			return strTime.slice(0, strTime.search(" 00:00:00"));
 		}
