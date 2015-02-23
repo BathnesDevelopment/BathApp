@@ -11,24 +11,28 @@ angular.module('MyBath.BathAppFilters', [])
 .filter('title', function() {
     // converts a string (i.e. one in allcaps) to Sentence case
     return function (original) {
+        
         var res = "";
-        var words = original.toLowerCase().split(' ');
-        var i = 0;
-        var j = 0;
-        while (i < words.length) {
-            if (words[i].charAt(j) === '(') {
-                // Deal with ( by adding it to res and processing the string as if it were not there
-                res += words[i].charAt(j);
-                j++;
-                continue;
-            }
-            res += words[i].charAt(j).toUpperCase() + words[i].slice(j+1);
-            i++;
-            j = 0;
-            if (i !== words.length){
-                res += " ";
+        if (original && original != "") {
+            var words = original.toLowerCase().split(' ');
+            var i = 0;
+            var j = 0;
+            while (i < words.length) {
+                if (words[i].charAt(j) === '(') {
+                    // Deal with ( by adding it to res and processing the string as if it were not there
+                    res += words[i].charAt(j);
+                    j++;
+                    continue;
+                }
+                res += words[i].charAt(j).toUpperCase() + words[i].slice(j + 1);
+                i++;
+                j = 0;
+                if (i !== words.length) {
+                    res += " ";
+                }
             }
         }
+        
         return res;
     };
 })
