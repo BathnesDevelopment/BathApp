@@ -62,7 +62,7 @@ angular.module('MyBath.BathDataService', [])
         },
         // Method: BathData.fetchAll()
         // Input: uId string (UPRN)
-        // Output: 
+        // Output:
         // calls all of the iShare links and aggregates the returned data into a single JSON array, queryable by index.
         // this data is returned as a promise.
         fetchAll: function (uId) {
