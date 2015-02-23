@@ -9,55 +9,57 @@
     <p ng-show = "!uprn">No location set</p>
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
-    <div ng-repeat="i in shownData(userData.LocalHidden)">
+    <div ng-repeat="i in shownData()">
         <h3>{{getTitle(i)}}</h3>
-        <p ng-show="!getData(i)">No results</p>
-        <div class="list card" ng-repeat="dataItem in getData(i)">
-            <div class="item item-divider">
-                <span ng-show="dataItem.name">{{dataItem.name | title}}</span>
-                <span ng-show="dataItem.title">{{dataItem.title}}</span>
-                <p ng-show="dataItem.village">Nearest village stop: <span ng-bind-html="dataItem.village"></span></p>
-                <p>Distance: {{dataItem.Distance | MetresToMiles}} miles</p>
-            </div>
-            <div ng-show = "i === 'planningApplicationsNearby'" class="item item-body">
-                {{dataItem.PROPOSAL}}<br />
-                <b ng-show="dataItem.Consulation___Expiry___Date">Consultation expiry date:</b> {{dataItem.Consulation___Expiry___Date}}
-            </div>
-            <div ng-show = "i === 'schoolCrossings'" class="item item-body">
-                <b>Location:</b> <span ng-bind-html="dataItem._"</span><br />
-                <b>Morning times:</b> {{dataItem.Morning__times}}<br />
-                <b>Afternoon times:</b> {{dataItem.Afternoon___times}}<br />
-            </div>
-            <div ng-show = "i === 'mobileLibrariesNearby'" class="item item-body">
-                <b>Time:</b> {{dataItem.timeAdjusted}}<br />
-                <b>Stop:</b> <span ng-bind-html="dataItem.stop"></span><br />
-                <b>Day:</b> {{dataItem.day}}<br />
-            </div>
-            <div ng-show = "i === 'roadworksNearby'" class="item item-body">
-                {{dataItem._ | sentence }}<br />
-                <b>Location:</b> {{dataItem.Location | sentence }}<br />
-                <b>Work commenced:</b> {{dataItem.Work____commenced | formatTime}}<br />
-                <b>Due to be completed:</b> {{dataItem.Due_____to_____be_____completed_____on | formatTime}}
-            </div>
-            <div ng-show = "i === 'newLicensingAppsNearby' || i === 'issuedLicensingAppsNearby'" class="item item-body">
-                <b>Who:</b><span ng-bind-html="dataItem.Licence"></span><br />
-                <b>Address:</b> {{dataItem.Address}}
-            </div>
-            <div ng-show = "i === 'allotmentsNearby'"class="item item-body">
-                <b>Provided by:</b> {{dataItem.ProvidedAdjusted}}
-            </div>
-            <div ng-show="dataItem.__" class="item item-body">
-                <span ng-show="dataItem.__"><b>Address:</b> {{dataItem.__ | formatAddress:dataItem.___:dataItem.____}}</span>
-            </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-                <span ng-bind-html="additionalIcons(i,dataItem)"></span>
-                <a ng-show="dataItem.url" class="tab-item" browse-to="{{dataItem.url}}">
-                    <i class="icon ion-earth assertive"></i> Website
-                </a>
-                <a ng-show="dataItem.lat" class="tab-item" browse-to="geo:0,0?q={{dataItem.lat}},{{dataItem.lon}}({{dataItem.name}})">
-                    <i class="icon ion-map calm"></i> Map
-                </a>
-            </div>
+            <p ng-show="!getData(i)">No results</p>
+            <div class="row responsive-md">
+            <div class="list card col" ng-repeat="dataItem in getData(i)">
+                <div class="item item-divider">
+                    <span ng-show="dataItem.name">{{dataItem.name | title}}</span>
+                    <span ng-show="dataItem.title">{{dataItem.title}}</span>
+                    <p ng-show="dataItem.village">Nearest village stop: <span ng-bind-html="dataItem.village"></span></p>
+                    <p>Distance: {{dataItem.Distance | MetresToMiles}} miles</p>
+                </div>
+                <div ng-show = "i === 'planningApplicationsNearby'" class="item item-body">
+                    {{dataItem.PROPOSAL}}<br />
+                    <b ng-show="dataItem.Consulation___Expiry___Date">Consultation expiry date:</b> {{dataItem.Consulation___Expiry___Date}}
+                </div>
+                <div ng-show = "i === 'schoolCrossings'" class="item item-body">
+                    <b>Location:</b> <span ng-bind-html="dataItem._"></span><br />
+                    <b>Morning times:</b> {{dataItem.Morning__times}}<br />
+                    <b>Afternoon times:</b> {{dataItem.Afternoon___times}}<br />
+                </div>
+                <div ng-show = "i === 'mobileLibrariesNearby'" class="item item-body">
+                    <b>Time:</b> {{dataItem.timeAdjusted}}<br />
+                    <b>Stop:</b> <span ng-bind-html="dataItem.stop"></span><br />
+                    <b>Day:</b> {{dataItem.day}}<br />
+                </div>
+                <div ng-show = "i === 'roadworksNearby'" class="item item-body">
+                    {{dataItem._ | sentence }}<br />
+                    <b>Location:</b> {{dataItem.Location | sentence }}<br />
+                    <b>Work commenced:</b> {{dataItem.Work____commenced | formatTime}}<br />
+                    <b>Due to be completed:</b> {{dataItem.Due_____to_____be_____completed_____on | formatTime}}
+                </div>
+                <div ng-show = "i === 'newLicensingAppsNearby' || i === 'issuedLicensingAppsNearby'" class="item item-body">
+                    <b>Who:</b><span ng-bind-html="dataItem.Licence"></span><br />
+                    <b>Address:</b> {{dataItem.Address}}
+                </div>
+                <div ng-show = "i === 'allotmentsNearby'"class="item item-body">
+                    <b>Provided by:</b> {{dataItem.ProvidedAdjusted}}
+                </div>
+                <div ng-show="dataItem.__" class="item item-body">
+                    <span ng-show="dataItem.__"><b>Address:</b> {{dataItem.__ | formatAddress:dataItem.___:dataItem.____}}</span>
+                </div>
+                <div class="item tabs tabs-secondary tabs-icon-left">
+                    <span ng-bind-html="additionalIcons(i,dataItem)"></span>
+                    <a ng-show="dataItem.url" class="tab-item" browse-to="{{dataItem.url}}">
+                        <i class="icon ion-earth assertive"></i> Website
+                    </a>
+                    <a ng-show="dataItem.lat" class="tab-item" browse-to="geo:0,0?q={{dataItem.lat}},{{dataItem.lon}}({{dataItem.name}})">
+                        <i class="icon ion-map calm"></i> Map
+                    </a>
+                </div>
+            </div></div>
         </div>
     </div>
 

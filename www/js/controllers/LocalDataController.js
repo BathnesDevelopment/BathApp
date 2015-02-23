@@ -61,13 +61,14 @@ angular.module('MyBath.LocalDataController', [])
         return item;
     }
 
-    $scope.shownData = function( LocalHidden ) {
-        res = [];
-        for (var e in LocalHidden) {
-            if (LocalHidden.hasOwnProperty(e) && LocalHidden[e]){
-                res.push(e);
+    $scope.shownData = function() {
+            var LocalHidden = $scope.userData.LocalHidden;
+            res = [];
+            for (var e in LocalHidden) {
+                if (LocalHidden.hasOwnProperty(e) && LocalHidden[e]) {
+                    res.push(e);
+                }
             }
+            return res;
         }
-        return res;
-    }
 });
