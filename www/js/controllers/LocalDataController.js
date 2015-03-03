@@ -18,6 +18,47 @@ angular.module('MyBath.LocalDataController', [])
         }
         return "";
     }
+
+
+    $scope.getDataRows = function ( name ) {
+        // returns an array of rowNumbers equal to the number of rows of data that we're showing
+        res = [];
+        if ($scope.bathDataObject[name]) {
+            for (var i = 0; i !== $scope.bathDataObject[name].length; i++){
+                if (i % 3 === 0) {
+                    res.push(i/3);
+                }
+            }
+            return res;
+        }
+        console.warn($scope.bathDataObject[name]);
+        return [0];
+    }
+
+    $scope.getDataCols = function ( name, rowNum ) {
+        //returns an array of cols to display
+        var res = [];
+        if ($scope.bathDataObject[name]) {
+            for (i = rowNum *3; i < (rowNum+1)*3; i++) {
+                if ($scope.bathDataObject[name][i]) {
+                    res.push($scope.bathDataObject[name][i]);
+                }
+            }
+        }
+        return res;
+    }
+
+    $scope.getLocalHidden = function () {
+        var res = [];
+        for (var e in $scope.userData.LocalHidden) {
+            if ($scope.userData.LocalHidden.hasOwnProperty(e) && $scope.userData.LocalHidden[e]){
+               res.push(e);
+            }
+        }
+        return res;
+    }
+
+
     $scope.getTitle = function (item) {
         switch (item) {
             case "librariesNearby":
@@ -62,13 +103,13 @@ angular.module('MyBath.LocalDataController', [])
     }
 
     $scope.shownData = function() {
-            var LocalHidden = $scope.userData.LocalHidden;
-            res = [];
-            for (var e in LocalHidden) {
-                if (LocalHidden.hasOwnProperty(e) && LocalHidden[e]) {
-                    res.push(e);
-                }
+        var LocalHidden = $scope.userData.LocalHidden;
+        res = [];
+        for (var e in LocalHidden) {
+            if (LocalHidden.hasOwnProperty(e) && LocalHidden[e]) {
+                res.push(e);
             }
-            return res;
         }
+        return res;
+    }
 });

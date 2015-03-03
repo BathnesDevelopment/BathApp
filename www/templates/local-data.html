@@ -12,8 +12,7 @@
     <div ng-repeat="i in shownData()">
         <h3>{{getTitle(i)}}</h3>
             <p ng-show="!getData(i)">No results</p>
-            <div class="row responsive-md">
-            <div class="list card col" ng-repeat="dataItem in getData(i)">
+            <div class="row responsive-md" ng-repeat="dataRow in getDataRows(i)"><div class="list card col" ng-repeat="dataItem in getDataCols(i,dataRow)">
                 <div class="item item-divider">
                     <span ng-show="dataItem.name">{{dataItem.name | title}}</span>
                     <span ng-show="dataItem.title">{{dataItem.title}}</span>
