@@ -60,10 +60,6 @@ i.listIcons {
     height: 100%;
 }
 
-.card .item:first-child {
-    /* height: 11em; */
-}
-
 ion-nav-view {
     background-color: #fff;
 }
@@ -87,7 +83,7 @@ This happens on portrait phone screens, and is unhelpful at best
     border-radius: 0px !important;
 }
 
-a.leaflet-popup-close-button{
+a.leaflet-popup-close-button {
     font-size: 24px !important;
     width: 32px !important;
     height: 32px !important;
@@ -95,7 +91,7 @@ a.leaflet-popup-close-button{
     color: #0094ff !important;
 }
 
-.leaflet-popup-content{
+.leaflet-popup-content {
     margin-top: 20px !important;
 }
 
@@ -105,5 +101,9 @@ a.leaflet-popup-close-button{
   * https://github.com/tombatossals/angular-leaflet-directive/issues/130
 **/
 .leaflet-control-layers.leaflet-control {
-    display: none;
+    display: none !important;
+}
+
+.map-custom-layers {
+    font-size: 2em !important;
 }

@@ -1,11 +1,10 @@
 angular.module('MyBath.MapController', [])
-.controller('MapController', function ($scope, $ionicSideMenuDelegate, MapData, leafletEvents) {
+.controller('MapController', function ($scope, $ionicSideMenuDelegate, $ionicModal, MapData, leafletEvents, UserData) {
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.markers = [];
-
     $scope.fetching = {};
 
     $scope.map = {
@@ -44,7 +43,6 @@ angular.module('MyBath.MapController', [])
                     url: 'http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w',
                     type: 'xyz',
                     maxZoom: 20,
-                    zoomControlPosicloseDisplayOptionscloseDisplayOptionscion: 'bottomleft',
                     path: {
                         weight: 10,
                         color: '#800000',
@@ -80,64 +78,52 @@ angular.module('MyBath.MapController', [])
         markers: $scope.markers
     };
 
-    $scope.controls = {
-        custom: [L.control.locate({ follow: true })]
-    };
+    
 
-    window.mapDisplayOptions = function() {
-        // MyControl.onAdd doesn't have access to the correct $scope
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // MODAL DEFINITIONS
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: Map Display options
+    // Options screen for map data display
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    $ionicModal.fromTemplateUrl('templates/options-map-display.html', function (modal) {
+        $scope.mapDisplayOptionsModal = modal;
+    }, {
+        scope: $scope
+    });
+
+    $scope.mapDisplayOptions = function () {
         $scope.mapDisplayOptionsModal.show();
     };
 
-    var layerControl = L.control();
-    layerControl.setPosition('topright');
-    layerControl.onAdd = function () {
-        var container = L.DomUtil.create('div', 'leaflet-bar');
-        container.innerHTML = '<button onclick="mapDisplayOptions()"><i style = "font-size:2em" class="fa fa-sliders"></i></button>'
-        return container;
-    }
+    $scope.controls = {
+        custom: [
+            L.control.locate({ follow: true }),
+            L.control.customlayers({ position: 'topright', action: $scope.mapDisplayOptions })
+        ]
+    };
 
-    $scope.controls.custom.push(layerControl);
+    $scope.closeMapDisplayOptions = function () {
+        // Save user data
+        UserData.save($scope.userData);
+        $scope.mapDisplayOptionsModal.hide();
+        $scope.updateMapData();
+    };
 
-    $scope.update = function() {
-        // Polls updateMapData (set on moving out of the sliders)
-        if (window.updateMapData) {
-            window.updateMapData = false;
-
-            var layers = [];
-            for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
-                if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
-                    layers.push(e);
-                }
-            }
-
-            var isActiveLayer = function(layer) {
-                for (j = 0; j < layers.length; j++ ) {
-                    var test = layers[j];
-                    if (layer === layers[j]) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            var i = $scope.markers.length;
-            var j = layers.length;
-
-            // Loop through markers, remove any that are from inactive layers
-            while (i--) {
-                if (i === -1) { break; }
-                if (!isActiveLayer($scope.markers[i].layer)) {
-                    $scope.markers.splice(i,1);
-                }
-            }
-
-            for (i = 0; i < layers.length; i++) {
-                $scope.addLayer(layers[i]);
-            }
+    $scope.toggleGroup = function (group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
         }
-    }
-    setInterval($scope.update,1000);
+    };
+
+    $scope.isGroupShown = function (group) {
+        return $scope.shownGroup === group;
+    };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CONTROLLER FUNCTIONS
@@ -171,9 +157,50 @@ angular.module('MyBath.MapController', [])
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: alreadyMarked
+    // 
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.alreadyMarked = function (markerData) {
         for (var i = 0; i < $scope.markers.length; i++) {
             if (markerData === $scope.markers[i].message) { return true; }
+        }
+        return false;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateMapData
+    // 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.updateMapData = function () {
+
+        var i = $scope.markers.length;
+
+        // Loop through markers, remove any that are from inactive layers
+        while (i--) {
+            if (i === -1) { break; }
+            if (!$scope.isActiveLayer($scope.markers[i].layer)) {
+                $scope.markers.splice(i, 1);
+            }
+        }
+
+        for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
+            if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
+                $scope.addLayer(e);
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: isActiveLayer
+    // Returns boolean to indicate if layer is currently active
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.isActiveLayer = function (layer) {
+        for (j = 0; j < $scope.userData.MapDisplay.length; j++) {
+            var test = $scope.userData.MapDisplay[j];
+            if (layer === $scope.userData.MapDisplay[j]) {
+                return true;
+            }
         }
         return false;
     }

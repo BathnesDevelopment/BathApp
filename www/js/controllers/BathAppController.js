@@ -88,37 +88,6 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Modal: Map Display options
-    // Options screen for map data display
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $ionicModal.fromTemplateUrl('templates/options-map-display.html', function (modal) {
-        $scope.mapDisplayOptionsModal = modal;
-    }, {
-        scope: $scope
-    });
-    $scope.mapDisplayOptions = function () {
-        $scope.mapDisplayOptionsModal.show();
-    };
-    $scope.closeMapDisplayOptions = function () {
-        // Save user data
-        UserData.save($scope.userData);
-        $scope.mapDisplayOptionsModal.hide();
-        window.updateMapData = true;
-    };
-
-    $scope.toggleGroup = function(group) {
-        if ($scope.isGroupShown(group)) {
-            $scope.shownGroup = null;
-        } else {
-            $scope.shownGroup = group;
-        }
-    };
-
-    $scope.isGroupShown = function(group) {
-        return $scope.shownGroup === group;
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: ReportIt
     // The first report it screen
     /////////////////////////////////////////////////////////////////////////////////////////////
