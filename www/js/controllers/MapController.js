@@ -179,7 +179,7 @@ angular.module('MyBath.MapController', [])
         // Loop through markers, remove any that are from inactive layers
         while (i--) {
             if (i === -1) { break; }
-            if (!$scope.isActiveLayer($scope.markers[i].layer)) {
+            if (!$scope.userData.MapDisplay[$scope.markers[i].layer] == true) {
                 $scope.markers.splice(i, 1);
             }
         }
@@ -189,20 +189,6 @@ angular.module('MyBath.MapController', [])
                 $scope.addLayer(e);
             }
         }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: isActiveLayer
-    // Returns boolean to indicate if layer is currently active
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.isActiveLayer = function (layer) {
-        for (j = 0; j < $scope.userData.MapDisplay.length; j++) {
-            var test = $scope.userData.MapDisplay[j];
-            if (layer === $scope.userData.MapDisplay[j]) {
-                return true;
-            }
-        }
-        return false;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
