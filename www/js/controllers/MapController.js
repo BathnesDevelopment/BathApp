@@ -1,11 +1,295 @@
 angular.module('MyBath.MapController', [])
 .controller('MapController', function ($scope, $ionicSideMenuDelegate, $ionicModal, MapData, leafletEvents, UserData) {
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.markers = [];
     $scope.fetching = {};
+
+    $scope.mapData = {data:
+        {
+       Universities:
+        {
+            name: "Universities",
+            category: "Education",
+            icon: {
+                type: "awesomeMarker",
+                icon: "bug",
+                markerColor: "red",
+                prefix: "ion"
+            },
+            pins: [
+                    {
+                      lat:51.37881967353838,
+                      lng:-2.328600315570747,
+                      icon:{
+                         type:"awesomeMarker",
+                         icon:"university",
+                         markerColor:"darkred",
+                         prefix:"ion"
+                      },
+                      layer:"Universities",
+                      message:"University of Bath"
+                    },
+                    {
+                      lat:51.375672126605394,
+                      lng:-2.438370970537237,
+                      icon:{
+                         type:"awesomeMarker",
+                         icon:"university",
+                         markerColor:"darkred",
+                         prefix:"ion"
+                      },
+                      layer:"Universities",
+                      message:"Bath Spa University"
+                    }
+            ]
+       },
+        Colleges:
+        {
+            name: "Colleges",
+            category: "Education",
+            icon: {
+                type: "awesomeMarker",
+                icon: "bug",
+                markerColor: "blue",
+                prefix: "ion"
+            },
+            pins: [
+                {
+                  lat:51.3839681366029,
+                  lng:-2.363389737240762,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"university",
+                     markerColor:"green",
+                     prefix:"fa"
+                  },
+                  layer:"Colleges",
+                  message:"Bath Academy"
+                },
+                {
+                  lat:51.3797173147944,
+                  lng:-2.362651993222146,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"university",
+                     markerColor:"green",
+                     prefix:"fa"
+                  },
+                  layer:"Colleges",
+                  message:"City Of Bath College"
+                },
+                {
+                  lat:51.39161800175411,
+                  lng:-2.3522832435231336,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"university",
+                     markerColor:"green",
+                     prefix:"fa"
+                  },
+                  layer:"Colleges",
+                  message:"Norland College"
+                },
+                {
+                  lat:51.3969371741379,
+                  lng:-2.3594821978987874,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"university",
+                     markerColor:"green",
+                     prefix:"fa"
+                  },
+                  layer:"Colleges",
+                  message:"Rusland College Ltd"
+                },
+                {
+                  lat:51.36452641577454,
+                  lng:-2.3430834487784513,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"university",
+                     markerColor:"green",
+                     prefix:"fa"
+                  },
+                  layer:"Colleges",
+                  message:"Prior Park College"
+                },
+                {
+                  lat:51.28080410686142,
+                  lng:-2.4809598508115815,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"university",
+                     markerColor:"green",
+                     prefix:"fa"
+                  },
+                  layer:"Colleges",
+                  message:"Norton Radstock College"
+                }
+            ]
+
+        },
+        Allotments:
+        {
+            name: "Allotments",
+            category: "Leasure",
+            pins:[
+                {
+                  lat:51.38099195283369,
+                  lng:-2.3500750333747944,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Canal Garden"
+                },
+                {
+                  lat:51.37687571940716,
+                  lng:-2.3510751722137697,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Abbey View"
+                },
+                {
+                  lat:51.37326442972254,
+                  lng:-2.357698485311214,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Lyncombe Hill Farm"
+                },
+                {
+                  lat:51.38644680902663,
+                  lng:-2.3719454666669697,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Ring Common"
+                },
+                {
+                  lat:51.38418408464328,
+                  lng:-2.375462084416616,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Lower Common East"
+                },
+                {
+                  lat:51.38478373253358,
+                  lng:-2.3754669947612905,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Lower Common West"
+                },
+                {
+                  lat:51.389385857099086,
+                  lng:-2.3477627443386533,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Hampton Row"
+                },
+                {
+                  lat:51.37164450013343,
+                  lng:-2.3711573875665386,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Bloomfield Road"
+                },
+                {
+                  lat:51.39360453963368,
+                  lng:-2.3626371923300864,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Richmond Hill"
+                },
+                {
+                  lat:51.36940703050754,
+                  lng:-2.362487099431525,
+                  icon:{
+                     type:"awesomeMarker",
+                     icon:"leaf",
+                     markerColor:"darkred",
+                     prefix:"ion"
+                  },
+                  layer:"Allotments",
+                  message:"Lyncombe Vale"
+                }
+            ]
+        }
+    }};
+
+    $scope.mapData.getCategories = function () {
+        var res = [];
+        var isIn = function (element, list) {
+            //returns true if the element is in the list
+            for (var i = 0; i < list.length; i++) {
+                if (element === list[i]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        for (var e in $scope.mapData.data) {
+            if ($scope.mapData.data.hasOwnProperty(e)) {
+                if (!isIn($scope.mapData.data[e].category,res)) {
+                    res.push($scope.mapData.data[e].category);
+                }
+            }
+        }
+        return res;
+    }
+
+    $scope.mapData.getItemsInCategory = function (category) {
+        var res = [];
+        for (var e in $scope.mapData.data) {
+            if ($scope.mapData.data.hasOwnProperty(e) && $scope.mapData.data[e] && $scope.mapData.data[e].category === category ) {
+                res.push($scope.mapData.data[e]);
+            }
+        }
+        return res;
+    }
 
     $scope.map = {
         defaults: {
@@ -77,8 +361,6 @@ angular.module('MyBath.MapController', [])
         },
         markers: $scope.markers
     };
-
-    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODAL DEFINITIONS
@@ -200,12 +482,6 @@ angular.module('MyBath.MapController', [])
     });
 
     $scope.$on('leafletDirectiveMap.overlayadd', function (event, target) {
-        for (var overlay in $scope.map.layers.overlays) {
-            // Loop to get the real name
-            if ($scope.map.layers.overlays[overlay].name === target.leafletEvent.name) {
-                $scope.addLayer(overlay);
-                return;
-            }
-        }
+        $scope.updateMapData();
     });
 });

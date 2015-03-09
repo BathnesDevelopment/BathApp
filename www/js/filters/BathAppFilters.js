@@ -8,10 +8,17 @@ angular.module('MyBath.BathAppFilters', [])
 		return res.toFixed(2);
 	};
 })
+.filter('isDefined', function () {
+  return function (value, msg) {
+    if (value === undefined) {
+        throw new Error('isDefined filter got undefined value ' + msg);
+    }
+    return value;
+  };
+})
 .filter('title', function() {
     // converts a string (i.e. one in allcaps) to Sentence case
     return function (original) {
-        
         var res = "";
         if (original && original != "") {
             var words = original.toLowerCase().split(' ');
@@ -32,7 +39,6 @@ angular.module('MyBath.BathAppFilters', [])
                 }
             }
         }
-        
         return res;
     };
 })

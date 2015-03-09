@@ -22,6 +22,8 @@ angular.module('MyBath.BathAppController', [])
     $scope.feedData = FeedData.all();
     $scope.feedDataObject = FeedData.toObj();
 
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
     // The following all happens on loading the app.
@@ -356,7 +358,7 @@ angular.module('MyBath.BathAppController', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: SelectMenu
-    // Called to select the current view - currently called in the menu bar and on various buttons 
+    // Called to select the current view - currently called in the menu bar and on various buttons
     // throughout the app.
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.selectMenu = function (menuItem) {
@@ -394,7 +396,7 @@ angular.module('MyBath.BathAppController', [])
         });
     };
 
-    /////////////////////////////////////////////////////////////////////////////////////////////    
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: deleteData
     // Removes the user's registered data
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -417,7 +419,7 @@ angular.module('MyBath.BathAppController', [])
         });
     };
 
-    /////////////////////////////////////////////////////////////////////////////////////////////    
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: deleteReport
     // Removes a single user report
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -430,7 +432,7 @@ angular.module('MyBath.BathAppController', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
-    // A popup for council connect 
+    // A popup for council connect
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.showCouncilConnectPopup = function () {
         var alertPopup = $ionicPopup.alert({
@@ -455,7 +457,7 @@ angular.module('MyBath.BathAppController', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopupOutOfHours
-    // A popup for council connect 
+    // A popup for council connect
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.showCouncilConnectPopupOutOfHours = function () {
         var alertPopup = $ionicPopup.alert({
@@ -480,12 +482,12 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: takePhoto
     // Takes a photo, stores it in localStorage.reportPhoto
-    // Displays it to the user in photoTaken, which is by default aLinkcolor blank image 
+    // Displays it to the user in photoTaken, which is by default aLinkcolor blank image
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.takePhoto = function () {
         navigator.camera.getPicture(
             function (imageURI) {
-                // saves to currentReport.photo            
+                // saves to currentReport.photo
                 imageURI = "data:image/jpeg;base64," + imageURI;
                 $scope.$apply(function () {
                     $scope.currentReport.photo = imageURI;

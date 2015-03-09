@@ -4,79 +4,24 @@
         <button class="button button-clear button-primary" ng-click="closeMapDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
+    <span ng-repeat="category in mapData.getCategories()">
      <ion-item class="item-stable"
-                    ng-click="toggleGroup(1)"
-                    ng-class="{active: isGroupShown(1)}">
-              <i class="icon" ng-class="isGroupShown(1) ? 'ion-minus' : 'ion-plus'"></i>
+                    ng-click="toggleGroup($index)"
+                    ng-class="{active: isGroupShown($index)}">
+              <i class="icon" ng-class="isGroupShown($index) ? 'ion-minus' : 'ion-plus'"></i>
             &nbsp;
-            Services
+            {{category}}
       </ion-item>
-      <ul class="list"  ng-show = "isGroupShown(1)">
-            <li class="item item-toggle">Libraries
+      <ul class="list" ng-show = "isGroupShown($index)">
+            <li class="item item-toggle" ng-repeat = "item in mapData.getItemsInCategory(category)">{{item.name}}
                 <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.Libraries">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Council Offices
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.Council_Offices">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Live Car Park Data
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.CarParksLive">
+                    <input type="checkbox" ng-model="userData.MapDisplay[item.name]">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
             </li>
         </ul>
-      <ion-item class="item-stable"
-                    ng-click="toggleGroup(2)"
-                    ng-class="{active: isGroupShown(2)}">
-              <i class="icon" ng-class="isGroupShown(2) ? 'ion-minus' : 'ion-plus'"></i>
-            &nbsp;
-            Schools
-      </ion-item>
-        <ul class = "list" ng-show = "isGroupShown(2)">
-            <li class="item item-toggle">Primary Schools
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.PrimarySchools">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Colleges
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.Colleges">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Secondary Schools
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.SecondarySchool">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li class="item item-toggle">Universities
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay.Universities">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-        </ul>
+        </span>
     </ion-content>
 </div>
