@@ -10,9 +10,9 @@
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
     <div ng-repeat="i in shownData()">
-        <h3>{{getTitle(i)}}</h3>
+        <h3>{{newBathDataObject.LocalData.layers.displayName[i]}}</h3>
             <p ng-show="!getData(i)">No results</p>
-            <div class="row responsive-md" ng-repeat="dataRow in getDataRows(i)"><div class="list card col" ng-repeat="dataItem in getDataCols(i,dataRow)">
+            <div class="row responsive-md" ng-repeat="dataRow in getDataRows(i)"><div class="list card col" style="margin-bottom:40px" ng-repeat="dataItem in getDataCols(i,dataRow)">
                 <div class="item item-divider">
                     <span ng-show="dataItem.name">{{dataItem.name | title}}</span>
                     <span ng-show="dataItem.title">{{dataItem.title}}</span>
@@ -92,7 +92,7 @@
             <div class="item item-divider">
                 {{hospital.title}}<p>{{hospital.distance | MetresToMiles}} miles</p>
             </div>
-            <div class="item item-body">            
+            <div class="item item-body">
             {{hospital.address}}<br>
             {{hospital.tel}}
             </div>

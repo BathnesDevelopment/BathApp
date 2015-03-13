@@ -12,7 +12,8 @@ angular.module('MyBath.MapDataService', [])
 
             $http.get("http://example.com")
                 .success(function (data, status, headers, config) {
-                    if (!$scope.mapData["data"][layer]) {
+
+                    if (!$scope.mapData.data[layer]) {
                         return "Failed";
                     }
                     var northing = "";
@@ -22,22 +23,23 @@ angular.module('MyBath.MapDataService', [])
                     var bgC = "";
                     var icon = {};
                     var i = 0;
-                    console.log(layer);
-                    if ( $scope.mapData["data"][layer].icon ) {
-                        icon = $scope.mapData["data"][layer].icon;
+
+                    if ( $scope.mapData.data[layer].icon ) {
+                        icon = $scope.mapData.data[layer].icon;
+
                     } else {
                         icon = {
                             type: "awesomeMarker",
                             icon: "bug",
                             markerColor: "red",
                             prefix: "ion"
-                        }
+                        };
                     }
-                    for ( e in $scope.mapData["data"][layer].pins ) {
-                        if (! $scope.mapData["data"][layer].pins[e].icon ) {
-                            $scope.mapData["data"][layer].pins[e].icon = icon;
+                    for ( var e in $scope.mapData.data[layer].pins ) {
+                        if (! $scope.mapData.data[layer].pins[e].icon ) {
+                            $scope.mapData.data[layer].pins[e].icon = icon;
                         }
-                        layerData.push($scope.mapData["data"][layer].pins[e]);
+                        layerData.push($scope.mapData.data[layer].pins[e]);
                     }
                     layerData_q.resolve(layerData);
                     return layerData;

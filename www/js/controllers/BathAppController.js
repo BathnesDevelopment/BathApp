@@ -21,6 +21,8 @@ angular.module('MyBath.BathAppController', [])
     $scope.bathDataObject = BathData.toObj();
     $scope.feedData = FeedData.all();
     $scope.feedDataObject = FeedData.toObj();
+    $scope.newBathDataObject = BathData.toNewObj();
+
 
 
 
@@ -34,7 +36,7 @@ angular.module('MyBath.BathAppController', [])
     //  -Existing reports are loaded.
     /////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////
     // MODAL DEFINITIONS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -295,6 +297,18 @@ angular.module('MyBath.BathAppController', [])
 		}
     };
 
+
+    $scope.toggleGroup = function (group) {
+        if ($scope.isGroupShown(group)) {
+            $scope.shownGroup = null;
+        } else {
+            $scope.shownGroup = group;
+        }
+    };
+
+    $scope.isGroupShown = function (group) {
+        return $scope.shownGroup === group;
+    };
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: options
     // Displays the options menu

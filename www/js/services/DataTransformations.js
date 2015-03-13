@@ -2,7 +2,7 @@ angular.module('MyBath.DataTransformations', [])
 /**
  * Factory: Data Transformations
  * Includes various methods to transform data
- * Method names should be descriptive and clear so that when calls are made 
+ * Method names should be descriptive and clear so that when calls are made
  * there is no reason to look in this code (except when debugging errors here!)
 */
 .factory('DataTransformations', function () {
@@ -125,7 +125,7 @@ angular.module('MyBath.DataTransformations', [])
         // Method: DataTransformations.mToMi()
         // Input: number
         // Output: number
-        // Converts meters to miles to an accuracy of 1 decimal place 
+        // Converts meters to miles to an accuracy of 1 decimal place
         mToMi: function (distM) {
             res = distM * 0.000621371192;
             if (res > 1) {
