@@ -6,7 +6,7 @@ angular.module('MyBath.MapDataService', [])
 .factory('MapData', function ($http, $q, DataTransformations) {
 
     return {
-        getLayer: function (layer, lat, lng) {
+        getLayer: function (layer, lat, lng, $scope) {
             var layerData = [];
             var layerData_q = $q.defer();
 

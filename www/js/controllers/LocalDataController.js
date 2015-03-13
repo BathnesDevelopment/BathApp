@@ -10,7 +10,7 @@ angular.module('MyBath.LocalDataController', [])
         switch (item) {
             case "librariesNearby":
                 return '<a class="tab-item" browse-to="http://www.librarieswest.org.uk/02_Catalogue/02_001_Search.aspx?">'+
-                    '<i class="icon ion-android-book positive"></i> Library catalogue</a>';
+                    '<i class="icon ion-ios-book positive"></i> Library catalogue</a>';
             case "busStops":
                 return '<a class="tab-item" browse-to="http://www.nextbuses.mobi/WebView/BusStopSearch'+
                        '/BusStopSearchResults?id={{userData.addressSearch}}">' +
