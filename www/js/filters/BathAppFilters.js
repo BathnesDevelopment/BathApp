@@ -20,7 +20,7 @@ angular.module('MyBath.BathAppFilters', [])
     // converts a string (i.e. one in allcaps) to Sentence case
     return function (original) {
         var res = "";
-        if (original && original != "") {
+        if (original && original !== "") {
             var words = original.toLowerCase().split(' ');
             var i = 0;
             var j = 0;
