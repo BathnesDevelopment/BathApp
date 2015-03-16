@@ -413,7 +413,7 @@ angular.module('MyBath.MapController', [])
             return false;
         } else {
             $scope.fetching[name] = [true, new Date()];
-            MapData.getLayer(name, lat, lng, $scope)
+            MapData.getLayer(name, lat, lng, $scope.mapData.data)
             .then(function (data) {
                 if (data && data != "Failed") {
                     for (i = 0; i < data.length ; i++) {

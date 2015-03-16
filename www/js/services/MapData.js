@@ -6,14 +6,13 @@ angular.module('MyBath.MapDataService', [])
 .factory('MapData', function ($http, $q, DataTransformations) {
 
     return {
-        getLayer: function (layer, lat, lng, $scope) {
+        getLayer: function (layer, lat, lng, mapData) {
             var layerData = [];
             var layerData_q = $q.defer();
 
             $http.get("http://example.com")
                 .success(function (data, status, headers, config) {
-
-                    if (!$scope.mapData.data[layer]) {
+                    if (!mapData[layer]) {
                         return "Failed";
                     }
                     var northing = "";
@@ -24,8 +23,8 @@ angular.module('MyBath.MapDataService', [])
                     var icon = {};
                     var i = 0;
 
-                    if ( $scope.mapData.data[layer].icon ) {
-                        icon = $scope.mapData.data[layer].icon;
+                    if ( mapData[layer].icon ) {
+                        icon = mapData[layer].icon;
 
                     } else {
                         icon = {
@@ -35,11 +34,11 @@ angular.module('MyBath.MapDataService', [])
                             prefix: "ion"
                         };
                     }
-                    for ( var e in $scope.mapData.data[layer].pins ) {
-                        if (! $scope.mapData.data[layer].pins[e].icon ) {
-                            $scope.mapData.data[layer].pins[e].icon = icon;
+                    for ( var e in mapData[layer].pins ) {
+                        if (! mapData[layer].pins[e].icon ) {
+                            mapData[layer].pins[e].icon = icon;
                         }
-                        layerData.push($scope.mapData.data[layer].pins[e]);
+                        layerData.push(mapData[layer].pins[e]);
                     }
                     layerData_q.resolve(layerData);
                     return layerData;
