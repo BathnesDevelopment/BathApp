@@ -6,7 +6,7 @@
 	</ion-refresher>
     <h2>My Council</h2>
     <div class="row responsive-md">
-        <div class="col col-center" style="margin-bottom:40px">
+        <div class="col col-center" >
             <div class="card">
                 <div class="item">
                     <h2>Bath & North East Somerset Council</h2>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="col" style="margin-bottom:40px">
+        <div class="col" >
             <h3 style = "text-align:center">Nearest council offices</h3>
             <p ng-show="!uprn">No location set</p>
             <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information available on the Council's website</button>
@@ -45,7 +45,7 @@
     <h3 style = "text-align:center" >Your councillors</h3>
     <div class="row responsive-md">
         <p ng-show="!uprn">No location set</p>
-        <div class="col col-center" style="margin-bottom:40px" ng-repeat="councillor in newBathDataObject.MyCouncil.yourCouncillors">
+        <div class="col col-center" ng-repeat="councillor in newBathDataObject.MyCouncil.yourCouncillors">
             <div class="list card">
                 <div class="item item-divider">
                     Contact details
@@ -83,7 +83,7 @@
         <h3 style = "text-align:center">Bin collection dates</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="row responsive-md" ng-repeat="collection in bathDataObject.binCollection.Results">
-            <div class="col list card" style="margin-bottom:40px">
+            <div class="col list card" >
                 <div class="item item-divider">
                     Waste: {{collection.waste}}
                 </div>
@@ -93,7 +93,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col list card" style="margin-bottom:40px">
+            <div class="col list card" >
                 <div class="item item-divider">
                     Recycling: {{collection.recycling}}
                 </div>
@@ -103,7 +103,7 @@
                     </a>
                 </div>
             </div>
-                <div class="col list card" style="margin-bottom:40px">
+                <div class="col list card" >
                     <div class="item item-divider">
                         Garden: {{collection.garden}}
                     </div>

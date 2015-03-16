@@ -4,7 +4,6 @@ angular.module('MyBath.MapDataService', [])
  *
 */
 .factory('MapData', function ($http, $q, DataTransformations) {
-
     return {
         getLayer: function (layer, lat, lng, mapData) {
             var layerData = [];
@@ -15,25 +14,17 @@ angular.module('MyBath.MapDataService', [])
                     if (!mapData[layer]) {
                         return "Failed";
                     }
-                    var northing = "";
-                    var easting = "";
-                    var latLng = [];
-                    var title = "";
-                    var bgC = "";
                     var icon = {};
-                    var i = 0;
 
-                    if ( mapData[layer].icon ) {
-                        icon = mapData[layer].icon;
-
-                    } else {
-                        icon = {
+                    if ( !mapData[layer].icon ) {
+                        mapData[layer].icon = {
                             type: "awesomeMarker",
                             icon: "bug",
                             markerColor: "red",
                             prefix: "ion"
                         };
                     }
+                    icon = mapData[layer].icon;
                     for ( var e in mapData[layer].pins ) {
                         if (! mapData[layer].pins[e].icon ) {
                             mapData[layer].pins[e].icon = icon;

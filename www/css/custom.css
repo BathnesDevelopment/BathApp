@@ -107,3 +107,11 @@ a.leaflet-popup-close-button {
 .map-custom-layers {
     font-size: 2em !important;
 }
+
+/**
+  * Ionic sets the last-child to have a larger bottom margin.
+  * This looks bad on a row-responsive
+**/
+.list:last-child.card {
+  margin-bottom: 20px;
+}
