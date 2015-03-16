@@ -2,6 +2,7 @@ angular.module('MyBath.LocalDataController', [])
 .controller('LocalDataController', function ($scope, $ionicScrollDelegate, BathData, $ionicSideMenuDelegate) {
     $ionicScrollDelegate.scrollTop();
 
+
     $scope.getData = function ( item ) {
         return $scope.newBathDataObject.LocalData.data[item];
     };
@@ -19,34 +20,15 @@ angular.module('MyBath.LocalDataController', [])
         return "";
     };
 
-
-    $scope.getDataRows = function ( name ) {
-        // returns an array of rowNumbers equal to the number of rows of data that we're showing
-        res = [];
-        if ($scope.newBathDataObject.LocalData.data[name]) {
-            for (var i = 0; i !== $scope.newBathDataObject.LocalData.data[name].length; i++){
-                if (i % 3 === 0) {
-                    res.push(i/3);
-                }
-            }
-            return res;
-        }
-        console.warn($scope.newBathDataObject.LocalData.data[name],name);
-        return [0];
-    };
-
-    $scope.getDataCols = function ( name, rowNum ) {
-        //returns an array of cols to display
-        var res = [];
-        if ($scope.newBathDataObject.LocalData.data[name]) {
-            for (i = rowNum *3; i < (rowNum+1)*3; i++) {
-                if ($scope.newBathDataObject.LocalData.data[name][i]) {
-                    res.push($scope.newBathDataObject.LocalData.data[name][i]);
-                }
+    $scope.localData = {};
+    for (var e in $scope.newBathDataObject.LocalData.data) {
+        if ($scope.newBathDataObject.LocalData.data.hasOwnProperty(e) && $scope.newBathDataObject.LocalData.data[e]) {
+            $scope.localData[e] = [];
+            for (var i = 0; i < Math.ceil($scope.newBathDataObject.LocalData.data[e].length/3); i++) {
+                $scope.localData[e].push($scope.newBathDataObject.LocalData.data[e].slice(i*3,(i+1)*3));
             }
         }
-        return res;
-    };
+    }
 
     $scope.getLocalHidden = function () {
         var res = [];

@@ -12,7 +12,7 @@
     <div ng-repeat="i in shownData()">
         <h3>{{newBathDataObject.LocalData.layers.displayName[i]}}</h3>
             <p ng-show="!getData(i)">No results</p>
-            <div class="row responsive-md" ng-repeat="dataRow in getDataRows(i)"><div class="list card col" style="margin-bottom:40px" ng-repeat="dataItem in getDataCols(i,dataRow)">
+            <div class="row responsive-md" ng-repeat="dataRow in localData[i]"><div class="list card col" style="margin-bottom:40px" ng-repeat="dataItem in dataRow">
                 <div class="item item-divider">
                     <span ng-show="dataItem.name">{{dataItem.name | title}}</span>
                     <span ng-show="dataItem.title">{{dataItem.title}}</span>
