@@ -1,22 +1,22 @@
 angular.module('MyBath.BathAppFilters', [])
-.filter('MetresToMiles', function() {
-	return function(input) {
-		res = input * 0.000621371192;
-		if (res > 1) {
-			return res.toFixed(1);
-		}
-		return res.toFixed(2);
-	};
+.filter('MetresToMiles', function () {
+    return function (input) {
+        res = input * 0.000621371192;
+        if (res > 1) {
+            return res.toFixed(1);
+        }
+        return res.toFixed(2);
+    };
 })
 .filter('isDefined', function () {
-  return function (value, msg) {
-    if (value === undefined) {
-        throw new Error('isDefined filter got undefined value ' + msg);
-    }
-    return value;
-  };
+    return function (value, msg) {
+        if (value === undefined) {
+            throw new Error('isDefined filter got undefined value ' + msg);
+        }
+        return value;
+    };
 })
-.filter('title', function() {
+.filter('title', function () {
     // converts a string (i.e. one in allcaps) to Sentence case
     return function (original) {
         var res = "";
@@ -42,44 +42,44 @@ angular.module('MyBath.BathAppFilters', [])
         return res;
     };
 })
-.filter('sentence', function() {
+.filter('sentence', function () {
     return function (original) {
         if (original) {
-			if (original.length > 1) {
-				return original.charAt(0).toUpperCase() + original.toLowerCase().slice(1);
-			} else {
-				return original;
-			}
+            if (original.length > 1) {
+                return original.charAt(0).toUpperCase() + original.toLowerCase().slice(1);
+            } else {
+                return original;
+            }
         } else {
             return '';
         }
     };
 })
-.filter('formatTime', function() {
+.filter('formatTime', function () {
     return function (strTime) {
         if (strTime && strTime === "01/01/4000 00:00:00") {
-			//This is returned when there's no date
-			return "No data available";
-		}
+            //This is returned when there's no date
+            return "No data available";
+        }
         if (strTime && strTime.search(" 00:00:00") !== -1) {
-			// Returned as a DateTime but we only really care about the date
-			return strTime.slice(0, strTime.search(" 00:00:00"));
-		}
-		return strTime;
-	};
+            // Returned as a DateTime but we only really care about the date
+            return strTime.slice(0, strTime.search(" 00:00:00"));
+        }
+        return strTime;
+    };
 })
-.filter('formatAddress', function() {
+.filter('formatAddress', function () {
     return function (aPart1, aPart2, aPart3) {
-		var res = "";
-		if (aPart1) res += aPart1;
-		if (aPart2) {
-			if (aPart1) res += ", ";
-			res += aPart2;
-		}
-		if (aPart3) {
-			if (aPart2 || aPart1) res += ", ";
-			res += aPart3;
-		}
-		return res;
-	};
+        var res = "";
+        if (aPart1) res += aPart1;
+        if (aPart2) {
+            if (aPart1) res += ", ";
+            res += aPart2;
+        }
+        if (aPart3) {
+            if (aPart2 || aPart1) res += ", ";
+            res += aPart3;
+        }
+        return res;
+    };
 });

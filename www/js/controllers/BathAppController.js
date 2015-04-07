@@ -23,9 +23,6 @@ angular.module('MyBath.BathAppController', [])
     $scope.feedDataObject = FeedData.toObj();
     $scope.newBathDataObject = BathData.toNewObj();
 
-
-
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
     // The following all happens on loading the app.
@@ -243,7 +240,7 @@ angular.module('MyBath.BathAppController', [])
         });
         $scope.uprn = uId;
         var LatLong = DataTransformations.NEtoLL(parseFloat(X), parseFloat(Y));
-        UserData.save({ "address": address, "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "lat": LatLong.latitude, "lon": LatLong.longitude, "LocalHidden": { } });
+        UserData.save({ "address": address, "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "lat": LatLong.latitude, "lon": LatLong.longitude, "LocalHidden": {} });
         $scope.userData = UserData.all();
         FeedData.fetchAll(LatLong.latitude, LatLong.longitude)
             .then(function (data) {
@@ -267,7 +264,7 @@ angular.module('MyBath.BathAppController', [])
                     }).then(function (res) {
                     });
                 }
-		});
+            });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -276,25 +273,25 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.pullRefresh = function () {
         if ($scope.userData && $scope.userData.uprn) {
-        FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
-            .then(function (data) {
-                if (data && data != []) {
-                    $scope.feedData = data;
-                    $scope.feedDataObject = FeedData.toObj();
-                }
-            });
-        BathData.fetchAll($scope.userData.uprn)
-            .then(function (data) {
-                if (data && data != []) {
-                    $scope.bathdata = data;
-                    $scope.bathDataObject = BathData.toObj();
-                }
-				$scope.$broadcast('scroll.refreshComplete');
-            });
-		}
-		else {
-			$scope.$broadcast('scroll.refreshComplete');
-		}
+            FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
+                .then(function (data) {
+                    if (data && data != []) {
+                        $scope.feedData = data;
+                        $scope.feedDataObject = FeedData.toObj();
+                    }
+                });
+            BathData.fetchAll($scope.userData.uprn)
+                .then(function (data) {
+                    if (data && data != []) {
+                        $scope.bathdata = data;
+                        $scope.bathDataObject = BathData.toObj();
+                    }
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        }
+        else {
+            $scope.$broadcast('scroll.refreshComplete');
+        }
     };
 
 
@@ -348,7 +345,7 @@ angular.module('MyBath.BathAppController', [])
                         .then(function (data) {
                             if (data && data != []) {
                                 $scope.bathdata = data;
-								$scope.bathDataObject = BathData.toObj();
+                                $scope.bathDataObject = BathData.toObj();
                                 $ionicLoading.hide();
                             }
                             else {
@@ -418,8 +415,8 @@ angular.module('MyBath.BathAppController', [])
         $ionicPopup.confirm({
             title: 'Clear data',
             template: 'This will clear all stored data on the app.',
-			cancelType: 'button-clear button-full button-stable',
-			okType: 'button-clear button-full button-assertive'
+            cancelType: 'button-clear button-full button-stable',
+            okType: 'button-clear button-full button-assertive'
         }).then(function (res) {
             if (res) {
                 UserData.clear();

@@ -16,7 +16,7 @@ angular.module('MyBath.MapDataService', [])
                     }
                     var icon = {};
 
-                    if ( !mapData[layer].icon ) {
+                    if (!mapData[layer].icon) {
                         mapData[layer].icon = {
                             type: "awesomeMarker",
                             icon: "bug",
@@ -25,8 +25,8 @@ angular.module('MyBath.MapDataService', [])
                         };
                     }
                     icon = mapData[layer].icon;
-                    for ( var e in mapData[layer].pins ) {
-                        if (! mapData[layer].pins[e].icon ) {
+                    for (var e in mapData[layer].pins) {
+                        if (!mapData[layer].pins[e].icon) {
                             mapData[layer].pins[e].icon = icon;
                         }
                         layerData.push(mapData[layer].pins[e]);

@@ -1,16 +1,17 @@
 <ion-content padding="true">
-	<ion-refresher on-refresh="pullRefresh()"
-		pulling-text="Pull to refresh..."
-		refreshing-text="Refreshing!"
-		refreshing-icon="ion-loading-c">
-	</ion-refresher>
+    <ion-refresher on-refresh="pullRefresh()"
+                   pulling-text="Pull to refresh..."
+                   refreshing-text="Refreshing!"
+                   refreshing-icon="ion-loading-c">
+    </ion-refresher>
+
     <h2>My Council</h2>
     <div class="row responsive-md">
-        <div class="col col-center" >
+        <div class="col col-center">
             <div class="card">
                 <div class="item">
                     <h2>Bath & North East Somerset Council</h2>
-                    <p><em>The</em> place to live and work</p>
+                    <p>The place to live and work</p>
                 </div>
                 <div class="item tabs tabs-primary tabs-icon-left">
                     <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
@@ -36,15 +37,16 @@
                 </div>
             </div>
         </div>
-        <div class="col" >
-            <h3 style = "text-align:center">Nearest council offices</h3>
+        <div class="col">
+            <h3 style="text-align:center">Nearest council offices</h3>
             <p ng-show="!uprn">No location set</p>
             <button type="button" class="button button-full button-clear button-positive" browse-to="http://www.bathnes.gov.uk/contact-us/offices-and-one-stop-shops">More information available on the Council's website</button>
         </div>
     </div>
-    <h3 style = "text-align:center" >Your councillors</h3>
+
+    <h3>Your councillors</h3>
+    <p ng-show="!uprn">No location set</p>
     <div class="row responsive-md">
-        <p ng-show="!uprn">No location set</p>
         <div class="col col-center" ng-repeat="councillor in newBathDataObject.MyCouncil.yourCouncillors">
             <div class="list card">
                 <div class="item item-divider">
@@ -55,7 +57,7 @@
                     <h2>{{bathDataObject.yourCouncillors.number1}}</h2>
                     <p>{{bathDataObject.yourCouncillors.telephone1}}</p>
                 </div>
-                <div class="item tabs tabs-icon-right" >
+                <div class="item tabs tabs-icon-right">
                     <a class="tab-item" ng-show="councillor.telephone" browse-to="tel:{{councillor.telephone}}">
                         <i class="icon ion-ios7-telephone positive"></i> Call
                     </a>
@@ -66,8 +68,10 @@
             </div>
         </div>
     </div>
+
     <div class="row responsive-md" ng-show="listedBuilding">
-        <h3 style = "text-align:center">Listed building status</h3>
+
+        <h3>Listed building status</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="list card" ng-repeat="listedstatus in bathDataObject.listedBuilding.Results">
             <div class="item item-divider">
@@ -79,11 +83,12 @@
             </div>
         </div>
     </div>
+
     <div>
-        <h3 style = "text-align:center">Bin collection dates</h3>
+        <h3>Bin collection dates</h3>
         <p ng-show="!uprn">No location set</p>
         <div class="row responsive-md" ng-repeat="collection in bathDataObject.binCollection.Results">
-            <div class="col list card" >
+            <div class="col list card">
                 <div class="item item-divider">
                     Waste: {{collection.waste}}
                 </div>
@@ -93,7 +98,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col list card" >
+            <div class="col list card">
                 <div class="item item-divider">
                     Recycling: {{collection.recycling}}
                 </div>
@@ -103,15 +108,14 @@
                     </a>
                 </div>
             </div>
-                <div class="col list card" >
-                    <div class="item item-divider">
-                        Garden: {{collection.garden}}
-                    </div>
-                    <div class="item tabs tabs-icon-right">
-                        <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost">
-                            <i class="icon ion-earth assertive"></i> Garden waste
-                        </a>
-                    </div>
+            <div class="col list card">
+                <div class="item item-divider">
+                    Garden: {{collection.garden}}
+                </div>
+                <div class="item tabs tabs-icon-right">
+                    <a class="tab-item" browse-to="http://www.bathnes.gov.uk/services/bins-rubbish-and-recycling/garden-waste-and-compost">
+                        <i class="icon ion-earth assertive"></i> Garden waste
+                    </a>
                 </div>
             </div>
         </div>

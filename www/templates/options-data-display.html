@@ -6,14 +6,16 @@
     <ion-content>
         <span ng-repeat="category in newBathDataObject.LocalData.layers.categories">
             <ion-item class="item-stable"
-                    ng-click="toggleGroup($index)"
-                    ng-class="{active: isGroupShown($index)}">
-              <i class="icon" ng-class="isGroupShown($index) ? 'ion-minus' : 'ion-plus'"></i>
-            &nbsp;
-            {{category.name}}
+                      ng-click="toggleGroup($index)"
+                      ng-class="{active: isGroupShown($index)}">
+                <i class="icon" ng-class="isGroupShown($index) ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                {{category.name}}
             </ion-item>
-            <ul class="list" ng-show = "isGroupShown($index)">
-                <li class="item item-toggle" ng-repeat = "item in category.contents">{{newBathDataObject.LocalData.layers.displayName[item]}}
+
+            <ul class="list" ng-show="isGroupShown($index)">
+                <li class="item item-toggle" ng-repeat="item in category.contents">
+                    {{newBathDataObject.LocalData.layers.displayName[item]}}
                     <label class="toggle toggle-balanced">
                         <input type="checkbox" ng-model="userData.LocalHidden[item]">
                         <div class="track">

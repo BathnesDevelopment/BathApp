@@ -1,50 +1,50 @@
 <ion-content padding="true">
-	<ion-refresher on-refresh="pullRefresh()"
-		pulling-text="Pull to refresh..."
-		refreshing-text="Refreshing!"
-		refreshing-icon="ion-loading-c">
-	</ion-refresher>
+    <ion-refresher on-refresh="pullRefresh()"
+                   pulling-text="Pull to refresh..."
+                   refreshing-text="Refreshing!"
+                   refreshing-icon="ion-loading-c">
+    </ion-refresher>
     <h2>My Nearest</h2>
     <p>This page shows local data, relevant to your registered address.</p>
-    <p ng-show = "!uprn">No location set</p>
+    <p ng-show="!uprn">No location set</p>
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
     <div ng-repeat="i in shownData()">
         <h3>{{newBathDataObject.LocalData.layers.displayName[i]}}</h3>
-            <p ng-show="!getData(i)">No results</p>
-            <div class="row responsive-md" ng-repeat="dataRow in localData[i]">
-                <div class="list card col" style="" ng-repeat="dataItem in dataRow">
+        <div class="row responsive-md" ng-repeat="dataRow in localData[i]">
+            <div class="col" ng-repeat="dataItem in dataRow">
+                <div class="list card">
                     <div class="item item-divider">
                         <span ng-show="dataItem.name">{{dataItem.name | title}}</span>
                         <span ng-show="dataItem.title">{{dataItem.title}}</span>
                         <p ng-show="dataItem.village">Nearest village stop: <span ng-bind-html="dataItem.village"></span></p>
                         <p>Distance: {{dataItem.Distance | MetresToMiles}} miles</p>
                     </div>
-                    <div ng-show = "i === 'planningApplicationsNearby'" class="item item-body">
+                    <div ng-show="i === 'planningApplicationsNearby'" class="item item-body">
                         {{dataItem.PROPOSAL}}<br />
                         <b ng-show="dataItem.Consulation___Expiry___Date">Consultation expiry date:</b> {{dataItem.Consulation___Expiry___Date}}
                     </div>
-                    <div ng-show = "i === 'schoolCrossings'" class="item item-body">
+                    <div ng-show="i === 'schoolCrossings'" class="item item-body">
                         <b>Location:</b> <span ng-bind-html="dataItem._"></span><br />
                         <b>Morning times:</b> {{dataItem.Morning__times}}<br />
                         <b>Afternoon times:</b> {{dataItem.Afternoon___times}}<br />
                     </div>
-                    <div ng-show = "i === 'mobileLibrariesNearby'" class="item item-body">
+                    <div ng-show="i === 'mobileLibrariesNearby'" class="item item-body">
                         <b>Time:</b> {{dataItem.timeAdjusted}}<br />
                         <b>Stop:</b> <span ng-bind-html="dataItem.stop"></span><br />
                         <b>Day:</b> {{dataItem.day}}<br />
                     </div>
-                    <div ng-show = "i === 'roadworksNearby'" class="item item-body">
+                    <div ng-show="i === 'roadworksNearby'" class="item item-body">
                         {{dataItem._ | sentence }}<br />
                         <b>Location:</b> {{dataItem.Location | sentence }}<br />
                         <b>Work commenced:</b> {{dataItem.Work____commenced | formatTime}}<br />
                         <b>Due to be completed:</b> {{dataItem.Due_____to_____be_____completed_____on | formatTime}}
                     </div>
-                    <div ng-show = "i === 'newLicensingAppsNearby' || i === 'issuedLicensingAppsNearby'" class="item item-body">
+                    <div ng-show="i === 'newLicensingAppsNearby' || i === 'issuedLicensingAppsNearby'" class="item item-body">
                         <b>Who:</b><span ng-bind-html="dataItem.Licence"></span><br />
                         <b>Address:</b> {{dataItem.Address}}
                     </div>
-                    <div ng-show = "i === 'allotmentsNearby'"class="item item-body">
+                    <div ng-show="i === 'allotmentsNearby'" class="item item-body">
                         <b>Provided by:</b> {{dataItem.ProvidedAdjusted}}
                     </div>
                     <div ng-show="dataItem.__" class="item item-body">
@@ -66,15 +66,16 @@
 
     <div ng-show="userData.LocalHidden.GPs">
         <h3>GP Surgeries</h3>
-        <img src = "images/nhsChoices.jpg"></img><span ng-if="userData.LocalHidden.GPs" ng-bind-html="feedDataObject.tracking[0]"></span>
+        <img src="images/nhsChoices.jpg" />
+        <span ng-if="userData.LocalHidden.GPs" ng-bind-html="feedDataObject.tracking[0]"></span>
         <p ng-show="!feedDataObject.gpsNearby">No results</p>
         <div class="list card" ng-repeat="gp in feedDataObject.gpsNearby">
             <div class="item item-divider">
                 {{gp.title}}<p>{{gp.distance | MetresToMiles}} miles</p>
             </div>
             <div class="item item-body">
-            {{gp.address}}<br>
-            {{gp.tel}}
+                {{gp.address}}<br>
+                {{gp.tel}}
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item" browse-to="{{gp.url}}">
@@ -86,17 +87,19 @@
             </div>
         </div>
     </div>
+
     <div ng-show="userData.LocalHidden.Hospitals">
         <h3>Hospitals</h3>
-        <img src = "images/nhsChoices.jpg"></img><span ng-if="userData.LocalHidden.Hospitals" ng-bind-html="feedDataObject.tracking[1]"></span>
+        <img src="images/nhsChoices.jpg" />
+        <span ng-if="userData.LocalHidden.Hospitals" ng-bind-html="feedDataObject.tracking[1]"></span>
         <p ng-show="!feedDataObject.hospitalsNearby">No results</p>
         <div class="list card" ng-repeat="hospital in feedDataObject.hospitalsNearby">
             <div class="item item-divider">
                 {{hospital.title}}<p>{{hospital.distance | MetresToMiles}} miles</p>
             </div>
             <div class="item item-body">
-            {{hospital.address}}<br>
-            {{hospital.tel}}
+                {{hospital.address}}<br>
+                {{hospital.tel}}
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item" browse-to="{{hospital.url}}">
@@ -108,17 +111,19 @@
             </div>
         </div>
     </div>
+
     <div ng-show="userData.LocalHidden.Dentists">
         <h3>Dentists</h3>
-        <img src = "images/nhsChoices.jpg"></img><span ng-if="userData.LocalHidden.Dentists" ng-bind-html="feedDataObject.tracking[2]"></span>
+        <img src="images/nhsChoices.jpg" />
+        <span ng-if="userData.LocalHidden.Dentists" ng-bind-html="feedDataObject.tracking[2]"></span>
         <p ng-show="!feedDataObject.dentistsNearby">No results</p>
         <div class="list card" ng-repeat="dentist in feedDataObject.dentistsNearby">
             <div class="item item-divider">
                 {{dentist.title}}<p>{{dentist.distance | MetresToMiles}} miles</p>
             </div>
-            <div class="item item-body">            
-            {{dentist.address}}<br>
-            {{dentist.tel}}
+            <div class="item item-body">
+                {{dentist.address}}<br>
+                {{dentist.tel}}
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item" browse-to="{{dentist.url}}">
@@ -130,17 +135,19 @@
             </div>
         </div>
     </div>
+
     <div ng-show="userData.LocalHidden.Pharmacies">
         <h3>Pharmacies</h3>
-        <img src = "images/nhsChoices.jpg"></img><span ng-if="userData.LocalHidden.Pharmacies" ng-bind-html="feedDataObject.tracking[3]"></span>
+        <img src="images/nhsChoices.jpg" />
+        <span ng-if="userData.LocalHidden.Pharmacies" ng-bind-html="feedDataObject.tracking[3]"></span>
         <p ng-show="!feedDataObject.pharmaciesNearby">No results</p>
         <div class="list card" ng-repeat="pharmacy in feedDataObject.pharmaciesNearby">
             <div class="item item-divider">
                 {{pharmacy.title}}<p>{{pharmacy.distance | MetresToMiles}} miles</p>
             </div>
             <div class="item item-body">
-            {{pharmacy.address}}<br>
-            {{pharmacy.tel}}
+                {{pharmacy.address}}<br>
+                {{pharmacy.tel}}
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <a class="tab-item" browse-to="{{pharmacy.url}}">

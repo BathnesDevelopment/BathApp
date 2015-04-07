@@ -11,8 +11,10 @@ angular.module('MyBath.UserDataService', [])
             var userData = window.localStorage.UserData;
             if (!userData) {
                 // Defaults
-                userData = { "LocalHidden": {
-                    }};
+                userData = {
+                    "LocalHidden": {
+                    }
+                };
             }
             return angular.fromJson(userData);
         },

@@ -4,24 +4,25 @@
         <button class="button button-clear button-primary" ng-click="closeMapDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
-    <span ng-repeat="category in mapData.getCategories()">
-     <ion-item class="item-stable"
-                    ng-click="toggleGroup($index)"
-                    ng-class="{active: isGroupShown($index)}">
-              <i class="icon" ng-class="isGroupShown($index) ? 'ion-minus' : 'ion-plus'"></i>
-            &nbsp;
-            {{category}}
-      </ion-item>
-      <ul class="list" ng-show = "isGroupShown($index)">
-            <li class="item item-toggle" ng-repeat = "item in mapData.getItemsInCategory(category)">{{item.name}}
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="userData.MapDisplay[item.name]">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-        </ul>
+        <span ng-repeat="category in mapData.getCategories()">
+            <ion-item class="item-stable"
+                      ng-click="toggleGroup($index)"
+                      ng-class="{active: isGroupShown($index)}">
+                <i class="icon" ng-class="isGroupShown($index) ? 'ion-minus' : 'ion-plus'"></i>
+                &nbsp;
+                {{category}}
+            </ion-item>
+            <ul class="list" ng-show="isGroupShown($index)">
+                <li class="item item-toggle" ng-repeat="item in mapData.getItemsInCategory(category)">
+                    {{item.name}}
+                    <label class="toggle toggle-balanced">
+                        <input type="checkbox" ng-model="userData.MapDisplay[item.name]">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                </li>
+            </ul>
         </span>
     </ion-content>
 </div>
