@@ -15,6 +15,17 @@ To build, install cordova, then run:
 - $ cordova emulate ios
 
 
-
-
 Substitute ios for android above to test on Android.
+
+
+## Supporting technologies
+
+The following plugins/technologies are used:
+
+- Ionic Framework
+- Highcharts
+- Highcharts Angular
+- Highcharts standalone adapter
+- Proj4JS
+- Font Awesome
+

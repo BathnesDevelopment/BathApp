@@ -1,22 +1,14 @@
 <ion-content padding="true">
     <div class="row responsive-sm">
-        <div class="col col-center">
-            <div class="card" id="divCardLogo">
+        <div class="col">
+            <div class="card" id="divCouncilConnect">
+                <div class="item item-image">
+                    <img src="images/logo.svg"/>
+                </div>
                 <div class="item tabs tabs-primary tabs-icon-left">
                     <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
                         <i class="icon positive ion-information-circled"></i>
                     </a>
-                    <a class="tab-item" browse-to="http://www.bathnes.gov.uk">
-                        <i class="icon positive ion-earth"></i>
-                    </a>
-                    <a class="tab-item" browse-to="https://twitter.com/bathnes">
-                        <i class="icon calm ion-social-twitter"></i>
-                    </a>
-                </div>
-                <div class="item item-image logo">
-                    <img src="images/logo.svg">
-                </div>
-                <div class="item tabs tabs-primary tabs-icon-left">
                     <a class="tab-item" href="sms://07797806545?body=BathAppMessage:">
                         <i class="icon energized ion-ios-keypad"></i>
                     </a>
@@ -28,13 +20,24 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="col col-center">
-            <div class="card" id="divCardReportIt">
-                <div class="item item-body home-card">
-                    <p class="home-header assertive">Report It</p>
+            <div class="card">
+                <div class="item item-icon-left">
+                    <i class="icon ion-map balanced"></i>
+                    <h2>Maps</h2>
+                </div>
+                <div class="item tabs tabs-primary tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('Local area map', 'The local area map shows a map, with boundary layers and points of interest such as schools, libraries and Council offices.' )">
+                        <i class="icon ion-information-circled balanced"></i>
+                    </a>
+                    <a class="tab-item" href="#/menu/map">
+                        <i class="icon ion-more balanced"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item item-icon-left">
                     <i class="icon assertive ion-compose"></i>
-                    <p>Report a new issue to the Council and view your existing reports.</p>
+                    <h2>Report It</h2>
                 </div>
                 <div class="item tabs tabs-primary tabs-icon-left">
                     <a class="tab-item" ng-click="showPopup('Report It', 'Report It allows you to report issues to the council such as missed bins, potholes, or fly tipping.')">
@@ -49,48 +52,11 @@
                 </div>
             </div>
         </div>
-        <div class="col col-center">
-            <div class="card" id="divCardLocalData">
-                <div class="item item-body home-card">
-                    <p class="home-header">My Nearest</p>
-                    <i class="icon positive ion-information-circled"></i>
-                    <p>View local data personalised to your address.</p>
-                </div>
-                <div class="item tabs tabs-primary tabs-icon-left">
-                    <a class="tab-item" ng-click="showPopup('My nearest', 'View information about your address such as planning and licensing applications, and roadworks.')">
-                        <i class="icon positive ion-information-circled"></i>
-                    </a>
-                    <a class="tab-item" href="#/menu/local">
-                        <i class="icon positive ion-more"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row responsive-sm">
         <div class="col">
-            <div class="card" id="divCardMap">
-                <div class="item item-body home-card">
-                    <p class="home-header balanced">Services Map</p>
-                    <i class="icon ion-map balanced"></i>
-                    <p>View local area information on a map</p>
-                </div>
-                <div class="item tabs tabs-primary tabs-icon-left">
-                    <a class="tab-item" ng-click="showPopup('Local area map', 'The local area map shows a map, with boundary layers and points of interest such as schools, libraries and Council offices.' )">
-                        <i class="icon ion-information-circled balanced"></i>
-                    </a>
-                    <a class="tab-item" href="#/menu/map">
-                        <i class="icon ion-more balanced"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" id="divCardDetails">
-                <div class="item item-body home-card">
-                    <p class="home-header royal">My Details</p>
+            <div class="card">
+                <div class="item item-icon-left">
                     <i class="icon ion-ios-person royal"></i>
-                    <p>Review account details stored on this device.</p>
+                    <h2>My Details</h2>
                 </div>
                 <div class="item tabs tabs-primary tabs-icon-left">
                     <a class="tab-item" ng-click="showPopup('My Details', 'You can store personal details on this device to make reporting issues quicker and easier, and to personalise the information displayed.')">
@@ -101,20 +67,31 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card" id="divCardCouncil">
-                <div class="item item-body home-card">
-                    <p class="home-header">My Council</p>
-                    <i class="icon calm ion-ios-people"></i>
-                    <p>Details about the Council and how to get in touch.</p>
+            <div class="card">
+                <div class="item item-icon-left">
+                    <i class="icon positive ion-information-circled"></i>
+                    <h2>My House</h2>
                 </div>
                 <div class="item tabs tabs-primary tabs-icon-left">
-                    <a class="tab-item" ng-click="showPopup('My Council', 'My Council shows details about Bath & North East Somerset Council, including useful phone numbers, office locations and opening hours.')">
-                        <i class="icon calm ion-information-circled"></i>
+                    <a class="tab-item" ng-click="showPopup('My house', '')">
+                        <i class="icon positive ion-information-circled"></i>
                     </a>
-                    <a class="tab-item" href="#/menu/mycouncil">
-                        <i class="icon ion-more calm"></i>
+                    <a class="tab-item" href="#/menu/house">
+                        <i class="icon positive ion-more"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item item-icon-left">
+                    <i class="icon positive ion-information-circled"></i>
+                    <h2>My Nearest</h2>
+                </div>
+                <div class="item tabs tabs-primary tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('My nearest', '')">
+                        <i class="icon positive ion-information-circled"></i>
+                    </a>
+                    <a class="tab-item" href="#/menu/local">
+                        <i class="icon positive ion-more"></i>
                     </a>
                 </div>
             </div>

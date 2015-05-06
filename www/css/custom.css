@@ -1,3 +1,7 @@
+.scroll, .ion-content {
+    /*background-color: #F0F0F0 !important; */
+}
+
 header h1 {
     font-weight: bold;
 }
@@ -14,10 +18,6 @@ i.listIcons {
     padding-top: 80px;
     text-align: center;
     font-weight: 300;
-}
-
-.logo img {
-    padding: 5px;
 }
 
 #list {
@@ -39,18 +39,6 @@ i.listIcons {
     border-color: #ef4e3a;
     background-color: #ef4e3a;
 }
-
-.home-card {
-    text-align: center;
-}
-
-    .home-card i {
-        font-size: 48px;
-    }
-
-    .home-card .home-header {
-        font-size: 32px;
-    }
 
 .scroll {
     min-height: 100%;
@@ -93,6 +81,10 @@ a.leaflet-popup-close-button {
 
 .leaflet-popup-content {
     margin-top: 20px !important;
+}
+
+#divCouncilConnect img {
+    padding: 5px;
 }
 
 /**
