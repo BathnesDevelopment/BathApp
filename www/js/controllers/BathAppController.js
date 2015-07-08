@@ -1,5 +1,5 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, UserData, BathData, Reports, Comments, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -9,9 +9,11 @@ angular.module('MyBath.BathAppController', [])
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '' };
+    $scope.currentComment = Comments.getDefaultComment();
     $scope.userData = UserData.all();
     $scope.uprn = $scope.userData.uprn;
     $scope.reports = Reports.getReports();
+    $scope.comments = Comments.getComments();
     $scope.currentLocation = null;
     $scope.map = null;
     $scope.mapmarkers = {};
@@ -86,6 +88,62 @@ angular.module('MyBath.BathAppController', [])
         UserData.save($scope.userData);
         $scope.displayOptionsModal.hide();
 
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: NewComment
+    // planning comments screen
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $ionicModal.fromTemplateUrl('templates/comments-new.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.commentModal = modal;
+        });
+        $scope.newComment = function () {
+            $scope.commentModal.show();
+            // Dummy reference for testing
+            $scope.currentComment.reference = Math.floor((Math.random()*100000000));
+
+            // Populate the form with user address, if that info exists
+            if ($scope.userData.address) {
+                $scope.currentComment.address = $scope.userData.address;
+            }
+            if ($scope.userData.phone) {
+                $scope.currentComment.userPhone = $scope.userData.phone;
+            }
+            if ($scope.userData.email) {
+                $scope.currentComment.userEmail = $scope.userData.email;
+            }
+        };
+        $scope.closeComment = function () {
+            $scope.commentModal.hide();
+        };
+        //Submit
+        $scope.submitCommentPage1 = function (comment) {
+            if ($scope.currentComment.type) {
+
+                $scope.commentModal.hide();
+                $scope.commentComposeModal.show();
+                return;
+            }
+        };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: Comment Compose
+    // planning comments screen: Compose comment
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $ionicModal.fromTemplateUrl('templates/comments-compose.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.commentComposeModal = modal;
+        });
+        $scope.submitComment = function(comment) {
+            $scope.commentComposeModal.hide();
+            Comments.addComment($scope.currentComment);
+            $scope.currentComment = Comments.getDefaultComment();
+            $scope.comments = Comments.getComments();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -374,12 +432,13 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.selectMenu = function (menuItem) {
         $ionicSideMenuDelegate.toggleLeft(false);
-        if (menuItem == 'home') { $state.go('menu.home'); }
-        if (menuItem == 'map') { $state.go('menu.map'); }
-        if (menuItem == 'reports') { $state.go('menu.reports'); }
-        if (menuItem == 'localdata') { $state.go('menu.local'); }
-        if (menuItem == 'details') { $state.go('menu.details'); }
-        if (menuItem == 'mycouncil') { $state.go('menu.mycouncil'); }
+        if (menuItem === 'home') { $state.go('menu.home'); }
+        if (menuItem === 'map') { $state.go('menu.map'); }
+        if (menuItem === 'reports') { $state.go('menu.reports'); }
+        if (menuItem === 'localdata') { $state.go('menu.local'); }
+        if (menuItem === 'details') { $state.go('menu.details'); }
+        if (menuItem === 'mycouncil') { $state.go('menu.mycouncil'); }
+        if (menuItem === 'planning') { $state.go('menu.planningApp');}
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -438,6 +497,17 @@ angular.module('MyBath.BathAppController', [])
         if ($scope.reports[index]) {
             $scope.reports.splice(index, 1);
             Reports.saveReports($scope.reports);
+        }
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: deleteComment
+    // Removes a single comment
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.deleteComment = function (index) {
+        if ($scope.comments[index]) {
+            $scope.comments.splice(index, 1);
+            Comments.saveComments($scope.comments);
         }
     };
 

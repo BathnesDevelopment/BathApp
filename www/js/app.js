@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.UserDataService', 'MyBath.MapDataService','MyBath.BathAppController','MyBath.LocalDataController','MyBath.CouncilController','MyBath.MapController','MyBath.DataTransformations','MyBath.BathAppFilters','MyBath.BathAppDirectives'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService','MyBath.BathAppController','MyBath.LocalDataController','MyBath.CouncilController','MyBath.MapController','MyBath.DataTransformations','MyBath.BathAppFilters','MyBath.BathAppDirectives'])
  .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('menu', {
@@ -54,6 +54,14 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataSer
             views: {
                 'mainContent': {
                     templateUrl: "templates/home.html"
+                }
+            }
+        })
+        .state('menu.planningApp', {
+            url: "/comments",
+            views: {
+                'mainContent': {
+                    templateUrl: "templates/comments.html"
                 }
             }
         });

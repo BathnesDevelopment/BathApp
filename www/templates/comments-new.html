@@ -1,0 +1,40 @@
+<div class="modal">
+    <ion-header-bar class="bar-balanced">
+        <h1 class="title">Comment</h1>
+        <button class="button button-clear button-primary" ng-click="commentModal.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content padding="true">
+        <div class="list list-inset">
+            <h3>New Comment</h3>
+            <form ng-submit="submitCommentPage1(currentComment)">
+            <p>Comment reference:  {{ currentComment.reference }}</p>
+            <!--<li class="item item-checkbox">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="currentComment.useUserDetails">
+                </label>
+                Use my saved details
+            </li>-->
+               <label class="item item-input" >
+                    <input ng-show = "!currentComment.useUserDetails || !userData.address" type="text" placeholder="Address" ng-model="currentComment.address">
+                    <p ng-show = "userData.address && currentComment.useUserDetails">{{userData.address}}</p>
+                </label>
+                <label class="item item-input">
+                    <input  ng-show = "!currentComment.useUserDetails || !userData.phone" type="text" placeholder="Contact phone" ng-model="currentComment.userPhone">
+                    <p ng-show = "userData.phone && currentComment.useUserDetails">{{userData.phone}}</p>
+                </label>
+               <label class="item item-input">
+                    <input ng-show = "!currentComment.useUserDetails || !userData.email" type="text" placeholder="Contact email" ng-model="currentComment.userEmail">
+                    <p ng-show = "userData.email && currentComment.useUserDetails">{{userData.email}}</p>
+                </label>
+            <label class="item item-input">
+            Comment type: <span style="margin-left:10px"></span>
+            <span ng-show = "commentErrorNoType">NO TYPE</span>
+            <ion-radio ng-model="currentComment.type" ng-value="'Objection'">Objection</ion-radio>
+            <ion-radio ng-model="currentComment.type" ng-value="'Support'">Support</ion-radio>
+            <ion-radio ng-model="currentComment.type" ng-value="'Representation'">Representation</ion-radio>
+            </label>
+                <button type="submit" class="button button-full button-clear button-clear button-positive">Next</button>
+            </form>
+        </div>
+    </ion-content>
+</div>

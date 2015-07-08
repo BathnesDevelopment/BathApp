@@ -1,0 +1,30 @@
+<ion-content padding="true">
+    <h3>My Comments</h3>
+    <p>This page shows the comments to planning applications you have sent to the council.</p>
+    <button type="button" ng-click="newComment()" class="button button-full button-clear button-positive">
+        New Comment
+    </button>
+    <div class="list list-inset">
+        <div ng-repeat="comment in comments">
+            <div class="item item-avatar">
+                <img src="{{comment.photo}}" ng-show="comment.photo">
+                <h2>{{ comment.reference }} - {{ comment.type  }}</h2>
+                <p>{{ comment.body }}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-paper-airplane"></i>
+                    Send comment
+                </a>
+                <a class="tab-item" ng-click="deleteComment($index)">
+                    <i class="icon ion-trash-a"></i>
+                    Delete
+                </a>
+                <a class="tab-item" ng-show="comment.useUserLocation" browse-to="geo:0,0?q={{comment.lat}},{{comment.long}}">
+                    <i class="icon ion-map"></i>
+                    View map
+                </a>
+            </div>
+        </div>
+    </div>
+</ion-content>
