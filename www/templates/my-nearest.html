@@ -1,0 +1,36 @@
+<ion-content padding="true">
+    <ion-refresher on-refresh="pullRefresh()"
+                   pulling-text="Pull to refresh..."
+                   refreshing-text="Refreshing!"
+                   refreshing-icon="ion-loading-c">
+    </ion-refresher>
+    <h2>My Nearest</h2>
+    <p>This page shows local data, relevant to your registered address.</p>
+    <p ng-show="!uprn">No location set</p>
+    <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
+
+    <div ng-repeat="i in myNearest">
+        <h3>{{ newBathDataObject.LocalData.layers.displayName[i] }}</h3>
+        <div class="row responsive-md" ng-repeat="dataRow in localData[i]">
+            <div class="col" ng-repeat="dataItem in dataRow">
+                <div class="list card">
+                    <div class="item item-divider">
+                        <span ng-show="dataItem.name">{{ dataItem.name | title }}</span>
+                        <span ng-show="dataItem.title">{{ dataItem.title }}</span>
+                        <p>Distance: {{ dataItem.Distance | MetresToMiles }} miles</p>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <span ng-bind-html="additionalIcons(i,dataItem)"></span>
+                        <a ng-show="dataItem.url" class="tab-item" browse-to="{{dataItem.url}}">
+                            <i class="icon ion-earth assertive"></i> Website
+                        </a>
+                        <a ng-show="dataItem.lat" class="tab-item" browse-to="geo:0,0?q={{ dataItem.lat }},{{ dataItem.lon }}({{ dataItem.name }})">
+                            <i class="icon ion-map calm"></i> Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ion-content>

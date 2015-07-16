@@ -11,19 +11,11 @@ angular.module('MyBath.BathAppController', [])
     $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '' };
     $scope.currentComment = Comments.getDefaultComment();
     $scope.userData = UserData.all();
-    $scope.uprn = $scope.userData.uprn;
     $scope.reports = Reports.getReports();
     $scope.comments = Comments.getComments();
     $scope.currentLocation = null;
-    $scope.map = null;
-    $scope.mapmarkers = {};
-    $scope.bathdata = BathData.all();
     $scope.addresses = [];
-    $scope.binCollection = [];
-    $scope.bathDataObject = BathData.toObj();
-    $scope.feedData = FeedData.all();
-    $scope.feedDataObject = FeedData.toObj();
-    $scope.newBathDataObject = BathData.toNewObj();
+    $scope.feedData = FeedData.toObj();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
@@ -31,7 +23,6 @@ angular.module('MyBath.BathAppController', [])
     // - If the app has not been previously loaded then a tutorial is shown.
     // - If there is an existing user registered then their user data is loaded.
     // - Location is detected in the background (not to be used, but to save time later).
-    // - The definition for the map is loaded.
     //  -Existing reports are loaded.
     /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -352,7 +343,10 @@ angular.module('MyBath.BathAppController', [])
         }
     };
 
-
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: toggleGroup
+    // To do:
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.toggleGroup = function (group) {
         if ($scope.isGroupShown(group)) {
             $scope.shownGroup = null;
@@ -361,9 +355,14 @@ angular.module('MyBath.BathAppController', [])
         }
     };
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: toggleGroup
+    // To do:
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.isGroupShown = function (group) {
         return $scope.shownGroup === group;
     };
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: options
     // Displays the options menu
@@ -435,9 +434,10 @@ angular.module('MyBath.BathAppController', [])
         if (menuItem === 'home') { $state.go('menu.home'); }
         if (menuItem === 'map') { $state.go('menu.map'); }
         if (menuItem === 'reports') { $state.go('menu.reports'); }
-        if (menuItem === 'localdata') { $state.go('menu.local'); }
         if (menuItem === 'details') { $state.go('menu.details'); }
         if (menuItem === 'mycouncil') { $state.go('menu.mycouncil'); }
+        if (menuItem === 'myhouse') { $state.go('menu.myhouse'); }
+        if (menuItem === 'mynearest') { $state.go('menu.mynearest'); }
         if (menuItem === 'planning') { $state.go('menu.planningApp');}
     };
 
