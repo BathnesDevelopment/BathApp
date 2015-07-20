@@ -3,6 +3,6 @@ angular.module('MyBath.MyCouncilController', [])
 
     $ionicScrollDelegate.scrollTop();
 
-    $scope.myCouncil = BathData.getMyCouncil();
+    // $scope.myCouncil = BathData.getMyCouncil();
 
 });

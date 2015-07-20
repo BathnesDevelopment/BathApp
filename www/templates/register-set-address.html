@@ -6,8 +6,8 @@
     </ion-header-bar>
     <!-- Modal content area -->
     <ion-content padding="true">
-        <button class="button button-full button-clear button-stable" ng-click="setProperty({{address[0]}},{{address[4]}},{{address[5]}},address[7])" ng-repeat="address in addresses.data">
-            {{address[7]}}
+        <button class="button button-full button-clear button-stable" ng-click="setProperty(address.uprn, address.northing, address.easting, address.addressLine, address.postcode)" ng-repeat="address in addresses">
+            {{address.addressLine}}
         </button>
     </ion-content>
 </div>

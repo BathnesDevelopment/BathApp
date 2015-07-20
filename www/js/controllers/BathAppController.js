@@ -15,7 +15,10 @@ angular.module('MyBath.BathAppController', [])
     $scope.comments = Comments.getComments();
     $scope.currentLocation = null;
     $scope.addresses = [];
-    $scope.feedData = FeedData.toObj();
+    //$scope.feedData = FeedData.toObj();
+    $scope.myCouncil = BathData.getMyCouncil();
+    $scope.myNearest= BathData.getMyNearest();
+    $scope.myHouse = BathData.getMyHouse();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
@@ -78,7 +81,6 @@ angular.module('MyBath.BathAppController', [])
         // Save user data
         UserData.save($scope.userData);
         $scope.displayOptionsModal.hide();
-
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,27 +284,30 @@ angular.module('MyBath.BathAppController', [])
     // Function: setProperty
     // Sets the user selected property during registration
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.setProperty = function (uId, X, Y, address) {
+    $scope.setProperty = function (uprn, lat, lng, address, postcode) {
         $scope.propertyModal.hide();
         $ionicLoading.show({
             template: 'Fetching data...'
         });
-        $scope.uprn = uId;
-        var LatLong = DataTransformations.NEtoLL(parseFloat(X), parseFloat(Y));
-        UserData.save({ "address": address, "uprn": uId, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "lat": LatLong.latitude, "lon": LatLong.longitude, "LocalHidden": {} });
+        $scope.uprn = uprn;
+
+        UserData.save({ "Address": address, "UPRN": uprn, "AddressSearch": $scope.userData.addressSearch, "Firstname": $scope.userData.firstname, "Lastname": $scope.userData.lastname, "Email": $scope.userData.email, "Phone": $scope.userData.phone, "Postcode": postcode, "Lat": lat, "Lon": lng, "DisplayOptions": {} });
         $scope.userData = UserData.all();
-        FeedData.fetchAll(LatLong.latitude, LatLong.longitude)
+
+        //FeedData.fetchAll(lat, lng)
+        //    .then(function (data) {
+        //        if (data && data != []) {
+        //            $scope.feedData = data;
+        //            $scope.feedDataObject = FeedData.toObj();
+        //        }
+        //    });
+
+        BathData.fetchAll(uprn, postcode)
             .then(function (data) {
                 if (data && data != []) {
-                    $scope.feedData = data;
-                    $scope.feedDataObject = FeedData.toObj();
-                }
-            });
-        BathData.fetchAll(uId)
-            .then(function (data) {
-                if (data && data != []) {
-                    $scope.bathdata = data;
-                    $scope.bathDataObject = BathData.toObj();
+                    $scope.myCouncil = data.myCouncil;
+                    $scope.myCouncil = data.myNearest;
+                    $scope.myHouse = data.myHouse;
                     $ionicLoading.hide();
                 }
                 else {
@@ -310,8 +315,7 @@ angular.module('MyBath.BathAppController', [])
                     $ionicPopup.alert({
                         title: 'Error downloading data',
                         content: 'Please check connection and try again.'
-                    }).then(function (res) {
-                    });
+                    }).then(function (res) {});
                 }
             });
     };
@@ -322,18 +326,19 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.pullRefresh = function () {
         if ($scope.userData && $scope.userData.uprn) {
-            FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
-                .then(function (data) {
-                    if (data && data != []) {
-                        $scope.feedData = data;
-                        $scope.feedDataObject = FeedData.toObj();
-                    }
-                });
+            //FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
+            //    .then(function (data) {
+            //        if (data && data != []) {
+            //            $scope.feedData = data;
+            //            $scope.feedDataObject = FeedData.toObj();
+            //        }
+            //    });
             BathData.fetchAll($scope.userData.uprn)
                 .then(function (data) {
                     if (data && data != []) {
-                        $scope.bathdata = data;
-                        $scope.bathDataObject = BathData.toObj();
+                        $scope.myCouncil = data.myCouncil;
+                        $scope.myCouncil = data.myNearest;
+                        $scope.myHouse = data.myHouse;
                     }
                     $scope.$broadcast('scroll.refreshComplete');
                 });

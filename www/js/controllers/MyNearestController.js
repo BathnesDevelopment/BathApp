@@ -3,7 +3,7 @@ angular.module('MyBath.MyNearestController', [])
 
     $ionicScrollDelegate.scrollTop();
 
-    $scope.myNearest = BathData.getMyNearest();
+    // $scope.myNearest = BathData.getMyNearest();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: filterData

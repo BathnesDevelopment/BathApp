@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService','MyBath.BathAppController','MyBath.LocalDataController','MyBath.CouncilController','MyBath.MapController','MyBath.DataTransformations','MyBath.BathAppFilters','MyBath.BathAppDirectives'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives'])
  .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('menu', {
@@ -14,12 +14,21 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataSer
                 }
             }
         })
-        .state('menu.local', {
+        .state('menu.mynearest', {
             url: "/local",
             views: {
                 'mainContent': {
-                    templateUrl: "templates/local-data.html",
-                    controller: "LocalDataController"
+                    templateUrl: "templates/my-nearest.html",
+                    controller: "MyNearestController"
+                }
+            }
+        })
+        .state('menu.myhouse', {
+            url: "/local",
+            views: {
+                'mainContent': {
+                    templateUrl: "templates/my-house.html",
+                    controller: "MyHouseController"
                 }
             }
         })
@@ -45,7 +54,7 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'MyBath.BathDataSer
             views: {
                 'mainContent': {
                     templateUrl: "templates/my-council.html",
-                    controller: "CouncilController"
+                    controller: "MyCouncilController"
                 }
             }
         })

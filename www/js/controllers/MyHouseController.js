@@ -3,6 +3,6 @@ angular.module('MyBath.MyHouseController', [])
 
     $ionicScrollDelegate.scrollTop();
 
-    $scope.myHouse = BathData.getMyHouse();
+    // $scope.myHouse = BathData.getMyHouse();
 
 });

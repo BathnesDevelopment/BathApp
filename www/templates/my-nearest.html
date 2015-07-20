@@ -9,9 +9,9 @@
     <p ng-show="!uprn">No location set</p>
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
-    <div ng-repeat="i in myNearest">
-        <h3>{{ newBathDataObject.LocalData.layers.displayName[i] }}</h3>
-        <div class="row responsive-md" ng-repeat="dataRow in localData[i]">
+    <div ng-repeat="item in myNearest">
+        <h3>{{ item.title }}</h3>
+        <div class="row responsive-md" ng-repeat="dataRow in item.data">
             <div class="col" ng-repeat="dataItem in dataRow">
                 <div class="list card">
                     <div class="item item-divider">
@@ -32,5 +32,4 @@
             </div>
         </div>
     </div>
-
 </ion-content>

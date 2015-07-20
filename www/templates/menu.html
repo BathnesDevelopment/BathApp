@@ -23,7 +23,7 @@
         <ion-header-bar class="bar-balanced" align-title="center">
             <h1 class="title">Menu</h1>
         </ion-header-bar>
-        <ion-content scroll="false">
+        <ion-content>
             <ion-list>
                 <ion-item ng-click="selectMenu('home')">
                     Home
@@ -31,17 +31,20 @@
                 <ion-item ng-click="selectMenu('reports')">
                     Report It
                 </ion-item>
-                <ion-item ng-click="selectMenu('localdata')">
+                <ion-item ng-click="selectMenu('mynearest')">
                     My Nearest
                 </ion-item>
-                <ion-item ng-click="selectMenu('details')">
-                    My Details
+                <ion-item ng-click="selectMenu('myhouse')">
+                    My House
                 </ion-item>
                 <ion-item ng-click="selectMenu('mycouncil')">
                     My Council
                 </ion-item>
+                <ion-item ng-click="selectMenu('details')">
+                    My Details
+                </ion-item>
                 <ion-item ng-click="selectMenu('map')">
-                    Map
+                    Local Map
                 </ion-item>
                 <ion-item ng-click="selectMenu('planning')">
                     Planning

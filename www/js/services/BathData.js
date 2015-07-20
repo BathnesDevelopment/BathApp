@@ -9,7 +9,7 @@ angular.module('MyBath.BathDataService', [])
         // Method: BathData.all()
         // Input: JSON[] / Empty
         // Output: JSON / Empty Array
-        // gets all the data back from local storage.
+        // Gets all the data back from local storage.
         all: function () {
             var bathData = window.localStorage.BathData;
             if (bathData) {
@@ -17,40 +17,61 @@ angular.module('MyBath.BathDataService', [])
             }
             return [];
         },
-        toNewObj: function () {
-            return {};
-        },
-        // Method: BathData.save
+        // Method: BathData.save()
         // Input: JSON
         // Output: None
-        // saves the data from a JSON input, back into the local storage (overwriting previous storage)
+        // Saves the data from a JSON input, back into the local storage (overwriting previous storage)
         save: function (bathData) {
             window.localStorage.BathData = angular.toJson(bathData);
         },
         // Method: BathData.fetchAll()
         // Input: uId string (UPRN)
-        // Output:
-        // calls all of the iShare links and aggregates the returned data into a single JSON array, queryable by index.
-        // this data is returned as a promise.
-        fetchAll: function (uId) {
-            return $q.all([
-                
-            ]).then(function (results) {
-                var aggregatedData = [];
-                angular.forEach(results, function (result) {
-                    aggregatedData = aggregatedData.concat(result.data);
+        // Output: 
+        // Calls the bath data service and returns the result.
+        fetchAll: function (uId, pCode) {
+            var bathData = [];
+            var bathData_q = $q.defer();
+            $http.post("http://localhost:62735/BathData.svc/GetAllData", { uprn: uId, postcode: pCode })
+                .success(function (data, status, headers, config) {
+                    bathData = JSON.parse(data.GetAllDataResult);
+                    if (bathData && bathData != []) {
+                    }
+                    else {
+                        bathData = "Failed";
+                    }
+                    bathData_q.resolve(bathData);
+                    return bathData;
+                })
+                .error(function (data, status, headers, config) {
+                    bathData = "Failed";
+                    bathData_q.resolve(data);
+                    return "Failed";
                 });
-                window.localStorage.BathData = angular.toJson(aggregatedData);
-                return aggregatedData;
-            }, function (error) {
-                return [];
-            });
+            return bathData_q.promise;
         },
         clear: function () {
             window.localStorage.removeItem('BathData');
         },
-        get: function (id) {
-            
+        getMyHouse: function (id) {
+            var bathData = window.localStorage.BathData;
+            if (bathData) {
+                return angular.fromJson(bathData).myHouse;
+            }
+            return [];
+        },
+        getMyNearest: function (id) {
+            var bathData = window.localStorage.BathData;
+            if (bathData) {
+                return angular.fromJson(bathData).MyNearest;
+            }
+            return [];
+        },
+        getMyCouncil: function (id) {
+            var bathData = window.localStorage.BathData;
+            if (bathData) {
+                return angular.fromJson(bathData).myCouncil;
+            }
+            return [];
         }
     };
 });
