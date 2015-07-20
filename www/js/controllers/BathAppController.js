@@ -447,6 +447,10 @@ angular.module('MyBath.BathAppController', [])
             if (res) {
                 UserData.clear();
                 BathData.clear();
+                Reports.saveReports([]);
+                Comments.saveComments([]);
+                $scope.reports = Reports.getReports();
+                $scope.comments = Comments.getComments();
                 $scope.userData = UserData.all(); //Get defaults
                 $scope.bathData = {};
                 $scope.bathDataObject = {};
