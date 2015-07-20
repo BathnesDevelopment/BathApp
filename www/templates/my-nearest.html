@@ -6,29 +6,24 @@
     </ion-refresher>
     <h2>My Nearest</h2>
     <p>This page shows local data, relevant to your registered address.</p>
-    <p ng-show="!uprn">No location set</p>
+    <p ng-show="!userData.uprn">No location set</p>
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
-    <div ng-repeat="item in myNearest">
-        <h3>{{ item.title }}</h3>
-        <div class="row responsive-md" ng-repeat="dataRow in item.data">
-            <div class="col" ng-repeat="dataItem in dataRow">
-                <div class="list card">
-                    <div class="item item-divider">
-                        <span ng-show="dataItem.name">{{ dataItem.name | title }}</span>
-                        <span ng-show="dataItem.title">{{ dataItem.title }}</span>
-                        <p>Distance: {{ dataItem.Distance | MetresToMiles }} miles</p>
-                    </div>
-                    <div class="item tabs tabs-secondary tabs-icon-left">
-                        <span ng-bind-html="additionalIcons(i,dataItem)"></span>
-                        <a ng-show="dataItem.url" class="tab-item" browse-to="{{dataItem.url}}">
-                            <i class="icon ion-earth assertive"></i> Website
-                        </a>
-                        <a ng-show="dataItem.lat" class="tab-item" browse-to="geo:0,0?q={{ dataItem.lat }},{{ dataItem.lon }}({{ dataItem.name }})">
-                            <i class="icon ion-map calm"></i> Map
-                        </a>
-                    </div>
-                </div>
+    <div ng-repeat="(key, data) in myNearest">
+        <h3>{{ key }}</h3>
+        <div class="list card" ng-repeat="dataRow in data">
+            <div class="item item-divider">
+                <h3>{{ dataRow.name }}</h3>
+                <p>Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <span ng-bind-html="additionalIcons(i, dataItem)"></span>
+                <a ng-show="dataItem.url" class="tab-item" browse-to="{{dataRow.website}}">
+                    <i class="icon ion-earth assertive"></i> Website
+                </a>
+                <a ng-show="dataItem.lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.lat }},{{ dataRow.lon }}({{ dataRow.name }})">
+                    <i class="icon ion-map calm"></i> Map
+                </a>
             </div>
         </div>
     </div>

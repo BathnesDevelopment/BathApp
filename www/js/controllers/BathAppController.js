@@ -291,33 +291,10 @@ angular.module('MyBath.BathAppController', [])
         });
         $scope.uprn = uprn;
 
-        UserData.save({ "Address": address, "UPRN": uprn, "AddressSearch": $scope.userData.addressSearch, "Firstname": $scope.userData.firstname, "Lastname": $scope.userData.lastname, "Email": $scope.userData.email, "Phone": $scope.userData.phone, "Postcode": postcode, "Lat": lat, "Lon": lng, "DisplayOptions": {} });
+        UserData.save({ "address": address, "uprn": uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": postcode, "lat": lat, "lon": lng, "displayOptions": {} });
         $scope.userData = UserData.all();
 
-        //FeedData.fetchAll(lat, lng)
-        //    .then(function (data) {
-        //        if (data && data != []) {
-        //            $scope.feedData = data;
-        //            $scope.feedDataObject = FeedData.toObj();
-        //        }
-        //    });
-
-        BathData.fetchAll(uprn, postcode)
-            .then(function (data) {
-                if (data && data != []) {
-                    $scope.myCouncil = data.myCouncil;
-                    $scope.myCouncil = data.myNearest;
-                    $scope.myHouse = data.myHouse;
-                    $ionicLoading.hide();
-                }
-                else {
-                    $ionicLoading.hide();
-                    $ionicPopup.alert({
-                        title: 'Error downloading data',
-                        content: 'Please check connection and try again.'
-                    }).then(function (res) {});
-                }
-            });
+        $scope.pullRefresh();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -325,7 +302,7 @@ angular.module('MyBath.BathAppController', [])
     // Called by the pull to refresh control
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.pullRefresh = function () {
-        if ($scope.userData && $scope.userData.uprn) {
+        if ($scope.userData && $scope.userData.uprn && $scope.userData.postcode) {
             //FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
             //    .then(function (data) {
             //        if (data && data != []) {
@@ -333,18 +310,24 @@ angular.module('MyBath.BathAppController', [])
             //            $scope.feedDataObject = FeedData.toObj();
             //        }
             //    });
-            BathData.fetchAll($scope.userData.uprn)
+            BathData.fetchAll($scope.userData.uprn, $scope.userData.postcode)
                 .then(function (data) {
-                    if (data && data != []) {
+                    if (data && data != [] && data != "Failed") {
+                        BathData.save(data);
                         $scope.myCouncil = data.myCouncil;
-                        $scope.myCouncil = data.myNearest;
+                        $scope.myNearest = data.myNearest;
                         $scope.myHouse = data.myHouse;
+                    } else {
+
+
                     }
                     $scope.$broadcast('scroll.refreshComplete');
+                    $ionicLoading.hide();
                 });
         }
         else {
             $scope.$broadcast('scroll.refreshComplete');
+            $ionicLoading.hide();
         }
     };
 
@@ -396,29 +379,8 @@ angular.module('MyBath.BathAppController', [])
                     $ionicLoading.show({
                         template: 'Fetching data...'
                     });
-                    FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
-                        .then(function (data) {
-                            if (data && data != []) {
-                                $scope.feedData = data;
-                                $scope.feedDataObject = FeedData.toObj();
-                            }
-                        });
-                    BathData.fetchAll($scope.userData.uprn)
-                        .then(function (data) {
-                            if (data && data != []) {
-                                $scope.bathdata = data;
-                                $scope.bathDataObject = BathData.toObj();
-                                $ionicLoading.hide();
-                            }
-                            else {
-                                $ionicLoading.hide();
-                                $ionicPopup.alert({
-                                    title: 'Error downloading data',
-                                    content: 'Please check connection and try again.'
-                                }).then(function (res) {
-                                });
-                            }
-                        });
+
+                    $scope.pullRefresh();
                 }
                 return true;
             },

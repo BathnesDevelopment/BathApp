@@ -22,7 +22,9 @@ angular.module('MyBath.BathDataService', [])
         // Output: None
         // Saves the data from a JSON input, back into the local storage (overwriting previous storage)
         save: function (bathData) {
-            window.localStorage.BathData = angular.toJson(bathData);
+            window.localStorage.myCouncil = angular.toJson(bathData.myCouncil);
+            window.localStorage.myHouse = angular.toJson(bathData.myHouse);
+            window.localStorage.myNearest = angular.toJson(bathData.myNearest);
         },
         // Method: BathData.fetchAll()
         // Input: uId string (UPRN)
@@ -44,7 +46,7 @@ angular.module('MyBath.BathDataService', [])
                 })
                 .error(function (data, status, headers, config) {
                     bathData = "Failed";
-                    bathData_q.resolve(data);
+                    bathData_q.resolve(bathData);
                     return "Failed";
                 });
             return bathData_q.promise;
@@ -53,23 +55,23 @@ angular.module('MyBath.BathDataService', [])
             window.localStorage.removeItem('BathData');
         },
         getMyHouse: function (id) {
-            var bathData = window.localStorage.BathData;
-            if (bathData) {
-                return angular.fromJson(bathData).myHouse;
+            var myHouse = window.localStorage.myHouse;
+            if (myHouse && myHouse != 'undefined') {
+                return angular.fromJson(myHouse);
             }
             return [];
         },
         getMyNearest: function (id) {
-            var bathData = window.localStorage.BathData;
-            if (bathData) {
-                return angular.fromJson(bathData).MyNearest;
+            var myNearest = window.localStorage.myNearest;
+            if (myNearest && myNearest != 'undefined') {
+                return angular.fromJson(myNearest);
             }
             return [];
         },
         getMyCouncil: function (id) {
-            var bathData = window.localStorage.BathData;
-            if (bathData) {
-                return angular.fromJson(bathData).myCouncil;
+            var myCouncil = window.localStorage.myCouncil;
+            if (myCouncil && myCouncil != 'undefined') {
+                return angular.fromJson(myCouncil);
             }
             return [];
         }
