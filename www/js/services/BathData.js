@@ -33,7 +33,7 @@ angular.module('MyBath.BathDataService', [])
         fetchAll: function (uId, pCode) {
             var bathData = [];
             var bathData_q = $q.defer();
-            $http.post("http://localhost:62735/BathData.svc/GetAllData", { uprn: uId, postcode: pCode })
+            $http.post("http://vm-project-dev/BathData.svc/GetAllData", { uprn: uId, postcode: pCode })
                 .success(function (data, status, headers, config) {
                     bathData = JSON.parse(data.GetAllDataResult);
                     if (bathData && bathData != []) {
