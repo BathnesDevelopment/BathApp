@@ -1,48 +1,50 @@
-<ion-content padding="true">
-    <div class="row responsive-sm">
-        <div class="col">
-            <div class="card" id="divCouncilConnect">
-                <div class="item item-image">
-                    <img src="images/logo.svg"/>
+<ion-view view-title="Residents app" ng-cont>
+    <ion-content class="padding">
+        <div class="row responsive-sm">
+            <div class="col">
+                <div class="card" id="divCouncilConnect">
+                    <div class="item item-image">
+                        <img src="images/logo.svg" />
+                    </div>
+                    <div class="item tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
+                            <i class="icon positive ion-information-circled"></i>
+                        </a>
+                        <a class="tab-item" href="sms://07797806545?body=BathAppMessage:">
+                            <i class="icon energized ion-ios-keypad"></i>
+                        </a>
+                        <a class="tab-item" ng-click="emailCouncilConnect()">
+                            <i class="icon royal ion-at"></i>
+                        </a>
+                        <a class="tab-item" ng-click="showCouncilConnectPopup()">
+                            <i class="icon balanced ion-ios-telephone"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="item tabs tabs-primary tabs-icon-left">
-                    <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
-                        <i class="icon positive ion-information-circled"></i>
-                    </a>
-                    <a class="tab-item" href="sms://07797806545?body=BathAppMessage:">
-                        <i class="icon energized ion-ios-keypad"></i>
-                    </a>
-                    <a class="tab-item" ng-click="emailCouncilConnect()">
-                        <i class="icon royal ion-at"></i>
-                    </a>
-                    <a class="tab-item" ng-click="showCouncilConnectPopup()">
-                        <i class="icon balanced ion-ios-telephone"></i>
-                    </a>
+
+                <div class="card" id="divBinDates">
+
+                </div>
+
+                <div class="card" id="divCarParkOccupancy">
+
                 </div>
             </div>
+            <div class="col">
+                <div class="card" id="divSignposting">
 
-            <div class="card" id="divBinDates">
+                </div>
 
-            </div>
+                <div class="card" id="divAirQualityData">
 
-            <div class="card" id="divCarParkOccupancy">
+                </div>
+
+                <div class="card" id="divPlanningApplications">
+
+                </div>
+
 
             </div>
         </div>
-        <div class="col">
-            <div class="card" id="divSignposting">
-
-            </div>
-
-            <div class="card" id="divAirQualityData">
-
-            </div>
-
-            <div class="card" id="divPlanningApplications">
-
-            </div>
-
-
-        </div>
-    </div>
-</ion-content>
+    </ion-content>
+</ion-view>
