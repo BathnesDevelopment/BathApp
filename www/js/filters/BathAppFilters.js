@@ -82,4 +82,34 @@ angular.module('MyBath.BathAppFilters', [])
         }
         return res;
     };
+})
+//////////////////////////////////////////////////////////////////////////////////////
+// filter: generalProperties()
+// Returns the properties from an object not reserved for other uses (e.g. lat)
+//////////////////////////////////////////////////////////////////////////////////////
+.filter('generalProperties', function () {
+    return function (obj) {
+        var filtered = {};
+        for (var i = 0; i < Object.keys(obj).length; i++) {
+            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng")) {
+                filtered[Object.keys(obj)[i]] = obj[Object.keys(obj)[i]];
+            }
+        }
+        return filtered;
+    };
+})
+//////////////////////////////////////////////////////////////////////////////////////
+// filter: splitObject(side)
+// Splits an objects properties in two - either left or right side (for use in columns)
+//////////////////////////////////////////////////////////////////////////////////////
+.filter('splitObject', function () {
+    return function (array, side) {
+        var cutPoint = Math.ceil(Object.keys(array).length / 2);
+        var filtered = {};
+        for (var i = 0; i < Object.keys(array).length; i++) {
+            if (side == 'left' && i < cutPoint) filtered[Object.keys(array)[i]] = array[Object.keys(array)[i]];
+            if (side == 'right' && i >= cutPoint) filtered[Object.keys(array)[i]] = array[Object.keys(array)[i]];
+        }
+        return filtered;
+    };
 });

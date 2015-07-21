@@ -9,21 +9,57 @@
     <p ng-show="!userData.uprn">No location set</p>
     <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
-    <div ng-repeat="(key, data) in myNearest">
-        <h3>{{ key }}</h3>
-        <div class="list card" ng-repeat="dataRow in data">
-            <div class="item item-divider">
-                <h3>{{ dataRow.name }}</h3>
-                <p>Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+    <div class="row responsive-sm">
+        <div class="col">
+            <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
+                <h3>{{ key }}</h3>
+                <div class="card" ng-repeat="dataRow in data">
+                    <div class="item item-divider">
+                        <h4>{{ dataRow.Name | title }}</h4>
+                        <p>Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                    </div>
+                    <div class="item">
+                        <p>
+                            <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                {{ key }} : {{ data }} <br />
+                            </span>
+                        </p>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
+                            <i class="icon ion-earth assertive"></i> Website
+                        </a>
+                        <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
+                            <i class="icon ion-map calm"></i> Map
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-                <span ng-bind-html="additionalIcons(i, dataItem)"></span>
-                <a ng-show="dataItem.url" class="tab-item" browse-to="{{dataRow.website}}">
-                    <i class="icon ion-earth assertive"></i> Website
-                </a>
-                <a ng-show="dataItem.lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.lat }},{{ dataRow.lon }}({{ dataRow.name }})">
-                    <i class="icon ion-map calm"></i> Map
-                </a>
+        </div>
+        <div class="col">
+            <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
+                <h3>{{ key }}</h3>
+                <div class="card" ng-repeat="dataRow in data">
+                    <div class="item item-divider">
+                        <h4>{{ dataRow.Name | title }}</h4>
+                        <p>Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                    </div>
+                    <div class="item">
+                        <p>
+                            <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                {{ key }} : {{ data }} <br/>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
+                            <i class="icon ion-earth assertive"></i> Website
+                        </a>
+                        <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
+                            <i class="icon ion-map calm"></i> Map
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

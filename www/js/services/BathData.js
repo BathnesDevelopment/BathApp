@@ -22,9 +22,9 @@ angular.module('MyBath.BathDataService', [])
         // Output: None
         // Saves the data from a JSON input, back into the local storage (overwriting previous storage)
         save: function (bathData) {
-            window.localStorage.myCouncil = angular.toJson(bathData.myCouncil);
-            window.localStorage.myHouse = angular.toJson(bathData.myHouse);
-            window.localStorage.myNearest = angular.toJson(bathData.myNearest);
+            window.localStorage.MyCouncil = angular.toJson(bathData.myCouncil);
+            window.localStorage.MyHouse = angular.toJson(bathData.myHouse);
+            window.localStorage.MyNearest = angular.toJson(bathData.myNearest);
         },
         // Method: BathData.fetchAll()
         // Input: uId string (UPRN)
@@ -33,7 +33,7 @@ angular.module('MyBath.BathDataService', [])
         fetchAll: function (uId, pCode) {
             var bathData = [];
             var bathData_q = $q.defer();
-            $http.post("http://vm-project-dev/BathData.svc/GetAllData", { uprn: uId, postcode: pCode })
+            $http.post("http://localhost:62735/BathData.svc/GetAllData", { uprn: uId, postcode: pCode })
                 .success(function (data, status, headers, config) {
                     bathData = JSON.parse(data.GetAllDataResult);
                     if (bathData && bathData != []) {
@@ -52,24 +52,26 @@ angular.module('MyBath.BathDataService', [])
             return bathData_q.promise;
         },
         clear: function () {
-            window.localStorage.removeItem('BathData');
+            window.localStorage.removeItem('MyCouncil');
+            window.localStorage.removeItem('MyHouse');
+            window.localStorage.removeItem('MyNearest');
         },
         getMyHouse: function (id) {
-            var myHouse = window.localStorage.myHouse;
+            var myHouse = window.localStorage.MyHouse;
             if (myHouse && myHouse != 'undefined') {
                 return angular.fromJson(myHouse);
             }
             return [];
         },
         getMyNearest: function (id) {
-            var myNearest = window.localStorage.myNearest;
+            var myNearest = window.localStorage.MyNearest;
             if (myNearest && myNearest != 'undefined') {
                 return angular.fromJson(myNearest);
             }
             return [];
         },
         getMyCouncil: function (id) {
-            var myCouncil = window.localStorage.myCouncil;
+            var myCouncil = window.localStorage.MyCouncil;
             if (myCouncil && myCouncil != 'undefined') {
                 return angular.fromJson(myCouncil);
             }
