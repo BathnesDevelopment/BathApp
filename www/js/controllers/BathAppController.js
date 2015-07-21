@@ -19,7 +19,8 @@ angular.module('MyBath.BathAppController', [])
     $scope.myCouncil = BathData.getMyCouncil();
     $scope.myNearest= BathData.getMyNearest();
     $scope.myHouse = BathData.getMyHouse();
-
+    $scope.mapCenter = { lat: 0, lng: 0, zoom: 15};
+    $scope.mapMarkers = { reportItMarker: {lat: 0, lng: 0, message: "Your location", focus:true}};
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
     // The following all happens on loading the app.
@@ -198,6 +199,7 @@ angular.module('MyBath.BathAppController', [])
     });
     $scope.reportItLocation = function () {
         $scope.reportItLocationModal.show();
+
     };
     $scope.closeReportItLocation = function () {
         $scope.reportItLocationModal.hide();
@@ -551,6 +553,12 @@ angular.module('MyBath.BathAppController', [])
             { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
     };
 
+    $scope.updateMap = function (position) {
+        $scope.mapCenter.lat = position.coords.latitude;
+        $scope.mapCenter.lng = position.coords.longitude;
+        $scope.mapMarkers.reportItMarker.lat =  position.coords.latitude;
+        $scope.mapMarkers.reportItMarker.lng = position.coords.longitude;
+    };
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: geoLocate
     // Stores the geolocation.
@@ -560,6 +568,8 @@ angular.module('MyBath.BathAppController', [])
         navigator.geolocation.getCurrentPosition(
             function (position) {
                 $scope.currentLocation = position;
+                $scope.updateMap(position);
+                
 
                 $ionicLoading.hide();
                 $scope.currentReport.useLocation = true;
