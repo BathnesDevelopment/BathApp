@@ -17,10 +17,23 @@ angular.module('MyBath.BathAppController', [])
     $scope.addresses = [];
     //$scope.feedData = FeedData.toObj();
     $scope.myCouncil = BathData.getMyCouncil();
-    $scope.myNearest= BathData.getMyNearest();
+    $scope.myNearest = BathData.getMyNearest();
     $scope.myHouse = BathData.getMyHouse();
-    $scope.mapCenter = { lat: 0, lng: 0, zoom: 15};
-    $scope.mapMarkers = { reportItMarker: {lat: 0, lng: 0, message: "Your location", focus:true}};
+    $scope.reportMap = {
+        defaults: {
+            tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
+            attributionControl: false,
+            maxZoom: 20,
+            zoomControlPosition: 'bottomleft'
+        },
+        maxbounds: {
+            northEast: { lat: 51.439536, lng: -2.278544 },
+            southWest: { lat: 51.273101, lng: -2.705955 }
+        },
+        center: { lat: 51.3821440, lng: -2.3589420, zoom: 15 },
+        markers: { reportItMarker: { lat: 0, lng: 0, focus: true, message: "Drag me to adjust position of report", draggable: true } }
+    };
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // OnLoad
     // The following all happens on loading the app.
@@ -89,55 +102,55 @@ angular.module('MyBath.BathAppController', [])
     // planning comments screen
     /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/comments-new.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.commentModal = modal;
-        });
-        $scope.newComment = function () {
-            $scope.commentModal.show();
-            // Dummy reference for testing
-            $scope.currentComment.reference = Math.floor((Math.random()*100000000));
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.commentModal = modal;
+    });
+    $scope.newComment = function () {
+        $scope.commentModal.show();
+        // Dummy reference for testing
+        $scope.currentComment.reference = Math.floor((Math.random() * 100000000));
 
-            // Populate the form with user address, if that info exists
-            if ($scope.userData.address) {
-                $scope.currentComment.address = $scope.userData.address;
-            }
-            if ($scope.userData.phone) {
-                $scope.currentComment.userPhone = $scope.userData.phone;
-            }
-            if ($scope.userData.email) {
-                $scope.currentComment.userEmail = $scope.userData.email;
-            }
-        };
-        $scope.closeComment = function () {
+        // Populate the form with user address, if that info exists
+        if ($scope.userData.address) {
+            $scope.currentComment.address = $scope.userData.address;
+        }
+        if ($scope.userData.phone) {
+            $scope.currentComment.userPhone = $scope.userData.phone;
+        }
+        if ($scope.userData.email) {
+            $scope.currentComment.userEmail = $scope.userData.email;
+        }
+    };
+    $scope.closeComment = function () {
+        $scope.commentModal.hide();
+    };
+    //Submit
+    $scope.submitCommentPage1 = function (comment) {
+        if ($scope.currentComment.type) {
+
             $scope.commentModal.hide();
-        };
-        //Submit
-        $scope.submitCommentPage1 = function (comment) {
-            if ($scope.currentComment.type) {
-
-                $scope.commentModal.hide();
-                $scope.commentComposeModal.show();
-                return;
-            }
-        };
+            $scope.commentComposeModal.show();
+            return;
+        }
+    };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: Comment Compose
     // planning comments screen: Compose comment
     /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/comments-compose.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.commentComposeModal = modal;
-        });
-        $scope.submitComment = function(comment) {
-            $scope.commentComposeModal.hide();
-            Comments.addComment($scope.currentComment);
-            $scope.currentComment = Comments.getDefaultComment();
-            $scope.comments = Comments.getComments();
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.commentComposeModal = modal;
+    });
+    $scope.submitComment = function (comment) {
+        $scope.commentComposeModal.hide();
+        Comments.addComment($scope.currentComment);
+        $scope.currentComment = Comments.getDefaultComment();
+        $scope.comments = Comments.getComments();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -211,6 +224,31 @@ angular.module('MyBath.BathAppController', [])
             $scope.currentReport.long = $scope.currentLocation.coords.longitude;
         }
         $scope.reportItLocationModal.hide();
+        $scope.reportItPersonalModal.show();
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt Map
+    // Allows the user to customise the detected location
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $ionicModal.fromTemplateUrl('templates/report-it-map.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.reportItMapModal = modal;
+    });
+    $scope.reportItMap = function () {
+        $scope.reportItMapModal.show();
+
+    };
+    $scope.closeReportItMap = function () {
+        $scope.reportItMapModal.hide();
+    };
+    // Submit
+    $scope.submitReportItPage4b = function (location) {
+        $scope.currentReport.lat = $scope.reportMap.markers.reportItMarker.lat
+        $scope.currentReport.long = $scope.reportMap.markers.reportItMarker.lng;
+        $scope.reportItMapModal.hide();
         $scope.reportItPersonalModal.show();
     };
 
@@ -407,7 +445,7 @@ angular.module('MyBath.BathAppController', [])
         if (menuItem === 'mycouncil') { $state.go('menu.mycouncil'); }
         if (menuItem === 'myhouse') { $state.go('menu.myhouse'); }
         if (menuItem === 'mynearest') { $state.go('menu.mynearest'); }
-        if (menuItem === 'planning') { $state.go('menu.planningApp');}
+        if (menuItem === 'planning') { $state.go('menu.planningApp'); }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -553,12 +591,17 @@ angular.module('MyBath.BathAppController', [])
             { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
     };
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateMap
+    // Sets the Report It map with the current detected position as center.
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMap = function (position) {
-        $scope.mapCenter.lat = position.coords.latitude;
-        $scope.mapCenter.lng = position.coords.longitude;
-        $scope.mapMarkers.reportItMarker.lat =  position.coords.latitude;
-        $scope.mapMarkers.reportItMarker.lng = position.coords.longitude;
+        $scope.reportMap.center.lat = position.coords.latitude;
+        $scope.reportMap.center.lng = position.coords.longitude;
+        $scope.reportMap.markers.reportItMarker.lat = position.coords.latitude;
+        $scope.reportMap.markers.reportItMarker.lng = position.coords.longitude;
     };
+
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: geoLocate
     // Stores the geolocation.
@@ -569,8 +612,6 @@ angular.module('MyBath.BathAppController', [])
             function (position) {
                 $scope.currentLocation = position;
                 $scope.updateMap(position);
-                
-
                 $ionicLoading.hide();
                 $scope.currentReport.useLocation = true;
                 $scope.currentReport.locationFound = true;
