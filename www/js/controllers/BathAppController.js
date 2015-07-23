@@ -224,7 +224,7 @@ angular.module('MyBath.BathAppController', [])
             $scope.currentReport.long = $scope.currentLocation.coords.longitude;
         }
         $scope.reportItLocationModal.hide();
-        $scope.reportItPersonalModal.show();
+        $scope.reportItMapModal.show();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -246,7 +246,7 @@ angular.module('MyBath.BathAppController', [])
     };
     // Submit
     $scope.submitReportItPage4b = function (location) {
-        $scope.currentReport.lat = $scope.reportMap.markers.reportItMarker.lat
+        $scope.currentReport.lat = $scope.reportMap.markers.reportItMarker.lat;
         $scope.currentReport.long = $scope.reportMap.markers.reportItMarker.lng;
         $scope.reportItMapModal.hide();
         $scope.reportItPersonalModal.show();
