@@ -22,7 +22,6 @@ angular.module('MyBath.BathAppController', [])
     $scope.reportMap = {
         defaults: {
             tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
-            attributionControl: false,
             maxZoom: 20,
             zoomControlPosition: 'bottomleft'
         },
