@@ -135,7 +135,7 @@ angular.module('MyBath.MapController', [])
                 Allotments:
                 {
                     name: "Allotments",
-                    category: "Leasure",
+                    category: "Leisure",
                     pins: [
                         {
                             lat: 51.38099195283369,
