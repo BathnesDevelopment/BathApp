@@ -5,7 +5,7 @@ angular.module('MyBath.UserDataService', [])
  * This includes retrieving address data, as well as handling registration data
  * such as name and email, and storing these for retrieval in form processes.
 */
-.factory('UserData', function ($http, $q) {
+.factory('UserData', function ($http, $q, config) {
     return {
         all: function () {
             var userData = window.localStorage.UserData;
@@ -24,7 +24,7 @@ angular.module('MyBath.UserDataService', [])
         fetchUprn: function (postcode) {
             var addressData = [];
             var addressData_q = $q.defer();
-            $http.post("http://localhost:62735/BathData.svc/GetAddress", { searchString: postcode })
+            $http.post(config.bathDataWS + "/GetAddress", { searchString: postcode })
                 .success(function (data, status, headers, config) {
                     addressData = JSON.parse(data.GetAddressResult);
                     if (data && data != []) {

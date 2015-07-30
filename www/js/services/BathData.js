@@ -4,7 +4,7 @@ angular.module('MyBath.BathDataService', [])
  * The bath data factory includes methods to return and save data from the data web service.
  * This is split into three objects - MyHouse, MyNearest, and MyCouncil
 */
-.factory('BathData', function ($http, $q, DataTransformations) {
+.factory('BathData', function ($http, $q, DataTransformations, config) {
     return {
         // Method: BathData.all()
         // Input: JSON[] / Empty
@@ -33,7 +33,7 @@ angular.module('MyBath.BathDataService', [])
         fetchAll: function (uId, pCode) {
             var bathData = [];
             var bathData_q = $q.defer();
-            $http.post("http://localhost:62735/BathData.svc/GetAllData", { uprn: uId, postcode: pCode })
+            $http.post(config.bathDataWS + "/GetAllData", { uprn: uId, postcode: pCode })
                 .success(function (data, status, headers, config) {
                     bathData = JSON.parse(data.GetAllDataResult);
                     if (bathData && bathData != []) {
