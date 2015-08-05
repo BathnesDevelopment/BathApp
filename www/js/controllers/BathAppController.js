@@ -576,6 +576,10 @@ angular.module('MyBath.BathAppController', [])
     // Displays it to the user in photoTaken, which is by default aLinkcolor blank image
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.takePhoto = function () {
+        if (!navigator.camera) {
+            console.warn("navigator.camera is undefined");
+            return;
+        }
         navigator.camera.getPicture(
             function (imageURI) {
                 // saves to currentReport.photo

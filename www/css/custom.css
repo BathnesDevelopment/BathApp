@@ -109,3 +109,7 @@ a.leaflet-popup-close-button {
 .list:last-child.card {
   margin-bottom: 20px;
 }
+
+ion-content.scroll-content.ionic-scroll {
+    margin-top: 40px;
+}
