@@ -1,9 +1,8 @@
 <ion-content padding="true">
     <h3>My Reports</h3>
     <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
-    <button type="button" ng-click="reportIt()" class="button button-full button-clear button-positive">
-        New Report
-    </button>
+    <button type="button" ng-click="reportIt()" class="button button-full button-clear button-positive">New Report</button>
+    <button ng-click="submitReports()" class="button button-full button-clear button-positive">Submit unsent reports</button>
     <div class="list list-inset">
         <div ng-repeat="report in reports">
             <div class="item item-avatar">
@@ -12,10 +11,6 @@
                 <p>{{ report.description }}</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item" href="#">
-                    <i class="icon ion-paper-airplane"></i>
-                    Send report
-                </a>
                 <a class="tab-item" ng-click="deleteReport($index)">
                     <i class="icon ion-trash-a"></i>
                     Delete

@@ -91,11 +91,20 @@ angular.module('MyBath.BathAppFilters', [])
     return function (obj) {
         var filtered = {};
         for (var i = 0; i < Object.keys(obj).length; i++) {
-            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng")) {
+            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng|")) {
                 filtered[Object.keys(obj)[i]] = obj[Object.keys(obj)[i]];
             }
         }
         return filtered;
+    };
+})
+//////////////////////////////////////////////////////////////////////////////////////
+// filter: binRoute()
+// Returns a friendly description of a bin route
+//////////////////////////////////////////////////////////////////////////////////////
+.filter('binDates', function () {
+    return function (str) {
+        return 'Thursday Week B';
     };
 })
 //////////////////////////////////////////////////////////////////////////////////////

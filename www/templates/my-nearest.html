@@ -15,8 +15,8 @@
                 <h3>{{ key }}</h3>
                 <div class="card" ng-repeat="dataRow in data">
                     <div class="item item-divider">
-                        <h4>{{ dataRow.Name | title }}</h4>
-                        <p>Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                        <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
+                        <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                     </div>
                     <div class="item">
                         <p>
@@ -26,6 +26,9 @@
                         </p>
                     </div>
                     <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
+                            <i class="icon ion-ios-telephone assertive"></i> Call
+                        </a>
                         <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
                             <i class="icon ion-earth assertive"></i> Website
                         </a>
@@ -41,8 +44,8 @@
                 <h3>{{ key }}</h3>
                 <div class="card" ng-repeat="dataRow in data">
                     <div class="item item-divider">
-                        <h4>{{ dataRow.Name | title }}</h4>
-                        <p>Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                        <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
+                        <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                     </div>
                     <div class="item">
                         <p>
@@ -52,6 +55,9 @@
                         </p>
                     </div>
                     <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
+                            <i class="icon ion-ios-telephone assertive"></i> Call
+                        </a>
                         <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
                             <i class="icon ion-earth assertive"></i> Website
                         </a>
