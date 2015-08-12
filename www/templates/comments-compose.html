@@ -7,10 +7,10 @@
         <div class="list list-inset">
             <h3>{{currentComment.type}}</h3>
             <form ng-submit="submitComment(currentComment)">
-            <p>Reference:  {{ currentComment.reference }}</p>
-            <label class="item item-input">
-                <textarea placeholder="Comments" ng-model = "currentComment.body"></textarea>
-              </label>
+                <p>Reference:  {{ currentComment.reference }}</p>
+                <label class="item item-input">
+                    <textarea placeholder="Comments" ng-model="currentComment.body"></textarea>
+                </label>
 
                 <button type="submit" class="button button-full button-clear button-clear button-positive">Next</button>
             </form>

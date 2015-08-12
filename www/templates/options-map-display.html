@@ -4,7 +4,7 @@
         <button class="button button-clear button-primary" ng-click="closeMapDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
-        <span ng-repeat="category in mapData.getCategories()">
+        <div ng-repeat="category in mapData | unique:'category'">
             <ion-item class="item-stable"
                       ng-click="toggleGroup($index)"
                       ng-class="{active: isGroupShown($index)}">
@@ -23,6 +23,6 @@
                     </label>
                 </li>
             </ul>
-        </span>
+        </div>
     </ion-content>
 </div>

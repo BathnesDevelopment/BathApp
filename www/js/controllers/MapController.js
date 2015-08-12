@@ -5,18 +5,16 @@ angular.module('MyBath.MapController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.markers = [];
     $scope.fetching = {};
+    $scope.mapData = { };
 
     MapData.getLayers().then(function (res) {
         console.log("resolved");
-        console.log(Object.keys(res));
-        MapData.getLayer(Object.keys(res)[0]);
-        $scope.mapLayers = res;
+        //console.log(Object.keys(res));
+        //MapData.getLayer(Object.keys(res)[0]);
+        $scope.mapData = res;
     });
 
-
-
-    $scope.mapData = { data:{}};
-    $scope.mapData.getCategories = function () {
+    $scope.getCategories = function () {
         var res = [];
         var isIn = function (element, list) {
             //returns true if the element is in the list
@@ -37,7 +35,7 @@ angular.module('MyBath.MapController', [])
         return res;
     };
 
-    $scope.mapData.getItemsInCategory = function (category) {
+    $scope.getItemsInCategory = function (category) {
         var res = [];
         for (var e in $scope.mapData.data) {
             if ($scope.mapData.data.hasOwnProperty(e) && $scope.mapData.data[e] && $scope.mapData.data[e].category === category) {
@@ -89,30 +87,6 @@ angular.module('MyBath.MapController', [])
                         opacity: 1
                     }
                 }
-            },
-            overlays: {
-                Libraries: { type: 'group', name: 'Libraries', visible: true },
-                PrimarySchools: { type: 'group', name: 'Primary Schools', visible: true },
-                Council_Offices: { type: 'group', name: 'Council Offices', visible: true },
-                NurseryPlaySchools: { type: 'group', name: 'Play Schools', visible: true },
-                SecondarySchools: { type: 'group', name: 'Secondary Schools', visible: true },
-                Colleges: { type: 'group', name: 'Colleges', visible: true },
-                Universities: { type: 'group', name: 'Universities', visible: true },
-                ConAreas: { type: 'group', name: 'Conservation Areas', visible: true },
-                HealthandFitnessCentres: { type: 'group', name: 'Health & Fitness Centres', visible: true },
-                PlayAreas: { type: 'group', name: 'Play Areas', visible: true },
-                TennisCourts: { type: 'group', name: 'Tennis Courts', visible: true },
-                Allotments: { type: 'group', name: 'Allotments', visible: true },
-                MobileLibraryStops: { type: 'group', name: 'Mobile Library Stops', visible: true },
-                BusStops: { type: 'group', name: 'Bus Stops', visible: true },
-                Roadworks: { type: 'group', name: 'Roadworks', visible: true },
-                CarParks: { type: 'group', name: 'Car Parks (static)', visible: true },
-                CarParksLive: { type: 'group', name: 'Car Parks', visible: true },
-                Parks: { type: 'group', name: 'Parks', visible: true },
-                OpenSpaces: { type: 'group', name: 'Open Spaces', visible: true },
-                PublicConveniences: { type: 'group', name: 'Public Conveniences', visible: true },
-                AirQuality: { type: 'group', name: 'Air Quality Monitoring', visible: true },
-                GPSurgeries: { type: 'group', name: 'GP Surgeries', visible: true }
             }
         },
         markers: $scope.markers
