@@ -3,44 +3,12 @@ angular.module('MyBath.MapController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.markers = [];
     $scope.fetching = {};
     $scope.mapLayers = {};
 
     MapData.getLayers().then(function (layers) {
         $scope.mapLayers = layers;
     });
-
-    $scope.getCategories = function () {
-        var res = [];
-        var isIn = function (element, list) {
-            //returns true if the element is in the list
-            for (var i = 0; i < list.length; i++) {
-                if (element === list[i]) {
-                    return true;
-                }
-            }
-            return false;
-        };
-        for (var e in $scope.mapLayers.data) {
-            if ($scope.mapLayers.data.hasOwnProperty(e)) {
-                if (!isIn($scope.mapLayers.data[e].category, res)) {
-                    res.push($scope.mapLayers.data[e].category);
-                }
-            }
-        }
-        return res;
-    };
-
-    $scope.getItemsInCategory = function (category) {
-        var res = [];
-        for (var e in $scope.mapLayers.data) {
-            if ($scope.mapLayers.data.hasOwnProperty(e) && $scope.mapLayers.data[e] && $scope.mapLayers.data[e].category === category) {
-                res.push($scope.mapLayers.data[e]);
-            }
-        }
-        return res;
-    };
 
     $scope.map = {
         defaults: {
@@ -70,8 +38,23 @@ angular.module('MyBath.MapController', [])
             zoom: 18,
             autoDiscover: true,
         },
-        layers: { },
-		geojson: { }
+        layers: {},
+        geojson: {
+            data: { type: "FeatureCollection", features: [] },
+            style: function (feature) { return {}; },
+            pointToLayer: function (feature, latlng) {
+                var marker = L.AwesomeMarkers.icon({
+                    icon: feature.properties.Icon,
+                    prefix: 'fa',
+                    markerColor: feature.properties.Colour
+                });
+                return L.marker(latlng, { icon: marker });
+            },
+            onEachFeature: function (feature, layer) {
+                var popupString = "";
+                layer.bindPopup(popupString);
+            }
+        }
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +98,7 @@ angular.module('MyBath.MapController', [])
     // Function: addLayer
     // Adds a layer to the map
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.addLayer = function(name) {
+    $scope.addLayer = function (name) {
         var lat = $scope.map.center.lat;
         var lng = $scope.map.center.lng;
         if (!$scope.userData.MapDisplay[name]) {
@@ -126,14 +109,9 @@ angular.module('MyBath.MapController', [])
         } else {
             $scope.fetching[name] = [true, new Date()];
             MapData.getLayer(name, lat, lng)
-            .then(function (data) {
-                if (data && data != "Failed") {
-                    for (i = 0; i < data.length ; i++) {
-                        if (!$scope.alreadyMarked(data[i].message)) {
-                            //$scope.markers.push(data[i]);
-							$scope.map.geojson[name] = data;
-                        }
-                    }
+            .then(function (res) {
+                if (res && res != "Failed") {
+                    Array.prototype.push.apply($scope.map.geojson.data.features, res.features);
                 }
                 $scope.fetching[name][0] = false;
             });
@@ -141,32 +119,10 @@ angular.module('MyBath.MapController', [])
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: alreadyMarked
-    // 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.alreadyMarked = function (markerData) {
-        for (var i = 0; i < $scope.markers.length; i++) {
-            if (markerData === $scope.markers[i].message) { return true; }
-        }
-        return false;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: updateMapData
     // 
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapData = function () {
-
-        //var i = $scope.markers.length;
-
-        // Loop through markers, remove any that are from inactive layers
-        //while (i--) {
-            //if (i === -1) { break; }
-            //if (!$scope.userData.MapDisplay[$scope.markers[i].layer] == true) {
-                //$scope.markers.splice(i, 1);
-            //}
-        //}
-
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
                 $scope.addLayer(e);

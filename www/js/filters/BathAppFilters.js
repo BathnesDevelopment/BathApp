@@ -126,7 +126,7 @@ angular.module('MyBath.BathAppFilters', [])
     return function (mapLayers, category) {
         var layers = {};
         for (var x in mapLayers) {
-            if (mapLayers[x].category == category) layers[x] = mapLayers[x];
+            if (mapLayers[x].category && mapLayers[x].category == category) layers[x] = mapLayers[x];
         }
         return layers;
     };

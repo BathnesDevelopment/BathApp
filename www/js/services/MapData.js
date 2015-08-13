@@ -29,7 +29,6 @@ angular.module('MyBath.MapDataService', [])
                     layers_q.resolve(layers);
                     return "Failed";
                 });
-            console.log(layers_q);
             return layers_q.promise;
         },
         // Method: MapData.getLayer()
@@ -37,9 +36,8 @@ angular.module('MyBath.MapDataService', [])
         // Output: 
         // 
         getLayer: function (layer, lat, lng) {
-            var layerData = [];
             var layerData_q = $q.defer();
-
+            var layerData = [];
             $http.post(config.mapDataWS + "/GetMapLayer",
                 {
                     layerName: layer,
@@ -48,21 +46,20 @@ angular.module('MyBath.MapDataService', [])
                 })
                 .success(function (data) {
                     if (data.GetMapLayerResult) {
-                        res = JSON.parse(data.GetMapLayerResult);
-                        console.log(res);
-                        layerData_q.resolve(layers);
-                        return layers;
+                        layerData = JSON.parse(data.GetMapLayerResult);
+                        layerData_q.resolve(layerData);
+                        return layerData;
                     } else {
-                        res = "Failed";
-                        console.warn(data);
-                        layers_q.resolve(res);
-                        return "Failed";
+                        layerData = "Failed";
+                        layerData_q.resolve(res);
+                        return layerData;
                     }
                 }).error(function (data, status, headers, config) {
-                    layers = "Failed";
-                    layerData_q.resolve(layers);
-                    return "Failed";
+                    layerData = "Failed";
+                    layerData_q.resolve(layerData);
+                    return layerData;
                 });
+            return layerData_q.promise;
         }
     };
 });
