@@ -4,7 +4,7 @@
         <button class="button button-clear button-primary" ng-click="closeMapDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
-        <div ng-repeat="category in mapData | unique:'category'">
+        <div ng-repeat="category in mapLayers | mapCategories:'category'">
             <ion-item class="item-stable"
                       ng-click="toggleGroup($index)"
                       ng-class="{active: isGroupShown($index)}">
@@ -13,10 +13,10 @@
                 {{category}}
             </ion-item>
             <ul class="list" ng-show="isGroupShown($index)">
-                <li class="item item-toggle" ng-repeat="item in mapData.getItemsInCategory(category)">
-                    {{item.name}}
+                <li class="item item-toggle" ng-repeat="layer in mapLayers | mapCategoryItems:category">
+                    {{layer.displayName}}
                     <label class="toggle toggle-balanced">
-                        <input type="checkbox" ng-model="userData.MapDisplay[item.name]">
+                        <input type="checkbox" ng-model="userData.MapDisplay[layer.displayName]">
                         <div class="track">
                             <div class="handle"></div>
                         </div>

@@ -108,20 +108,27 @@ angular.module('MyBath.BathAppFilters', [])
     };
 })
 //////////////////////////////////////////////////////////////////////////////////////
-// filter: unique
+// filter: mapCategories
 //
 //////////////////////////////////////////////////////////////////////////////////////
-.filter('unique', function () {
-    return function (arr, field) {
-        var object = {};
-        var values = [];
-        for (i = 0; i < arr.length; i++) {
-            object[arr[i][field]] = arr[i];
+.filter('mapCategories', function () {
+    return function (mapLayers, field) {
+        var categories = {};
+        for (var x in mapLayers) categories[mapLayers[x][field]] = mapLayers[x][field];
+        return categories;
+    };
+})
+//////////////////////////////////////////////////////////////////////////////////////
+// filter: mapCategoryItems
+//
+//////////////////////////////////////////////////////////////////////////////////////
+.filter('mapCategoryItems', function () {
+    return function (mapLayers, category) {
+        var layers = {};
+        for (var x in mapLayers) {
+            if (mapLayers[x].category == category) layers[x] = mapLayers[x];
         }
-        for (i in o) {
-            values.push(object[i]);
-        }
-        return values;
+        return layers;
     };
 })
 //////////////////////////////////////////////////////////////////////////////////////

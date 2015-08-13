@@ -5,13 +5,10 @@ angular.module('MyBath.MapController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.markers = [];
     $scope.fetching = {};
-    $scope.mapData = { };
+    $scope.mapLayers = {};
 
     MapData.getLayers().then(function (res) {
-        console.log("resolved");
-        //console.log(Object.keys(res));
-        //MapData.getLayer(Object.keys(res)[0]);
-        $scope.mapData = res;
+        $scope.mapLayers = res;
     });
 
     $scope.getCategories = function () {
@@ -25,10 +22,10 @@ angular.module('MyBath.MapController', [])
             }
             return false;
         };
-        for (var e in $scope.mapData.data) {
-            if ($scope.mapData.data.hasOwnProperty(e)) {
-                if (!isIn($scope.mapData.data[e].category, res)) {
-                    res.push($scope.mapData.data[e].category);
+        for (var e in $scope.mapLayers.data) {
+            if ($scope.mapLayers.data.hasOwnProperty(e)) {
+                if (!isIn($scope.mapLayers.data[e].category, res)) {
+                    res.push($scope.mapLayers.data[e].category);
                 }
             }
         }
@@ -37,9 +34,9 @@ angular.module('MyBath.MapController', [])
 
     $scope.getItemsInCategory = function (category) {
         var res = [];
-        for (var e in $scope.mapData.data) {
-            if ($scope.mapData.data.hasOwnProperty(e) && $scope.mapData.data[e] && $scope.mapData.data[e].category === category) {
-                res.push($scope.mapData.data[e]);
+        for (var e in $scope.mapLayers.data) {
+            if ($scope.mapLayers.data.hasOwnProperty(e) && $scope.mapLayers.data[e] && $scope.mapLayers.data[e].category === category) {
+                res.push($scope.mapLayers.data[e]);
             }
         }
         return res;
@@ -73,23 +70,7 @@ angular.module('MyBath.MapController', [])
             zoom: 18,
             autoDiscover: true,
         },
-        layers: {
-            baselayers: {
-                MapBox: {
-                    layerOptions: { attribution: '<a browse-to="http://leafletjs.com">Leaflet</a>' },
-                    name: 'Map items of interest',
-                    url: 'http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w',
-                    type: 'xyz',
-                    maxZoom: 20,
-                    path: {
-                        weight: 10,
-                        color: '#800000',
-                        opacity: 1
-                    }
-                }
-            }
-        },
-        markers: $scope.markers
+        layers: { }
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +124,7 @@ angular.module('MyBath.MapController', [])
             return false;
         } else {
             $scope.fetching[name] = [true, new Date()];
-            MapData.getLayer(name, lat, lng, $scope.mapData.data)
+            MapData.getLayer(name, lat, lng, $scope.mapLayers.data)
             .then(function (data) {
                 if (data && data != "Failed") {
                     for (i = 0; i < data.length ; i++) {
