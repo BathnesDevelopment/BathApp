@@ -7,8 +7,8 @@ angular.module('MyBath.MapController', [])
     $scope.fetching = {};
     $scope.mapLayers = {};
 
-    MapData.getLayers().then(function (res) {
-        $scope.mapLayers = res;
+    MapData.getLayers().then(function (layers) {
+        $scope.mapLayers = layers;
     });
 
     $scope.getCategories = function () {
@@ -70,7 +70,8 @@ angular.module('MyBath.MapController', [])
             zoom: 18,
             autoDiscover: true,
         },
-        layers: { }
+        layers: { },
+		geojson: { }
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,7 +115,7 @@ angular.module('MyBath.MapController', [])
     // Function: addLayer
     // Adds a layer to the map
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.addLayer = function (name) {
+    $scope.addLayer = function(name) {
         var lat = $scope.map.center.lat;
         var lng = $scope.map.center.lng;
         if (!$scope.userData.MapDisplay[name]) {
@@ -124,12 +125,13 @@ angular.module('MyBath.MapController', [])
             return false;
         } else {
             $scope.fetching[name] = [true, new Date()];
-            MapData.getLayer(name, lat, lng, $scope.mapLayers.data)
+            MapData.getLayer(name, lat, lng)
             .then(function (data) {
                 if (data && data != "Failed") {
                     for (i = 0; i < data.length ; i++) {
                         if (!$scope.alreadyMarked(data[i].message)) {
-                            $scope.markers.push(data[i]);
+                            //$scope.markers.push(data[i]);
+							$scope.map.geojson[name] = data;
                         }
                     }
                 }
@@ -155,15 +157,15 @@ angular.module('MyBath.MapController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapData = function () {
 
-        var i = $scope.markers.length;
+        //var i = $scope.markers.length;
 
         // Loop through markers, remove any that are from inactive layers
-        while (i--) {
-            if (i === -1) { break; }
-            if (!$scope.userData.MapDisplay[$scope.markers[i].layer] == true) {
-                $scope.markers.splice(i, 1);
-            }
-        }
+        //while (i--) {
+            //if (i === -1) { break; }
+            //if (!$scope.userData.MapDisplay[$scope.markers[i].layer] == true) {
+                //$scope.markers.splice(i, 1);
+            //}
+        //}
 
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {

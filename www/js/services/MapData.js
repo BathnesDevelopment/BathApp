@@ -42,9 +42,9 @@ angular.module('MyBath.MapDataService', [])
 
             $http.post(config.mapDataWS + "/GetMapLayer",
                 {
-                    layername: layer,
-                    lat: "51.3821440",
-                    lng: "-2.3589420"
+                    layerName: layer,
+                    lat: lat,
+                    lng: lng
                 })
                 .success(function (data) {
                     if (data.GetMapLayerResult) {
@@ -60,7 +60,7 @@ angular.module('MyBath.MapDataService', [])
                     }
                 }).error(function (data, status, headers, config) {
                     layers = "Failed";
-                    layers_q.resolve(layers);
+                    layerData_q.resolve(layers);
                     return "Failed";
                 });
         }

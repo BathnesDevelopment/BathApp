@@ -4,7 +4,7 @@
         <button class="button button-clear button-primary" ng-click="closeDisplayOptions()">Close</button>
     </ion-header-bar>
     <ion-content>
-        <span ng-repeat="category in newBathDataObject.LocalData.layers.categories">
+        <div ng-repeat="category in newBathDataObject.LocalData.layers.categories">
             <ion-item class="item-stable"
                       ng-click="toggleGroup($index)"
                       ng-class="{active: isGroupShown($index)}">
@@ -24,6 +24,6 @@
                     </label>
                 </li>
             </ul>
-        </span>
+        </div>
     </ion-content>
 </div>

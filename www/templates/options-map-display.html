@@ -13,10 +13,10 @@
                 {{category}}
             </ion-item>
             <ul class="list" ng-show="isGroupShown($index)">
-                <li class="item item-toggle" ng-repeat="layer in mapLayers | mapCategoryItems:category">
+                <li class="item item-toggle" ng-repeat="(layerName,layer) in mapLayers | mapCategoryItems:category">
                     {{layer.displayName}}
                     <label class="toggle toggle-balanced">
-                        <input type="checkbox" ng-model="userData.MapDisplay[layer.displayName]">
+                        <input type="checkbox" ng-model="userData.MapDisplay[layerName]">
                         <div class="track">
                             <div class="handle"></div>
                         </div>
