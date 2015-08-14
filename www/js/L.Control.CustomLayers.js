@@ -31,9 +31,9 @@
         },
 
         onAdd: function (map) {
-            var container = L.DomUtil.create('div', 'leaflet-bar');
+            var container = L.DomUtil.create('span', 'leaflet-layers leaflet-bar');
             L.DomEvent.on(container, 'click', this.options.action);
-            container.innerHTML = '<button><i class="fa fa-sliders map-custom-layers"></i></button>';
+            container.innerHTML = '<a><i class="fa fa-sliders"></i></a>';
             return container;
         }
     });

@@ -65,26 +65,6 @@ This happens on portrait phone screens, and is unhelpful at best
     white-space: normal;
 }
 
-.leaflet-popup-content-wrapper {
-    background: #fff;
-    color: #000;
-    font-size: 16px;
-    line-height: 24px;
-    border-radius: 0px !important;
-}
-
-a.leaflet-popup-close-button {
-    font-size: 24px !important;
-    width: 32px !important;
-    height: 32px !important;
-    padding: 5px 5px 5px 5px !important;
-    color: #0094ff !important;
-}
-
-.leaflet-popup-content {
-    margin-top: 20px !important;
-}
-
 #divCouncilConnect img {
     padding: 5px;
 }
@@ -98,18 +78,69 @@ a.leaflet-popup-close-button {
     display: none !important;
 }
 
-.map-custom-layers {
-    font-size: 2em !important;
-}
-
 /**
   * Ionic sets the last-child to have a larger bottom margin.
   * This looks bad on a row-responsive
 **/
 .list:last-child.card {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 ion-content.scroll-content.ionic-scroll {
     /* margin-top: 40px; */
 }
+
+/*
+ * These CSS rules affect the tooltips within maps with the custom-popup
+ * class. See the full CSS for all customizable options:
+ * https://github.com/mapbox/mapbox.js/blob/001754177f3985c0e6b4a26e3c869b0c66162c99/theme/style.css#L321-L366
+ */
+.custom-popup .leaflet-popup-content-wrapper {
+    background: #2c3e50;
+    color: #fff;
+    font-size: 16px;
+    line-height: 24px;
+    border-radius: 0px;
+}
+
+    .custom-popup .leaflet-popup-content-wrapper a {
+        color: rgba(255,255,255,0.5);
+    }
+
+.custom-popup .leaflet-popup-tip-container {
+    width: 30px;
+    height: 15px;
+}
+
+.custom-popup .leaflet-popup-close-button {
+    display: none;
+}
+
+.custom-popup .leaflet-popup-tip {
+    /*border-left: 15px solid transparent;
+    border-right: 15px solid transparent;*/
+    border-top: 15px solid #2c3e50;
+    background: #2c3e50;
+}
+
+.leaflet-layers {
+    box-shadow: none;
+    border: 1px solid rgba(0,0,0,0.2);
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+    .leaflet-layers a {
+        font-size: 2em;
+        margin-left: 1px;
+        color: #444;
+        cursor: pointer !important;
+    }
+
+    .leaflet-layers.active a {
+        color: #2074B6;
+    }
+
+    .leaflet-layers.active.following a {
+        color: #FC8428;
+    }

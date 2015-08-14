@@ -5,14 +5,10 @@ angular.module('MyBath.MapController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.fetching = {};
     $scope.mapLayers = {};
-
-    MapData.getLayers().then(function (layers) {
-        $scope.mapLayers = layers;
-    });
-
     $scope.map = {
         defaults: {
-            tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
+            tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OSM</a> contributors, <a href="http://cartodb.com/attributions">CartoDB</a>',
             attributionControl: false,
             maxZoom: 20,
             zoomControlPosition: 'bottomleft',
@@ -51,11 +47,24 @@ angular.module('MyBath.MapController', [])
                 return L.marker(latlng, { icon: marker });
             },
             onEachFeature: function (feature, layer) {
-                var popupString = "";
+                var popupString = '<strong>' + feature.properties.LayerDisplayName + '</strong><br/>';
+                var exclusions = ['Colour', 'Distance', 'Icon', 'LayerName', 'LayerDisplayName'];
+                for (var key in feature.properties) {
+                    if (exclusions.indexOf(key) == -1) popupString += '<strong>' + key + '</strong> ' + feature.properties[key] + '<br/>';
+                }
                 layer.bindPopup(popupString);
             }
         }
     };
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ON LOAD
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Get the layer list for option display
+    MapData.getLayers().then(function (layers) {
+        $scope.mapLayers = layers;
+    });
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODAL DEFINITIONS
@@ -78,8 +87,8 @@ angular.module('MyBath.MapController', [])
 
     $scope.map.controls = {
         custom: [
-            L.control.locate({ follow: true }),
-            L.control.customlayers({ position: 'topright', action: $scope.mapDisplayOptions })
+                L.control.locate({ follow: true }),
+                L.control.customlayers({ position: 'topright', action: $scope.mapDisplayOptions })
         ]
     };
 
@@ -96,7 +105,7 @@ angular.module('MyBath.MapController', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: addLayer
-    // Adds a layer to the map
+    // Adds a layer to the map - triggered by options display close
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.addLayer = function (name) {
         var lat = $scope.map.center.lat;
@@ -119,13 +128,34 @@ angular.module('MyBath.MapController', [])
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: updateMapData
-    // 
+    // Function: removeLayer
+    // Removes a layer from the map - triggered by options display close
     /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.removeLayer = function (name) {
+        // remove relevant geoJSON objects as well
+        for (i = 0; i < $scope.map.geojson.data.features.length; ++i) {
+            if ($scope.map.geojson.data.features[i].properties.LayerName == name) {
+                $scope.map.geojson.data.features.splice(i, 1);
+                --i;
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateMapData
+    // Triggered by closing the options display modal - checks for differences and applies changes
+    //////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapData = function () {
+        // Add layers
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
                 $scope.addLayer(e);
+            }
+        }
+        // Remove layers
+        for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
+            if ($scope.userData.MapDisplay.hasOwnProperty(e) && !$scope.userData.MapDisplay[e]) {
+                $scope.removeLayer(e);
             }
         }
     }
@@ -133,7 +163,6 @@ angular.module('MyBath.MapController', [])
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CONTROLLER EVENTS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     $scope.$on('leafletDirectiveMap.overlayremove', function (event, target) {
         angular.noop();
     });

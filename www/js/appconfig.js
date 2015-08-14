@@ -1,7 +1,7 @@
 ﻿angular.module('BathApp.config', [])
    .constant('config', {
-       'bathDataWS': 'http://localhost:62735/BathData.svc',
-       'reportsWS': 'http://localhost:62735/Open311ReportWS.svc',
+       'bathDataWS': 'http://vm-project-dev/BathData.svc',
+       'reportsWS': 'http://vm-project-dev/Open311ReportWS.svc',
        'planningWS': '',
-       'mapDataWS': 'http://localhost:62735/BathData.svc'
+       'mapDataWS': 'http://vm-project-dev/BathData.svc'
    });
