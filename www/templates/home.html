@@ -1,5 +1,5 @@
 <ion-view view-title="Residents app">
-    <ion-content class="padding">
+    <ion-content padding="false">
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card" id="divCouncilConnect">
@@ -21,27 +21,20 @@
                         </a>
                     </div>
                 </div>
-                <h4>Bin collections</h4>
-                <div class="card" id="divBinDates">
-
+                <div class="card" id="divBinDates" ng-show="userData.uprn">
                 </div>
-                <h4>Car park occupancy</h4>
-                <div class="card" id="divCarParkOccupancy">
-
+                <div class="card" id="divCarParkOccupancy" ng-show="userData.uprn">
                 </div>
             </div>
             <div class="col">
-                <h4>Services</h4>
-                <div class="card" id="divSignposting">
-
+                <div class="card" id="divSetLocation" ng-show="!userData.uprn">
+                    <p>To begin using this app you should set your location.</p>
                 </div>
-                <h4>Air quality</h4>
-                <div class="card" id="divAirQualityData">
-
+                <div class="card" id="divSignposting" ng-show="userData.uprn">
                 </div>
-                <h4>Planning</h4>
-                <div class="card" id="divPlanningApplications">
-
+                <div class="card" id="divAirQualityData" ng-show="userData.uprn">
+                </div>
+                <div class="card" id="divPlanningApplications" ng-show="userData.uprn">
                 </div>
             </div>
         </div>

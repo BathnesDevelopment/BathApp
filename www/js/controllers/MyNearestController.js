@@ -3,11 +3,9 @@ angular.module('MyBath.MyNearestController', [])
 
     $ionicScrollDelegate.scrollTop();
 
-    // $scope.myNearest = BathData.getMyNearest();
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: filterData
-    // Filters the data based on
+    // Filters the data based on user options
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.filterMyNearest = function () {
         var localHidden = $scope.userData.LocalHidden;
@@ -19,5 +17,4 @@ angular.module('MyBath.MyNearestController', [])
         }
         return res;
     };
-
 });

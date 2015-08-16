@@ -123,21 +123,21 @@ ion-content.scroll-content.ionic-scroll {
     background: #2c3e50;
 }
 
-.leaflet-layers {
+.custom-popup .leaflet-layers {
     box-shadow: none;
     border: 1px solid rgba(0,0,0,0.2);
     background-clip: padding-box;
     cursor: pointer;
 }
 
-    .leaflet-layers a {
-        font-size: 2em;
+    .custom-popup .leaflet-layers a {
+        font-size: 2em !important;
         margin-left: 1px;
         color: #444;
         cursor: pointer !important;
     }
 
-    .leaflet-layers.active a {
+    .custom-popup .leaflet-layers.active a {
         color: #2074B6;
     }
 

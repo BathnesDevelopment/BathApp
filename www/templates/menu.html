@@ -14,9 +14,7 @@
                 </button>
             </ion-nav-buttons>
         </ion-nav-bar>
-        <ion-content>
-            <ion-nav-view name="mainContent"></ion-nav-view>
-        </ion-content>
+        <ion-nav-view name="mainContent"></ion-nav-view>
     </ion-side-menu-content>
     <!-- Left menu -->
     <ion-side-menu side="left">
@@ -24,32 +22,15 @@
             <h1 class="title">Menu</h1>
         </ion-header-bar>
         <ion-content>
-            <ion-list>
-                <ion-item ng-click="selectMenu('home')">
-                    Home
-                </ion-item>
-                <ion-item ng-click="selectMenu('reports')">
-                    Report It
-                </ion-item>
-                <ion-item ng-click="selectMenu('mynearest')">
-                    My Nearest
-                </ion-item>
-                <ion-item ng-click="selectMenu('myhouse')">
-                    My House
-                </ion-item>
-                <ion-item ng-click="selectMenu('mycouncil')">
-                    My Council
-                </ion-item>
-                <ion-item ng-click="selectMenu('details')">
-                    My Details
-                </ion-item>
-                <ion-item ng-click="selectMenu('map')">
-                    Local Map
-                </ion-item>
-                <ion-item ng-click="selectMenu('planning')">
-                    Planning
-                </ion-item>
-            </ion-list>
+            <ul class="list">
+                <li><a href="#/menu/home" class="item" menu-close>Home</a></li>
+                <li><a href="#/menu/reports" class="item" menu-close>Report It</a></li>
+                <li><a href="#/menu/local" class="item" menu-close>My Nearest</a></li>
+                <li><a href="#/menu/house" class="item" menu-close>My House</a></li>
+                <li><a href="#/menu/mycouncil" class="item" menu-close>My Council</a></li>
+                <li><a href="#/menu/details" class="item" menu-close>My Details</a></li>
+                <li><a href="#/menu/map" class="item" menu-close>Local Map</a></li>
+            </ul>
         </ion-content>
     </ion-side-menu>
 </ion-side-menus>

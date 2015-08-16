@@ -24,7 +24,7 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ionMdInput', 'Bath
              }
          })
          .state('menu.myhouse', {
-             url: "/local",
+             url: "/house",
              views: {
                  'mainContent': {
                      templateUrl: "templates/my-house.html",

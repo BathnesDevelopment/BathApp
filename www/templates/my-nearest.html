@@ -1,72 +1,74 @@
-<ion-content padding="true">
-    <ion-refresher on-refresh="pullRefresh()"
-                   pulling-text="Pull to refresh..."
-                   refreshing-text="Refreshing!"
-                   refreshing-icon="ion-loading-c">
-    </ion-refresher>
-    <h3>My Nearest</h3>
-    <p>This page shows local data, relevant to your registered address.</p>
-    <p ng-show="!userData.uprn">No location set</p>
-    <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
+<ion-view view-title="My nearest">
+    <ion-content padding="true">
+        <ion-refresher on-refresh="pullRefresh()"
+                       pulling-text="Pull to refresh..."
+                       refreshing-text="Refreshing!"
+                       refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <h3>My Nearest</h3>
+        <p>This page shows locations of interest near to your registered location.</p>
+        <p ng-show="!userData.uprn">No location set</p>
+        <button ng-click="displayOptions()" class="button button-full button-clear button-positive">Display options</button>
 
-    <div class="row responsive-sm">
-        <div class="col">
-            <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
-                <h3>{{ key }}</h3>
-                <div class="card" ng-repeat="dataRow in data">
-                    <div class="item item-divider">
-                        <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
-                        <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+        <div class="row responsive-sm">
+            <div class="col">
+                <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
+                    <h3>{{ key }}</h3>
+                    <div class="card" ng-repeat="dataRow in data">
+                        <div class="item item-divider">
+                            <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
+                            <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                        </div>
+                        <div class="item">
+                            <p>
+                                <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                    {{ key }} : {{ data }} <br />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
+                                <i class="icon ion-ios-telephone assertive"></i> Call
+                            </a>
+                            <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
+                                <i class="icon ion-earth assertive"></i> Website
+                            </a>
+                            <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
+                                <i class="icon ion-map calm"></i> Map
+                            </a>
+                        </div>
                     </div>
-                    <div class="item">
-                        <p>
-                            <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                {{ key }} : {{ data }} <br />
-                            </span>
-                        </p>
-                    </div>
-                    <div class="item tabs tabs-secondary tabs-icon-left">
-                        <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
-                            <i class="icon ion-ios-telephone assertive"></i> Call
-                        </a>
-                        <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
-                            <i class="icon ion-earth assertive"></i> Website
-                        </a>
-                        <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
-                            <i class="icon ion-map calm"></i> Map
-                        </a>
+                </div>
+            </div>
+            <div class="col">
+                <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
+                    <h3>{{ key }}</h3>
+                    <div class="card" ng-repeat="dataRow in data">
+                        <div class="item item-divider">
+                            <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
+                            <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                        </div>
+                        <div class="item">
+                            <p>
+                                <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                    {{ key }} : {{ data }} <br />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item tabs tabs-secondary tabs-icon-left">
+                            <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
+                                <i class="icon ion-ios-telephone assertive"></i> Call
+                            </a>
+                            <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
+                                <i class="icon ion-earth assertive"></i> Website
+                            </a>
+                            <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
+                                <i class="icon ion-map calm"></i> Map
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
-                <h3>{{ key }}</h3>
-                <div class="card" ng-repeat="dataRow in data">
-                    <div class="item item-divider">
-                        <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
-                        <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
-                    </div>
-                    <div class="item">
-                        <p>
-                            <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                {{ key }} : {{ data }} <br/>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="item tabs tabs-secondary tabs-icon-left">
-                        <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
-                            <i class="icon ion-ios-telephone assertive"></i> Call
-                        </a>
-                        <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
-                            <i class="icon ion-earth assertive"></i> Website
-                        </a>
-                        <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
-                            <i class="icon ion-map calm"></i> Map
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ion-content>
+    </ion-content>
+</ion-view>

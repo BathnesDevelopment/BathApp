@@ -98,7 +98,7 @@ angular.module('MyBath.BathAppController', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Modal: NewComment
-    // planning comments screen
+    // Planning comments screen
     /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/comments-new.html', {
         scope: $scope,
@@ -310,7 +310,11 @@ angular.module('MyBath.BathAppController', [])
                         $ionicLoading.hide();
                         $ionicPopup.alert({
                             title: 'No addresses found',
-                            content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.'
+                            content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.',
+                            buttons: [{
+                                text: 'Dismiss',
+                                type: 'button-clear button-full'
+                            }]
                         }).then(function (res) {
 
                         });
@@ -402,9 +406,8 @@ angular.module('MyBath.BathAppController', [])
         var optionsSheet = $ionicActionSheet.show({
             buttons: [
                 { text: 'Register' },
-                { text: 'View instructions' },
-                { text: refreshText },
-                { text: '' }],
+                { text: refreshText }
+            ],
             destructiveText: 'Clear data',
             titleText: 'App options',
             cancelText: 'Cancel',
@@ -464,7 +467,7 @@ angular.module('MyBath.BathAppController', [])
             title: title,
             template: message,
             buttons: [{
-                text: 'OK',
+                text: 'Dismiss',
                 type: 'button-clear button-full button-positive'
             }]
         });
