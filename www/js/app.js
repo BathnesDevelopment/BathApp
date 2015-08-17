@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ionMdInput', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives'])
  .config(function ($stateProvider, $urlRouterProvider) {
      $stateProvider
          .state('menu', {
