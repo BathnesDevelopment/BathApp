@@ -1,18 +1,18 @@
 <div class="modal">
-    <ion-header-bar class="bar-balanced">
+    <ion-header-bar class="bar-light">
+        <button class="button button-clear" ng-click="commentComposeModal.hide()">Cancel</button>
         <h1 class="title">Comment</h1>
-        <button class="button button-clear button-primary" ng-click="commentComposeModal.hide()">Cancel</button>
+        <button type="submit" class="button button-full button-clear button-clear button-balanced" ng-click="submitComment(currentComment)">Next</button>
     </ion-header-bar>
     <ion-content padding="true">
         <div class="list list-inset">
             <h3>{{currentComment.type}}</h3>
             <form ng-submit="submitComment(currentComment)">
                 <p>Reference:  {{ currentComment.reference }}</p>
-                <label class="item item-input">
-                    <textarea placeholder="Comments" ng-model="currentComment.body"></textarea>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Comment</span>
+                    <textarea placeholder="Comment" ng-model="currentComment.body"></textarea>
                 </label>
-
-                <button type="submit" class="button button-full button-clear button-clear button-positive">Next</button>
             </form>
         </div>
     </ion-content>

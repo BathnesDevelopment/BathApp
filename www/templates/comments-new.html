@@ -1,39 +1,47 @@
 <div class="modal">
-    <ion-header-bar class="bar-balanced">
+    <ion-header-bar class="bar-light">
+        <button class="button button-clear" ng-click="commentModal.hide()">Cancel</button>
         <h1 class="title">Comment</h1>
-        <button class="button button-clear button-primary" ng-click="commentModal.hide()">Cancel</button>
+        <button type="submit" class="button button-full button-clear button-clear button-balanced" onclick="submitCommentPage1(currentComment)">Next</button>
     </ion-header-bar>
     <ion-content padding="true">
         <div class="list list-inset">
             <h3>New Comment</h3>
             <form ng-submit="submitCommentPage1(currentComment)">
-                <p>Comment reference:  {{ currentComment.reference }}</p>
-                <!--<li class="item item-checkbox">
-                    <label class="checkbox">
-                        <input type="checkbox" ng-model="currentComment.useUserDetails">
-                    </label>
-                    Use my saved details
-                </li>-->
-                <label class="item item-input">
-                    <input ng-show="!currentComment.useUserDetails || !userData.address" type="text" placeholder="Address" ng-model="currentComment.address">
-                    <p ng-show="userData.address && currentComment.useUserDetails">{{userData.address}}</p>
+                <p>Comment reference: {{ currentComment.reference }}</p>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Address</span>
+                    <input type="text" placeholder="Address" ng-model="currentComment.address">
                 </label>
-                <label class="item item-input">
-                    <input ng-show="!currentComment.useUserDetails || !userData.phone" type="text" placeholder="Contact phone" ng-model="currentComment.userPhone">
-                    <p ng-show="userData.phone && currentComment.useUserDetails">{{userData.phone}}</p>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Phone</span>
+                    <input type="text" placeholder="Contact phone" ng-model="currentComment.userPhone">
                 </label>
-                <label class="item item-input">
-                    <input ng-show="!currentComment.useUserDetails || !userData.email" type="text" placeholder="Contact email" ng-model="currentComment.userEmail">
-                    <p ng-show="userData.email && currentComment.useUserDetails">{{userData.email}}</p>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Email</span>
+                    <input type="text" placeholder="Contact email" ng-model="currentComment.userEmail">
                 </label>
-                <label class="item item-input">
-                    Comment type: <span style="margin-left:10px"></span>
-                    <span ng-show="commentErrorNoType">NO TYPE</span>
-                    <ion-radio ng-model="currentComment.type" ng-value="'Objection'">Objection</ion-radio>
-                    <ion-radio ng-model="currentComment.type" ng-value="'Support'">Support</ion-radio>
-                    <ion-radio ng-model="currentComment.type" ng-value="'Representation'">Representation</ion-radio>
+                <label class="item item-radio">
+                    <input type="radio" name="commentType" value="Objection" ng-model="currentComment.type">
+                    <span class="item-content">
+                        Objection
+                    </span>
+                    <i class="radio-icon ion-checkmark"></i>
                 </label>
-                <button type="submit" class="button button-full button-clear button-clear button-positive">Next</button>
+                <label class="item item-radio">
+                    <input type="radio" name="commentType" value="Support" ng-model="currentComment.type">
+                    <span class="item-content">
+                        Support
+                    </span>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+                <label class="item item-radio">
+                    <input type="radio" name="commentType" value="Representation" ng-model="currentComment.type" checked>
+                    <span class="item-content">
+                        Representation
+                    </span>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
             </form>
         </div>
     </ion-content>

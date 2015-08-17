@@ -1,5 +1,5 @@
 <div class="modal">
-    <ion-header-bar class="bar-balanced">
+    <ion-header-bar class="bar-light">
         <button class="button button-clear button-primary" ng-click="reportItModal.hide()">Cancel</button>
         <h1 class="title">Report It</h1>
         <button class="button button-clear button-primary" ng-click="submitReportItPage1(currentReport)">Next</button>
@@ -10,9 +10,9 @@
             <p>Complete details for your report to the Council.  Select a category of report and fill in a description of the issue.</p>
             <form ng-submit="submitReportItPage1(currentReport)">
                 <label class="item item-input item-select">
-                    <div class="input-label">
+                    <span class="input-label">
                         Category of report
-                    </div>
+                    </span>
                     <select ng-model="currentReport.type">
                         <option>Missed rubbish</option>
                         <option>Missed recycling</option>
@@ -41,9 +41,6 @@
                 <label class="item item-input">
                     <textarea placeholder="Description" ng-model="currentReport.description"></textarea>
                 </label>
-                <button type="submit" class="button button-full button-clear button-positive">
-                    Next
-                </button>
             </form>
         </div>
     </ion-content>

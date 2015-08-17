@@ -1,10 +1,14 @@
-<div class="modal" id = "leafletContainer">
-    <ion-header-bar class="bar-balanced">
+<div class="modal" id="leafletContainer">
+    <ion-header-bar class="bar-light">
         <button class="button button-clear button-primary" ng-click="reportItMapModal.hide()">Cancel</button>
         <h1 class="title">Report It</h1>
         <button class="button button-clear button-primary" ng-click="submitReportItPage4b()">Next</button>
     </ion-header-bar>
-    <!--<ion-content padding="true">-->
-        <leaflet data-tap-disabled="true" defaults="reportMap.defaults" center="reportMap.center" maxbounds="reportMap.maxbounds" markers="reportMap.markers"></leaflet>
-    <!--</ion-content>-->
+    <ion-content padding="false">
+        <leaflet data-tap-disabled="true" 
+                 defaults="reportMap.defaults" 
+                 center="reportMap.center" 
+                 maxbounds="reportMap.maxbounds" 
+                 markers="reportMap.markers"></leaflet>
+    </ion-content>
 </div>

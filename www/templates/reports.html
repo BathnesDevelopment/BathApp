@@ -1,9 +1,29 @@
 <ion-view view-title="Reports">
-    <ion-content padding="true">
-        <h3>My Reports</h3>
-        <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
-        <button type="button" ng-click="reportIt()" class="button button-full button-clear button-positive">New Report</button>
-        <button ng-click="submitReports()" class="button button-full button-clear button-positive">Submit unsent reports</button>
+    <ion-content padding="false">
+        <div class="row responsive-sm">
+            <div class="col">
+                <div class="card">
+                    <div class="item item-divider item-calm">
+                        My reports
+                    </div>
+                    <div class="item item-text-wrap ">
+                        <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
+                    </div>
+                    <div class="item tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="reportIt()">
+                            <i class="icon energized ion-android-delete"></i> New report
+                        </a>
+                        <a class="tab-item" ng-click="submitReports()">
+                            <i class="icon balanced ion-refresh"></i> Sync reports
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+
         <div class="list list-inset">
             <div ng-repeat="report in reports">
                 <div class="item item-avatar">
