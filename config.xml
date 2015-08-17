@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="uk.gov.bathcouncil" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>BathCouncil</name>
-  <description>&#xD;
-        A Bath and North East Somerset Council application for reporting issues and providing local data.&#xD;
-    </description>
-  <author email="david_rowe@bathnes.gov.uk" href="http://www.bathnes.gov.uk">&#xD;
-        Apache Cordova Team&#xD;
-    </author>
+  <name>Residents app</name>
+  <description>
+    A Bath and North East Somerset Council application for reporting issues and providing local data.
+  </description>
+  <author email="david_rowe@bathnes.gov.uk" href="http://www.bathnes.gov.uk"></author>
   <content src="index.html"/>
   <access origin="*"/>
 </widget>
