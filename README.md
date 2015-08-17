@@ -12,6 +12,7 @@ To build, install cordova, then run:
 - $ cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
 - $ cordova plugin add de.appplant.cordova.plugin.email-composer && cordova prepare
+- $ cordova plugin add org.apache.cordova.statusbar
 - $ cordova build ios
 - $ cordova emulate ios
 
