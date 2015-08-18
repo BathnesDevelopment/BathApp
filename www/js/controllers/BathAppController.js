@@ -4,10 +4,6 @@ angular.module('MyBath.BathAppController', [])
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $ionicPlatform.ready(function () {
-        $cordovaStatusbar.overlaysWebView(false);
-        $cordovaStatusBar.style(1);
-    });
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
@@ -604,7 +600,7 @@ angular.module('MyBath.BathAppController', [])
                 // saves to currentReport.photo
                 imageURI = "data:image/jpeg;base64," + imageURI;
                 $scope.$apply(function () {
-                    $scope.currentReport.photo = imageURI;
+                    //$scope.currentReport.photo = imageURI;
                 });
             },
             function (failMessage) {

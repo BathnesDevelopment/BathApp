@@ -1,5 +1,15 @@
 angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives'])
- .config(function ($stateProvider, $urlRouterProvider) {
+.run(function($ionicPlatform,$cordovaStatusbar) {
+	$ionicPlatform.ready(function () {
+        $cordovaStatusbar.overlaysWebView(false);
+        $cordovaStatusbar.style(1);
+		if (cordova.platformId == 'android') {
+			StatusBar.backgroundColorByHexString("#33AB5F");
+		}
+		$cordovaStatusbar.show();
+    });
+})
+.config(function ($stateProvider, $urlRouterProvider) {
      $stateProvider
          .state('menu', {
              url: "/menu",
