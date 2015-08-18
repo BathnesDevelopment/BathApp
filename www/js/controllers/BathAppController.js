@@ -1,12 +1,12 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $ionicPlatform, $cordovaStatusbar, UserData, BathData, Reports, Comments, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $ionicPlatform, UserData, BathData, Reports, Comments, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $ionicPlatform.ready(function () {
-        $cordovaStatusbar.overlaysWebView(true)
-        $cordovaStatusBar.style(1) //Light
+        $cordovaStatusbar.overlaysWebView(false);
+        $cordovaStatusBar.style(1);
     });
 
     /////////////////////////////////////////////////////////////////////////////////////////////
