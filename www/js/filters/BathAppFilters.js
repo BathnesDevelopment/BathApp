@@ -91,7 +91,7 @@ angular.module('MyBath.BathAppFilters', [])
     return function (obj) {
         var filtered = {};
         for (var i = 0; i < Object.keys(obj).length; i++) {
-            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng|PhotoUrl")) {
+            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng|PhotoUrl|Recycling|Household waste|Garden waste|type")) {
                 filtered[Object.keys(obj)[i]] = obj[Object.keys(obj)[i]];
             }
         }
@@ -116,6 +116,41 @@ angular.module('MyBath.BathAppFilters', [])
         var categories = {};
         for (var x in mapLayers) categories[mapLayers[x][field]] = mapLayers[x][field];
         return categories;
+    };
+})
+//////////////////////////////////////////////////////////////////////////////////////
+// filter: bin dates
+//
+//////////////////////////////////////////////////////////////////////////////////////
+.filter('binDates', function () {
+    return function (routeCode) {
+        var week = '';
+        var days = { 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday" }
+        var dayNo = routeCode.substring(1, 2);
+        var day = days[dayNo];
+
+        if (routeCode.indexOf('a') != -1) week = ' Week A';
+        if (routeCode.indexOf('b') != -1) week = ' Week B';
+
+        var collectionDate = new Date();
+
+        // First Week A was Dec 12 2011
+        var a = moment('2011-12-12');
+        var b = moment(collectionDate);
+        var noWeeksFromStart = a.diff(b, 'weeks')
+
+        var currentDayNo = collectionDate.getDay();
+        var daysToAdd = 0;
+        if (currentDayNo > dayNo) daysToAdd = (7 - (currentDayNo - dayNo));
+        if (currentDayNo < dayNo) daysToAdd = (dayNo - currentDayNo);
+        collectionDate.setDate(collectionDate.getDate() + daysToAdd);
+
+        if ((noWeeksFromStart % 2) == 0 && week == ' Week B') collectionDate.setDate(collectionDate.getDate() + 7);
+        if ((noWeeksFromStart % 2) != 0 && week == ' Week A') collectionDate.setDate(collectionDate.getDate() + 7);
+
+        var nextDate = ' (Next collection on ' + moment(collectionDate).format('Do MMMM') + ')';
+
+        return day + week + nextDate;
     };
 })
 //////////////////////////////////////////////////////////////////////////////////////

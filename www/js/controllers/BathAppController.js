@@ -499,6 +499,9 @@ angular.module('MyBath.BathAppController', [])
                 $scope.comments = Comments.getComments();
                 $scope.userData = UserData.all(); //Get defaults
                 $scope.bathData = {};
+                $scope.myCouncil = {};
+                $scope.myNearest = {};
+                $scope.myHouse = {};
                 $scope.bathDataObject = {};
                 $scope.feedData = {};
                 $scope.feedDataObject = {};
