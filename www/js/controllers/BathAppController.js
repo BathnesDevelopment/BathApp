@@ -468,7 +468,7 @@ angular.module('MyBath.BathAppController', [])
             template: message,
             buttons: [{
                 text: 'Dismiss',
-                type: 'button-clear button-full button-positive'
+                type: 'button-clear button-full button-dark'
             }]
         });
         alertPopup.then(function (res) {
@@ -535,7 +535,6 @@ angular.module('MyBath.BathAppController', [])
         Reports.submitReports();
     };
 
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
     // A popup for council connect
@@ -547,12 +546,13 @@ angular.module('MyBath.BathAppController', [])
             buttons: [
                 {
                     text: 'Cancel',
-                    type: 'button-clear'
+                    type: 'button-clear button-dark'
                 },
                 {
                     text: 'Call',
                     type: 'button-clear button-positive',
                     onTap: function (e) {
+                        window.open('tel:01225394041', '_system', 'location=yes');
                     }
                 },
             ]
@@ -568,18 +568,21 @@ angular.module('MyBath.BathAppController', [])
     $scope.showCouncilConnectPopupOutOfHours = function () {
         var alertPopup = $ionicPopup.alert({
             title: 'Out of Hours',
-            template: 'Council connect details',
+            template: 'Council connect is open 8.00am – 6.00pm Mon, Tues, Thurs & Fri and 9.30am – 6.00pm on Weds.  An emergency out of hours service is provided.',
             buttons: [
-                { text: 'Cancel' },
                 {
-                    text: 'Save',
-                    type: 'button-positive',
+                    text: 'Cancel',
+                    type: 'button-clear button-dark'
+                },
+                {
+                    text: 'Emergency',
+                    type: 'button-assertive',
                     onTap: function (e) {
+                        window.open('tel:01225477477', '_system', 'location=yes');
                     }
                 },
             ]
         });
-
         alertPopup.then(function (res) {
             // To do: handle the result
         });

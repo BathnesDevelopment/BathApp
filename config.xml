@@ -7,5 +7,7 @@
   <author email="david_rowe@bathnes.gov.uk" href="http://www.bathnes.gov.uk"></author>
   <content src="index.html"/>
   <access origin="*"/>
+  <access origin="tel:*" launch-external="yes" />
+  <access origin="mailto:*" launch-external="yes" />
   <allow-navigation href="*" />
 </widget>

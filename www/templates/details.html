@@ -2,50 +2,8 @@
     <ion-content padding="false">
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div class="item item-divider item-calm">
-                        My details <span ng-show="userData.firstname">({{ userData.firstname + ' ' + userData.lastname }})</span>
-                    </div>
-                    <div class="item item-text-wrap ">
-                        <p>Information about any details held about you on this device.  To clear the data held on the device, use the link below.</p>
-                    </div>
-                    <div class="item tabs tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="deleteData()">
-                            <i class="icon assertive ion-android-delete"></i> Remove all data
-                        </a>
-                    </div>
-                </div>
-                <div class="card" ng-show="userData.address">
-                    <div class="item item-divider item-text-wrap item-balanced">
-                        {{ userData.address }}
-                    </div>
-                </div>
             </div>
             <div class="col">
-                <div class="card" ng-show="!userData.uprn">
-                    <div class="item item-divider item-stable">
-                        No details or location set
-                    </div>
-                    <div class="item item-text-wrap ">
-                        <p>To begin using this app you need to register and set a location.  Perosnal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
-                    </div>
-                    <div class="item tabs tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="showCouncilConnectPopup()">
-                            <i class="icon balanced ion-ios-location"></i> Set location
-                        </a>
-                    </div>
-                </div>
-                <div class="card" ng-show="userData.uprn">
-                    <div class="item item-divider item-text-wrap item-dark">
-                        {{ userData.uprn }}
-                    </div>
-                </div>
-                <div class="card" ng-show="userData.phone">
-                    <div class="item item-divider item-text-wrap item-stable">
-                        {{ userData.phone }}<br />
-                        {{ userData.email }}
-                    </div>
-                </div>
             </div>
         </div>
     </ion-content>
