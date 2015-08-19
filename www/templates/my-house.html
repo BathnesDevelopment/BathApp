@@ -24,10 +24,10 @@
                         <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    {{ key }} : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
                                 </span>
                                 <span ng-repeat="(key, data) in dataRow" ng-if="key == 'Household waste' || key == 'Recycling' || key == 'Garden waste'">
-                                    {{ key }} : {{ data | binDates }} <br />
+                                    <strong>{{ key }}</strong> : {{ data | binDates }} <br />
                                 </span>
                             </p>
                         </div>
@@ -41,14 +41,14 @@
             </div>
             <div class="col">
                 <div class="card" ng-show="!userData.uprn">
-                    <div class="item item-divider item-assertive">
+                    <div class="item item-divider top-assertive">
                         No details or location set
                     </div>
                     <div class="item item-text-wrap">
                         <p>To begin using this app you need to register and set a location.  Perosnal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
                     </div>
                     <div class="item tabs tabs-primary tabs-icon-left item-divider">
-                        <a class="tab-item" ng-click="showCouncilConnectPopup()">
+                        <a class="tab-item" ng-click="register()">
                             <i class="icon balanced ion-ios-location"></i> Set location
                         </a>
                     </div>
@@ -62,10 +62,10 @@
                         <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    {{ key }} : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
                                 </span>
                                 <span ng-repeat="(key, data) in dataRow" ng-if="key == 'Household waste' || key == 'Recycling' || key == 'Garden waste'">
-                                    {{ key }} : {{ data | binDates }} <br />
+                                    <strong>{{ key }}</strong> : {{ data | binDates }} <br />
                                 </span>
                             </p>
                         </div>

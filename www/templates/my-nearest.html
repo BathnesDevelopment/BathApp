@@ -25,7 +25,7 @@
                         <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    {{ key }} : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
                                 </span>
                             </p>
                         </div>
@@ -52,7 +52,7 @@
                         <p>To begin using this app you need to register and set a location.  Perosnal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
                     </div>
                     <div class="item tabs tabs-primary tabs-icon-left item-divider">
-                        <a class="tab-item" ng-click="showCouncilConnectPopup()">
+                        <a class="tab-item" ng-click="register()">
                             <i class="icon balanced ion-ios-location"></i> Set location
                         </a>
                     </div>
@@ -67,7 +67,7 @@
                         <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    {{ key }} : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
                                 </span>
                             </p>
                         </div>

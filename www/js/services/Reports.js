@@ -24,57 +24,62 @@ angular.module('MyBath.ReportsService', [])
             window.localStorage.reports = angular.toJson(reportsArray);
         },
         submitReports: function () {
-            var reports = window.localStorage.reports;
-            var reportsArray = angular.fromJson(reports);
-
-            var reportsData = [];
-            // reports is an array (of whatever length).
-            // iterate through and submit to the web service.  as successes are recorded, remove from array.
-            var index;
-            for (index = 0; index < reportsArray.length; ++index) {
-                // Build up the data object
-                reportsData.push({
-                    "service_code": "",
-                    "attribute": [],
-                    "lat": "",
-                    "long": "",
-                    "address_string": "",
-                    "address_id": "",
-                    "email": "email",
-                    "device_id": "device",
-                    "account_id": "",
-                    "first_name": "",
-                    "last_name": "",
-                    "phone": "",
-                    "description": "",
-                    "media_url": ""
-                });
-            }
-
-            // A single post to the web service can include all the reports.
             var reportResponse = [];
             var reportResponse_q = $q.defer();
+            var reportsData = [];
+
+            var reports = window.localStorage.reports;
+            var reportsArray = angular.fromJson(reports);
+            var index;
+            if (reportsArray) {
+                for (index = 0; index < reportsArray.length; ++index) {
+                    // Build up the data object
+                    if (reportsArray[index].status == 'Not sent') {
+                        reportsData.push({
+                            "service_code": "",
+                            "attribute": null,
+                            "lat": reportsArray[index].lat,
+                            "long": reportsArray[index].long,
+                            "address_string": "",
+                            "address_id": reportsArray[index].userAddress,
+                            "email": reportsArray[index].userEmail,
+                            "device_id": "device",
+                            "account_id": "",
+                            "first_name": reportsArray[index].userFirstname,
+                            "last_name": reportsArray[index].userLastname,
+                            "phone": "",
+                            "description": reportsArray[index].description,
+                            "media_url": ""
+                        });
+                    }
+                    
+                }
+            }
+            
+            // A single post to the web service can include all the reports.
             if (reportsData.length > 0) {
                 $http.post(config.reportsWS + "/CreateServiceRequests", { "request": reportsData })
                     .success(function (data, status, headers, config) {
                         reportResponse = JSON.parse(data.CreateServiceRequestsResponse);
-                        if (reportResponse && reportResponse != []) {
+                        if (reportResponse && reportResponse.length > 0) {
+                            // Set reports to done
+                            for (index = 0; index < reportsArray.length; ++index) {
+                                // Build up the data object
+                                reportsArray[index].status = 'Sent';
+                            }
                         }
                         else {
                             reportResponse = "Failed";
                         }
                         reportResponse_q.resolve(reportResponse);
-                        return reportResponse;
                     })
                     .error(function (data, status, headers, config) {
                         reportResponse = "Failed";
                         reportResponse_q.resolve(reportResponse);
-                        return reportResponse;
                     });
             } else {
-                reportResponse = "No outstanding reports";
+                reportResponse = [];
                 reportResponse_q.resolve(reportResponse);
-                return reportResponse;
             }
 
             return reportResponse_q.promise;

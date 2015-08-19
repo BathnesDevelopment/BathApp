@@ -146,19 +146,21 @@ angular.module('MyBath.MapController', [])
     // Triggered by closing the options display modal - checks for differences and applies changes
     //////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapData = function () {
-        // Add layers
-        for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
-            if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
-                $scope.addLayer(e);
-            }
-        }
         // Remove layers
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && !$scope.userData.MapDisplay[e]) {
                 $scope.removeLayer(e);
             }
         }
+        // Add layers
+        for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
+            if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
+                $scope.addLayer(e);
+            }
+        }
     }
+
+    $scope.updateMapData();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CONTROLLER EVENTS

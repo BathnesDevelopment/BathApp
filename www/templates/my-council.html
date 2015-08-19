@@ -21,10 +21,18 @@
                         <div class="item item-divider top-balanced" ng-show="dataRow.Name">
                             {{ dataRow.Name | title }}
                         </div>
-                        <div class="item">
+                        <div class="item item-text-wrap" ng-if="key != 'Councillors'">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    {{ key }} : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item item-thumbnail-left" ng-if="key == 'Councillors'">
+                            <img src="{{ dataRow.photoUrl }}">
+                            <p>
+                                <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
                                 </span>
                             </p>
                         </div>
@@ -50,14 +58,14 @@
             </div>
             <div class="col">
                 <div class="card" ng-show="!userData.uprn">
-                    <div class="item item-divider item-assertive">
+                    <div class="item item-divider top-assertive">
                         No details or location set
                     </div>
                     <div class="item item-text-wrap">
                         <p>To begin using this app you need to register and set a location.  Personal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
                     </div>
                     <div class="item tabs tabs-primary tabs-icon-left item-divider">
-                        <a class="tab-item" ng-click="showCouncilConnectPopup()">
+                        <a class="tab-item" ng-click="register()">
                             <i class="icon balanced ion-ios-location"></i> Set location
                         </a>
                     </div>
@@ -68,7 +76,15 @@
                         <div class="item item-divider top-royal" ng-show="dataRow.Name">
                             {{ dataRow.Name | title }}
                         </div>
-                        <div class="item item-text-wrap">
+                        <div class="item item-text-wrap" ng-if="key != 'Councillors'">
+                            <p>
+                                <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                    {{ key }} : {{ data }} <br />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item item-thumbnail-left" ng-if="key == 'Councillors'">
+                            <img src="{{ dataRow.photoUrl }}">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
                                     {{ key }} : {{ data }} <br />

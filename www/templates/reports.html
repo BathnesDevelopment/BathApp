@@ -18,27 +18,44 @@
                         </a>
                     </div>
                 </div>
+                <div class="list list-inset" ng-repeat="(key, data) in (reports | splitObject:'left')">
+                    <div class="item item-thumbnail-left">
+                        <img src="{{data.photo}}" ng-show="report.photo">
+                        <h2>{{ data.type  }}</h2>
+                        <p>{{ data.description }}</p>
+                        <p>Report status: {{ data.status }}</p>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a class="tab-item" ng-click="deleteReport($index)">
+                            <i class="icon ion-trash-a"></i>
+                            Delete
+                        </a>
+                        <a class="tab-item" ng-show="report.useUserLocation" browse-to="geo:0,0?q={{data.lat}},{{data.long}}">
+                            <i class="icon ion-map"></i>
+                            View map
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="col">
-
-            </div>
-        </div>
-
-        <div class="list list-inset">
-            <div class="item item-avatar">
-                <img src="{{report.photo}}" ng-show="report.photo">
-                <h2>{{ report.type  }}</h2>
-                <p>{{ report.description }}</p>
-            </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item" ng-click="deleteReport($index)">
-                    <i class="icon ion-trash-a"></i>
-                    Delete
-                </a>
-                <a class="tab-item" ng-show="report.useUserLocation" browse-to="geo:0,0?q={{report.lat}},{{report.long}}">
-                    <i class="icon ion-map"></i>
-                    View map
-                </a>
+                <div class="list list-inset" ng-repeat="(key, data) in (reports | splitObject:'right')">
+                    <div class="item item-thumbnail-left">
+                        <img src="{{data.photo}}" ng-show="report.photo">
+                        <h2>{{ data.type  }}</h2>
+                        <p>{{ data.description }}</p>
+                        <p>Report status: {{ data.status }}</p>
+                    </div>
+                    <div class="item tabs tabs-secondary tabs-icon-left">
+                        <a class="tab-item" ng-click="deleteReport($index)">
+                            <i class="icon ion-trash-a"></i>
+                            Delete
+                        </a>
+                        <a class="tab-item" ng-show="report.useUserLocation" browse-to="geo:0,0?q={{data.lat}},{{data.long}}">
+                            <i class="icon ion-map"></i>
+                            View map
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </ion-content>

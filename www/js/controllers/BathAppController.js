@@ -8,7 +8,7 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '' };
+    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent' };
     $scope.currentComment = Comments.getDefaultComment();
     $scope.userData = UserData.all();
     $scope.reports = Reports.getReports();
@@ -276,7 +276,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.submitReportItPage4 = function (report) {
         $scope.reportItPersonalModal.hide();
         Reports.addReport($scope.currentReport);
-        $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '' };
+        $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent' };
         $scope.reports = Reports.getReports();
     };
 
@@ -536,7 +536,32 @@ angular.module('MyBath.BathAppController', [])
     // Submits all outstanding reports.
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.submitReports = function () {
-        Reports.submitReports();
+        $ionicLoading.show({
+            template: 'Submitting reports...'
+        });
+        Reports.submitReports().then(function (data) {
+            $ionicLoading.hide();
+            var message = '';
+            if (data && data == "Failed") {
+                message = 'Failed.  Please try again later.'
+            }
+            else if (data && data.length == 0) {
+                message = 'No outstanding recorts.'
+            }
+            else if (data) {
+                message = 'Succeeded.';
+            }
+
+            $ionicPopup.alert({
+                title: 'Reports',
+                content: message,
+                buttons: [{
+                    text: 'Dismiss',
+                    type: 'button-clear button-full'
+                }]
+            })
+
+        });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -641,16 +666,17 @@ angular.module('MyBath.BathAppController', [])
                 $scope.currentReport.useLocation = true;
                 $scope.currentReport.locationFound = true;
                 $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
-                $scope.reportItLocationModal.show();
+                // $scope.reportItLocationModal.show();
+                $scope.reportItPersonalModal.show();
             },
             function (error) {
-                console.warn('code: ' + error.code + '\n' +
-                      'message: ' + error.message + '\n'); // debug
                 $ionicLoading.hide();
                 $scope.currentReport.locationMessage = "Your location was not detected.";
                 $scope.currentReport.useLocation = false;
                 $scope.currentReport.locationFound = false;
-                $scope.reportItLocationModal.show();
+                // $scope.reportItLocationModal.show();
+                $scope.reportItPersonalModal.show();
+
             },
             { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
