@@ -6,6 +6,47 @@ header h1 {
     font-weight: bold;
 }
 
+.card-header {
+    margin: 20px 10px !important;
+    text-transform: uppercase !important;
+}
+
+ion-side-menu.menu-left.menu {
+    /*background-color: #5B6166 !important;*/
+}
+
+.top-stable {
+    border-top: 4px solid #f8f8f8 !important;
+}
+
+.top-positive {
+    border-top: 4px solid #387ef5 !important;
+}
+
+.top-calm {
+    border-top: 4px solid #11c1f3 !important;
+}
+
+.top-assertive {
+    border-top: 4px solid #ef473a !important;
+}
+
+.top-balanced {
+    border-top: 4px solid #33cd5f !important;
+}
+
+.top-energized {
+    border-top: 4px solid #ffc900 !important;
+}
+
+.top-royal {
+    border-top: 4px solid #886aea !important;
+}
+
+.top-dark {
+    border-top: 4px solid #444444 !important;
+}
+
 i.listIcons {
     font-size: 24px;
 }
@@ -141,6 +182,6 @@ ion-content.scroll-content.ionic-scroll {
         color: #2074B6;
     }
 
-    .leaflet-layers.active.following a {
-        color: #FC8428;
-    }
+.leaflet-layers.active.following a {
+    color: #FC8428;
+}

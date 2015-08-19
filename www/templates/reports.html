@@ -3,13 +3,13 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-divider item-calm">
+                    <div class="item item-divider top-calm">
                         My reports
                     </div>
-                    <div class="item item-text-wrap ">
+                    <div class="item item-text-wrap">
                         <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
                     </div>
-                    <div class="item tabs tabs-primary tabs-icon-left">
+                    <div class="item tabs tabs-primary tabs-icon-left item-divider">
                         <a class="tab-item" ng-click="reportIt()">
                             <i class="icon energized ion-compose"></i> New report
                         </a>
@@ -25,22 +25,20 @@
         </div>
 
         <div class="list list-inset">
-            <div ng-repeat="report in reports">
-                <div class="item item-avatar">
-                    <img src="{{report.photo}}" ng-show="report.photo">
-                    <h2>{{ report.type  }}</h2>
-                    <p>{{ report.description }}</p>
-                </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item" ng-click="deleteReport($index)">
-                        <i class="icon ion-trash-a"></i>
-                        Delete
-                    </a>
-                    <a class="tab-item" ng-show="report.useUserLocation" browse-to="geo:0,0?q={{report.lat}},{{report.long}}">
-                        <i class="icon ion-map"></i>
-                        View map
-                    </a>
-                </div>
+            <div class="item item-avatar">
+                <img src="{{report.photo}}" ng-show="report.photo">
+                <h2>{{ report.type  }}</h2>
+                <p>{{ report.description }}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" ng-click="deleteReport($index)">
+                    <i class="icon ion-trash-a"></i>
+                    Delete
+                </a>
+                <a class="tab-item" ng-show="report.useUserLocation" browse-to="geo:0,0?q={{report.lat}},{{report.long}}">
+                    <i class="icon ion-map"></i>
+                    View map
+                </a>
             </div>
         </div>
     </ion-content>

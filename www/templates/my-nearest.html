@@ -8,33 +8,28 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-divider item-calm">
+                    <div class="item item-divider top-calm">
                         My nearest
                     </div>
                     <div class="item">
                         <p>This page shows locations of interest near to your registered location.</p>
                     </div>
-                    <div class="item tabs tabs-secondary tabs-icon-left">
-                        <a class="tab-item" ng-click="displayOptions()">
-                            <i class="icon ion-android-options calm"></i> Display options
-                        </a>
-                    </div>
                 </div>
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
-                    <h3>{{ key }}</h3>
+                    <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider" ng-show="dataRow.Name">
+                        <div class="item item-divider top-balanced" ng-show="dataRow.Name">
                             {{ dataRow.Name | title }}
                             <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
-                        <div class="item">
+                        <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
                                     {{ key }} : {{ data }} <br />
                                 </span>
                             </p>
                         </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
+                        <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
                                 <i class="icon ion-ios-telephone assertive"></i> Call
                             </a>
@@ -50,33 +45,33 @@
             </div>
             <div class="col">
                 <div class="card" ng-show="!userData.uprn">
-                    <div class="item item-divider item-stable">
+                    <div class="item item-divider top-assertive">
                         No details or location set
                     </div>
-                    <div class="item item-text-wrap ">
+                    <div class="item item-text-wrap">
                         <p>To begin using this app you need to register and set a location.  Perosnal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
                     </div>
-                    <div class="item tabs tabs-primary tabs-icon-left">
+                    <div class="item tabs tabs-primary tabs-icon-left item-divider">
                         <a class="tab-item" ng-click="showCouncilConnectPopup()">
                             <i class="icon balanced ion-ios-location"></i> Set location
                         </a>
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
-                    <h3>{{ key }}</h3>
+                    <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider" ng-show="dataRow.Name">
+                        <div class="item item-divider top-royal" ng-show="dataRow.Name">
                             {{ dataRow.Name | title }}
                             <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
-                        <div class="item">
+                        <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
                                     {{ key }} : {{ data }} <br />
                                 </span>
                             </p>
                         </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
+                        <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-show="dataRow.Phone" class="tab-item" href="tel:{{dataRow.Phone}}">
                                 <i class="icon ion-ios-telephone assertive"></i> Call
                             </a>

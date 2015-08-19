@@ -21,7 +21,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.myHouse = BathData.getMyHouse();
     $scope.reportMap = {
         defaults: {
-            tileLayer: "http://{s}.tiles.mapbox.com/v4/bathnes.l28de60p/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiYmF0aG5lcyIsImEiOiJuMEw5dHBzIn0.HoLmxVV_1uqwL2xHLw3T1w",
+            tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
             maxZoom: 20,
             zoomControlPosition: 'bottomleft'
         },
@@ -170,6 +170,10 @@ angular.module('MyBath.BathAppController', [])
     };
     //Submit
     $scope.submitReportItPage1 = function (report) {
+        $scope.currentReport.userFirstname = $scope.userData.firstname;
+        $scope.currentReport.userLastname = $scope.userData.lastname;
+        $scope.currentReport.userEmail = $scope.userData.email;
+        $scope.currentReport.userPhone = $scope.userData.phone;
         $scope.reportItModal.hide();
         $scope.reportItPhotoModal.show();
     };
@@ -401,16 +405,16 @@ angular.module('MyBath.BathAppController', [])
     $scope.options = function () {
         var refreshText = '';
         if ($scope.userData.uprn !== undefined) {
-            refreshText = 'Refresh data';
+            refreshText = '<i class="icon ion-refresh"></i>Refresh data';
         }
         var optionsSheet = $ionicActionSheet.show({
             buttons: [
-                { text: 'Register' },
+                { text: '<i class="icon ion-location"></i>Register/Set location' },
                 { text: refreshText }
             ],
             destructiveText: 'Clear data',
             titleText: 'App options',
-            cancelText: 'Cancel',
+            cancelText: '  Cancel',
             buttonClicked: function (index) {
                 if (index === 0) {
                     // either registering or un-registering
@@ -603,7 +607,7 @@ angular.module('MyBath.BathAppController', [])
                 // saves to currentReport.photo
                 imageURI = "data:image/jpeg;base64," + imageURI;
                 $scope.$apply(function () {
-                    //$scope.currentReport.photo = imageURI;
+                    $scope.currentReport.photo = imageURI;
                 });
             },
             function (failMessage) {

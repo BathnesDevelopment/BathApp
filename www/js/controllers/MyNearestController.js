@@ -1,7 +1,7 @@
 angular.module('MyBath.MyNearestController', [])
 .controller('MyNearestController', function ($scope, $ionicScrollDelegate, BathData, $ionicSideMenuDelegate) {
 
-    $ionicScrollDelegate.scrollTop();
+    //$ionicScrollDelegate.scrollTop();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: filterData

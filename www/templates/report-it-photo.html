@@ -12,8 +12,13 @@
                 <button type="button" ng-click="takePhoto()" class="button button-full button-clear button-positive">
                     Take photo
                 </button>
-                <div class="item item-avatar">
-                    <img ng-show="currentReport.photo" />
+                <div class="card" ng-if="currentReport.photo">
+                    <div class="item item-divider">
+                        Report photo
+                    </div>
+                    <div class="item item-image">
+                        <img src="currentReport.photo" />
+                    </div>
                 </div>
             </form>
         </div>

@@ -8,23 +8,18 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-divider item-calm">
+                    <div class="item item-divider top-calm">
                         My council
                     </div>
                     <div class="item">
                         <p>Details about local government in your area, and how to contact the Council.</p>
                     </div>
-                    <div class="item tabs tabs-secondary tabs-icon-left">
-                        <a class="tab-item" ng-click="displayOptions()">
-                            <i class="icon ion-android-options calm"></i> Display options
-                        </a>
-                    </div>
                 </div>
                 <div ng-repeat="(key, data) in (myCouncil | splitObject:'left')">
-                    <h3>{{ key }}</h3>
+                    <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider">
-                            <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
+                        <div class="item item-divider top-balanced" ng-show="dataRow.Name">
+                            {{ dataRow.Name | title }}
                         </div>
                         <div class="item">
                             <p>
@@ -33,12 +28,21 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
+                        <div class="item tabs tabs-secondary item-divider tabs-icon-left">
                             <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
                                 <i class="icon ion-earth assertive"></i> Website
                             </a>
                             <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
                                 <i class="icon ion-map calm"></i> Map
+                            </a>
+                            <a ng-show="dataRow.Phone" class="tab-item" browse-to="tel:{{dataRow.Phone}}">
+                                <i class="icon ion-ios-telephone assertive"></i> Phone
+                            </a>
+                            <a ng-show="dataRow.Mobile" class="tab-item" browse-to="tel:{{dataRow.Mobile}}">
+                                <i class="icon ion-ios-telephone assertive"></i> Mobile
+                            </a>
+                            <a ng-show="dataRow.Email" class="tab-item" browse-to="mailto:{{dataRow.Email}}">
+                                <i class="icon ion-at assertive"></i> Email
                             </a>
                         </div>
                     </div>
@@ -46,37 +50,46 @@
             </div>
             <div class="col">
                 <div class="card" ng-show="!userData.uprn">
-                    <div class="item item-divider item-stable">
+                    <div class="item item-divider item-assertive">
                         No details or location set
                     </div>
-                    <div class="item item-text-wrap ">
+                    <div class="item item-text-wrap">
                         <p>To begin using this app you need to register and set a location.  Personal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
                     </div>
-                    <div class="item tabs tabs-primary tabs-icon-left">
+                    <div class="item tabs tabs-primary tabs-icon-left item-divider">
                         <a class="tab-item" ng-click="showCouncilConnectPopup()">
                             <i class="icon balanced ion-ios-location"></i> Set location
                         </a>
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myCouncil | splitObject:'right')">
-                    <h3>{{ key }}</h3>
+                    <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider">
-                            <h4 ng-show="dataRow.Name">{{ dataRow.Name | title }}</h4>
+                        <div class="item item-divider top-royal" ng-show="dataRow.Name">
+                            {{ dataRow.Name | title }}
                         </div>
-                        <div class="item">
+                        <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
                                     {{ key }} : {{ data }} <br />
                                 </span>
                             </p>
                         </div>
-                        <div class="item tabs tabs-secondary tabs-icon-left">
+                        <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
                                 <i class="icon ion-earth assertive"></i> Website
                             </a>
                             <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
                                 <i class="icon ion-map calm"></i> Map
+                            </a>
+                            <a ng-show="dataRow.Phone" class="tab-item" browse-to="tel:{{dataRow.Phone}}">
+                                <i class="icon ion-ios-telephone assertive"></i> Phone
+                            </a>
+                            <a ng-show="dataRow.Mobile" class="tab-item" browse-to="tel:{{dataRow.Mobile}}">
+                                <i class="icon ion-ios-telephone assertive"></i> Mobile
+                            </a>
+                            <a ng-show="dataRow.Email" class="tab-item" browse-to="mailto:{{dataRow.Email}}">
+                                <i class="icon ion-at assertive"></i> Email
                             </a>
                         </div>
                     </div>

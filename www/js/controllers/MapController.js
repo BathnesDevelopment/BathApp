@@ -31,7 +31,7 @@ angular.module('MyBath.MapController', [])
         center: {
             lat: 51.3821440,
             lng: -2.3589420,
-            zoom: 18,
+            zoom: 14,
             autoDiscover: true,
         },
         layers: {},
