@@ -8,7 +8,7 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent' };
+    $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent', photo: '' };
     $scope.currentComment = Comments.getDefaultComment();
     $scope.userData = UserData.all();
     $scope.reports = Reports.getReports();
@@ -276,7 +276,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.submitReportItPage4 = function (report) {
         $scope.reportItPersonalModal.hide();
         Reports.addReport($scope.currentReport);
-        $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent' };
+        $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent', photo: '' };
         $scope.reports = Reports.getReports();
     };
 
@@ -317,7 +317,7 @@ angular.module('MyBath.BathAppController', [])
                             content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.',
                             buttons: [{
                                 text: 'Dismiss',
-                                type: 'button-clear button-full'
+                                type: 'button-clear button-full button-dark'
                             }]
                         }).then(function (res) {
 
@@ -546,7 +546,7 @@ angular.module('MyBath.BathAppController', [])
                 message = 'Failed.  Please try again later.'
             }
             else if (data && data.length == 0) {
-                message = 'No outstanding recorts.'
+                message = 'No outstanding reports.'
             }
             else if (data) {
                 message = 'Succeeded.';
@@ -557,7 +557,7 @@ angular.module('MyBath.BathAppController', [])
                 content: message,
                 buttons: [{
                     text: 'Dismiss',
-                    type: 'button-clear button-full'
+                    type: 'button-clear button-full button-dark'
                 }]
             })
 
@@ -696,7 +696,6 @@ angular.module('MyBath.BathAppController', [])
                 isHtml: false
             });
         } catch (err) {
-            console.warn(err.message);
             window.location.href = "mailto:councilconnect@bathnes.gov.uk";
         }
     };
