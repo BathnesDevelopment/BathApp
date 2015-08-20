@@ -67,6 +67,7 @@ angular.module('MyBath.ReportsService', [])
                                 // Build up the data object
                                 reportsArray[index].status = 'Sent';
                             }
+                            window.localStorage.reports = angular.toJson(reportsArray);
                             reportResponse = reportsArray;
                         }
                         else {

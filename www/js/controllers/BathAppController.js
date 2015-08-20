@@ -275,6 +275,10 @@ angular.module('MyBath.BathAppController', [])
     // Submit
     $scope.submitReportItPage4 = function (report) {
         $scope.reportItPersonalModal.hide();
+
+        // To do: deal with photos as a file.
+
+        $scope.currentReport.photo = '';
         Reports.addReport($scope.currentReport);
         $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent', photo: '' };
         $scope.reports = Reports.getReports();
@@ -667,6 +671,8 @@ angular.module('MyBath.BathAppController', [])
                 $scope.currentReport.useLocation = true;
                 $scope.currentReport.locationFound = true;
                 $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
+                $scope.currentReport.lat = position.coords.latitude;
+                $scope.currentReport.long = position.coords.longitude;
                 // $scope.reportItLocationModal.show();
                 $scope.reportItPersonalModal.show();
             },
