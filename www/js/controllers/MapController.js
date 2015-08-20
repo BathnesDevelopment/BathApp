@@ -94,6 +94,7 @@ angular.module('MyBath.MapController', [])
 
     $scope.closeMapDisplayOptions = function () {
         // Save user data
+
         UserData.save($scope.userData);
         $scope.mapDisplayOptionsModal.hide();
         $scope.updateMapData();
@@ -108,6 +109,13 @@ angular.module('MyBath.MapController', [])
     // Adds a layer to the map - triggered by options display close
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.addLayer = function (name) {
+
+        for (i = 0; i < $scope.map.geojson.data.features.length; ++i) {
+            if ($scope.map.geojson.data.features[i].properties.LayerName == name) {
+                return;
+            }
+        }
+
         var lat = $scope.map.center.lat;
         var lng = $scope.map.center.lng;
         if (!$scope.userData.MapDisplay[name]) {
@@ -121,8 +129,8 @@ angular.module('MyBath.MapController', [])
             .then(function (res) {
                 if (res && res != "Failed") {
                     Array.prototype.push.apply($scope.map.geojson.data.features, res.features);
+                    $scope.fetching[name][0] = false;
                 }
-                $scope.fetching[name][0] = false;
             });
         }
     }
@@ -149,6 +157,7 @@ angular.module('MyBath.MapController', [])
         // Remove layers
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && !$scope.userData.MapDisplay[e]) {
+                // Removes all layers that are set to false.  
                 $scope.removeLayer(e);
             }
         }

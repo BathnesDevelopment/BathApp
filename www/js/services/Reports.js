@@ -36,7 +36,7 @@ angular.module('MyBath.ReportsService', [])
                     // Build up the data object
                     if (reportsArray[index].status == 'Not sent') {
                         reportsData.push({
-                            "service_code": "",
+                            "service_code": reportsArray[index].type,
                             "attribute": null,
                             "lat": reportsArray[index].lat,
                             "long": reportsArray[index].long,
@@ -47,7 +47,7 @@ angular.module('MyBath.ReportsService', [])
                             "account_id": "",
                             "first_name": reportsArray[index].userFirstname,
                             "last_name": reportsArray[index].userLastname,
-                            "phone": "",
+                            "phone": reportsArray[index].userPhone,
                             "description": reportsArray[index].description,
                             "media_url": ""
                         });
