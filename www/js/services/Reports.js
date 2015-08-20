@@ -60,13 +60,14 @@ angular.module('MyBath.ReportsService', [])
             if (reportsData.length > 0) {
                 $http.post(config.reportsWS + "/CreateServiceRequests", { "request": reportsData })
                     .success(function (data, status, headers, config) {
-                        reportResponse = JSON.parse(data.CreateServiceRequestsResponse);
+                        reportResponse = data.CreateServiceRequestsResult;
                         if (reportResponse && reportResponse.length > 0) {
                             // Set reports to done
                             for (index = 0; index < reportsArray.length; ++index) {
                                 // Build up the data object
                                 reportsArray[index].status = 'Sent';
                             }
+                            reportResponse = reportsArray;
                         }
                         else {
                             reportResponse = "Failed";

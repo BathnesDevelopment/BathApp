@@ -548,8 +548,10 @@ angular.module('MyBath.BathAppController', [])
             else if (data && data.length == 0) {
                 message = 'No outstanding reports.'
             }
-            else if (data) {
+            else if (data && data.length > 0) {
                 message = 'Succeeded.';
+                Reports.saveReports(data);
+                $scope.reports = Reports.getReports();
             }
 
             $ionicPopup.alert({
@@ -560,7 +562,6 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-full button-dark'
                 }]
             })
-
         });
     };
 
