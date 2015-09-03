@@ -12,7 +12,9 @@ To build, install cordova, then run:
 - $ cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
 - $ cordova plugin add cordova-plugin-whitelist
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
-- $ cordova plugin add de.appplant.cordova.plugin.email-composer && cordova prepare
+- $ cordova plugin add de.appplant.cordova.plugin.email-composer
+- $ ionic resources
+- $ cordova prepare
 - $ cordova build ios
 - $ cordova emulate ios
 
@@ -29,5 +31,4 @@ The following plugins/technologies are used:
 - Highcharts standalone adapter
 - Leaflet
 - Leaflet angular
-- Proj4JS
 - Font Awesome
