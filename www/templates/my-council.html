@@ -14,6 +14,11 @@
                     <div class="item">
                         <p>Details about local government in your area, and how to contact the Council.</p>
                     </div>
+                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                        <a class="tab-item" ng-click="displayOptions()">
+                            <i class="icon ion-android-settings assertive"></i> Display options
+                        </a>
+                    </div>
                 </div>
                 <div ng-repeat="(key, data) in (myCouncil | splitObject:'left')">
                     <h5 class="card-header">{{ key }}</h5>
@@ -40,13 +45,13 @@
                             <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
                                 <i class="icon ion-earth assertive"></i> Website
                             </a>
-                            <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
-                                <i class="icon ion-map calm"></i> Map
+                            <a ng-show="dataRow.Lat" class="tab-item" ng-click="navigateTo({{ dataRow.Lat }},{{ dataRow.Lng }})">
+                                <i class="icon ion-map calm"></i> Navigate
                             </a>
-                            <a ng-show="dataRow.Phone" class="tab-item" browse-to="tel:{{dataRow.Phone}}">
+                            <a ng-show="dataRow.Phone" class="tab-item" ng-click="callNumber({{dataRow.Phone}})">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
-                            <a ng-show="dataRow.Mobile" class="tab-item" browse-to="tel:{{dataRow.Mobile}}">
+                            <a ng-show="dataRow.Mobile" class="tab-item" ng-click="callNumber({{dataRow.Mobile}})">
                                 <i class="icon ion-ios-telephone assertive"></i> Mobile
                             </a>
                             <a ng-show="dataRow.Email" class="tab-item" browse-to="mailto:{{dataRow.Email}}">
@@ -95,13 +100,13 @@
                             <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
                                 <i class="icon ion-earth assertive"></i> Website
                             </a>
-                            <a ng-show="dataRow.Lat" class="tab-item" browse-to="geo:0,0?q={{ dataRow.Lat }},{{ dataRow.Lng }}({{ dataRow.Name }})">
-                                <i class="icon ion-map calm"></i> Map
+                            <a ng-show="dataRow.Lat" class="tab-item" ng-click="navigateTo({{ dataRow.Lat }},{{ dataRow.Lng }})">
+                                <i class="icon ion-map calm"></i> Navigate
                             </a>
-                            <a ng-show="dataRow.Phone" class="tab-item" browse-to="tel:{{dataRow.Phone}}">
+                            <a ng-show="dataRow.Phone" class="tab-item" ng-click="callNumber({{dataRow.Phone}})">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
-                            <a ng-show="dataRow.Mobile" class="tab-item" browse-to="tel:{{dataRow.Mobile}}">
+                            <a ng-show="dataRow.Mobile" class="tab-item" ng-click="callNumber({{dataRow.Mobile}})">
                                 <i class="icon ion-ios-telephone assertive"></i> Mobile
                             </a>
                             <a ng-show="dataRow.Email" class="tab-item" browse-to="mailto:{{dataRow.Email}}">

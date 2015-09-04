@@ -15,10 +15,11 @@ angular.module('MyBath.BathAppController', [])
     $scope.comments = Comments.getComments();
     $scope.currentLocation = null;
     $scope.addresses = [];
-    //$scope.feedData = FeedData.toObj();
+
     $scope.myCouncil = BathData.getMyCouncil();
     $scope.myNearest = BathData.getMyNearest();
     $scope.myHouse = BathData.getMyHouse();
+
     $scope.reportMap = {
         defaults: {
             tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
@@ -34,13 +35,15 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // OnLoad
-    // The following all happens on loading the app.
-    // - If the app has not been previously loaded then a tutorial is shown.
-    // - If there is an existing user registered then their user data is loaded.
-    // - Location is detected in the background (not to be used, but to save time later).
-    //  -Existing reports are loaded.
+    // Function: updateDisplay
+    // Updates the current data based on user's display options
     /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.updateDisplay = function () {
+        $scope.myCouncilDisplay = {};
+        $scope.myNearestDisplay = {};
+        $scope.myHouseDisplay = {};
+    }
+    $scope.updateDisplay();
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////
     // MODAL DEFINITIONS
@@ -570,6 +573,32 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: callNumber
+    // A general popup for phone numbers
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.callNumber = function (phone) {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Call number: ' + phone,
+            template: 'Call this number?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    type: 'button-clear button-dark'
+                },
+                {
+                    text: 'Call',
+                    type: 'button-clear button-positive',
+                    onTap: function (e) {
+                        window.open('tel:' + phone, '_system', 'location=yes');
+                    }
+                },
+            ]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
     // A popup for council connect
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -620,6 +649,18 @@ angular.module('MyBath.BathAppController', [])
         alertPopup.then(function (res) {
             // To do: handle the result
         });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: navigateTo
+    // Uses the default map application to navigate
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.navigateTo = function (lat, lng) {
+        var geoUrl = "geo: " + lat + ", " + lng;
+        if (ionic.Platform.isIOS()) {
+            geoUrl = 'maps:ll=' + lat + ", " + lng;
+        }
+        window.open(geoUrl, '_system');
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////

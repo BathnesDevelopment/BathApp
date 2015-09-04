@@ -14,11 +14,16 @@
                     <div class="item item-text-wrap">
                         <p>This page shows information about your registered location.</p>
                     </div>
+                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                        <a class="tab-item" ng-click="displayOptions()">
+                            <i class="icon ion-android-settings assertive"></i> Display options
+                        </a>
+                    </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'left')">
                     <h5 class="card-header">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider top-balanced" ng-show="dataRow.Name">
+                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
+                        <div class="item item-divider top-balanced">
                             {{ dataRow.Name | title }}
                         </div>
                         <div class="item item-text-wrap">
@@ -32,7 +37,7 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" browse-to="{{dataRow.Website}}">
                                 <i class="icon ion-earth assertive"></i> Website
                             </a>
                         </div>
@@ -55,8 +60,8 @@
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'right')">
                     <h5 class="card-header">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider top-royal">
+                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
+                        <div class="item item-divider top-balanced">
                             {{ dataRow.Name | title }}
                         </div>
                         <div class="item item-text-wrap">
@@ -70,7 +75,7 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" browse-to="{{dataRow.Website}}">
                                 <i class="icon ion-earth assertive"></i> Website
                             </a>
                         </div>

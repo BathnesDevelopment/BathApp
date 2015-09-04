@@ -9,10 +9,10 @@ To build, install cordova, then run:
 - $ cordova plugin add cordova-plugin-geolocation
 - $ cordova plugin add cordova-plugin-camera
 - $ cordova plugin add cordova-plugin-inappbrowser
-- $ cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
+- $ cordova plugin add cordova-plugin-statusbar
 - $ cordova plugin add cordova-plugin-whitelist
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
-- $ cordova plugin add de.appplant.cordova.plugin.email-composer
+- $ cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
 - $ ionic resources
 - $ cordova prepare
 - $ cordova build ios
