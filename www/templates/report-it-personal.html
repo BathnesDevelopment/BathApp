@@ -1,8 +1,8 @@
 <div class="modal">
     <ion-header-bar class="bar-light">
-        <button class="button button-clear" ng-click="reportItPersonalModal.hide()">Cancel</button>
+        <button class="button button-clear button-stable" ng-click="reportItPersonalModal.hide()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Report It</h1>
-        <button class="button button-clear button-balanced" ng-click="submitReportItPage4(currentReport)">Submit</button>
+        <button class="button button-clear button-balanced" ng-click="submitReportItPage4(currentReport)"><i class="ion-android-done-all"></i> Submit</button>
     </ion-header-bar>
     <ion-content padding="true">
         <div class="list list-inset">
@@ -13,13 +13,13 @@
                     <input type="text" placeholder="First Name" ng-model="currentReport.userFirstname">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="Last Name" ng-model="currentReport.userLastname" >
+                    <input type="text" placeholder="Last Name" ng-model="currentReport.userLastname">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="Contact email" ng-model="currentReport.userEmail">
+                    <input type="email" placeholder="Contact email" ng-model="currentReport.userEmail">
                 </label>
                 <label class="item item-input">
-                    <input type="text" placeholder="Contact phone" ng-model="currentReport.userPhone">
+                    <input type="tel" placeholder="Contact phone" ng-model="currentReport.userPhone">
                 </label>
                 <ul class="list">
                     <li class="item item-checkbox">

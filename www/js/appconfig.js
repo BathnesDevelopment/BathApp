@@ -1,7 +1,7 @@
 ﻿angular.module('BathApp.config', [])
    .constant('config', {
-       'bathDataWS': 'http://isharemapstest.bathnes.gov.uk/ResidentsApp/BathData.svc',
-       'reportsWS': 'http://isharemapstest.bathnes.gov.uk/ResidentsApp/Open311ReportWS.svc',
+       'bathDataWS': 'http://vm-project-dev/BathData.svc',
+       'reportsWS': 'http://vm-project-dev/Open311ReportWS.svc',
        'planningWS': '',
-       'mapDataWS': 'http://isharemapstest.bathnes.gov.uk/ResidentsApp/BathData.svc'
+       'mapDataWS': 'http://vm-project-dev/BathData.svc'
    });

@@ -285,6 +285,7 @@ angular.module('MyBath.BathAppController', [])
         Reports.addReport($scope.currentReport);
         $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent', photo: '' };
         $scope.reports = Reports.getReports();
+        $scope.submitReports();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -323,8 +324,8 @@ angular.module('MyBath.BathAppController', [])
                             title: 'No addresses found',
                             content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.',
                             buttons: [{
-                                text: 'Dismiss',
-                                type: 'button-clear button-full button-dark'
+                                text: '<i class="ion-android-done"></i> Dismiss',
+                                type: 'button-clear button-full button-positive'
                             }]
                         }).then(function (res) {
 
@@ -371,12 +372,13 @@ angular.module('MyBath.BathAppController', [])
                         $scope.myCouncil = data.myCouncil;
                         $scope.myNearest = data.myNearest;
                         $scope.myHouse = data.myHouse;
+                        $scope.$broadcast('scroll.refreshComplete');
+                        $ionicLoading.hide();
                     } else {
-
-
+                        $scope.$broadcast('scroll.refreshComplete');
+                        $ionicLoading.hide();
+                        $scope.showPopup('Failed', 'Failed to fetch property data - please try again later.');
                     }
-                    $scope.$broadcast('scroll.refreshComplete');
-                    $ionicLoading.hide();
                 });
         }
         else {
@@ -421,7 +423,7 @@ angular.module('MyBath.BathAppController', [])
             ],
             destructiveText: 'Clear data',
             titleText: 'App options',
-            cancelText: '  Cancel',
+            cancelText: '<i class="ion-android-close"></i> Cancel',
             buttonClicked: function (index) {
                 if (index === 0) {
                     // either registering or un-registering
@@ -478,8 +480,8 @@ angular.module('MyBath.BathAppController', [])
             title: title,
             template: message,
             buttons: [{
-                text: 'Dismiss',
-                type: 'button-clear button-full button-dark'
+                text: '<i class="ion-android-done"></i> Dismiss',
+                type: 'button-clear button-full button-positive'
             }]
         });
         alertPopup.then(function (res) {
@@ -493,7 +495,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.deleteData = function () {
         $ionicPopup.confirm({
             title: 'Clear data',
-            template: 'This will clear all stored data on the app.',
+            template: 'This will clear all stored data on the app (including saved reports).',
             cancelType: 'button-clear button-full button-stable',
             okType: 'button-clear button-full button-assertive'
         }).then(function (res) {
@@ -565,10 +567,62 @@ angular.module('MyBath.BathAppController', [])
                 title: 'Reports',
                 content: message,
                 buttons: [{
-                    text: 'Dismiss',
-                    type: 'button-clear button-full button-dark'
+                    text: '<i class="ion-android-done"></i> Dismiss',
+                    type: 'button-clear button-full button-positive'
                 }]
             })
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: openWebsite
+    // A general popup when opening external sites
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.openWebsite = function (url) {
+        var alertPopup = $ionicPopup.alert({
+            title: 'External link',
+            template: 'Open the following link in your default browser ' + url + '?',
+            buttons: [
+                {
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
+                },
+                {
+                    text: '<i class="ion-ios-telephone"></i> Website',
+                    type: 'button-clear button-balanced',
+                    onTap: function (e) {
+                        window.open(url, '_system');
+                    }
+                }
+            ]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: emailTo
+    // A general popup for composing an email
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.emailTo = function (emailAddress) {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Send email',
+            template: 'Use default mail app to compose email to: ' + emailAddress + '?',
+            buttons: [
+                {
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
+                },
+                {
+                    text: '<i class="ion-at"></i> Email',
+                    type: 'button-clear button-balanced',
+                    onTap: function (e) {
+                        window.open(url, '_system');
+                    }
+                }
+            ]
+        });
+        alertPopup.then(function (res) {
         });
     };
 
@@ -578,20 +632,46 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.callNumber = function (phone) {
         var alertPopup = $ionicPopup.alert({
-            title: 'Call number: ' + phone,
-            template: 'Call this number?',
+            title: 'Call number',
+            template: 'Call this number: ' + phone +'?',
             buttons: [
                 {
-                    text: 'Cancel',
-                    type: 'button-clear button-dark'
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
                 },
                 {
-                    text: 'Call',
-                    type: 'button-clear button-positive',
+                    text: '<i class="ion-ios-telephone"></i> Call',
+                    type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open('tel:' + phone, '_system', 'location=yes');
                     }
+                }
+            ]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: textTo
+    // A general popup for texting
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.textTo = function (phone, body) {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Compose text',
+            template: 'Compose text message to ' + phone + '?',
+            buttons: [
+                {
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
                 },
+                {
+                    text: '<i class="ion-android-textsms"></i> Text',
+                    type: 'button-clear button-balanced',
+                    onTap: function (e) {
+                        window.open('sms://' + phone + '?body=' + body, '_system', 'location=yes');
+                    }
+                }
             ]
         });
         alertPopup.then(function (res) {
@@ -608,12 +688,12 @@ angular.module('MyBath.BathAppController', [])
             template: 'Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.',
             buttons: [
                 {
-                    text: 'Cancel',
-                    type: 'button-clear button-dark'
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
                 },
                 {
-                    text: 'Call',
-                    type: 'button-clear button-positive',
+                    text: '<i class="ion-ios-telephone"></i> Call',
+                    type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open('tel:01225394041', '_system', 'location=yes');
                     }
@@ -634,11 +714,11 @@ angular.module('MyBath.BathAppController', [])
             template: 'Council connect is open 8.00am – 6.00pm Mon, Tues, Thurs & Fri and 9.30am – 6.00pm on Weds.  An emergency out of hours service is provided.',
             buttons: [
                 {
-                    text: 'Cancel',
-                    type: 'button-clear button-dark'
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
                 },
                 {
-                    text: 'Emergency',
+                    text: '<i class="ion-ios-telephone"></i> Emergency',
                     type: 'button-assertive',
                     onTap: function (e) {
                         window.open('tel:01225477477', '_system', 'location=yes');
@@ -656,9 +736,9 @@ angular.module('MyBath.BathAppController', [])
     // Uses the default map application to navigate
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.navigateTo = function (lat, lng) {
-        var geoUrl = "geo: " + lat + ", " + lng;
+        var geoUrl = "geo:" + lat + "," + lng + "q=" + lat + "," + lng;
         if (ionic.Platform.isIOS()) {
-            geoUrl = 'maps:ll=' + lat + ", " + lng;
+            geoUrl = 'maps:ll=' + lat + "," + lng;
         }
         window.open(geoUrl, '_system');
     };
@@ -747,5 +827,4 @@ angular.module('MyBath.BathAppController', [])
             window.location.href = "mailto:councilconnect@bathnes.gov.uk";
         }
     };
-
 });

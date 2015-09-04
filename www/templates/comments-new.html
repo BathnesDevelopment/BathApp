@@ -1,6 +1,6 @@
 <div class="modal">
     <ion-header-bar class="bar-light">
-        <button class="button button-clear" ng-click="commentModal.hide()">Cancel</button>
+        <button class="button button-clear button-stable" ng-click="commentModal.hide()">Cancel</button>
         <h1 class="title">Comment</h1>
         <button type="submit" class="button button-full button-clear button-clear button-balanced" onclick="submitCommentPage1(currentComment)">Next</button>
     </ion-header-bar>
@@ -15,11 +15,11 @@
                 </label>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Phone</span>
-                    <input type="text" placeholder="Contact phone" ng-model="currentComment.userPhone">
+                    <input type="tel" placeholder="Contact phone" ng-model="currentComment.userPhone">
                 </label>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Email</span>
-                    <input type="text" placeholder="Contact email" ng-model="currentComment.userEmail">
+                    <input type="email" placeholder="Contact email" ng-model="currentComment.userEmail">
                 </label>
                 <label class="item item-radio">
                     <input type="radio" name="commentType" value="Objection" ng-model="currentComment.type">

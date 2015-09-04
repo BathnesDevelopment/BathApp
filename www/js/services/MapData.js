@@ -20,10 +20,10 @@ angular.module('MyBath.MapDataService', [])
             }
 
             if (layers.length == 0) {
-                $http.post(config.mapDataWS + "/GetAvailableMapLayers", {})
+                $http.get(config.mapDataWS + "/GetAvailableMapLayers")
                 .success(function (data) {
-                    if (data.GetAvailableMapLayersResult) {
-                        layers = JSON.parse(data.GetAvailableMapLayersResult);
+                    if (data && data.length > 100) {
+                        layers = JSON.parse(data);
                         window.localStorage.MapLayerConfig = angular.toJson({ updated: moment(), layers: layers });
                         layers_q.resolve(layers);
                     } else {
@@ -56,15 +56,10 @@ angular.module('MyBath.MapDataService', [])
             }
 
             if (layerData == '') {
-                $http.post(config.mapDataWS + "/GetMapLayer",
-                    {
-                        layerName: layer,
-                        lat: lat,
-                        lng: lng
-                    })
+                $http.get(config.mapDataWS + "/GetMapLayer/" + layer)
                     .success(function (data) {
-                        if (data.GetMapLayerResult) {
-                            layerData = JSON.parse(data.GetMapLayerResult);
+                        if (data && data.length > 20) {
+                            layerData = JSON.parse(data);
                             if (!layerCache) layerCache = {};
 
                             layerCache[layer] = { updated: moment(), layer: layerData };
@@ -83,7 +78,6 @@ angular.module('MyBath.MapDataService', [])
             else {
                 layerData_q.resolve(layerData);
             }
-
             return layerData_q.promise;
         }
     };

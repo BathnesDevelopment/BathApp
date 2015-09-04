@@ -10,10 +10,10 @@
                         <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
                             <i class="icon positive ion-information-circled"></i> Info
                         </a>
-                        <a class="tab-item" browse-to="sms://07797806545?body=BathAppMessage:">
+                        <a class="tab-item" ng-click="textTo('07904649678','Bath app message: ')">
                             <i class="icon energized ion-android-textsms"></i> Text
                         </a>
-                        <a class="tab-item" browse-to="mailto:councilconnect@bathnes.gov.uk">
+                        <a class="tab-item" ng-click="emailTo('councilconnect@bathnes.gov.uk')">
                             <i class="icon royal ion-at"></i> Email
                         </a>
                         <a class="tab-item" ng-click="showCouncilConnectPopup()">
