@@ -34,17 +34,6 @@ angular.module('MyBath.BathAppController', [])
         markers: { reportItMarker: { lat: 0, lng: 0, focus: true, message: "Drag me to adjust position of report", draggable: true } }
     };
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: updateDisplay
-    // Updates the current data based on user's display options
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.updateDisplay = function () {
-        $scope.myCouncilDisplay = {};
-        $scope.myNearestDisplay = {};
-        $scope.myHouseDisplay = {};
-    }
-    $scope.updateDisplay();
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////
     // MODAL DEFINITIONS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +117,6 @@ angular.module('MyBath.BathAppController', [])
     $scope.closeComment = function () {
         $scope.commentModal.hide();
     };
-    //Submit
     $scope.submitCommentPage1 = function (comment) {
         if ($scope.currentComment.type) {
 
@@ -346,7 +334,7 @@ angular.module('MyBath.BathAppController', [])
         });
         $scope.uprn = uprn;
 
-        UserData.save({ "address": address, "uprn": uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": postcode, "lat": lat, "lon": lng, "displayOptions": {} });
+        UserData.save({ "address": address, "uprn": uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": postcode, "lat": lat, "lon": lng, "displayCategories": $scope.userData.displayCategories });
         $scope.userData = UserData.all();
 
         $scope.pullRefresh();
@@ -588,7 +576,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-ios-telephone"></i> Website',
+                    text: '<i class="ion-android-open"></i> Website',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open(url, '_system');

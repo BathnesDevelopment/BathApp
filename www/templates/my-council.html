@@ -42,22 +42,22 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite({{dataRow.Website}})">
-                                <i class="icon ion-earth assertive"></i> Website
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
                             </a>
-                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo({{ dataRow.Lat }},{{ dataRow.Lng }})">
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
                                 <i class="icon ion-navigate calm"></i> Navigate
                             </a>
-                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber({{dataRow.Phone}})">
+                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone balanced"></i> Phone
                             </a>
-                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber({{dataRow.Mobile}})">
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Mobile
                             </a>
-                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="textTo({{dataRow.Mobile}},'Bath app mesage: ')">
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="textTo('{{dataRow.Mobile}}','Bath app mesage: ')">
                                 <i class="icon ion-android-textsms energized"></i> Text
                             </a>
-                            <a ng-if="dataRow.Email" class="tab-item" ng-click="emailTo({{dataRow.Email}})">
+                            <a ng-if="dataRow.Email" class="tab-item" ng-click="emailTo('{{dataRow.Email}}')">
                                 <i class="icon ion-at royal"></i> Email
                             </a>
                         </div>
@@ -100,22 +100,22 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite({{dataRow.Website}})">
-                                <i class="icon ion-earth assertive"></i> Website
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
                             </a>
-                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo({{ dataRow.Lat }},{{ dataRow.Lng }})">
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
                                 <i class="icon ion-navigate calm"></i> Navigate
                             </a>
-                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber({{dataRow.Phone}})">
+                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone balanced"></i> Phone
                             </a>
-                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber({{dataRow.Mobile}})">
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Mobile
                             </a>
-                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="textTo({{dataRow.Mobile}},'Bath app mesage: ')">
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="textTo('{{dataRow.Mobile}}','Bath app mesage: ')">
                                 <i class="icon ion-android-textsms energized"></i> Text
                             </a>
-                            <a ng-if="dataRow.Email" class="tab-item" ng-click="emailTo({{dataRow.Email}})">
+                            <a ng-if="dataRow.Email" class="tab-item" ng-click="emailTo('{{dataRow.Email}}')">
                                 <i class="icon ion-at royal"></i> Email
                             </a>
                         </div>

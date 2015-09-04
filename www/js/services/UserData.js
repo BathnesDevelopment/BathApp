@@ -12,7 +12,14 @@ angular.module('MyBath.UserDataService', [])
             if (!userData) {
                 // Defaults
                 userData = {
-                    "LocalHidden": {
+                    "displayCategories": {
+                        "Leisure and Culture": true,
+                        "Transport and Travel": true,
+                        "Education": true,
+                        "Council and Democracy": true,
+                        "Health and Fitness": true,
+                        "Waste and Recycling": true,
+                        "Planning and Licensing": true
                     }
                 };
             }

@@ -21,11 +21,11 @@
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
-                    <h5 class="card-header">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider top-balanced" ng-show="dataRow.Name">
+                    <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
+                    <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
+                        <div class="item item-divider top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
                             {{ dataRow.Name | title }}
-                            <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item item-text-wrap">
                             <p>
@@ -35,16 +35,16 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-show="dataRow.Phone" class="tab-item" ng-click="callNumber({{dataRow.Phone}})">
+                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
-                            <a ng-show="dataRow.Mobile" class="tab-item" ng-click="callNumber({{dataRow.Mobile}})">
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Mobile
                             </a>
-                            <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
-                                <i class="icon ion-earth assertive"></i> Website
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
                             </a>
-                            <a ng-show="dataRow.Lat" class="tab-item" ng-click="navigateTo({{ dataRow.Lat }},{{ dataRow.Lng }})">
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
                                 <i class="icon ion-navigate calm"></i> Navigate
                             </a>
                         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card" ng-show="!userData.uprn">
+                <div class="card" ng-if="!userData.uprn">
                     <div class="item item-divider top-assertive">
                         No details or location set
                     </div>
@@ -66,11 +66,11 @@
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
-                    <h5 class="card-header">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider top-royal" ng-show="dataRow.Name">
+                    <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
+                    <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
+                        <div class="item item-divider top-royal" ng-if="dataRow.Name && dataRow.Name != '''">
                             {{ dataRow.Name | title }}
-                            <p ng-show="dataRow.Distance">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item item-text-wrap">
                             <p>
@@ -80,16 +80,16 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-show="dataRow.Phone" class="tab-item" ng-click="callNumber({{dataRow.Phone}})">
+                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
-                            <a ng-show="dataRow.Mobile" class="tab-item" ng-click="callNumber({{dataRow.Mobile}})">
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Mobile
                             </a>
-                            <a ng-show="dataRow.Website" class="tab-item" browse-to="{{dataRow.Website}}">
-                                <i class="icon ion-earth assertive"></i> Website
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
                             </a>
-                            <a ng-show="dataRow.Lat" class="tab-item" ng-click="navigateTo({{ dataRow.Lat }},{{ dataRow.Lng }})">
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
                                 <i class="icon ion-navigate calm"></i> Navigate
                             </a>
                         </div>

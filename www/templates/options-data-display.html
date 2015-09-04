@@ -6,10 +6,10 @@
     <ion-content>
         <div>
             <ul class="list">
-                <li class="item item-toggle" ng-repeat="category in userData.displayCategories">
-                    category.Name
+                <li class="item item-toggle" ng-repeat="(key,data) in userData.displayCategories">
+                    {{key}}
                     <label class="toggle toggle-balanced">
-                        <input type="checkbox" ng-model="userData.LocalHidden[item]">
+                        <input type="checkbox" ng-model="userData.displayCategories[key]">
                         <div class="track">
                             <div class="handle"></div>
                         </div>

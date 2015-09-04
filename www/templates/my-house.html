@@ -21,8 +21,8 @@
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'left')">
-                    <h5 class="card-header">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
+                    <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
+                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != '' && userData.displayCategories[dataRow.Category]">
                         <div class="item item-divider top-balanced">
                             {{ dataRow.Name | title }}
                         </div>
@@ -37,15 +37,15 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" browse-to="{{dataRow.Website}}">
-                                <i class="icon ion-earth assertive"></i> Website
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <div class="card" ng-show="!userData.uprn">
+                <div class="card" ng-if="!userData.uprn">
                     <div class="item item-divider top-assertive">
                         No details or location set
                     </div>
@@ -59,8 +59,8 @@
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'right')">
-                    <h5 class="card-header">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
+                    <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
+                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != '' && userData.displayCategories[dataRow.Category]">
                         <div class="item item-divider top-balanced">
                             {{ dataRow.Name | title }}
                         </div>
@@ -75,8 +75,8 @@
                             </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" browse-to="{{dataRow.Website}}">
-                                <i class="icon ion-earth assertive"></i> Website
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
                             </a>
                         </div>
                     </div>
