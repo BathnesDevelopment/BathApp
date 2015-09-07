@@ -740,7 +740,7 @@ angular.module('MyBath.BathAppController', [])
 
                         var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng;
                         if (ionic.Platform.isIOS()) {
-                            geoUrl = 'maps:ll=' + lat + "," + lng;
+                            geoUrl = 'maps:q=' + lat + "," + lng + '&ll=' + lat + "," + lng;
                         }
                         window.open(geoUrl, '_system');
 

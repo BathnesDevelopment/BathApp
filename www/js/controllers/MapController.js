@@ -11,7 +11,7 @@ angular.module('MyBath.MapController', [])
             tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OSM</a> contributors, <a href="http://cartodb.com/attributions">CartoDB</a>',
             attributionControl: false,
-            maxZoom: 20,
+            maxZoom: 18,
             zoomControlPosition: 'bottomleft',
             path: {
                 weight: 10,
