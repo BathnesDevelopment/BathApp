@@ -5,7 +5,7 @@ angular.module('MyBath.MapController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.fetching = {};
     $scope.mapLayers = {};
-    $scope.markers = L.markerClusterGroup();
+    $scope.markers = null;
     $scope.map = {
         defaults: {
             tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
@@ -36,7 +36,6 @@ angular.module('MyBath.MapController', [])
             autoDiscover: true,
         },
         layers: {},
-        marker: {}
         //geojson: {
         //    data: { type: "FeatureCollection", features: [] },
         //    style: function (feature) { return {}; },
@@ -158,7 +157,14 @@ angular.module('MyBath.MapController', [])
     // Triggered by closing the options display modal - checks for differences and applies changes
     //////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapData = function () {
-        $scope.markers.clearLayers();
+
+        if ($scope.markers != null) {
+            $scope.markers.clearLayers();
+
+        }
+
+        $scope.markers = new L.MarkerClusterGroup();
+
         // Remove layers
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && !$scope.userData.MapDisplay[e]) {
@@ -212,9 +218,6 @@ angular.module('MyBath.MapController', [])
         }
     };
 
-    // Run on Load
-    $scope.updateMapData();
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // CONTROLLER EVENTS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -223,6 +226,10 @@ angular.module('MyBath.MapController', [])
     });
 
     $scope.$on('leafletDirectiveMap.overlayadd', function (event, target) {
+        angular.noop();
+    });
+
+    $scope.$on('leafletDirectiveMap.load', function (event) {
         $scope.updateMapData();
     });
 });

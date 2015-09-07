@@ -605,7 +605,7 @@ angular.module('MyBath.BathAppController', [])
                     text: '<i class="ion-at"></i> Email',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
-                        window.open(url, '_system');
+                        window.open('mailto:' + emailAddress, '_system');
                     }
                 }
             ]
@@ -657,7 +657,7 @@ angular.module('MyBath.BathAppController', [])
                     text: '<i class="ion-android-textsms"></i> Text',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
-                        window.open('sms://' + phone + '?body=' + body, '_system', 'location=yes');
+                        window.open('sms:' + phone + '?body=' + body, '_system', 'location=yes');
                     }
                 }
             ]
@@ -738,7 +738,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
 
-                        var geoUrl = "geo:" + lat + "," + lng + "q=" + lat + "," + lng;
+                        var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng;
                         if (ionic.Platform.isIOS()) {
                             geoUrl = 'maps:ll=' + lat + "," + lng;
                         }
