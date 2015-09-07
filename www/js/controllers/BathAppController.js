@@ -724,11 +724,33 @@ angular.module('MyBath.BathAppController', [])
     // Uses the default map application to navigate
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.navigateTo = function (lat, lng) {
-        var geoUrl = "geo:" + lat + "," + lng + "q=" + lat + "," + lng;
-        if (ionic.Platform.isIOS()) {
-            geoUrl = 'maps:ll=' + lat + "," + lng;
-        }
-        window.open(geoUrl, '_system');
+
+        var alertPopup = $ionicPopup.alert({
+            title: 'Navigation',
+            template: 'Launch default maps application?',
+            buttons: [
+                {
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
+                },
+                {
+                    text: '<i class="ion-navigate"></i> Navigate',
+                    type: 'button-clear button-balanced',
+                    onTap: function (e) {
+
+                        var geoUrl = "geo:" + lat + "," + lng + "q=" + lat + "," + lng;
+                        if (ionic.Platform.isIOS()) {
+                            geoUrl = 'maps:ll=' + lat + "," + lng;
+                        }
+                        window.open(geoUrl, '_system');
+
+                    }
+                }
+            ]
+        });
+        alertPopup.then(function (res) {
+        });
+
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
