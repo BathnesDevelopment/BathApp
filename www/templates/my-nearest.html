@@ -39,7 +39,7 @@
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
                             <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
-                                <i class="icon ion-ios-telephone assertive"></i> Mobile
+                                <i class="icon ion-iphone assertive"></i> Mobile
                             </a>
                             <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
                                 <i class="icon ion-android-open assertive"></i> Website
@@ -68,7 +68,7 @@
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
-                        <div class="item item-divider top-royal" ng-if="dataRow.Name && dataRow.Name != '''">
+                        <div class="item item-divider top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
                             {{ dataRow.Name | title }}
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
@@ -84,7 +84,7 @@
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
                             <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
-                                <i class="icon ion-ios-telephone assertive"></i> Mobile
+                                <i class="icon ion-iphone assertive"></i> Mobile
                             </a>
                             <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
                                 <i class="icon ion-android-open assertive"></i> Website

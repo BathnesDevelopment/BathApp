@@ -1,5 +1,5 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $ionicPlatform, UserData, BathData, Reports, Comments, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $ionicPlatform, UserData, BathData, Reports, Comments, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -621,7 +621,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.callNumber = function (phone) {
         var alertPopup = $ionicPopup.alert({
             title: 'Call number',
-            template: 'Call this number: ' + phone +'?',
+            template: 'Call this number: ' + phone + '?',
             buttons: [
                 {
                     text: '<i class="ion-android-close"></i> Cancel',
@@ -660,6 +660,42 @@ angular.module('MyBath.BathAppController', [])
                         window.open('sms:' + phone + '?body=' + body, '_system', 'location=yes');
                     }
                 }
+            ]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: createEvent
+    // Creates an event in the device calendar
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.createEvent = function (name) {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Create event',
+            template: 'Create event:' + name,
+            buttons: [
+                {
+                    text: '<i class="ion-android-close"></i> Cancel',
+                    type: 'button-clear button-stable'
+                },
+                {
+                    text: '<i class="ion-calendar"></i> Add',
+                    type: 'button-clear button-balanced',
+                    onTap: function (e) {
+                        $cordovaCalendar.createEventWithOptions({
+                            title: name,
+                            location: $userData.address,
+                            notes: '',
+                            startDate: new Date(2015, 0, 6, 18, 30, 0, 0, 0),
+                            recurrence: 'weekly'
+                        }).then(function (result) {
+                            // success
+                        }, function (err) {
+                            // error
+                        });
+                    }
+                },
             ]
         });
         alertPopup.then(function (res) {
