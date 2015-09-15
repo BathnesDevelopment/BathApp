@@ -34,6 +34,68 @@ angular.module('MyBath.BathAppController', [])
         markers: { reportItMarker: { lat: 0, lng: 0, focus: true, message: "Drag me to adjust position of report", draggable: true } }
     };
 
+
+    $scope.carParkChart = {
+        options: {
+            //This is the Main Highcharts chart config. Any Highchart options are valid here.
+            //will be overriden by values specified below.
+            chart: {
+                type: 'bar'
+            },
+            tooltip: {
+                style: {
+                    padding: 10,
+                    fontWeight: 'bold'
+                }
+            },
+            title: {
+                text: ''
+            },
+            legend: {
+                enabled: false
+            }
+        },
+        //The below properties are watched separately for changes.
+
+        //Series object (optional) - a list of series using normal highcharts series options.
+        series: [{
+            name: 'Spaces',
+            data: [89, 55, 76, 52, 23, 79, 67, 67]
+        }],
+        //Title configuration (optional)
+        //title: {
+            //text: 'Hello'
+        //},
+        //Boolean to control showng loading status on chart (optional)
+        //Could be a string if you want to show specific loading text.
+        loading: false,
+        //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
+        //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
+        xAxis: {
+            categories: ['Southgate Rail', 'Lansdown P+R', 'Southgate General', 'Odd Down P+R', 'Avon Street', 'Podium', 'Charlotte Street', 'Newbridge P+R' ],
+            //currentMin: 0,
+            //currentMax: 100,
+            title: { text: '' }
+        },
+        yAxis: {
+            title: { text: 'Spaces remaining'}
+        },
+        //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
+        useHighStocks: false,
+        //size (optional) if left out the chart will default to size of the div or something sensible.
+        size: {
+            //width: 400,
+            //height: 300
+        },
+        legend: {
+            enabled: false
+        },
+        //function (optional)
+        func: function (chart) {
+            //setup some logic for the chart
+        }
+    };
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////
     // MODAL DEFINITIONS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -701,6 +763,22 @@ angular.module('MyBath.BathAppController', [])
         alertPopup.then(function (res) {
         });
     };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateCarParks
+    // Updates the car park data.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.updateCarParks = function () {
+
+        $scope.carParkChart.series[0].data = [1,2,3,4,5];
+        $scope.carParkChart.xAxis.categories = ['One', 'Two', 'Three', 'Four', 'Five'];
+
+    };
+
+    // Run on Load:
+    $scope.updateCarParks();
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
