@@ -1,0 +1,52 @@
+<ion-view view-title="My council">
+    <ion-content padding="false">
+        <ion-refresher on-refresh="pullRefresh()"
+                       pulling-text="Pull to refresh..."
+                       refreshing-text="Refreshing!"
+                       refreshing-icon="ion-loading-c">
+        </ion-refresher>
+        <div class="row responsive-sm">
+            <div class="col">
+                <div class="card">
+                    <div class="item item-divider top-calm">
+                        News
+                    </div>
+                    <div class="item">
+                        <p>Council and democracy news stories.</p>
+                    </div>
+                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+
+                    </div>
+                </div>
+                <div class="card" ng-repeat="newsItem in councilNews">
+                    <div class="item item-divider top-balanced">
+
+                    </div>
+                    <div class="item item-text-wrap">
+
+                    </div>
+                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                        <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">
+                            <i class="icon ion-android-open assertive"></i> Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" ng-repeat="newsItem in democracyNews">
+                    <div class="item item-divider top-balanced">
+
+                    </div>
+                    <div class="item item-text-wrap">
+
+                    </div>
+                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                        <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">
+                            <i class="icon ion-android-open assertive"></i> Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

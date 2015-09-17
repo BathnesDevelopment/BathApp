@@ -60,11 +60,11 @@ angular.module('MyBath.BathAppController', [])
         //Series object (optional) - a list of series using normal highcharts series options.
         series: [{
             name: 'Spaces',
-            data: [89, 55, 76, 52, 23, 79, 67, 67]
+            data: []
         }],
         //Title configuration (optional)
         //title: {
-            //text: 'Hello'
+        //text: 'Hello'
         //},
         //Boolean to control showng loading status on chart (optional)
         //Could be a string if you want to show specific loading text.
@@ -72,13 +72,13 @@ angular.module('MyBath.BathAppController', [])
         //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
         //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
         xAxis: {
-            categories: ['Southgate Rail', 'Lansdown P+R', 'Southgate General', 'Odd Down P+R', 'Avon Street', 'Podium', 'Charlotte Street', 'Newbridge P+R' ],
+            categories: [],
             //currentMin: 0,
             //currentMax: 100,
             title: { text: '' }
         },
         yAxis: {
-            title: { text: 'Spaces remaining'}
+            title: { text: 'Spaces remaining' }
         },
         //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
         useHighStocks: false,
@@ -769,29 +769,43 @@ angular.module('MyBath.BathAppController', [])
     // Updates the car park data.
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateCarParks = function () {
-        // Call to update the data
-        LiveTravel.fetchAll()
-                .then(function (data) {
-                    if (data && data != [] && data != "Failed") {
+        if (!$scope.refreshingCarParks) {
+            $scope.refreshingCarParks = true;
+            LiveTravel.fetchAll()
+                    .then(function (data) {
+                        if (data && data != [] && data != "Failed") {
 
-                        $scope.carParkChart.series[0].data = [];
-                        $scope.carParkChart.xAxis.categories = [];
+                            $scope.carParkChart.series[0].data = [];
+                            $scope.carParkChart.xAxis.categories = [];
 
-                        for (var carPark in data.carParks) {
-                            var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
-                            if (numberOfSpaces < 0) numberOfSpaces = 0;
-                            $scope.carParkChart.series[0].data.push(numberOfSpaces);
-                            $scope.carParkChart.xAxis.categories.push(data.carParks[carPark].Name.replace('CP',''))
+                            for (var carPark in data.carParks) {
+                                // Only show if car park updated within last 30 mins
+                                if (data.carParks[carPark] && moment().diff(moment(data.carParks[carPark]['last updated']), 'minutes') < 15) {
+                                    var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
+                                    var color = '';
+                                    if (numberOfSpaces < 0) numberOfSpaces = 0;
+                                    if (numberOfSpaces < 100) color = '#ffc900';
+                                    if (numberOfSpaces < 30) color = '#ef473a';
+
+                                    if (color != '') {
+                                        $scope.carParkChart.series[0].data.push({ y: numberOfSpaces, color: color });
+                                    } else {
+                                        $scope.carParkChart.series[0].data.push(numberOfSpaces);
+                                    } 
+                                    $scope.carParkChart.xAxis.categories.push(data.carParks[carPark].Name.replace('CP', ''))
+                                }
+                            }
+
+                            $scope.refreshingCarParks = false;
+                        } else {
+                            // currently do nothing - chart wil only display if there is data.
+                            $scope.refreshingCarParks = false;
                         }
-
-                    } else {
-
-                    }
-                });
+                    });
+        }
     };
     // Run on Load:
     $scope.updateCarParks();
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup

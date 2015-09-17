@@ -28,7 +28,7 @@ angular.module('MyBath.LiveTravelService', [])
         fetchAll: function () {
             var liveTravel = [];
             var liveTravel_q = $q.defer();
-            $http.get(config.bathDataWS + "/GetLiveTravel")
+            $http.get(config.liveTravelWS)
                 .success(function (data, status, headers, config) {
                     liveTravel = JSON.parse(data.GetLiveTravelResult);
                     if (liveTravel && liveTravel != []) {

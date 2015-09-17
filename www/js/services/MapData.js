@@ -20,7 +20,7 @@ angular.module('MyBath.MapDataService', [])
             }
 
             if (layers.length == 0) {
-                $http.get(config.mapDataWS + "/GetAvailableMapLayers")
+                $http.get(config.mapLayerConfigWS)
                 .success(function (data) {
                     if (data && data.length > 100) {
                         layers = JSON.parse(data);
@@ -56,7 +56,7 @@ angular.module('MyBath.MapDataService', [])
             }
 
             if (layerData == '') {
-                $http.get(config.mapDataWS + "/GetMapLayer/" + layer)
+                $http.get(config.mapLayerWS + layer)
                     .success(function (data) {
                         if (data && data.length > 20) {
                             layerData = JSON.parse(data);
