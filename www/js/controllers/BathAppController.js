@@ -1,5 +1,5 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $ionicPlatform, UserData, BathData, Reports, Comments, FeedData, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $ionicPlatform, UserData, BathData, Reports, Comments, FeedData, LiveTravel, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -769,15 +769,28 @@ angular.module('MyBath.BathAppController', [])
     // Updates the car park data.
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateCarParks = function () {
+        // Call to update the data
+        LiveTravel.fetchAll()
+                .then(function (data) {
+                    if (data && data != [] && data != "Failed") {
 
-        $scope.carParkChart.series[0].data = [1,2,3,4,5];
-        $scope.carParkChart.xAxis.categories = ['One', 'Two', 'Three', 'Four', 'Five'];
+                        $scope.carParkChart.series[0].data = [];
+                        $scope.carParkChart.xAxis.categories = [];
 
+                        for (var carPark in data.carParks) {
+                            var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
+                            if (numberOfSpaces < 0) numberOfSpaces = 0;
+                            $scope.carParkChart.series[0].data.push(numberOfSpaces);
+                            $scope.carParkChart.xAxis.categories.push(data.carParks[carPark].Name.replace('CP',''))
+                        }
+
+                    } else {
+
+                    }
+                });
     };
-
     // Run on Load:
     $scope.updateCarParks();
-
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////
