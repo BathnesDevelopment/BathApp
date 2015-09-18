@@ -53,6 +53,13 @@ angular.module('MyBath.BathAppController', [])
             },
             legend: {
                 enabled: false
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
             }
         },
         //The below properties are watched separately for changes.
@@ -791,7 +798,7 @@ angular.module('MyBath.BathAppController', [])
                                         $scope.carParkChart.series[0].data.push({ y: numberOfSpaces, color: color });
                                     } else {
                                         $scope.carParkChart.series[0].data.push(numberOfSpaces);
-                                    } 
+                                    }
                                     $scope.carParkChart.xAxis.categories.push(data.carParks[carPark].Name.replace('CP', ''))
                                 }
                             }
