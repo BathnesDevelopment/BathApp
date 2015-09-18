@@ -26,6 +26,22 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathA
                 }
             }
         })
+        .state('menu.news', {
+            url: "/news",
+            views: {
+                'mainContent': {
+                    templateUrl: "templates/news.html"
+                }
+            }
+        })
+        .state('menu.health', {
+            url: "/news",
+            views: {
+                'mainContent': {
+                    templateUrl: "templates/health.html"
+                }
+            }
+        })
         .state('menu.mynearest', {
             url: "/local",
             views: {
