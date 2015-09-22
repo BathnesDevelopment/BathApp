@@ -25,6 +25,7 @@ angular.module('MyBath.BathDataService', [])
             window.localStorage.MyCouncil = angular.toJson(bathData.myCouncil);
             window.localStorage.MyHouse = angular.toJson(bathData.myHouse);
             window.localStorage.MyNearest = angular.toJson(bathData.myNearest);
+            window.localStorage.Health = angular.toJson(bathData.health);
         },
         // Method: BathData.fetchAll()
         // Input: uId string (UPRN)
@@ -55,6 +56,7 @@ angular.module('MyBath.BathDataService', [])
             window.localStorage.removeItem('MyCouncil');
             window.localStorage.removeItem('MyHouse');
             window.localStorage.removeItem('MyNearest');
+            window.localStorage.removeItem('Health');
         },
         getMyHouse: function (id) {
             var myHouse = window.localStorage.MyHouse;
@@ -74,6 +76,13 @@ angular.module('MyBath.BathDataService', [])
             var myCouncil = window.localStorage.MyCouncil;
             if (myCouncil && myCouncil != 'undefined') {
                 return angular.fromJson(myCouncil);
+            }
+            return [];
+        },
+        getHealth: function (id) {
+            var health = window.localStorage.Health;
+            if (health && health != 'undefined') {
+                return angular.fromJson(health);
             }
             return [];
         }

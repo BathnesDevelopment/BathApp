@@ -1,4 +1,4 @@
-<ion-view view-title="My council">
+<ion-view view-title="News">
     <ion-content padding="false">
         <ion-refresher on-refresh="pullRefresh()"
                        pulling-text="Pull to refresh..."
@@ -15,15 +15,20 @@
                         <p>Council and democracy news stories.</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-
+                        <a class="tab-item" ng-click="showPopup('Council news', 'The news page shows Council news as listed on the Council website, as well as democracy updates on Council meetings')">
+                            <i class="icon positive ion-information-circled"></i> Info
+                        </a>
+                        <a class="tab-item" ng-click="updateNews()">
+                            <i class="icon balanced ion-refresh"></i> Refresh
+                        </a>
                     </div>
                 </div>
-                <div class="card" ng-repeat="newsItem in councilNews">
+                <div class="card" ng-repeat="newsItem in news['Council news']">
                     <div class="item item-divider top-balanced">
-
+                        {{ newsItem.Name }}
                     </div>
                     <div class="item item-text-wrap">
-
+                        <p>{{ newsItem.Summary }}</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
                         <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">
@@ -33,12 +38,12 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card" ng-repeat="newsItem in democracyNews">
-                    <div class="item item-divider top-balanced">
-
+                <div class="card" ng-repeat="newsItem in news['Democracy news']">
+                    <div class="item item-divider top-royal">
+                        {{ newsItem.Name }}
                     </div>
                     <div class="item item-text-wrap">
-
+                        <p>{{ newsItem.Summary }}</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
                         <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">

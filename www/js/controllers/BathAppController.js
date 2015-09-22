@@ -15,10 +15,11 @@ angular.module('MyBath.BathAppController', [])
     $scope.comments = Comments.getComments();
     $scope.currentLocation = null;
     $scope.addresses = [];
-
+    $scope.news = {};
     $scope.myCouncil = BathData.getMyCouncil();
     $scope.myNearest = BathData.getMyNearest();
     $scope.myHouse = BathData.getMyHouse();
+    $scope.health = BathData.getHealth();
 
     $scope.reportMap = {
         defaults: {
@@ -415,13 +416,7 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.pullRefresh = function () {
         if ($scope.userData && $scope.userData.uprn && $scope.userData.postcode) {
-            //FeedData.fetchAll($scope.userData.latitude, $scope.userData.longitude)
-            //    .then(function (data) {
-            //        if (data && data != []) {
-            //            $scope.feedData = data;
-            //            $scope.feedDataObject = FeedData.toObj();
-            //        }
-            //    });
+
             BathData.fetchAll($scope.userData.uprn, $scope.userData.postcode)
                 .then(function (data) {
                     if (data && data != [] && data != "Failed") {
@@ -429,6 +424,7 @@ angular.module('MyBath.BathAppController', [])
                         $scope.myCouncil = data.myCouncil;
                         $scope.myNearest = data.myNearest;
                         $scope.myHouse = data.myHouse;
+                        $scope.health = data.health;
                         $scope.$broadcast('scroll.refreshComplete');
                         $ionicLoading.hide();
                     } else {
@@ -441,6 +437,7 @@ angular.module('MyBath.BathAppController', [])
         else {
             $scope.$broadcast('scroll.refreshComplete');
             $ionicLoading.hide();
+            $scope.showPopup('Set location', 'You need to set your location before refreshing data.');
         }
     };
 
@@ -773,7 +770,7 @@ angular.module('MyBath.BathAppController', [])
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: updateCarParks
-    // Updates the car park data.
+    // Updates the car park data - will run on each load
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateCarParks = function () {
         if (!$scope.refreshingCarParks) {
@@ -811,8 +808,29 @@ angular.module('MyBath.BathAppController', [])
                     });
         }
     };
-    // Run on Load:
     $scope.updateCarParks();
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateNews
+    // Updates the news data - will run on each load
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.updateNews = function () {
+        if (!$scope.refreshingNews) {
+            $scope.refreshingNews = true;
+            NewsData.fetch()
+                    .then(function (data) {
+                        if (data && data != [] && data != "Failed") {
+                            $scope.news = data;
+                            $scope.refreshingNews = false;
+                        } else {
+                            // use cached data
+
+                            $scope.refreshingNews = false;
+                        }
+                    });
+        }
+    };
+    $scope.updateNews();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup

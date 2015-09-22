@@ -1,4 +1,4 @@
-<ion-view view-title="My council">
+<ion-view view-title="Health">
     <ion-content padding="false">
         <ion-refresher on-refresh="pullRefresh()"
                        pulling-text="Pull to refresh..."
@@ -12,15 +12,87 @@
                         Health
                     </div>
                     <div class="item">
-                        <p>Health links in Bath and North East Somerset</p>
+                        <p>Health provider links in Bath and North East Somerset</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
 
                     </div>
                 </div>
+                <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
+                    <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
+                    <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
+                        <div class="item item-divider top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
+                            {{ dataRow.Name | title }}
+                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <p>
+                                <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item tabs tabs-secondary tabs-icon-left item-divider">
+                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
+                                <i class="icon ion-ios-telephone assertive"></i> Phone
+                            </a>
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
+                                <i class="icon ion-iphone assertive"></i> Mobile
+                            </a>
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
+                            </a>
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
+                                <i class="icon ion-navigate calm"></i> Navigate
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col">
-
+                <div class="card" ng-if="!userData.uprn">
+                    <div class="item item-divider top-assertive">
+                        No details or location set
+                    </div>
+                    <div class="item item-text-wrap">
+                        <p>To begin using this app you need to register and set a location.  Personal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
+                    </div>
+                    <div class="item tabs tabs-primary tabs-icon-left item-divider">
+                        <a class="tab-item" ng-click="register()">
+                            <i class="icon balanced ion-ios-location"></i> Set location
+                        </a>
+                    </div>
+                </div>
+                <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
+                    <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
+                    <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
+                        <div class="item item-divider top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
+                            {{ dataRow.Name | title }}
+                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <p>
+                                <span ng-repeat="(key, data) in dataRow | generalProperties">
+                                    <strong>{{ key }}</strong> : {{ data }} <br />
+                                </span>
+                            </p>
+                        </div>
+                        <div class="item tabs tabs-secondary tabs-icon-left item-divider">
+                            <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
+                                <i class="icon ion-ios-telephone assertive"></i> Phone
+                            </a>
+                            <a ng-if="dataRow.Mobile && dataRow.Mobile != ''" class="tab-item" ng-click="callNumber('{{dataRow.Mobile}}')">
+                                <i class="icon ion-iphone assertive"></i> Mobile
+                            </a>
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                                <i class="icon ion-android-open assertive"></i> Website
+                            </a>
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
+                                <i class="icon ion-navigate calm"></i> Navigate
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </ion-content>

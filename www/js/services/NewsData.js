@@ -1,21 +1,17 @@
 angular.module('MyBath.NewsDataService', [])
 /**
- * Factory: Bath Data
- * The bath data factory includes methods to return and save data from the data web service.
- * This is split into three objects - MyHouse, MyNearest, and MyCouncil
+ * Factory: News data
+ * 
+ * 
 */
 .factory('NewsData', function ($http, $q, DataTransformations, config) {
     return {
-        // Method: NewsData.all()
-        // Input: JSON[] / Empty
-        // Output: JSON / Empty Array
-        // Gets all the data back from local storage.
-        all: function () {
-            var newsData = window.localStorage.NewsData;
-            if (newsData) {
-                return angular.fromJson(newsData);
-            }
-            return [];
+        // Method: NewsData.get()
+        // Input: None
+        // Output: JSON
+        // 
+        get: function() {
+
         },
         // Method: NewsData.save()
         // Input: JSON
@@ -24,31 +20,34 @@ angular.module('MyBath.NewsDataService', [])
         save: function (newsData) {
             window.localStorage.NewsData = angular.toJson(newsData);
         },
-        // Method: NewsData.fetchAll()
+        // Method: NewsData.fetch()
         // Input: 
         // Output: 
         // Calls the news data service and returns the result.
-        fetchAll: function (uId, pCode) {
-            var bathData = [];
-            var bathData_q = $q.defer();
+        fetch: function () {
+            var newsData = [];
+            var newsData_q = $q.defer();
             $http.get(config.newsWS)
                 .success(function (data, status, headers, config) {
-                    bathData = JSON.parse(data.GetAllDataResult);
-                    if (bathData && bathData != []) {
+                    
+                    if (newsData && newsData != []) {
+                        newsData = JSON.parse(data.GetNewsResult);
                     }
                     else {
-                        bathData = "Failed";
+                        newsData = "Failed";
                     }
-                    bathData_q.resolve(bathData);
-                    return bathData;
+                    newsData_q.resolve(newsData);
                 })
                 .error(function (data, status, headers, config) {
-                    bathData = "Failed";
-                    bathData_q.resolve(bathData);
-                    return "Failed";
+                    newsData = "Failed";
+                    newsData_q.resolve(newsData);
                 });
-            return bathData_q.promise;
+            return newsData_q.promise;
         },
+        // Method: NewsData.clear()
+        // Input: None
+        // Output: None
+        // 
         clear: function () {
             window.localStorage.removeItem('NewsData');
         }

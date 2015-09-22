@@ -3,7 +3,7 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-image">
+                    <div id="divLogo" class="item item-image">
                         <img src="images/logo.svg" />
                     </div>
                     <div class="item tabs item-divider tabs-primary tabs-icon-left">
@@ -18,6 +18,20 @@
                         </a>
                         <a class="tab-item" ng-click="showCouncilConnectPopup()">
                             <i class="icon balanced ion-ios-telephone"></i> Call
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="item item-divider top-calm">
+                        Latest council news
+                    </div>
+                    <div class="item item-text-wrap">
+                        <h3>{{ news['Council news'][0].Name }}</h3>
+                        <p>{{ news['Council news'][0].Summary }}</p>
+                    </div>
+                    <div class="item item-divider tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="updateNews()">
+                            <i class="icon balanced ion-refresh"></i> Refresh
                         </a>
                     </div>
                 </div>
