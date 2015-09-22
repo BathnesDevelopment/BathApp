@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.FeedDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'highcharts-ng'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'highcharts-ng'])
 .run(function ($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function () {
         if (typeof StatusBar != 'undefined') {
@@ -35,7 +35,7 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathA
             }
         })
         .state('menu.health', {
-            url: "/news",
+            url: "/health",
             views: {
                 'mainContent': {
                     templateUrl: "templates/health.html"

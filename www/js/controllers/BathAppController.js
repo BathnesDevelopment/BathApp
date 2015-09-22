@@ -1,5 +1,5 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $ionicPlatform, UserData, BathData, Reports, Comments, FeedData, LiveTravel, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $ionicPlatform, UserData, BathData, Reports, Comments, NewsData, LiveTravel, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
