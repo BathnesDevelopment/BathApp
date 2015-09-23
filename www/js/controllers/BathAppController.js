@@ -35,74 +35,41 @@ angular.module('MyBath.BathAppController', [])
         markers: { reportItMarker: { lat: 0, lng: 0, focus: true, message: "Drag me to adjust position of report", draggable: true } }
     };
 
+    $scope.carParkOptions = {
+        chart: {
+            type: 'multiBarHorizontalChart',
+            height: 300,
+            x: function (d) { return d.label; },
+            y: function (d) { return d.value; },
+            showControls: false,
+            showValues: true,
+            showLegend: false,
+            transitionDuration: 500,
+            xAxis: {
+                showMaxMin: false
+            },
+            yAxis: {
+                axisLabel: 'Available spaces',
+                tickFormat: function (d) {
+                    return d3.format(',.2f')(d);
+                }
+            },
+            barColor: function (d, i) {
+                var color = '#387ef5';
+                if (d.value < 100) color = '#ffc900';
+                if (d.value < 30) color = '#ef473a';
 
-    $scope.carParkChart = {
-        options: {
-            //This is the Main Highcharts chart config. Any Highchart options are valid here.
-            //will be overriden by values specified below.
-            chart: {
-                type: 'bar'
-            },
-            tooltip: {
-                style: {
-                    padding: 10,
-                    fontWeight: 'bold'
-                }
-            },
-            title: {
-                text: ''
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
+                return color;
             }
-        },
-        //The below properties are watched separately for changes.
-
-        //Series object (optional) - a list of series using normal highcharts series options.
-        series: [{
-            name: 'Spaces',
-            data: []
-        }],
-        //Title configuration (optional)
-        //title: {
-        //text: 'Hello'
-        //},
-        //Boolean to control showng loading status on chart (optional)
-        //Could be a string if you want to show specific loading text.
-        loading: false,
-        //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
-        //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
-        xAxis: {
-            categories: [],
-            //currentMin: 0,
-            //currentMax: 100,
-            title: { text: '' }
-        },
-        yAxis: {
-            title: { text: 'Spaces remaining' }
-        },
-        //Whether to use HighStocks instead of HighCharts (optional). Defaults to false.
-        useHighStocks: false,
-        //size (optional) if left out the chart will default to size of the div or something sensible.
-        size: {
-            //width: 400,
-            //height: 300
-        },
-        legend: {
-            enabled: false
-        },
-        //function (optional)
-        func: function (chart) {
-            //setup some logic for the chart
         }
     };
+
+    $scope.carParkData = [
+            {
+                "key": "Car park spaces",
+                "color": "#d62728",
+                "values": []
+            }];
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ///////////////
     // MODAL DEFINITIONS
@@ -778,31 +745,17 @@ angular.module('MyBath.BathAppController', [])
             LiveTravel.fetchAll()
                     .then(function (data) {
                         if (data && data != [] && data != "Failed") {
-
-                            $scope.carParkChart.series[0].data = [];
-                            $scope.carParkChart.xAxis.categories = [];
-
+                            $scope.carParkData[0].values = [];
                             for (var carPark in data.carParks) {
                                 // Only show if car park updated within last 30 mins
                                 if (data.carParks[carPark] && moment().diff(moment(data.carParks[carPark]['last updated']), 'minutes') < 15) {
                                     var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
-                                    var color = '';
-                                    if (numberOfSpaces < 0) numberOfSpaces = 0;
-                                    if (numberOfSpaces < 100) color = '#ffc900';
-                                    if (numberOfSpaces < 30) color = '#ef473a';
-
-                                    if (color != '') {
-                                        $scope.carParkChart.series[0].data.push({ y: numberOfSpaces, color: color });
-                                    } else {
-                                        $scope.carParkChart.series[0].data.push(numberOfSpaces);
-                                    }
-                                    $scope.carParkChart.xAxis.categories.push(data.carParks[carPark].Name.replace('CP', ''))
+                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces });
                                 }
                             }
-
                             $scope.refreshingCarParks = false;
                         } else {
-                            // currently do nothing - chart wil only display if there is data.
+                            // currently do nothing - chart will only display if there is data.
                             $scope.refreshingCarParks = false;
                         }
                     });

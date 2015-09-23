@@ -110,6 +110,10 @@ This happens on portrait phone screens, and is unhelpful at best
     padding: 5px;
 }
 
+#divCarParks {
+    height: 300px;
+}
+
 /**
   * Removes the layers control
   * doesn't look like there's an easy fix for this
