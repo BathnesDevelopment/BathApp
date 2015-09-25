@@ -55,6 +55,11 @@ angular.module('MyBath.BathAppFilters', [])
         }
     };
 })
+.filter("sanitize", function($sce) {
+    return function(htmlCode){
+        return $sce.trustAsHtml(htmlCode);
+    }
+})
 .filter('formatTime', function () {
     return function (strTime) {
         if (strTime && strTime === "01/01/4000 00:00:00") {

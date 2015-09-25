@@ -1,4 +1,4 @@
-angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'nvd3'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSanitize', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'nvd3'])
 .run(function ($ionicPlatform, $cordovaStatusbar) {
     $ionicPlatform.ready(function () {
         if (typeof StatusBar != 'undefined') {

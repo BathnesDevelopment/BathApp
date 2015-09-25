@@ -43,6 +43,9 @@ angular.module('MyBath.BathAppController', [])
             y: function (d) { return d.value; },
             showControls: false,
             showValues: true,
+            valueFormat: function (d) {
+                return d3.format(',.0f')(d);
+            },
             showLegend: false,
             transitionDuration: 500,
             xAxis: {
@@ -51,13 +54,14 @@ angular.module('MyBath.BathAppController', [])
             yAxis: {
                 axisLabel: 'Available spaces',
                 tickFormat: function (d) {
-                    return d3.format(',.2f')(d);
+                    return d3.format(',.0f')(d);
                 }
             },
+            margin: { left: 120 },
             barColor: function (d, i) {
                 var color = '#387ef5';
                 if (d.value < 100) color = '#ffc900';
-                if (d.value < 30) color = '#ef473a';
+                if (d.value < 50) color = '#ef473a';
 
                 return color;
             }
@@ -67,7 +71,6 @@ angular.module('MyBath.BathAppController', [])
     $scope.carParkData = [
             {
                 "key": "Car park spaces",
-                "color": "#d62728",
                 "values": []
             }];
 
