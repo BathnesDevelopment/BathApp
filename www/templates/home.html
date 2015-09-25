@@ -27,9 +27,12 @@
                         {{ news['Council news'][0].Name }}
                     </div>
                     <div class="item item-text-wrap">
-                        <p ng-bind="">{{ news['Council news'][0].Summary }}</p>
+                        <p ng-bind-html="news['Council news'][0].Summary"></p>
                     </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
+                        <a ng-if="news['Council news'][0].Website" class="tab-item" ng-click="openWebsite('{{news['Council news'][0].Website}}')">
+                            <i class="icon ion-android-open assertive"></i> Website
+                        </a>
                         <a class="tab-item" ng-click="updateNews()">
                             <i class="icon balanced ion-refresh"></i> Refresh
                         </a>

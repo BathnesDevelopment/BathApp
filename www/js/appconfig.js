@@ -1,6 +1,7 @@
 ﻿angular.module('BathApp.config', [])
    .constant('config', {
        'bathDataWS': 'http://localhost:62735/BathData.svc/GetAllData',
+       'addressWS': 'http://localhost:62735/BathData.svc/GetAddress',
        'reportsWS': 'http://localhost:62735/Open311ReportWS.svc',
        'planningWS': 'http://localhost:62735/PlanningComments.svc',
        'mapLayerConfigWS': 'http://localhost:62735/BathData.svc/GetAvailableMapLayers',

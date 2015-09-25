@@ -31,7 +31,7 @@ angular.module('MyBath.UserDataService', [])
         fetchUprn: function (postcode) {
             var addressData = [];
             var addressData_q = $q.defer();
-            $http.post(config.bathDataWS + "/GetAddress", { searchString: postcode })
+            $http.post(config.addressWS, { searchString: postcode })
                 .success(function (data, status, headers, config) {
                     addressData = JSON.parse(data.GetAddressResult);
                     if (data && data != []) {

@@ -12,7 +12,7 @@
                 &nbsp;
                 {{category}}
             </ion-item>
-            <ul class="list" ng-show="isGroupShown($index)">
+            <ul class="list" ng-if="isGroupShown($index)">
                 <li class="item item-toggle" ng-repeat="(layerName,layer) in mapLayers | mapCategoryItems:category">
                     {{layer.displayName}}
                     <label class="toggle toggle-balanced">
