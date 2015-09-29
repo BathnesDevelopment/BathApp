@@ -27,14 +27,10 @@
                             <h2 ng-bind-html="dataRow.Name | title"></h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
-                        <div class="item item-text-wrap">
-                            <p>
-                                <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : <span ng-bind-html="data"></span><br />
-                                </span>
-                            </p>
-                        </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
+                            <a class="tab-item" ng-click="showItemPopup({{dataRow}})">
+                                <i class="icon positive ion-information-circled"></i> Info
+                            </a>
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>
@@ -72,14 +68,10 @@
                             <h2 ng-bind-html="dataRow.Name | title"></h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
-                        <div class="item item-text-wrap">
-                            <p>
-                                <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : <span ng-bind-html="data"></span><br />
-                                </span>
-                            </p>
-                        </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
+                            <a class="tab-item" ng-click="showItemPopup(dataRow)">
+                                <i class="icon positive ion-information-circled"></i> Info
+                            </a>
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
                             </a>

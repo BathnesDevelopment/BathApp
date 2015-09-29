@@ -21,6 +21,20 @@
                         </a>
                     </div>
                 </div>
+                <h5 class="card-header" ng-if="userData.uprn"><i class="ion-person"></i> Personal details</h5>
+                <div class="card" ng-if="userData.uprn">
+                    <div class="item item-text-wrap top-calm">
+                        <h2 ng-if="userData.firstname">{{ userData.firstname + ' ' + userData.lastname }}</h2>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <p>This page displays any details held about you on this device.  To clear the data held on the device, use the link below.</p>
+                    </div>
+                    <div class="item item-divider tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="deleteData()">
+                            <i class="icon assertive ion-android-delete"></i> Remove all data
+                        </a>
+                    </div>
+                </div>
                 <h5 class="card-header" ng-if="news && news['Council news'] && news['Council news'][0]"><i class="fa fa-newspaper-o"></i> Latest news</h5>
                 <div class="card">
                     <div class="item item-text-wrap top-calm">
@@ -35,20 +49,6 @@
                         </a>
                         <a class="tab-item" ng-click="updateNews()">
                             <i class="icon balanced ion-refresh"></i> Refresh
-                        </a>
-                    </div>
-                </div>
-                <h5 class="card-header" ng-if="userData.uprn"><i class="ion-person"></i> Personal details</h5>
-                <div class="card" ng-if="userData.uprn">
-                    <div class="item item-text-wrap top-calm">
-                        <h2 ng-if="userData.firstname">{{ userData.firstname + ' ' + userData.lastname }}</h2>
-                    </div>
-                    <div class="item item-text-wrap">
-                        <p>Information about any details held about you on this device.  To clear the data held on the device, use the link below.</p>
-                    </div>
-                    <div class="item item-divider tabs tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="deleteData()">
-                            <i class="icon assertive ion-android-delete"></i> Remove all data
                         </a>
                     </div>
                 </div>

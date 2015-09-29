@@ -57,12 +57,22 @@ angular.module('MyBath.BathAppController', [])
                     return d3.format(',.0f')(d);
                 }
             },
+            multibar: {
+                dispatch: {
+                    elementClick: function (e) {
+                        var html = '<h3>' + e.point.status + '</h3>';
+                        html += '<p>Spaces: ' + e.point.value + '</p>'
+                        html += '<p>Capacity: ' + e.point.capacity + '</p>';
+                        html += '<p>Last updated: ' + e.point.lastUpdated + '</p>';
+                        $scope.showPopup(e.point.label, html);
+                    }
+                }
+            },
             margin: { left: 110 },
             barColor: function (d, i) {
                 var color = '#387ef5';
-                if (d.value < 100) color = '#ffc900';
-                if (d.value < 50) color = '#ef473a';
-
+                if (d.value < 150) color = '#ffc900';
+                if (d.value < 70) color = '#ef473a';
                 return color;
             }
         }
@@ -513,6 +523,23 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: showItemPopup
+    // Shows an item popup - shows information about the item and provides various links
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.showItemPopup = function (item) {
+        var alertPopup = $ionicPopup.alert({
+            title: item.Name,
+            template: '',
+            buttons: [{
+                text: '<i class="ion-android-done"></i> Dismiss',
+                type: 'button-clear button-full button-positive'
+            }]
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: deleteData
     // Removes the user's registered data
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -753,7 +780,8 @@ angular.module('MyBath.BathAppController', [])
                                 // Only show if car park updated within last 30 mins
                                 if (data.carParks[carPark] && moment().diff(moment(data.carParks[carPark]['last updated']), 'minutes') < 15) {
                                     var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
-                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces });
+                                    if (numberOfSpaces < 0) numberOfSpaces = 0;
+                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces, "status": data.carParks[carPark].Status, "capacity": data.carParks[carPark].Capacity, "lastUpdated": data.carParks[carPark]['Last updated'] });
                                 }
                             }
                             $scope.refreshingCarParks = false;
@@ -766,8 +794,8 @@ angular.module('MyBath.BathAppController', [])
     };
     $scope.updateCarParks();
     // Need this to refresh the chart when moving back to the page.
-    $scope.$on('$ionicView.beforeEnter', function () {
-        $scope.chart.update();
+    $scope.$on('$ionicView.loaded', function (e) {
+        if (this.location.search.indexOf('/home') != -1) $scope.chart.update();
     });
 
     /////////////////////////////////////////////////////////////////////////////////////////////
