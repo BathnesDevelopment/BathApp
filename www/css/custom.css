@@ -9,6 +9,8 @@ header h1 {
 .card-header {
     margin: 20px 10px !important;
     text-transform: uppercase !important;
+    color: #ccc;
+    font-weight: 700;
 }
 
 ion-side-menu.menu-left.menu {
@@ -23,28 +25,57 @@ ion-side-menu.menu-left.menu {
     border-top: 4px solid #387ef5 !important;
 }
 
+.top-positive h2, .top-positive h1 {
+    color: #387ef5 !important;
+}
+
+
 .top-calm {
     border-top: 4px solid #11c1f3 !important;
+}
+
+.top-calm h2, .top-calm h1 {
+    color: #11c1f3 !important;
 }
 
 .top-assertive {
     border-top: 4px solid #ef473a !important;
 }
 
+.top-assertive h2, .top-assertive h1 {
+    color: #ef473a !important;
+}
+
 .top-balanced {
     border-top: 4px solid #33cd5f !important;
+}
+
+.top-balanced h2, .top-balanced h1 {
+    color: #33cd5f !important;
 }
 
 .top-energized {
     border-top: 4px solid #ffc900 !important;
 }
 
+.top-energized h2, .top-energized h1 {
+    color: #ffc900 !important;
+}
+
 .top-royal {
     border-top: 4px solid #886aea !important;
 }
 
+.top-royal h2, .top-royal h1 {
+    color: #886aea !important;
+}
+
 .top-dark {
     border-top: 4px solid #444444 !important;
+}
+
+.top-dark h2, .top-dark h1 {
+    color: #444444 !important;
 }
 
 i.listIcons {
@@ -104,6 +135,10 @@ This happens on portrait phone screens, and is unhelpful at best
 */
 .item, .item h1, .item h2, .item h3, .item h4, .item h5, .item h6, .item p, .item-content, .item-content h1, .item-content h2, .item-content h3, .item-content h4, .item-content h5, .item-content h6, .item-content p {
     white-space: normal;
+}
+
+.item h2 {
+    font-weight: 700;
 }
 
 #divLogo img {

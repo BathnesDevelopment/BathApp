@@ -57,7 +57,7 @@ angular.module('MyBath.BathAppController', [])
                     return d3.format(',.0f')(d);
                 }
             },
-            margin: { left: 120 },
+            margin: { left: 110 },
             barColor: function (d, i) {
                 var color = '#387ef5';
                 if (d.value < 100) color = '#ffc900';
@@ -765,6 +765,10 @@ angular.module('MyBath.BathAppController', [])
         }
     };
     $scope.updateCarParks();
+    // Need this to refresh the chart when moving back to the page.
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.chart.update();
+    });
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: updateNews

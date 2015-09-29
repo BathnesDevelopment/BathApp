@@ -8,8 +8,8 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-divider top-calm">
-                        My council
+                    <div class="item item-text-wrap top-calm">
+                        <h1>My council</h1>
                     </div>
                     <div class="item">
                         <p>Details about local government in your area, and how to contact the Council.</p>
@@ -23,8 +23,8 @@
                 <div ng-repeat="(key, data) in (myCouncil | splitObject:'left')">
                     <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
-                            {{ dataRow.Name | title }}
+                        <div class="item item-text-wrap top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
+                            <h2>{{ dataRow.Name | title }}</h2>
                         </div>
                         <div class="item item-text-wrap" ng-if="key != 'Councillors'">
                             <p>
@@ -70,8 +70,8 @@
             </div>
             <div class="col">
                 <div class="card" ng-if="!userData.uprn">
-                    <div class="item item-divider top-assertive">
-                        No details or location set
+                    <div class="item item-text-wrap top-assertive">
+                        <h2>No details or location set</h2>
                     </div>
                     <div class="item item-text-wrap">
                         <p>To begin using this app you need to register and set a location.  Personal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
@@ -85,8 +85,8 @@
                 <div ng-repeat="(key, data) in (myCouncil | splitObject:'right')">
                     <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
-                        <div class="item item-divider top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
-                            {{ dataRow.Name | title }}
+                        <div class="item item-text-wrap top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
+                            <h2>{{ dataRow.Name | title }}</h2>
                         </div>
                         <div class="item item-text-wrap" ng-if="key != 'Councillors'">
                             <p>

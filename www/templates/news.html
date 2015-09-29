@@ -8,8 +8,8 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-divider top-calm">
-                        News
+                    <div class="item item-text-wrap top-calm">
+                        <h1>News</h1>
                     </div>
                     <div class="item">
                         <p>Council and democracy news stories.</p>
@@ -23,12 +23,13 @@
                         </a>
                     </div>
                 </div>
+                <h5 class="card-header"><i class="fa fa-newspaper-o"></i> Council news</h5>
                 <div class="card" ng-repeat="newsItem in news['Council news']">
-                    <div class="item item-divider top-balanced">
-                        {{ newsItem.Name }}
+                    <div class="item item-text-wrap top-balanced">
+                        <h2>{{ newsItem.Name }}</h2>
                     </div>
                     <div class="item item-text-wrap">
-                        <p>{{ newsItem.Summary }}</p>
+                        <p ng-bind-html="newsItem.Summary"></p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
                         <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">
@@ -38,12 +39,13 @@
                 </div>
             </div>
             <div class="col">
+                <h5 class="card-header"><i class="fa fa-newspaper-o"></i> Democracy news</h5>
                 <div class="card" ng-repeat="newsItem in news['Democracy news']">
-                    <div class="item item-divider top-royal">
-                        {{ newsItem.Name }}
+                    <div class="item item-text-wrap top-royal">
+                        <h2>{{ newsItem.Name }}</h2>
                     </div>
                     <div class="item item-text-wrap">
-                        <p>{{ newsItem.Summary }}</p>
+                        <p ng-bind-html="newsItem.Summary"></p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
                         <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">

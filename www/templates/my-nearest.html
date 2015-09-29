@@ -8,8 +8,8 @@
         <div class="row responsive-sm">
             <div class="col">
                 <div class="card">
-                    <div class="item item-divider top-calm">
-                        My nearest
+                    <div class="item item-text-wrap top-calm">
+                        <h1>My nearest</h1>
                     </div>
                     <div class="item">
                         <p>This page shows locations of interest near to your registered location.</p>
@@ -23,14 +23,14 @@
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
-                        <div class="item item-divider top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
-                            {{ dataRow.Name | title }}
+                        <div class="item item-text-wrap top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
+                            <h2 ng-bind-html="dataRow.Name | title"></h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : <span ng-bind-html="data"></span><br />
                                 </span>
                             </p>
                         </div>
@@ -53,8 +53,8 @@
             </div>
             <div class="col">
                 <div class="card" ng-if="!userData.uprn">
-                    <div class="item item-divider top-assertive">
-                        No details or location set
+                    <div class="item item-text-wrap top-assertive">
+                        <h2>No details or location set</h2>
                     </div>
                     <div class="item item-text-wrap">
                         <p>To begin using this app you need to register and set a location.  Personal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
@@ -68,14 +68,14 @@
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'right')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
-                        <div class="item item-divider top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
-                            {{ dataRow.Name | title }}
+                        <div class="item item-text-wrap top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
+                            <h2 ng-bind-html="dataRow.Name | title"></h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item item-text-wrap">
                             <p>
                                 <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : {{ data }} <br />
+                                    <strong>{{ key }}</strong> : <span ng-bind-html="data"></span><br />
                                 </span>
                             </p>
                         </div>
