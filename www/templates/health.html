@@ -9,10 +9,10 @@
             <div class="col">
                 <div class="card">
                     <div class="item item-text-wrap top-calm">
-                        <h1>Health providers</h1>
+                        <h1>Health Providers</h1>
                     </div>
                     <div class="item">
-                        <p>Health provider links in Bath and North East Somerset</p>
+                        <p>Health provider links in Bath and North East Somerset.</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
 
@@ -24,13 +24,6 @@
                         <div class="item item-text-wrap top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
                             <h2>{{ dataRow.Name | title }}</h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
-                        </div>
-                        <div class="item item-text-wrap">
-                            <p>
-                                <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : {{ data }} <br />
-                                </span>
-                            </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
@@ -69,13 +62,6 @@
                         <div class="item item-text-wrap top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
                             <h2>{{ dataRow.Name | title }}</h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
-                        </div>
-                        <div class="item item-text-wrap">
-                            <p>
-                                <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : {{ data }} <br />
-                                </span>
-                            </p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">

@@ -9,20 +9,18 @@
             <div class="col">
                 <div class="card">
                     <div class="item item-text-wrap top-calm">
-                        <h1>My house</h1>
+                        <h1>My House</h1>
                     </div>
                     <div class="item item-text-wrap">
                         <p>This page shows information about your registered location.</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                        <a class="tab-item" ng-click="displayOptions()">
-                            <i class="icon ion-android-settings assertive"></i> Display options
-                        </a>
+
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'left')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != '' && userData.displayCategories[dataRow.Category]">
+                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
                         <div class="item item-text-wrap top-balanced">
                             <h2>{{ dataRow.Name | title }}</h2>
                         </div>
@@ -60,7 +58,7 @@
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'right')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
-                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != '' && userData.displayCategories[dataRow.Category]">
+                    <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
                         <div class="item item-text-wrap top-balanced">
                             <h2>{{ dataRow.Name | title }}</h2>
                         </div>

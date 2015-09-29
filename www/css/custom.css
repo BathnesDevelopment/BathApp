@@ -224,3 +224,8 @@ ion-content.scroll-content.ionic-scroll {
 .leaflet-layers.active.following a {
     color: #FC8428;
 }
+
+.big {
+    font-size: 28px;
+    font-weight: 700;
+}

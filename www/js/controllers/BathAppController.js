@@ -60,14 +60,16 @@ angular.module('MyBath.BathAppController', [])
             multibar: {
                 dispatch: {
                     elementClick: function (e) {
-                        var html = '<h3>' + e.point.status + '</h3>';
-                        html += '<p>Spaces: ' + e.point.value + '</p>'
-                        html += '<p>Capacity: ' + e.point.capacity + '</p>';
-                        html += '<p>Last updated: ' + e.point.lastUpdated + '</p>';
+                        var html = '<div class="row"><div class="col big">' + e.point.status + '</div></div>';
+                        html += '<div class="row"><div class="col"><small>Spaces</small></div><div class="col"><small>Capacity</small></div></div>';
+                        html += '<div class="row"><div class="col big">' + e.point.value + '</div><div class="col big">' + e.point.capacity + '</div></div>';
+                        html += '<div class="row"><div class="col"><small>Last updated</small></div></div>';
+                        html += '<div class="row"><div class="col">' + moment(e.point.lastUpdated, 'DD/MM/YYYY hh:mm:ss').fromNow() + '</div></div>';
                         $scope.showPopup(e.point.label, html);
                     }
                 }
             },
+            tooltips: false,
             margin: { left: 110 },
             barColor: function (d, i) {
                 var color = '#387ef5';
