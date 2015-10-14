@@ -19,17 +19,34 @@
             <h1 class="title">Menu</h1>
         </ion-header-bar>
         <ion-content>
+            <div id="divLogo" class="item item-image">
+                <img src="images/logo.svg" />
+            </div>
+            <div class="item tabs item-divider tabs-primary tabs-icon-left">
+                <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
+                    <i class="icon positive ion-information-circled"></i> Info
+                </a>
+                <a class="tab-item" ng-click="textTo('07904649678','Bath app message: ')">
+                    <i class="icon energized ion-android-textsms"></i> Text
+                </a>
+                <a class="tab-item" ng-click="emailTo('councilconnect@bathnes.gov.uk')">
+                    <i class="icon royal ion-at"></i> Email
+                </a>
+                <a class="tab-item" ng-click="showCouncilConnectPopup()">
+                    <i class="icon balanced ion-ios-telephone"></i> Call
+                </a>
+            </div>
             <ul class="list">
                 <li><a href="#/menu/home" class="item" menu-close>Home</a></li>
                 <li class="item item-divider">The Council</li>
-				<li><a href="#/menu/news" class="item" menu-close>News</a></li>
+                <li><a href="#/menu/news" class="item" menu-close>News</a></li>
                 <li><a href="#/menu/mycouncil" class="item" menu-close>My Council</a></li>
                 <li class="item item-divider">Your environment</li>
                 <li><a href="#/menu/house" class="item" menu-close>My House</a></li>
-                <li><a href="#/menu/reports" class="item" menu-close>Report Isuue</a></li>
+                <li><a href="#/menu/reports" class="item" menu-close>Report Issue</a></li>
                 <li class="item item-divider">Nearest</li>
                 <li><a href="#/menu/local" class="item" menu-close>My Nearest</a></li>
-				<li><a href="#/menu/health" class="item" menu-close>Health providers</a></li>
+                <li><a href="#/menu/health" class="item" menu-close>Health providers</a></li>
                 <li class="item item-divider">Out and about</li>
                 <li><a href="#/menu/map" class="item" menu-close>Local Map</a></li>
             </ul>

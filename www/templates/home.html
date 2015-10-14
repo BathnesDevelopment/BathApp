@@ -2,25 +2,6 @@
     <ion-content padding="false">
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div id="divLogo" class="item item-image">
-                        <img src="images/logo.svg" />
-                    </div>
-                    <div class="item tabs item-divider tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
-                            <i class="icon positive ion-information-circled"></i> Info
-                        </a>
-                        <a class="tab-item" ng-click="textTo('07904649678','Bath app message: ')">
-                            <i class="icon energized ion-android-textsms"></i> Text
-                        </a>
-                        <a class="tab-item" ng-click="emailTo('councilconnect@bathnes.gov.uk')">
-                            <i class="icon royal ion-at"></i> Email
-                        </a>
-                        <a class="tab-item" ng-click="showCouncilConnectPopup()">
-                            <i class="icon balanced ion-ios-telephone"></i> Call
-                        </a>
-                    </div>
-                </div>
                 <h5 class="card-header" ng-if="!userData.uprn"><i class="ion-location"></i> Location</h5>
                 <div class="card" ng-if="!userData.uprn">
                     <div class="item item-text-wrap top-assertive">
