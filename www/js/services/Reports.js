@@ -8,6 +8,16 @@ angular.module('MyBath.ReportsService', [])
             }
             return [];
         },
+        getServices: function () {
+            $http.get(config.reportsWS + "/ServicesFull")
+                .success(function (data, status, headers, config) {
+
+
+                })
+                .error(function (data, status, headers, config) {
+                    
+                });
+        },
         saveReports: function (reports) {
             window.localStorage.reports = angular.toJson(reports);
         },
@@ -52,7 +62,6 @@ angular.module('MyBath.ReportsService', [])
                             "media_url": ""
                         });
                     }
-                    
                 }
             }
             

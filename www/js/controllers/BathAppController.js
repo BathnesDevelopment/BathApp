@@ -20,6 +20,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.myNearest = BathData.getMyNearest();
     $scope.myHouse = BathData.getMyHouse();
     $scope.health = BathData.getHealth();
+    $scope.reportServices = Reports.getServices();
 
     $scope.reportMap = {
         defaults: {
