@@ -4,16 +4,11 @@
         <button class="button button-clear button-balanced" ng-click="closeMapDisplayOptions()"><i class="ion-android-done"></i> Update</button>
     </ion-header-bar>
     <ion-content>
-        <div ng-repeat="category in mapLayers | mapCategories:'category'">
-            <ion-item class="item-stable"
-                      ng-click="toggleGroup($index)"
-                      ng-class="{active: isGroupShown($index)}">
-                <i class="icon" ng-class="isGroupShown($index) ? 'ion-minus' : 'ion-plus'"></i>
-                &nbsp;
-                {{category}}
-            </ion-item>
-            <ul class="list" ng-if="isGroupShown($index)">
-                <li class="item item-toggle" ng-repeat="(layerName,layer) in mapLayers | mapCategoryItems:category">
+        <p ng-if="!mapLayers !! mapLayers.length == 0">There are currently no available map options.</p>
+        <div ng-repeat="category in mapLayers | mapCategories:'category'" ng-if="mapLayers && mapLayers.length > 0">
+            <ion-item class="item item-divider">{{category}}</ion-item>
+            <ul class="list">
+                <li class="item item-toggle" ng-repeat="(layerName, layer) in mapLayers | mapCategoryItems:category">
                     {{layer.displayName}}
                     <label class="toggle toggle-balanced">
                         <input type="checkbox" ng-model="userData.MapDisplay[layerName]">

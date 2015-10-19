@@ -40,7 +40,7 @@ angular.module('MyBath.LiveTravelService', [])
                 })
                 .error(function (data, status, headers, config) {
                     liveTravel = "Failed";
-                    liveTravel_q.resolve(bathData);
+                    liveTravel_q.resolve(liveTravel);
                 });
             return liveTravel_q.promise;
         },

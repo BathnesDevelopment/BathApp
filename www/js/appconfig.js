@@ -1,11 +1,11 @@
 ﻿angular.module('BathApp.config', [])
    .constant('config', {
-       'bathDataWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetAllData',
-       'addressWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetAddress',
-       'reportsWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/Open311ReportWS.svc',
-       'planningWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/PlanningComments.svc',
-       'mapLayerConfigWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetAvailableMapLayers',
-       'mapLayerWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetMapLayer/',
-       'newsWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetNews',
-       'liveTravelWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetLiveTravel'
+       'bathDataWS': 'http://localhost:62735/BathData.svc/GetAllData',
+       'addressWS': 'http://localhost:62735/BathData.svc/GetAddress',
+       'reportsWS': 'http://localhost:62735/Open311ReportWS.svc',
+       'planningWS': 'http://localhost:62735/PlanningComments.svc',
+       'mapLayerConfigWS': 'http://localhost:62735/BathData.svc/GetAvailableMapLayers',
+       'mapLayerWS': 'http://localhost:62735/BathData.svc/GetMapLayer/',
+       'newsWS': 'http://localhost:62735/BathData.svc/GetNews',
+       'liveTravelWS': 'http://localhost:62735/BathData.svc/GetLiveTravel'
 });

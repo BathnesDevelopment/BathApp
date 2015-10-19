@@ -9,14 +9,22 @@ angular.module('MyBath.ReportsService', [])
             return [];
         },
         getServices: function () {
-            $http.get(config.reportsWS + "/ServicesFull")
+
+            var servicesResponse = [];
+            var servicesResponse_q = $q.defer();
+            var reportServices = [];
+
+            $http.get(config.reportsWS + "/ServicesFull.json")
                 .success(function (data, status, headers, config) {
-
-
+                    reportServices = data;
+                    window.localStorage.reportServices = data;
+                    servicesResponse_q.resolve(reportServices);
                 })
                 .error(function (data, status, headers, config) {
-                    
+                    servicesResponse_q.resolve(reportServices);
                 });
+
+            return servicesResponse_q.promise;
         },
         saveReports: function (reports) {
             window.localStorage.reports = angular.toJson(reports);

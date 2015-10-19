@@ -1,26 +1,22 @@
 <div class="modal">
     <ion-header-bar class="bar-light">
-        <button class="button button-clear button-stable" ng-click="reportItModal.hide()"><i class="ion-android-close"></i> Cancel</button>
+        <button class="button button-clear button-stable" ng-click="reportItCategoryModal.hide()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Report It</h1>
-        <button class="button button-clear button-positive" ng-click="submitReportItPage1(currentReport)"><i class="ion-android-done"></i> Next</button>
+        <button class="button button-clear button-positive" ng-click="submitReportItCategory(currentReport)"><i class="ion-android-done"></i> Next</button>
     </ion-header-bar>
     <ion-content>
         <div class="list list-inset">
-            <h3>Report</h3>
-            <p>Complete details for your report to the Council.  Select a category of report and fill in a description of the issue.</p>
-            <p><strong>Note: For this Alpha release, these reports will be for test purposes only!</strong></p>
-            <form ng-submit="submitReportItPage1(currentReport)">
+            <h3>Report Issue</h3>
+            <p ng-if="reportServices && reportServices.length > 0">Select a category and then select Next to complete your report.</p>
+            <p ng-if="!reportServices || reportServices.length == 0">There are currently no available categories of report.</p>
+            <form ng-submit="submitReportItPage1(currentReport)" ng-if="reportServices != []">
                 <div class="list">
-                    <label class="item item-input item-select">
-                        <div class="input-label">
-                            Category of report
+                    <label class="item item-radio" ng-repeat="service in reportServices">
+                        <input type="radio" name="service_code" ng-model="currentReport.service_code" ng-value="service.service_code" required>
+                        <div class="item-content">
+                            {{ service.service_name }}
                         </div>
-                        <select ng-model="currentReport.service_code">
-                            <option ng-repeat="service in reportServices" value="{{ service.service_code }}">{{ service.service_name }}</option>
-                        </select>
-                    </label>
-                    <label class="item item-input">
-                        <textarea placeholder="Description" ng-model="currentReport.description"></textarea>
+                        <i class="radio-icon ion-checkmark"></i>
                     </label>
                 </div>
             </form>

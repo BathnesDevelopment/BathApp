@@ -48,7 +48,7 @@
             </div>
             <div class="col">
                 <h5 class="card-header" ng-if="news && news['Council news'] && news['Council news'][0]"><i class="fa fa-newspaper-o"></i> Latest news</h5>
-                <div class="card">
+                <div class="card" ng-if="news && news['Council news'] && news['Council news'][0]">
                     <div class="item item-text-wrap top-calm">
                         <h2>{{ news['Council news'][0].Name }}</h2>
                     </div>

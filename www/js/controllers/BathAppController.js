@@ -20,7 +20,10 @@ angular.module('MyBath.BathAppController', [])
     $scope.myNearest = BathData.getMyNearest();
     $scope.myHouse = BathData.getMyHouse();
     $scope.health = BathData.getHealth();
-    $scope.reportServices = Reports.getServices();
+    $scope.reportServices = [];
+    Reports.getServices().then(function (reportServices) {
+        $scope.reportServices = reportServices;
+    });
 
     $scope.reportMap = {
         defaults: {
@@ -32,7 +35,7 @@ angular.module('MyBath.BathAppController', [])
             northEast: { lat: 51.439536, lng: -2.278544 },
             southWest: { lat: 51.273101, lng: -2.705955 }
         },
-        center: { lat: 51.3821440, lng: -2.3589420, zoom: 15 },
+        center: { lat: 51.3821440, lng: -2.3589420, zoom: 18 },
         markers: { reportItMarker: { lat: 0, lng: 0, focus: true, message: "Drag me to adjust position of report", draggable: true } }
     };
 
@@ -197,28 +200,47 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Modal: ReportIt
-    // The first report it screen
+    // Modal: ReportIt Category
+    // The first report it screen - user selects a category
     /////////////////////////////////////////////////////////////////////////////////////////////
     $ionicModal.fromTemplateUrl('templates/report-it-report.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.reportItModal = modal;
+        $scope.reportItCategoryModal = modal;
     });
     $scope.reportIt = function () {
-        $scope.reportItModal.show();
+        $scope.reportItCategoryModal.show();
     };
     $scope.closeReportIt = function () {
-        $scope.reportItModal.hide();
+        $scope.reportItCategoryModal.hide();
     };
     //Submit
-    $scope.submitReportItPage1 = function (report) {
+    $scope.submitReportItCategory = function (report) {
         $scope.currentReport.userFirstname = $scope.userData.firstname;
         $scope.currentReport.userLastname = $scope.userData.lastname;
         $scope.currentReport.userEmail = $scope.userData.email;
         $scope.currentReport.userPhone = $scope.userData.phone;
-        $scope.reportItModal.hide();
+        $scope.reportItCategoryModal.hide();
+        $scope.reportItDetailsModal.show();
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt Details
+    // The description field and any other custom fields
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $ionicModal.fromTemplateUrl('templates/report-it-details.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.reportItDetailsModal = modal;
+    });
+    $scope.closeReportIt = function () {
+        $scope.reportItDetailsModal.hide();
+    };
+    //Submit
+    $scope.submitReportItDetails = function (report) {
+        $scope.reportItDetailsModal.hide();
         $scope.reportItPhotoModal.show();
     };
 
@@ -239,12 +261,30 @@ angular.module('MyBath.BathAppController', [])
         $scope.reportItPhotoModal.hide();
     };
     // Submit
-    $scope.submitReportItPage2 = function (photo) {
+    $scope.submitReportItPhoto = function (photo) {
         $scope.reportItPhotoModal.hide();
         $ionicLoading.show({
             template: 'Finding location...'
         });
-        $scope.geoLocate();
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                $scope.currentLocation = position;
+                $scope.updateMap(position);
+                $ionicLoading.hide();
+                $scope.currentReport.useLocation = true;
+                $scope.currentReport.locationFound = true;
+                $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
+                $scope.reportItLocationModal.show();
+            },
+            function (error) {
+                $ionicLoading.hide();
+                $scope.currentReport.locationMessage = "Your location was not detected.";
+                $scope.currentReport.useLocation = false;
+                $scope.currentReport.locationFound = false;
+                $scope.reportItLocationModal.show();
+            },
+            { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,11 +305,13 @@ angular.module('MyBath.BathAppController', [])
         $scope.reportItLocationModal.hide();
     };
     // Submit
-    $scope.submitReportItPage3 = function (location) {
+    $scope.submitReportItLocation = function (location) {
         if ($scope.currentReport.useUserLocation) {
             $scope.currentReport.lat = $scope.currentLocation.coords.latitude;
             $scope.currentReport.long = $scope.currentLocation.coords.longitude;
         }
+
+
         $scope.reportItLocationModal.hide();
         $scope.reportItMapModal.show();
     };
@@ -292,7 +334,7 @@ angular.module('MyBath.BathAppController', [])
         $scope.reportItMapModal.hide();
     };
     // Submit
-    $scope.submitReportItPage4b = function (location) {
+    $scope.submitReportItMap = function (location) {
         $scope.currentReport.lat = $scope.reportMap.markers.reportItMarker.lat;
         $scope.currentReport.long = $scope.reportMap.markers.reportItMarker.lng;
         $scope.reportItMapModal.hide();
@@ -317,7 +359,7 @@ angular.module('MyBath.BathAppController', [])
         $scope.reportItPersonalModal.hide();
     };
     // Submit
-    $scope.submitReportItPage4 = function (report) {
+    $scope.submitReportItPersonal = function (report) {
         $scope.reportItPersonalModal.hide();
 
         // To do: deal with photos as a file.
@@ -943,37 +985,6 @@ angular.module('MyBath.BathAppController', [])
         $scope.reportMap.center.lng = position.coords.longitude;
         $scope.reportMap.markers.reportItMarker.lat = position.coords.latitude;
         $scope.reportMap.markers.reportItMarker.lng = position.coords.longitude;
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: geoLocate
-    // Stores the geolocation.
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.geoLocate = function () {
-
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                $scope.currentLocation = position;
-                $scope.updateMap(position);
-                $ionicLoading.hide();
-                $scope.currentReport.useLocation = true;
-                $scope.currentReport.locationFound = true;
-                $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
-                $scope.currentReport.lat = position.coords.latitude;
-                $scope.currentReport.long = position.coords.longitude;
-                // $scope.reportItLocationModal.show();
-                $scope.reportItPersonalModal.show();
-            },
-            function (error) {
-                $ionicLoading.hide();
-                $scope.currentReport.locationMessage = "Your location was not detected.";
-                $scope.currentReport.useLocation = false;
-                $scope.currentReport.locationFound = false;
-                // $scope.reportItLocationModal.show();
-                $scope.reportItPersonalModal.show();
-
-            },
-            { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
