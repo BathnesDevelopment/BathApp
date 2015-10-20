@@ -24,14 +24,8 @@
                     <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
                         <div class="item item-text-wrap top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
-                            <h2>{{ dataRow.Name | title }}</h2>
-                        </div>
-                        <div class="item item-text-wrap" ng-if="key != 'Councillors'">
-                            <p>
-                                <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : {{ data }} <br />
-                                </span>
-                            </p>
+                            <h2>{{ dataRow.Name }}</h2>
+                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item item-avatar" ng-if="key == 'Councillors'">
                             <img src="data:image/png;base64,{{ dataRow.photo }}">
@@ -86,14 +80,8 @@
                     <h5 class="card-header">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data">
                         <div class="item item-text-wrap top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
-                            <h2>{{ dataRow.Name | title }}</h2>
-                        </div>
-                        <div class="item item-text-wrap" ng-if="key != 'Councillors'">
-                            <p>
-                                <span ng-repeat="(key, data) in dataRow | generalProperties">
-                                    <strong>{{ key }}</strong> : {{ data }} <br />
-                                </span>
-                            </p>
+                            <h2>{{ dataRow.Name }}</h2>
+                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item item-avatar" ng-if="key == 'Councillors'">
                             <img src="data:image/png;base64,{{ dataRow.photo }}">

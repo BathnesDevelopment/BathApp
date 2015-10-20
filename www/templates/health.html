@@ -22,7 +22,7 @@
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
                         <div class="item item-text-wrap top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
-                            <h2>{{ dataRow.Name | title }}</h2>
+                            <h2>{{ dataRow.Name }}</h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
@@ -60,7 +60,7 @@
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
                         <div class="item item-text-wrap top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
-                            <h2>{{ dataRow.Name | title }}</h2>
+                            <h2>{{ dataRow.Name }}</h2>
                             <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">

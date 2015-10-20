@@ -572,13 +572,23 @@ angular.module('MyBath.BathAppController', [])
     // Shows an item popup - shows information about the item and provides various links
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.showItemPopup = function (item) {
+
+        var buttons = [{
+            text: '<i class="ion-android-done"></i> OK',
+            type: 'button-clear button-full button-positive'
+        }];
+        var template = '<div class="list card">';
+        angular.forEach(item, function (val, key) {
+            if (key == 'Address') template += '<div class="item item-icon-left"><small><i class="icon ion-home"></i>' + val + '</small></div>';
+            if (key == 'Consultation expiry') template += '<div class="item ion-calendar"><small><i class="icon ion-home"></i> Consultation expiry: ' + val + '</small></div>';
+            if (key == 'Proposal') template += '<div class="item item-icon-left"><small><i class="icon ion-help-circled"></i> Proposal:' + val + '</small></div>';
+        });
+        template += '</div>';
+
         var alertPopup = $ionicPopup.alert({
             title: item.Name,
-            template: '',
-            buttons: [{
-                text: '<i class="ion-android-done"></i> Dismiss',
-                type: 'button-clear button-full button-positive'
-            }]
+            template: template,
+            buttons: buttons
         });
         alertPopup.then(function (res) {
         });
@@ -1004,5 +1014,11 @@ angular.module('MyBath.BathAppController', [])
         } catch (err) {
             window.location.href = "mailto:councilconnect@bathnes.gov.uk";
         }
+    };
+
+
+    $scope.isEmpty = function (obj) {
+        for (var i in obj) if (i != '$$hashKey' && obj.hasOwnProperty(i)) return false;
+        return true;
     };
 });

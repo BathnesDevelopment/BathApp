@@ -29,9 +29,12 @@
                         <h2>{{ newsItem.Name }}</h2>
                     </div>
                     <div class="item item-text-wrap">
-                        <p ng-bind-html="newsItem.Summary"></p>
+                        <p ng-bind-html="(newsItem.Summary | limitTo:100)  + '&hellip;'"></p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                        <a class="tab-item" ng-click="showPopup('{{ newsItem.Name }}', '{{ newsItem.Summary }}')">
+                            <i class="icon positive ion-more"></i> Read more
+                        </a>
                         <a ng-if="newsItem.Website && newsItem.Website != ''" class="tab-item" ng-click="openWebsite('{{newsItem.Website}}')">
                             <i class="icon ion-android-open assertive"></i> Website
                         </a>
