@@ -9,7 +9,13 @@
             <h3>Details of Report</h3>
             <p>{{ currentReport.reportType.description }}</p>
             <form ng-submit="submitReportItDetails(currentReport)">
-
+                <div ng-repeat="attribute in currentReport.reportType.attributes">
+                    <p>{{ attribute.description }}</p>
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">{{ attribute.type_description }}</span>
+                        <textarea placeholder="Comment" ng-model="currentComment.body"></textarea>
+                    </label>
+                </div>
             </form>
         </div>
     </ion-content>
