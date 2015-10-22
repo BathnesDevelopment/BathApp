@@ -12,7 +12,7 @@
             <form ng-submit="submitReportItPage1(currentReport)" ng-if="reportServices != []">
                 <div class="list">
                     <label class="item item-radio" ng-repeat="service in reportServices">
-                        <input type="radio" name="service_code" ng-model="currentReport.service_code" ng-value="service.service_code" required>
+                        <input type="radio" name="service_code" ng-model="currentReport.service" ng-value="service" required>
                         <div class="item-content">
                             {{ service.service_name }}
                         </div>

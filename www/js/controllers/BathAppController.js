@@ -217,12 +217,14 @@ angular.module('MyBath.BathAppController', [])
     };
     //Submit
     $scope.submitReportItCategory = function (report) {
-        $scope.currentReport.userFirstname = $scope.userData.firstname;
-        $scope.currentReport.userLastname = $scope.userData.lastname;
-        $scope.currentReport.userEmail = $scope.userData.email;
-        $scope.currentReport.userPhone = $scope.userData.phone;
-        $scope.reportItCategoryModal.hide();
-        $scope.reportItDetailsModal.show();
+        if (report.service) {
+            $scope.currentReport.userFirstname = $scope.userData.firstname;
+            $scope.currentReport.userLastname = $scope.userData.lastname;
+            $scope.currentReport.userEmail = $scope.userData.email;
+            $scope.currentReport.userPhone = $scope.userData.phone;
+            $scope.reportItCategoryModal.hide();
+            $scope.reportItDetailsModal.show();
+        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////

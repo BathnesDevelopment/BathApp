@@ -11,6 +11,7 @@ To build, install cordova, then run:
 - $ cordova plugin add cordova-plugin-inappbrowser
 - $ cordova plugin add cordova-plugin-statusbar
 - $ cordova plugin add cordova-plugin-whitelist
+- $ cordova plugin add org.apache.cordova.network-information
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
 - $ ionic resources

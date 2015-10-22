@@ -2,19 +2,28 @@
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="reportItDetailsModal.hide()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Report It</h1>
-        <button class="button button-clear button-positive" ng-click="submitReportItPageDetails(currentReport)"><i class="ion-android-done"></i> Next</button>
+        <button class="button button-clear button-positive" ng-click="submitReportItDetails(currentReport)"><i class="ion-android-done"></i> Next</button>
     </ion-header-bar>
     <ion-content>
         <div class="list list-inset">
             <h3>Details of Report</h3>
-            <p>{{ currentReport.reportType.description }}</p>
+            <p>{{ currentReport.service.description }}</p>
             <form ng-submit="submitReportItDetails(currentReport)">
-                <div ng-repeat="attribute in currentReport.reportType.attributes">
-                    <p>{{ attribute.description }}</p>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">{{ attribute.type_description }}</span>
-                        <textarea placeholder="Comment" ng-model="currentComment.body"></textarea>
-                    </label>
+                <div class="list">
+                    <div ng-repeat="attribute in currentReport.service.attributes">
+                        <label class="item item-input item-stacked-label" ng-if="attribute.datatype == 'string'">
+                            <span class="input-label">{{ attribute.datatype_description }}</span>
+                            <input type="text" ng-model="currentReport.attributes[attribute.code]" placeholder="{{ attribute.description }}" />
+                        </label>
+                        <label class="item item-input item-select" ng-if="attribute.datatype == 'singlevaluelist'">
+                            <div class="input-label">
+                                {{ attribute.datatype_description }}
+                            </div>
+                            <select>
+                                <option ng-model="currentReport.attributes[attribute.code]" ng-value="opt.key" ng-repeat="opt in attribute.values">{{ opt.name }}</option>
+                            </select>
+                        </label>
+                    </div>
                 </div>
             </form>
         </div>
