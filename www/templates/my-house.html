@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'left')">
-                    <h5 class="card-header" ng-if="data[0]">{{ key }}</h5>
+                    <h5 class="card-header" ng-if="data && data[0] && !data[0].Info">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
                         <div class="item item-text-wrap top-balanced">
                             <h2 ng-bind-html="dataRow.Name"></h2>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'right')">
-                    <h5 class="card-header" ng-if="data[0]">{{ key }}</h5>
+                    <h5 class="card-header" ng-if="data && data[0] && !data[0].Info">{{ key }}</h5>
                     <div class="card" ng-repeat="dataRow in data" ng-if="dataRow.Name && dataRow.Name != ''">
                         <div class="item item-text-wrap top-royal">
                             <h2 ng-bind-html="dataRow.Name"></h2>

@@ -274,7 +274,6 @@ angular.module('MyBath.BathAppController', [])
                 $scope.currentLocation = position;
                 $scope.updateMap(position);
                 $ionicLoading.hide();
-                $scope.currentReport.useLocation = true;
                 $scope.currentReport.locationFound = true;
                 $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
                 $scope.reportItLocationModal.show();
@@ -282,7 +281,6 @@ angular.module('MyBath.BathAppController', [])
             function (error) {
                 $ionicLoading.hide();
                 $scope.currentReport.locationMessage = "Your location was not detected.";
-                $scope.currentReport.useLocation = false;
                 $scope.currentReport.locationFound = false;
                 $scope.reportItLocationModal.show();
             },
@@ -308,14 +306,25 @@ angular.module('MyBath.BathAppController', [])
     };
     // Submit
     $scope.submitReportItLocation = function (location) {
-        if ($scope.currentReport.useUserLocation) {
+        $scope.reportItLocationModal.hide();
+
+        if ($scope.currentReport.userLocationOption == 'useDetected') {
             $scope.currentReport.lat = $scope.currentLocation.coords.latitude;
             $scope.currentReport.long = $scope.currentLocation.coords.longitude;
+            $scope.reportItPersonal();
         }
 
+        if ($scope.currentReport.userLocationOption == 'newAddress') {
+            
+        }
 
-        $scope.reportItLocationModal.hide();
-        $scope.reportItMapModal.show();
+        if ($scope.currentReport.userLocationOption == 'userAddress') {
+            $scope.reportItMap();
+        }
+
+        if ($scope.currentReport.userLocationOption == 'mapLocation') {
+
+        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -330,7 +339,6 @@ angular.module('MyBath.BathAppController', [])
     });
     $scope.reportItMap = function () {
         $scope.reportItMapModal.show();
-
     };
     $scope.closeReportItMap = function () {
         $scope.reportItMapModal.hide();
