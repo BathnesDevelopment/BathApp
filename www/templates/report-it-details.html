@@ -20,7 +20,7 @@
                                 {{ attribute.datatype_description }}
                             </div>
                             <select>
-                                <option ng-model="currentReport.attributes[attribute.code]" ng-value="opt.key" ng-repeat="opt in attribute.values">{{ opt.name }}</option>
+                                <option ng-model="currentReport.attributes[attribute.code]" value="opt.key" ng-repeat="opt in attribute.values">{{ opt.name }}</option>
                             </select>
                         </label>
                     </div>

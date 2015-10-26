@@ -11,21 +11,21 @@
             <form ng-submit="submitReportItPage3(currentReport)">
                 <div class="list">
                     <label class="item item-radio">
-                        <input type="radio" ng-value="useDetected" name="reportLocation" ng-model="currentReport.userLocationOption">
+                        <input type="radio" value="useDetected" name="reportLocation" ng-model="currentReport.userLocationOption">
                         <div class="item-content">
                             Use my current location for report location
                         </div>
                         <i class="radio-icon ion-checkmark"></i>
                     </label>
-                    <!--<label class="item item-radio">
-                        <input type="radio" ng-value="newAddress" name="reportLocation" ng-model="currentReport.userLocationOption">
+                    <label class="item item-radio">
+                        <input type="radio" value="newAddress" name="reportLocation" ng-model="currentReport.userLocationOption">
                         <div class="item-content">
                             Set a new address for the location
                         </div>
                         <i class="radio-icon ion-checkmark"></i>
-                    </label>-->
+                    </label>
                     <label class="item item-radio" ng-if="userDetails.address != null">
-                        <input type="radio" ng-value="userAddress" name="reportLocation" ng-model="currentReport.userLocationOption">
+                        <input type="radio" value="userAddress" name="reportLocation" ng-model="currentReport.userLocationOption">
                         <div class="item-content">
                             Use my saved address details ({{ userDetails.address }})
                         </div>

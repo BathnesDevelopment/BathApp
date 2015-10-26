@@ -54,35 +54,39 @@ angular.module('MyBath.ReportsService', [])
                     // Build up the data object
                     if (reportsArray[index].status == 'Not sent') {
                         reportsData.push({
-                            "service_code": reportsArray[index].type,
-                            "attribute": null,
+                            "service_code": reportsArray[index].service.service_code,
+                            "attribute": reportsArray[index].attributes,
                             "lat": reportsArray[index].lat,
                             "long": reportsArray[index].long,
-                            "address_string": "",
-                            "address_id": reportsArray[index].userAddress,
+                            "address_string": null,
+                            "address_id": null,
                             "email": reportsArray[index].userEmail,
-                            "device_id": "device",
-                            "account_id": "",
+                            "device_id": null,
+                            "account_id": null,
                             "first_name": reportsArray[index].userFirstname,
                             "last_name": reportsArray[index].userLastname,
                             "phone": reportsArray[index].userPhone,
                             "description": reportsArray[index].description,
-                            "media_url": ""
+                            // We're using the media url here for the actual photo content.
+                            // This isn't official Open 311 but we're calling a modified method anyway to submit multiple requests
+                            // Will also support 'normal' use
+                            "media_url": null
                         });
                     }
                 }
             }
-            
+
             // A single post to the web service can include all the reports.
             if (reportsData.length > 0) {
-                $http.post(config.reportsWS + "/CreateServiceRequests", { "request": reportsData })
+                $http.post(config.reportsWS + "/MultiRequests.json", reportsData )
                     .success(function (data, status, headers, config) {
-                        reportResponse = data.CreateServiceRequestsResult;
+                        reportResponse = data;
                         if (reportResponse && reportResponse.length > 0) {
                             // Set reports to done
                             for (index = 0; index < reportsArray.length; ++index) {
                                 // Build up the data object
                                 reportsArray[index].status = 'Sent';
+                                reportsArray[index].id = '';
                             }
                             window.localStorage.reports = angular.toJson(reportsArray);
                             reportResponse = reportsArray;
