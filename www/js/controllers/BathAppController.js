@@ -589,9 +589,10 @@ angular.module('MyBath.BathAppController', [])
         }];
         var template = '<div class="list card">';
         angular.forEach(item, function (val, key) {
-            if (key == 'Address') template += '<div class="item item-icon-left"><small><i class="icon ion-home"></i>' + val + '</small></div>';
-            if (key == 'Consultation expiry') template += '<div class="item ion-calendar"><small><i class="icon ion-home"></i> Consultation expiry: ' + val + '</small></div>';
-            if (key == 'Proposal') template += '<div class="item item-icon-left"><small><i class="icon ion-help-circled"></i> Proposal:' + val + '</small></div>';
+            if (!key.match("Name|Max|Min|Easting|Northing|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Category|hashKey")) {
+                template += '<div class="item item-icon-left"><small><i class="icon ion-home"></i><strong>' + key + '</strong> ' + val + (key == "Distance" ? " metres" : "") + '</small></div>';
+            }
+            
         });
         template += '</div>';
 

@@ -52,8 +52,8 @@ angular.module('MyBath.MapController', [])
         $scope.mapLayersByCategory = {};
         for (var layer in layers) {
             var cat = layers[layer]['category'];
-            if (!$scope.mapLayersByCategory[cat]) $scope.mapLayersByCategory[cat] = [];
-            $scope.mapLayersByCategory[cat].push(layers[layer]);
+            if (!$scope.mapLayersByCategory[cat]) $scope.mapLayersByCategory[cat] = {};
+            $scope.mapLayersByCategory[cat][layer] = layers[layer];
         }
 
     });
@@ -192,7 +192,7 @@ angular.module('MyBath.MapController', [])
                 },
                 onEachFeature: function (feature, layer) {
                     var popupString = '<strong>' + feature.properties.LayerDisplayName + '</strong><br/>';
-                    var exclusions = ['Colour', 'Distance', 'Icon', 'LayerName', 'LayerDisplayName'];
+                    var exclusions = ['Colour', 'Distance', 'Icon', 'LayerName', 'LayerDisplayName', 'Website'];
                     for (var key in feature.properties) {
                         if (exclusions.indexOf(key) == -1) popupString += '<strong>' + key + '</strong> ' + feature.properties[key] + '<br/>';
                     }

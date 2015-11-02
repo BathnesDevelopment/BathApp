@@ -96,7 +96,7 @@ angular.module('MyBath.BathAppFilters', [])
     return function (obj) {
         var filtered = {};
         for (var i = 0; i < Object.keys(obj).length; i++) {
-            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Mobile|Phone|Email|photo|Category")) {
+            if (!Object.keys(obj)[i].match("Name|Max|Min|Easting|Northing|Distance|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Mobile|Phone|Email|photo|Category|hashKey")) {
                 filtered[Object.keys(obj)[i]] = obj[Object.keys(obj)[i]];
             }
         }
