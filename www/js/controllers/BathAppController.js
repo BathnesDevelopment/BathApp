@@ -28,14 +28,14 @@ angular.module('MyBath.BathAppController', [])
     $scope.reportMap = {
         defaults: {
             tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
-            maxZoom: 20,
+            maxZoom: 16,
             zoomControlPosition: 'bottomleft'
         },
         maxbounds: {
             northEast: { lat: 51.439536, lng: -2.278544 },
             southWest: { lat: 51.273101, lng: -2.705955 }
         },
-        center: { lat: 51.3821440, lng: -2.3589420, zoom: 18 },
+        center: { lat: 51.3821440, lng: -2.3589420, zoom: 16 },
         markers: { reportItMarker: { lat: 0, lng: 0, focus: true, message: "Drag me to adjust position of report", draggable: true } }
     };
 

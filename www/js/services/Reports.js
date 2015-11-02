@@ -53,16 +53,21 @@ angular.module('MyBath.ReportsService', [])
                 for (index = 0; index < reportsArray.length; ++index) {
                     // Build up the data object
                     if (reportsArray[index].status == 'Not sent') {
+
+                        var attribute = [];
+
+                        angular.forEach(reportsArray[index].attributes, function (val, key) {
+                            attribute.push({ "Key": key, "Value": val });
+                        });
+
                         reportsData.push({
                             "service_code": reportsArray[index].service.service_code,
-                            "attribute": reportsArray[index].attributes,
+                            "attribute": attribute,
                             "lat": reportsArray[index].lat,
                             "long": reportsArray[index].long,
                             "address_string": null,
                             "address_id": null,
                             "email": reportsArray[index].userEmail,
-                            "device_id": null,
-                            "account_id": null,
                             "first_name": reportsArray[index].userFirstname,
                             "last_name": reportsArray[index].userLastname,
                             "phone": reportsArray[index].userPhone,

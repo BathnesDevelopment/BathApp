@@ -9,7 +9,7 @@ angular.module('MyBath.MapController', [])
     $scope.map = {
         defaults: {
             tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x' : '') + '.png',
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OSM</a> contributors, <a href="http://cartodb.com/attributions">CartoDB</a>',
+            attribution: '&copy; OSM contributors, CartoDB',
             attributionControl: false,
             maxZoom: 18,
             zoomControlPosition: 'bottomleft',
@@ -32,30 +32,10 @@ angular.module('MyBath.MapController', [])
         center: {
             lat: 51.3821440,
             lng: -2.3589420,
-            zoom: 14,
+            zoom: 16,
             autoDiscover: true,
         },
-        layers: {},
-        //geojson: {
-        //    data: { type: "FeatureCollection", features: [] },
-        //    style: function (feature) { return {}; },
-        //    pointToLayer: function (feature, latlng) {
-        //        var marker = L.AwesomeMarkers.icon({
-        //            icon: feature.properties.Icon,
-        //            prefix: 'fa',
-        //            markerColor: feature.properties.Colour
-        //        });
-        //        return L.marker(latlng, { icon: marker });
-        //    },
-        //    onEachFeature: function (feature, layer) {
-        //        var popupString = '<strong>' + feature.properties.LayerDisplayName + '</strong><br/>';
-        //        var exclusions = ['Colour', 'Distance', 'Icon', 'LayerName', 'LayerDisplayName'];
-        //        for (var key in feature.properties) {
-        //            if (exclusions.indexOf(key) == -1) popupString += '<strong>' + key + '</strong> ' + feature.properties[key] + '<br/>';
-        //        }
-        //        layer.bindPopup(popupString);
-        //    }
-        //}
+        layers: {}
     };
 
     $scope.geoJson = { type: "FeatureCollection", features: [] };
@@ -67,6 +47,15 @@ angular.module('MyBath.MapController', [])
     // Get the layer list for option display
     MapData.getLayers().then(function (layers) {
         $scope.mapLayers = layers;
+
+        // Group by category for purposes of display
+        $scope.mapLayersByCategory = {};
+        for (var layer in layers) {
+            var cat = layers[layer]['category'];
+            if (!$scope.mapLayersByCategory[cat]) $scope.mapLayersByCategory[cat] = [];
+            $scope.mapLayersByCategory[cat].push(layers[layer]);
+        }
+
     });
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +149,6 @@ angular.module('MyBath.MapController', [])
 
         if ($scope.markers != null) {
             $scope.markers.clearLayers();
-
         }
 
         $scope.markers = new L.MarkerClusterGroup();
