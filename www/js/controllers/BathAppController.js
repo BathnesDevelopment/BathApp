@@ -1,5 +1,5 @@
 angular.module('MyBath.BathAppController', [])
-.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $ionicPlatform, UserData, BathData, Reports, Comments, NewsData, LiveTravel, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
+.controller('BathAppController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaStatusbar, $cordovaCalendar, $cordovaCamera, $cordovaGeolocation, $ionicPlatform, UserData, BathData, Reports, Comments, NewsData, LiveTravel, $ionicSideMenuDelegate, $ionicActionSheet, $ionicPopup, DataTransformations) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -269,22 +269,22 @@ angular.module('MyBath.BathAppController', [])
             template: 'Finding location...'
         });
 
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                $scope.currentLocation = position;
-                $scope.updateMap(position);
-                $ionicLoading.hide();
-                $scope.currentReport.locationFound = true;
-                $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
-                $scope.reportItLocationModal.show();
-            },
-            function (error) {
-                $ionicLoading.hide();
-                $scope.currentReport.locationMessage = "Your location was not detected.";
-                $scope.currentReport.locationFound = false;
-                $scope.reportItLocationModal.show();
-            },
-            { maximumAge: 3000, timeout: 10000, enableHighAccuracy: true });
+        var posOptions = { timeout: 10000, enableHighAccuracy: false };
+        $cordovaGeolocation
+          .getCurrentPosition(posOptions)
+          .then(function (position) {
+              $scope.currentLocation = position;
+              $scope.updateMap(position);
+              $ionicLoading.hide();
+              $scope.currentReport.locationFound = true;
+              $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
+              $scope.reportItLocationModal.show();
+          }, function (error) {
+              $ionicLoading.hide();
+              $scope.currentReport.locationMessage = "Your location was not detected.";
+              $scope.currentReport.locationFound = false;
+              $scope.reportItLocationModal.show();
+          });
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -315,7 +315,7 @@ angular.module('MyBath.BathAppController', [])
         }
 
         if ($scope.currentReport.userLocationOption == 'newAddress') {
-            
+
         }
 
         if ($scope.currentReport.userLocationOption == 'userAddress') {
@@ -592,7 +592,7 @@ angular.module('MyBath.BathAppController', [])
             if (!key.match("Name|Max|Min|Easting|Northing|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Category|hashKey")) {
                 template += '<div class="item item-icon-left"><small><i class="icon ion-home"></i><strong>' + key + '</strong> ' + val + (key == "Distance" ? " metres" : "") + '</small></div>';
             }
-            
+
         });
         template += '</div>';
 
@@ -979,22 +979,31 @@ angular.module('MyBath.BathAppController', [])
     // Displays it to the user in photoTaken, which is by default aLinkcolor blank image
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.takePhoto = function () {
-        if (!navigator.camera) {
-            console.warn("navigator.camera is undefined");
-            return;
-        }
-        navigator.camera.getPicture(
-            function (imageURI) {
-                // saves to currentReport.photo
-                imageURI = "data:image/jpeg;base64," + imageURI;
-                $scope.$apply(function () {
-                    $scope.currentReport.photo = imageURI;
-                });
-            },
-            function (failMessage) {
-                // alert('Failed because: ' + message);
-            },
-            { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
+
+        var options = {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 100,
+            targetHeight: 100,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+
+            imageURI = "data:image/jpeg;base64," + imageURI;
+            $scope.$apply(function () {
+                $scope.currentReport.photo = imageURI;
+            });
+
+        }, function (err) {
+            // error
+        });
+
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
