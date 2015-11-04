@@ -11,6 +11,7 @@ To build, install cordova, then run:
 - $ cordova plugin add cordova-plugin-inappbrowser
 - $ cordova plugin add cordova-plugin-statusbar
 - $ cordova plugin add cordova-plugin-whitelist
+- $ cordova plugin add org.apache.cordova.file
 - $ cordova plugin add org.apache.cordova.network-information
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
@@ -27,9 +28,8 @@ The following plugins/technologies are used:
 
 - Ionic Framework
 - Cordova
-- Highcharts
-- Highcharts Angular
-- Highcharts standalone adapter
+- NVD3
+- NVD3 Angular
 - Leaflet
 - Leaflet angular
 - Font Awesome

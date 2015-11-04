@@ -1,10 +1,26 @@
 angular.module('MyBath.ReportsService', [])
-.factory('Reports', function ($http, $q, config) {
+.factory('Reports', function ($http, $q, config, $cordovaFile) {
     return {
         getReports: function () {
             var reports = window.localStorage.reports;
-            if (reports) {
-                return angular.fromJson(reports);
+
+            var reportJson = angular.fromJson(reports);
+            if (reportJson) {
+
+                // The photos are from a separate directory - we need to attach them to the object.
+                reportJson.forEach(function (report) {
+                    if (report.photo) {
+                        // Get the photo
+                        $cordovaFile.readAsDataURL(cordova.file.dataDirectory, $scope.inputs.readFile)
+                            .then(function (success) {
+                                report.photoData = success;
+                            }, function (error) {
+                                // Do nothing
+                            });
+                    }
+                });
+
+                return reportJson;
             }
             return [];
         },
@@ -27,6 +43,13 @@ angular.module('MyBath.ReportsService', [])
             return servicesResponse_q.promise;
         },
         saveReports: function (reports) {
+
+            // Whenever we save the reports we need to strip out the photo data 
+            // (it should already be saved away).
+            reports.forEach(function (report) {
+                if (report.photoData) delete report.photoData;
+            });
+
             window.localStorage.reports = angular.toJson(reports);
         },
         addReport: function (report) {
@@ -39,6 +62,17 @@ angular.module('MyBath.ReportsService', [])
             else {
                 reportsArray = [report];
             }
+
+            // If there's a photo then save it
+            if (report.photoData) {
+                $cordovaFile.writeFile(cordova.file.dataDirectory, report.photo, report.photoData, true)
+                    .then(function (success) {
+                        // No need to do anything 
+                    }, function (error) {
+                        // Do nothing.
+                    });
+            }
+
             window.localStorage.reports = angular.toJson(reportsArray);
         },
         submitReports: function () {
@@ -75,7 +109,7 @@ angular.module('MyBath.ReportsService', [])
                             // We're using the media url here for the actual photo content.
                             // This isn't official Open 311 but we're calling a modified method anyway to submit multiple requests
                             // Will also support 'normal' use
-                            "media_url": null
+                            "media_url": reportsArray[index].photoData
                         });
                     }
                 }
@@ -83,7 +117,7 @@ angular.module('MyBath.ReportsService', [])
 
             // A single post to the web service can include all the reports.
             if (reportsData.length > 0) {
-                $http.post(config.reportsWS + "/MultiRequests.json", reportsData )
+                $http.post(config.reportsWS + "/MultiRequests.json", reportsData)
                     .success(function (data, status, headers, config) {
                         reportResponse = data;
                         if (reportResponse && reportResponse.length > 0) {
