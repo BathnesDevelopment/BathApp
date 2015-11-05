@@ -12,10 +12,12 @@
                         <h1>Health Providers</h1>
                     </div>
                     <div class="item">
-                        <p>Health provider links in Bath and North East Somerset.</p>
+                        <p>Health provider links in Bath and North East Somerset.  Information provided by NHS Choices.</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-
+                        <a class="tab-item" ng-click="showPopup('Health providers', 'To see health provider links, a user location needs to be set within the app.  The links are provided via NHS Choices.')">
+                            <i class="icon positive ion-information-circled"></i> Info
+                        </a>
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (health | splitObject:'left')">
@@ -23,7 +25,7 @@
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
                         <div class="item item-text-wrap top-balanced" ng-if="dataRow.Name && dataRow.Name != ''">
                             <h2>{{ dataRow.Name }}</h2>
-                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                            <!--<p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>-->
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
@@ -61,7 +63,7 @@
                     <div class="card" ng-repeat="dataRow in data" ng-if="userData.displayCategories[dataRow.Category]">
                         <div class="item item-text-wrap top-royal" ng-if="dataRow.Name && dataRow.Name != ''">
                             <h2>{{ dataRow.Name }}</h2>
-                            <p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>
+                            <!--<p ng-if="dataRow.Distance && dataRow.Distance != ''">Distance: {{ dataRow.Distance | MetresToMiles }} miles</p>-->
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">

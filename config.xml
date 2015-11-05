@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="uk.gov.bathcouncil" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Residents app</name>
-  <description>&#xD;
-    A Bath and North East Somerset Council application for reporting issues and providing local data.&#xD;
+  <description>&#xD;&#xD;
+    A Bath and North East Somerset Council application for reporting issues and providing local data.&#xD;&#xD;
   </description>
   <author email="david_rowe@bathnes.gov.uk" href="http://www.bathnes.gov.uk"/>
   <content src="index.html"/>

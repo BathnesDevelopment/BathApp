@@ -578,13 +578,48 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: payForIt
+    // Presents the user with the various pay for it options (website redirect)
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.payForIt = function () {
+
+        // An elaborate, custom popup
+        $scope.payData = {};
+        var payPopUp = $ionicPopup.show({
+            template: '<label class="item item-input item-select"><div class="input-label">Pay type</div><select ng-model="payData.selection"><option value="BH">Allotments</option><option value="20">Council tax</option><option value="47">Garden waste</option></select>',
+            title: 'Pay a bill',
+            subTitle: 'Select the type of bill you would like to pay.  This will launch the bathnes.gov.uk website.',
+            scope: $scope,
+            buttons: [
+              {
+                  text: 'Cancel',
+                  type: 'button-clear button-full button-stable'
+              },
+              {
+                  text: '<b>Go</b>',
+                  type: 'button-clear button-full button-positive',
+                  onTap: function (e) {
+                      if (!$scope.payData.selection) {
+                          //don't allow the user to close unless he enters wifi password
+                          e.preventDefault();
+                      } else {
+                          window.open('https://www.civicaepay.co.uk/BathNES/Webpay_public/webpay/default.aspx?Fund=' + $scope.payData.selection, '_system');
+                      }
+                  }
+              }
+            ]
+        });
+        payPopUp.then(function (res) { });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showItemPopup
     // Shows an item popup - shows information about the item and provides various links
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.showItemPopup = function (item) {
 
         var buttons = [{
-            text: '<i class="ion-android-done"></i> OK',
+            text: '<b><i class="ion-android-done"></i> OK</b>',
             type: 'button-clear button-full button-positive'
         }];
         var template = '<div class="list card">';
@@ -628,6 +663,7 @@ angular.module('MyBath.BathAppController', [])
                 $scope.myCouncil = {};
                 $scope.myNearest = {};
                 $scope.myHouse = {};
+                $scope.health = {};
                 $scope.bathDataObject = {};
                 $scope.feedData = {};
                 $scope.feedDataObject = {};
@@ -705,7 +741,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-android-open"></i> Website',
+                    text: '<b><i class="ion-android-open"></i> Website</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open(url, '_system');
@@ -731,7 +767,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-at"></i> Email',
+                    text: '<b><i class="ion-at"></i> Email</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open('mailto:' + emailAddress, '_system');
@@ -757,7 +793,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-ios-telephone"></i> Call',
+                    text: '<b><i class="ion-ios-telephone"></i> Call</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open('tel:' + phone, '_system', 'location=yes');
@@ -783,7 +819,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-android-textsms"></i> Text',
+                    text: '<b><i class="ion-android-textsms"></i> Text</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open('sms:' + phone + '?body=' + body, '_system', 'location=yes');
@@ -809,7 +845,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-calendar"></i> Add',
+                    text: '<b><i class="ion-calendar"></i> Add</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         $cordovaCalendar.createEventWithOptions({
@@ -861,7 +897,7 @@ angular.module('MyBath.BathAppController', [])
     $scope.updateCarParks();
     // Need this to refresh the chart when moving back to the page.
     $scope.$on('$ionicView.loaded', function (e) {
-        if (this.location.search.indexOf('/home') != -1) $scope.chart.update();
+        if (this.location.indexOf('/home') != -1) $scope.chart.update();
     });
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -900,7 +936,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-ios-telephone"></i> Call',
+                    text: '<b><i class="ion-ios-telephone"></i> Call</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
                         window.open('tel:01225394041', '_system', 'location=yes');
@@ -926,7 +962,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-ios-telephone"></i> Emergency',
+                    text: '<b><i class="ion-ios-telephone"></i> Emergency</b>',
                     type: 'button-assertive',
                     onTap: function (e) {
                         window.open('tel:01225477477', '_system', 'location=yes');
@@ -954,7 +990,7 @@ angular.module('MyBath.BathAppController', [])
                     type: 'button-clear button-stable'
                 },
                 {
-                    text: '<i class="ion-navigate"></i> Navigate',
+                    text: '<b><i class="ion-navigate"></i> Navigate</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
 

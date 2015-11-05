@@ -19,10 +19,8 @@
                     </div>
                 </div>
                 <div class="list list-inset" ng-repeat="(key, data) in (reports | splitObject:'left')">
-                    <div class="item item-thumbnail-left">
-                        <img src="{{data.photo}}" ng-if="data.photo != ''">
-                        <h2>{{ data.type  }}</h2>
-                        <p>{{ data.description }}</p>
+                    <div class="item">
+                        <h2>{{ data.service.service_name }}</h2>
                         <p>Report status: {{ data.status }}</p>
                     </div>
                     <div class="item tabs tabs-secondary tabs-icon-left">
@@ -39,14 +37,12 @@
             </div>
             <div class="col">
                 <div class="list list-inset" ng-repeat="(key, data) in (reports | splitObject:'right')">
-                    <div class="item item-thumbnail-left">
-                        <img src="{{data.photo}}" ng-if="report.photo">
-                        <h2>{{ data.type  }}</h2>
-                        <p>{{ data.description }}</p>
+                    <div class="item">
+                        <h2>{{ data.service.service_name }}</h2>
                         <p>Report status: {{ data.status }}</p>
                     </div>
                     <div class="item tabs tabs-secondary tabs-icon-left">
-                        <a class="tab-item" ng-click="deleteReport($index)">
+                        <a class="tab-item" ng-click="deleteReport($index)" ng-if="data.status == 'Not sent'">
                             <i class="icon ion-trash-a"></i>
                             Delete
                         </a>

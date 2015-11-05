@@ -9,7 +9,7 @@
             <ion-item class="item item-divider">{{ category }}</ion-item>
             <ul class="list">
                 <li class="item item-toggle" ng-repeat="(key, layer) in layers">
-                    {{ key }}
+                    {{ layer.displayName }}
                     <label class="toggle toggle-balanced">
                         <input type="checkbox" ng-model="userData.MapDisplay[key]" value="key">
                         <div class="track">
