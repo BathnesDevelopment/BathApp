@@ -11,8 +11,8 @@
             <form ng-submit="submitReportItDetails(currentReport)">
                 <div class="list">
                     <div ng-repeat="attribute in currentReport.service.attributes">
-                        <label class="item item-input item-stacked-label" ng-if="attribute.datatype == 'string'">
-                            <span class="input-label">{{ attribute.datatype_description }}</span>
+                        <label class="item item-input item-stacked-label" ng-if="attribute.datatype == 'string' && attribute.code != 'photo'">
+                            <span class="input-label">{{ attribute.datatype_description }} {{ attribute.code }}</span>
                             <input type="text" ng-model="currentReport.attributes[attribute.code]" placeholder="{{ attribute.description }}" />
                         </label>
                         <label class="item item-input item-select" ng-if="attribute.datatype == 'singlevaluelist'">
