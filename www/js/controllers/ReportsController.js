@@ -1,5 +1,5 @@
 ﻿angular.module('MyBath.ReportsController', [])
-.controller('ReportsController', function ($scope, $state, $timeout, $ionicModal, $ionicLoading, $cordovaCamera, $cordovaGeolocation, $ionicPlatform, UserData, BathData, Reports, DataTransformations) {
+.controller('ReportsController', function ($scope, $state, $timeout, $ionicModal, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaGeolocation, $ionicPlatform, UserData, BathData, Reports, DataTransformations) {
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Reports
@@ -140,9 +140,9 @@
 
         // User must select an option for location.
         if (report.userLocationOption) {
-            $scope.reportItLocationModal.hide();
 
             if (report.userLocationOption == 'useDetected') {
+                $scope.reportItLocationModal.hide();
                 $scope.currentReport.lat = $scope.currentLocation.coords.latitude;
                 $scope.currentReport.long = $scope.currentLocation.coords.longitude;
                 $scope.reportItPersonal();
@@ -150,10 +150,38 @@
 
             if (report.userLocationOption == 'newAddress') {
                 // Details will have been set by the form.
-                $scope.reportItPersonal();
+                if (report.customAddressSearch && report.customAddressSearch != '') {
+                    $scope.reportItLocationModal.hide();
+                    $ionicLoading.show({
+                        template: 'Searching...'
+                    });
+                    UserData.fetchUprn(report.customAddressSearch)
+                        .then(function (data) {
+                            // check for whether we have postcode results
+                            if (data && data !== "Failed") {
+                                $ionicLoading.hide();
+                                $scope.reportItAddresses = data;
+                                $scope.reportItSetAddress();
+                            }
+                            else {
+                                $ionicLoading.hide();
+                                $ionicPopup.alert({
+                                    title: 'No addresses found',
+                                    content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.',
+                                    buttons: [{
+                                        text: '<i class="ion-android-done"></i> Dismiss',
+                                        type: 'button-clear button-full button-positive'
+                                    }]
+                                }).then(function (res) {
+                                    $scope.reportItLocation();
+                                });
+                            }
+                        });
+                }
             }
 
             if (report.userLocationOption == 'userAddress') {
+                $scope.reportItLocationModal.hide();
                 // Fill out the location by the saved user details.
                 $scope.currentReport.address = $scope.userData.address;
                 $scope.currentReport.addressId = $scope.userData.uprn;
@@ -161,9 +189,33 @@
             }
 
             if (report.userLocationOption == 'mapLocation') {
+                $scope.reportItLocationModal.hide();
                 $scope.reportItMap();
             }
         }
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal: ReportIt Set Address
+    // Custom address select
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $ionicModal.fromTemplateUrl('templates/report-it-set-address.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.reportItSetAddressModal = modal;
+    });
+    $scope.reportItSetAddress = function () {
+        $scope.reportItSetAddressModal.show();
+    };
+    $scope.closeReportItSetAddress = function () {
+        $scope.reportItSetAddressModal.hide();
+    };
+    $scope.submitReportItSetAddress = function (address) {
+        $scope.closeReportItSetAddress();
+        $scope.currentReport.address = address.addressLine;
+        $scope.currentReport.addressId = address.uprn;
+        $scope.reportItPersonal();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////

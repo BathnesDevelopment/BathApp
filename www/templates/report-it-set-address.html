@@ -1,0 +1,11 @@
+<div class="modal">
+    <ion-header-bar class="bar-light">
+        <button class="button button-clear button-stable" ng-click="closeReportItSetAddress()"><i class="ion-android-close"></i> Cancel</button>
+        <h1 class="title">Select address</h1>
+    </ion-header-bar>
+    <ion-content padding="true">
+        <button class="button button-full button-clear button-stable" ng-click="submitReportItSetAddress(address)" ng-repeat="address in reportItAddresses">
+            {{address.addressLine}}
+        </button>
+    </ion-content>
+</div>

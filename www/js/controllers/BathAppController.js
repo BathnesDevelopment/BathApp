@@ -648,7 +648,9 @@ angular.module('MyBath.BathAppController', [])
     $scope.updateCarParks();
     // Need this to refresh the chart when moving back to the page.
     $scope.$on('$ionicView.loaded', function (e) {
-        if (this.location.indexOf('/home') != -1) $scope.chart.update();
+        if (this.location.toString().indexOf('/home') != -1) {
+            if ($scope.carParkApi) $scope.carParkApi.update();
+        }
     });
 
     /////////////////////////////////////////////////////////////////////////////////////////////

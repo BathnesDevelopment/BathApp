@@ -13,10 +13,13 @@
                 <div class="list">
                     <label class="item item-radio" ng-repeat="service in reportServices">
                         <input type="radio" name="service_code" ng-model="currentReport.service" ng-value="service" required>
-                        <div class="item-content">
-                            {{ service.service_name }}
+                        <div class="radio-content">
+                            <div class="item-content">
+                                <h2>{{ service.service_name }}</h2>
+                                <p>{{ service.keywords }}</p>
+                            </div>
+                            <i class="radio-icon ion-checkmark"></i>
                         </div>
-                        <i class="radio-icon ion-checkmark"></i>
                     </label>
                 </div>
             </form>
