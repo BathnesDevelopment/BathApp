@@ -8,71 +8,48 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.currentComment = Comments.getDefaultComment();
     $scope.userData = UserData.all();
-    $scope.comments = Comments.getComments();
     $scope.currentLocation = null;
     $scope.addresses = [];
     $scope.news = {};
-    $scope.myCouncil = BathData.getMyCouncil();
-    $scope.myNearest = BathData.getMyNearest();
-    $scope.myHouse = BathData.getMyHouse();
-    $scope.health = BathData.getHealth();
+
+    // Data objects for My Council page
+    $scope.myCouncil = {};
+    BathData.getMyCouncil().then(function (council) {
+        $scope.myCouncil = council;
+        $scope.myCouncilLeft = {};
+        $scope.myCouncilRight = {};
+    });
+
+    // Data objects for My Nearest page
+    $scope.myNearest = {};
+    BathData.getMyNearest().then(function (nearest) {
+        $scope.myNearest = nearest;
+        $scope.myNearestLeft = {};
+        $scope.myNearestRight = {};
+    });
+
+    // Data objects for My House page
+    $scope.myHouse = {};
+    BathData.getMyHouse().then(function (house) {
+        $scope.myHouse = house;
+        $scope.myHouseLeft = {};
+        $scope.myHouseRight = {};
+    });
+
+    // Data objects for Health providers page
+    $scope.health = {};
+    BathData.getHealth().then(function (healthProviders) {
+        $scope.health = healthProviders;
+        $scope.healthLeft = {};
+        $scope.healthRight = {};
+    });
+
+    // Report services data
     $scope.reportServices = [];
     Reports.getServices().then(function (reportServices) {
         $scope.reportServices = reportServices;
     });
-
-    $scope.carParkOptions = {
-        chart: {
-            type: 'multiBarHorizontalChart',
-            height: 300,
-            x: function (d) { return d.label; },
-            y: function (d) { return d.value; },
-            showControls: false,
-            showValues: true,
-            valueFormat: function (d) {
-                return d3.format(',.0f')(d);
-            },
-            showLegend: false,
-            transitionDuration: 500,
-            xAxis: {
-                showMaxMin: false
-            },
-            yAxis: {
-                axisLabel: 'Available spaces',
-                tickFormat: function (d) {
-                    return d3.format(',.0f')(d);
-                }
-            },
-            multibar: {
-                dispatch: {
-                    elementClick: function (e) {
-                        var html = '<div class="row"><div class="col big">' + e.point.status + '</div></div>';
-                        html += '<div class="row"><div class="col"><small>Spaces</small></div><div class="col"><small>Capacity</small></div></div>';
-                        html += '<div class="row"><div class="col big">' + e.point.value + '</div><div class="col big">' + e.point.capacity + '</div></div>';
-                        html += '<div class="row"><div class="col"><small>Last updated</small></div></div>';
-                        html += '<div class="row"><div class="col">' + moment(e.point.lastUpdated, 'DD/MM/YYYY hh:mm:ss').fromNow() + '</div></div>';
-                        $scope.showPopup(e.point.label, html);
-                    }
-                }
-            },
-            tooltips: false,
-            margin: { left: 110 },
-            barColor: function (d, i) {
-                var color = '#387ef5';
-                if (d.value < 150) color = '#ffc900';
-                if (d.value < 70) color = '#ef473a';
-                return color;
-            }
-        }
-    };
-
-    $scope.carParkData = [
-            {
-                "key": "Car park spaces",
-                "values": []
-            }];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MODAL DEFINITIONS
@@ -332,31 +309,6 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: SelectMenu
-    // Called to select the current view - currently called in the menu bar and on various buttons
-    // throughout the app.
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.selectMenu = function (menuItem) {
-        $ionicSideMenuDelegate.toggleLeft(false);
-        if (menuItem === 'home') { $state.go('menu.home'); }
-        if (menuItem === 'map') { $state.go('menu.map'); }
-        if (menuItem === 'reports') { $state.go('menu.reports'); }
-        if (menuItem === 'details') { $state.go('menu.details'); }
-        if (menuItem === 'mycouncil') { $state.go('menu.mycouncil'); }
-        if (menuItem === 'myhouse') { $state.go('menu.myhouse'); }
-        if (menuItem === 'mynearest') { $state.go('menu.mynearest'); }
-        if (menuItem === 'planning') { $state.go('menu.planningApp'); }
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: toggleMenu
-    // Moves the sidebar in or out.
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.toggleMenu = function () {
-        $ionicSideMenuDelegate.toggleLeft();
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showPopup
     // Shows a helper popup - used on various information buttons throughout the app.
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -423,7 +375,6 @@ angular.module('MyBath.BathAppController', [])
             if (!key.match("Name|Max|Min|Easting|Northing|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Category|hashKey")) {
                 template += '<div class="item item-icon-left"><small><i class="icon ion-home"></i><strong>' + key + '</strong> ' + val + (key == "Distance" ? " metres" : "") + '</small></div>';
             }
-
         });
         template += '</div>';
 

@@ -8,7 +8,7 @@
         <div class="list list-inset">
             <h3>New Comment</h3>
             <form ng-submit="submitCommentPage1(currentComment)">
-                <p>Comment reference: {{ currentComment.reference }}</p>
+                <p>Comment reference: {{ ::currentComment.reference }}</p>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Address</span>
                     <input type="text" placeholder="Address" ng-model="currentComment.address">

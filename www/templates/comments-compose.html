@@ -6,9 +6,9 @@
     </ion-header-bar>
     <ion-content padding="true">
         <div class="list list-inset">
-            <h3>{{currentComment.type}}</h3>
+            <h3>{{ ::currentComment.type }}</h3>
             <form ng-submit="submitComment(currentComment)">
-                <p>Reference:  {{ currentComment.reference }}</p>
+                <p>Reference:  {{ ::currentComment.reference }}</p>
                 <label class="item item-input item-floating-label">
                     <span class="input-label">Comment</span>
                     <textarea placeholder="Comment" ng-model="currentComment.body"></textarea>

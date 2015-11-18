@@ -1,5 +1,6 @@
 angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSanitize', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.ReportsController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'nvd3'])
 .run(function ($ionicPlatform, $cordovaStatusbar) {
+    
     $ionicPlatform.ready(function () {
         if (typeof StatusBar != 'undefined') {
             $cordovaStatusbar.overlaysWebView(false);
@@ -11,7 +12,8 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSan
         }
     });
 })
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    if (!ionic.Platform.isIOS()) $ionicConfigProvider.scrolling.jsScrolling(false);
     $stateProvider
         .state('menu', {
             url: "/menu",

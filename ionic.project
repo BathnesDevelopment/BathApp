@@ -1,4 +1,11 @@
 {
   "name": "Residents app",
-  "app_id": "74042354"
+  "app_id": "74042354",
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
+  ]
 }

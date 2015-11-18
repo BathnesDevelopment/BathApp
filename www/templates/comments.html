@@ -8,7 +8,7 @@
         <div class="list list-inset">
             <div ng-repeat="comment in comments">
                 <div class="item item-avatar">
-                    <img src="{{comment.photo}}" ng-show="comment.photo">
+                    <img src="{{ comment.photo }}" ng-show="comment.photo">
                     <h2>{{ comment.reference }} - {{ comment.type  }}</h2>
                     <p>{{ comment.body }}</p>
                 </div>
