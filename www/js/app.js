@@ -1,6 +1,6 @@
-angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSanitize', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.ReportsController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'nvd3'])
+angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSanitize', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.HomeController', 'MyBath.ReportsController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'nvd3'])
 .run(function ($ionicPlatform, $cordovaStatusbar) {
-    
+
     $ionicPlatform.ready(function () {
         if (typeof StatusBar != 'undefined') {
             $cordovaStatusbar.overlaysWebView(false);
@@ -93,15 +93,16 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSan
             url: "/home",
             views: {
                 'mainContent': {
-                    templateUrl: "templates/home.html"
+                    templateUrl: "templates/home.html",
+                    controller: "HomeController"
                 }
             }
         })
-        .state('menu.planningApp', {
-            url: "/comments",
+        .state('menu.planning', {
+            url: "/planning",
             views: {
                 'mainContent': {
-                    templateUrl: "templates/comments.html"
+                    templateUrl: "templates/planning.html"
                 }
             }
         });

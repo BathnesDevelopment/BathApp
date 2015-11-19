@@ -1,5 +1,5 @@
 angular.module('MyBath.HomeController', [])
-.controller('HomeController', function ($scope, $state) {
+.controller('HomeController', function ($scope, $state, LiveTravel) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
@@ -59,5 +59,39 @@ angular.module('MyBath.HomeController', [])
                 "values": []
             }];
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateCarParks
+    // Updates the car park data - will run on each load
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.updateCarParks = function () {
+        if (!$scope.refreshingCarParks) {
+            $scope.refreshingCarParks = true;
+            LiveTravel.fetchAll()
+                    .then(function (data) {
+                        if (data && data != [] && data != "Failed") {
+                            $scope.carParkData[0].values = [];
+                            for (var carPark in data.carParks) {
+                                // Only show if car park updated within last 30 mins
+                                if (data.carParks[carPark] && moment().diff(moment(data.carParks[carPark]['last updated']), 'minutes') < 15) {
+                                    var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
+                                    if (numberOfSpaces < 0) numberOfSpaces = 0;
+                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces, "status": data.carParks[carPark].Status, "capacity": data.carParks[carPark].Capacity, "lastUpdated": data.carParks[carPark]['Last updated'] });
+                                }
+                            }
+                            $scope.refreshingCarParks = false;
+                        } else {
+                            // currently do nothing - chart will only display if there is data.
+                            $scope.refreshingCarParks = false;
+                        }
+                    });
+        }
+    };
+    $scope.updateCarParks();
+    // Need this to refresh the chart when moving back to the page.
+    $scope.$on('$ionicView.loaded', function (e) {
+        if (this.location.toString().indexOf('/home') != -1) {
+            if ($scope.carParkApi) $scope.carParkApi.update();
+        }
+    });
 
 });

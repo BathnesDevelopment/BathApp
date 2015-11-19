@@ -6,6 +6,7 @@
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', locationFound: true, useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent', photo: '' };
     $scope.reports = Reports.getReports();
+    $scope.currentLocation = null;
 
     $scope.reportMap = {
         defaults: {

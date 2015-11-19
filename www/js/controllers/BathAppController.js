@@ -8,47 +8,33 @@ angular.module('MyBath.BathAppController', [])
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Load up the user data and registration process variables
     $scope.userData = UserData.all();
-    $scope.currentLocation = null;
     $scope.addresses = [];
-    $scope.news = {};
 
-    // Data objects for My Council page
-    $scope.myCouncil = {};
-    BathData.getMyCouncil().then(function (council) {
-        $scope.myCouncil = council;
-        $scope.myCouncilLeft = {};
-        $scope.myCouncilRight = {};
-    });
+    // Data object for My Council page
+    $scope.myCouncil = BathData.getMyCouncil();
 
-    // Data objects for My Nearest page
-    $scope.myNearest = {};
-    BathData.getMyNearest().then(function (nearest) {
-        $scope.myNearest = nearest;
-        $scope.myNearestLeft = {};
-        $scope.myNearestRight = {};
-    });
+    // Data object for My Nearest page
+    $scope.myNearest = BathData.getMyNearest();
 
-    // Data objects for My House page
-    $scope.myHouse = {};
-    BathData.getMyHouse().then(function (house) {
-        $scope.myHouse = house;
-        $scope.myHouseLeft = {};
-        $scope.myHouseRight = {};
-    });
+    // Data object for My House page
+    $scope.myHouse = BathData.getMyHouse();
 
-    // Data objects for Health providers page
-    $scope.health = {};
-    BathData.getHealth().then(function (healthProviders) {
-        $scope.health = healthProviders;
-        $scope.healthLeft = {};
-        $scope.healthRight = {};
-    });
+    // Data object for Health providers page
+    $scope.health = BathData.getHealth();
 
     // Report services data
     $scope.reportServices = [];
     Reports.getServices().then(function (reportServices) {
         $scope.reportServices = reportServices;
+    });
+
+    // Data object for latest news.
+    $scope.news = {};
+    NewsData.fetch().then(function (news) {
+        if (news && news != [] && news != "Failed") $scope.news = news;
     });
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,62 +91,6 @@ angular.module('MyBath.BathAppController', [])
         $scope.displayOptionsModal.hide();
     };
 
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Modal: NewComment
-    // Planning comments screen
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $ionicModal.fromTemplateUrl('templates/comments-new.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.commentModal = modal;
-    });
-    $scope.newComment = function () {
-        $scope.commentModal.show();
-        // Dummy reference for testing
-        $scope.currentComment.reference = Math.floor((Math.random() * 100000000));
-
-        // Populate the form with user address, if that info exists
-        if ($scope.userData.address) {
-            $scope.currentComment.address = $scope.userData.address;
-        }
-        if ($scope.userData.phone) {
-            $scope.currentComment.userPhone = $scope.userData.phone;
-        }
-        if ($scope.userData.email) {
-            $scope.currentComment.userEmail = $scope.userData.email;
-        }
-    };
-    $scope.closeComment = function () {
-        $scope.commentModal.hide();
-    };
-    $scope.submitCommentPage1 = function (comment) {
-        if ($scope.currentComment.type) {
-
-            $scope.commentModal.hide();
-            $scope.commentComposeModal.show();
-            return;
-        }
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    // Modal: Comment Compose
-    // planning comments screen: Compose comment
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $ionicModal.fromTemplateUrl('templates/comments-compose.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.commentComposeModal = modal;
-    });
-    $scope.submitComment = function (comment) {
-        $scope.commentComposeModal.hide();
-        Comments.addComment($scope.currentComment);
-        $scope.currentComment = Comments.getDefaultComment();
-        $scope.comments = Comments.getComments();
-    };
-
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // APP FUNCTIONS
@@ -190,7 +120,7 @@ angular.module('MyBath.BathAppController', [])
                             title: 'No addresses found',
                             content: 'Sorry, couldn\'t find address.  Check search terms and internet connection.',
                             buttons: [{
-                                text: '<i class="ion-android-done"></i> Dismiss',
+                                text: '<b><i class="ion-android-done"></i> Dismiss</b>',
                                 type: 'button-clear button-full button-positive'
                             }]
                         }).then(function (res) {
@@ -317,7 +247,7 @@ angular.module('MyBath.BathAppController', [])
             title: title,
             template: message,
             buttons: [{
-                text: '<i class="ion-android-done"></i> Dismiss',
+                text: '<b><i class="ion-android-done"></i> Dismiss</b>',
                 type: 'button-clear button-full button-positive'
             }]
         });
@@ -340,15 +270,14 @@ angular.module('MyBath.BathAppController', [])
             scope: $scope,
             buttons: [
               {
-                  text: 'Cancel',
+                  text: '<i class="ion-android-close"></i> Cancel',
                   type: 'button-clear button-full button-stable'
               },
               {
-                  text: '<b>Go</b>',
+                  text: '<b><i class="ion-card"></i> Pay</b>',
                   type: 'button-clear button-full button-positive',
                   onTap: function (e) {
                       if (!$scope.payData.selection) {
-                          //don't allow the user to close unless he enters wifi password
                           e.preventDefault();
                       } else {
                           window.open('https://www.civicaepay.co.uk/BathNES/Webpay_public/webpay/default.aspx?Fund=' + $scope.payData.selection, '_system');
@@ -570,41 +499,6 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
-    // Function: updateCarParks
-    // Updates the car park data - will run on each load
-    /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.updateCarParks = function () {
-        if (!$scope.refreshingCarParks) {
-            $scope.refreshingCarParks = true;
-            LiveTravel.fetchAll()
-                    .then(function (data) {
-                        if (data && data != [] && data != "Failed") {
-                            $scope.carParkData[0].values = [];
-                            for (var carPark in data.carParks) {
-                                // Only show if car park updated within last 30 mins
-                                if (data.carParks[carPark] && moment().diff(moment(data.carParks[carPark]['last updated']), 'minutes') < 15) {
-                                    var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
-                                    if (numberOfSpaces < 0) numberOfSpaces = 0;
-                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces, "status": data.carParks[carPark].Status, "capacity": data.carParks[carPark].Capacity, "lastUpdated": data.carParks[carPark]['Last updated'] });
-                                }
-                            }
-                            $scope.refreshingCarParks = false;
-                        } else {
-                            // currently do nothing - chart will only display if there is data.
-                            $scope.refreshingCarParks = false;
-                        }
-                    });
-        }
-    };
-    $scope.updateCarParks();
-    // Need this to refresh the chart when moving back to the page.
-    $scope.$on('$ionicView.loaded', function (e) {
-        if (this.location.toString().indexOf('/home') != -1) {
-            if ($scope.carParkApi) $scope.carParkApi.update();
-        }
-    });
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: updateNews
     // Updates the news data - will run on each load
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -618,13 +512,11 @@ angular.module('MyBath.BathAppController', [])
                             $scope.refreshingNews = false;
                         } else {
                             // use cached data
-
                             $scope.refreshingNews = false;
                         }
                     });
         }
     };
-    $scope.updateNews();
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: showCouncilConnectPopup
@@ -715,7 +607,6 @@ angular.module('MyBath.BathAppController', [])
     // Function: emailCouncilConnect
     // Test function to email Council Connect with the report
     // Uses https://github.com/katzer/cordova-plugin-email-composer/blob/0cc829af59b94b52db63a999064577a6962bf763/README.md
-    // This will be replaced at some point
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.emailCouncilConnect = function () {
         try {
@@ -730,7 +621,10 @@ angular.module('MyBath.BathAppController', [])
         }
     };
 
-
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: isEmpty
+    // Tests whether an object is empty for use in templates
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.isEmpty = function (obj) {
         for (var i in obj) if (i != '$$hashKey' && obj.hasOwnProperty(i)) return false;
         return true;
