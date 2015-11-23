@@ -2,9 +2,10 @@
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="closeReportItSetAddress()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Select address</h1>
+        <button class="button button-clear button-positive" ng-click="submitReportItSetAddress(address)"><i class="i"></i> Confirm</button>
     </ion-header-bar>
     <ion-content padding="true">
-        <button class="button button-full button-clear button-stable" ng-click="submitReportItSetAddress(address)" ng-repeat="address in reportItAddresses">
+        <button class="button button-full button-clear button-stable" ng-repeat="address in reportItAddresses">
             {{address.addressLine}}
         </button>
     </ion-content>

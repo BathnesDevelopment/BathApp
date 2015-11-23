@@ -2,30 +2,28 @@
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="reportItDetailsModal.hide()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Report It</h1>
-        <button class="button button-clear button-positive" ng-click="submitReportItDetails(currentReport)"><i class="ion-android-done"></i> Next</button>
+        <button class="button button-clear button-positive" ng-click="submitReportItDetails(currentReport)"><b><i class="ion-android-done"></i> Next</b></button>
     </ion-header-bar>
     <ion-content>
-        <div class="list list-inset">
-            <h3>Details of Report</h3>
-            <p>{{ currentReport.service.description }}</p>
-            <form ng-submit="submitReportItDetails(currentReport)">
-                <div class="list">
-                    <div ng-repeat="attribute in currentReport.service.attributes">
-                        <label class="item item-input item-stacked-label" ng-if="attribute.datatype == 'string' && attribute.code != 'photo'">
-                            <span class="input-label">{{ attribute.datatype_description }}</span>
-                            <input type="text" ng-model="currentReport.attributes[attribute.code]" placeholder="{{ attribute.description }}" />
-                        </label>
-                        <label class="item item-input item-select" ng-if="attribute.datatype == 'singlevaluelist'">
-                            <div class="input-label">
-                                {{ attribute.datatype_description }}
-                            </div>
-                            <select ng-model="currentReport.attributes[attribute.code]" ng-options="opt.key as opt.name for opt in attribute.values">
-                                <option style="display:none" value=""></option>
-                            </select>
-                        </label>
-                    </div>
+        <h3>Details of Report</h3>
+        <p>{{ currentReport.service.description }}</p>
+        <form ng-submit="submitReportItDetails(currentReport)">
+            <div class="list">
+                <div ng-repeat="attribute in currentReport.service.attributes">
+                    <label class="item item-input item-floating-label" ng-if="attribute.datatype == 'string' && attribute.code != 'photo'">
+                        <span class="input-label">{{ attribute.datatype_description }}</span>
+                        <input type="text" ng-model="currentReport.attributes[attribute.code]" placeholder="{{ attribute.description }}" />
+                    </label>
+                    <label class="item item-input item-select" ng-if="attribute.datatype == 'singlevaluelist'">
+                        <div class="input-label">
+                            {{ attribute.datatype_description }}
+                        </div>
+                        <select ng-model="currentReport.attributes[attribute.code]" ng-options="opt.key as opt.name for opt in attribute.values">
+                            <option style="display:none" value=""></option>
+                        </select>
+                    </label>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </ion-content>
 </div>

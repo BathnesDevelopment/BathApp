@@ -2,29 +2,34 @@
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="closeRegister()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Register</h1>
-        <button class="button button-clear button-positive" ng-click="searchUserAddress(userData.addressSearch)"><i class="ion-android-done"></i> Next</button>
+        <button class="button button-clear button-positive" ng-click="searchUserAddress(userData.addressSearch)"><b><i class="ion-android-done"></i> Next</b></button>
     </ion-header-bar>
-    <ion-content>
-        <div class="list list-inset">
-            <h3>Personal details</h3>
-            <p>Registering within the app will save your personal details when submitting reports, and show you personalised information for your address.</p>
-            <form ng-submit="searchUserAddress(userData.addressSearch)">
-                <label class="item item-input">
+    <ion-content padding="true">
+        <h3>Personal details</h3>
+        <p>Registering within the app will save your personal details when submitting reports, and show you personalised information for your address.</p>
+        <form ng-submit="searchUserAddress(userData.addressSearch)">
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">First Name</span>
                     <input tabindex="1" type="text" placeholder="First Name" ng-model="userData.firstname">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Last Name</span>
                     <input tabindex="2" type="text" placeholder="Last Name" ng-model="userData.lastname">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Email</span>
                     <input tabindex="3" type="email" placeholder="Email" ng-model="userData.email">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Phone</span>
                     <input tabindex="4" type="tel" placeholder="Phone" ng-model="userData.phone">
                 </label>
-                <label class="item item-input">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">First line of address</span>
                     <input tabindex="5" type="text" placeholder="First line of address" ng-model="userData.addressSearch" required>
                 </label>
-            </form>
-        </div>
+            </div>
+        </form>
     </ion-content>
 </div>
