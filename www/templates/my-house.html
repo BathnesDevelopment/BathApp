@@ -15,7 +15,9 @@
                         <p>This page shows information about your registered location.</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-
+                        <a class="tab-item" ng-click="showPopup('My house', 'Return to this page for information about your registered location.  Bin dates, planning applications, listed status and more.')">
+                            <i class="icon positive ion-help"></i> Help
+                        </a>
                     </div>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'left')">

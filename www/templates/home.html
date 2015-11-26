@@ -30,16 +30,17 @@
                         </a>
                     </div>
                 </div>
-                <h5 class="card-header" ng-if="userData.address"><i class="ion-android-home"></i> Address details</h5>
+                <h5 class="card-header" ng-if="userData.address"><i class="ion-android-home"></i> Stored details</h5>
                 <div class="card" ng-if="userData.address">
                     <div class="item item item-icon-left">
                         <p><i class="icon ion-android-home calm"></i> {{ userData.address }}</p>
                     </div>
-                </div>
-                <h5 class="card-header" ng-if="userData.phone"><i class="ion-android-contact"></i> Contact details</h5>
-                <div class="card" ng-if="userData.phone">
-                    <div class="item item-icon-left"><p><i class="icon ion-ios-telephone balanced"></i> {{ userData.phone }}</p></div>
-                    <div class="item item-icon-left"><p><i class="icon ion-at royal"></i> {{ userData.email }}</p></div>
+                    <div class="item item item-icon-left">
+                        <p><i class="icon ion-ios-telephone balanced"></i> {{ userData.phone }}</p>
+                    </div>
+                    <div class="item item item-icon-left">
+                        <p><i class="icon ion-at royal"></i> {{ userData.email }}</p>
+                    </div>
                 </div>
             </div>
             <div class="col">

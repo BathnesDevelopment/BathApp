@@ -15,8 +15,8 @@
                         <p>This page shows locations of interest near to your registered location.</p>
                     </div>
                     <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('My nearest', 'This page shows nearest services and facilities to your registered location.  To customise what is shown, use the 'display options' link.')">
-                            <i class="icon positive ion-information-circled"></i> Info
+                        <a class="tab-item" ng-click="showPopup('My nearest', 'This page shows nearest services and facilities to your registered location.  To customise items shown, use the display options link.')">
+                            <i class="icon positive ion-help"></i> Help
                         </a>
                         <a class="tab-item" ng-click="displayOptions()">
                             <i class="icon ion-android-settings assertive"></i> Display options
@@ -32,7 +32,7 @@
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a class="tab-item" ng-click="showItemPopup({{dataRow}})">
-                                <i class="icon positive ion-information-circled"></i> Info
+                                <i class="icon positive ion-information"></i> Info
                             </a>
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone
@@ -73,7 +73,7 @@
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
                             <a class="tab-item" ng-click="showItemPopup(dataRow)">
-                                <i class="icon positive ion-information-circled"></i> Info
+                                <i class="icon positive ion-information"></i> Info
                             </a>
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
                                 <i class="icon ion-ios-telephone assertive"></i> Phone

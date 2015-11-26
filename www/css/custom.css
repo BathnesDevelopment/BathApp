@@ -9,12 +9,8 @@ header h1 {
 .card-header {
     margin: 20px 10px !important;
     text-transform: uppercase !important;
-    color: #ccc;
+    color: #33B652;
     font-weight: 700;
-}
-
-ion-side-menu.menu-left.menu {
-    /*background-color: #5B6166 !important;*/
 }
 
 .top-stable {
@@ -28,7 +24,6 @@ ion-side-menu.menu-left.menu {
 .top-positive h2, .top-positive h1 {
     color: #387ef5 !important;
 }
-
 
 .top-calm {
     border-top: 4px solid #11c1f3 !important;
@@ -122,10 +117,6 @@ i.listIcons {
     position: absolute !important;
 }
 
-ion-nav-view {
-    background-color: #fff;
-}
-
 .card {
     overflow: inherit;
 }
@@ -163,12 +154,13 @@ This happens on portrait phone screens, and is unhelpful at best
   * This looks bad on a row-responsive
 **/
 .list:last-child.card {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
-ion-content.scroll-content.ionic-scroll {
-    /* margin-top: 40px; */
+.background, .background .pane {
+    background-color: #F2F2F2;
 }
+
 
 /*
  * These CSS rules affect the tooltips within maps with the custom-popup

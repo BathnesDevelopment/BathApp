@@ -3,7 +3,7 @@
         <button class="button button-clear button-stable" ng-click="closeSetAddress()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Select address</h1>
     </ion-header-bar>
-    <ion-content padding="true">
+    <ion-content class="padding">
         <button class="button button-full button-clear button-stable" ng-click="setProperty(address.uprn, address.northing, address.easting, address.addressLine, address.postcode)" ng-repeat="address in addresses">
             {{address.addressLine}}
         </button>
