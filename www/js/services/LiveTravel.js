@@ -25,10 +25,11 @@ angular.module('MyBath.LiveTravelService', [])
         // Method: LiveTravel.fetchAll()
         // Output: 
         // Calls the live travel data service and returns the result.
+        // No cache for Live Travel - must be up to date.
         fetchAll: function () {
             var liveTravel = [];
             var liveTravel_q = $q.defer();
-            $http.get(config.liveTravelWS)
+            $http.get({ url: config.liveTravelWS, params: { 'foobar': new Date().getTime() } })
                 .success(function (data, status, headers, config) {
                     liveTravel = JSON.parse(data.GetLiveTravelResult);
                     if (liveTravel && liveTravel != []) {

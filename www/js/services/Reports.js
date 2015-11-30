@@ -3,10 +3,8 @@ angular.module('MyBath.ReportsService', [])
     return {
         getReports: function () {
             var reports = window.localStorage.reports;
-
             var reportJson = angular.fromJson(reports);
             if (reportJson) {
-
                 // The photos are from a separate directory - we need to attach them to the object.
                 reportJson.forEach(function (report) {
                     if (report.photo) {
@@ -19,27 +17,32 @@ angular.module('MyBath.ReportsService', [])
                             });
                     }
                 });
-
                 return reportJson;
             }
             return [];
         },
         getServices: function () {
-
             var servicesResponse = [];
             var servicesResponse_q = $q.defer();
             var reportServices = [];
 
+            var reportCache = window.localStorage.ReportServices;
+            // Set maximum cache to 1 month
+            if (reportCache) {
+                var cache = angular.fromJson(reportCache);
+                if (moment().diff(moment(cache.updated), 'days') < 30) reportServices = reportCache.services;
+            }
+
+            // Always try to update the report services - if not will fall back to saved
             $http.get(config.reportsWS + "/ServicesFull.json")
                 .success(function (data, status, headers, config) {
                     reportServices = data;
-                    window.localStorage.reportServices = data;
+                    window.localStorage.ReportServices = angular.toJson({ updated: moment(), services: reportServices });
                     servicesResponse_q.resolve(reportServices);
                 })
                 .error(function (data, status, headers, config) {
                     servicesResponse_q.resolve(reportServices);
                 });
-
             return servicesResponse_q.promise;
         },
         saveReports: function (reports) {
@@ -72,7 +75,6 @@ angular.module('MyBath.ReportsService', [])
                         // Do nothing.
                     });
             }
-
             window.localStorage.reports = angular.toJson(reportsArray);
         },
         submitReports: function () {

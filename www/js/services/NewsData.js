@@ -27,19 +27,23 @@ angular.module('MyBath.NewsDataService', [])
         fetch: function () {
             var newsData = [];
             var newsData_q = $q.defer();
+
+            // Cache news data for 1 week
+            var newsCache = window.localStorage.NewsData;
+            if (newsCache) {
+                var cache = angular.fromJson(newsCache);
+                if (moment().diff(moment(cache.updated), 'days') < 8) newsData = cache.news;
+            }
+
             $http.get(config.newsWS)
                 .success(function (data, status, headers, config) {
-                    
                     if (newsData && newsData != []) {
                         newsData = JSON.parse(data.GetNewsResult);
-                    }
-                    else {
-                        newsData = "Failed";
+                        window.localStorage.NewsData = angular.toJson({ updated: moment(), news: newsData });
                     }
                     newsData_q.resolve(newsData);
                 })
                 .error(function (data, status, headers, config) {
-                    newsData = "Failed";
                     newsData_q.resolve(newsData);
                 });
             return newsData_q.promise;

@@ -12,8 +12,8 @@ angular.module('MyBath.MapDataService', [])
         getLayers: function () {
             var layers_q = $q.defer();
             var layers = [];
-            var layerCache = window.localStorage.MapLayerConfig;
 
+            var layerCache = window.localStorage.MapLayerConfig;
             if (layerCache) {
                 var cache = angular.fromJson(layerCache);
                 if (moment().diff(moment(cache.updated), 'days') < 2) layers = cache.layers;
