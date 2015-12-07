@@ -211,6 +211,7 @@ angular.module('MyBath.BathAppController', [])
         var optionsSheet = $ionicActionSheet.show({
             buttons: [
                 { text: '<i class="icon ion-location"></i>Register/Set location' },
+                { text: '<i class="icon ion-android-settings"></i>Display options' },
                 { text: refreshText }
             ],
             destructiveText: 'Clear data',
@@ -221,7 +222,10 @@ angular.module('MyBath.BathAppController', [])
                     // either registering or un-registering
                     $scope.register();
                 }
-                if (index === 2 && $scope.userData.uprn !== undefined) {
+                if (index === 1) {
+                    $scope.displayOptions();
+                }
+                if (index === 3 && $scope.userData.uprn !== undefined) {
                     //Refresh data
                     $ionicLoading.show({
                         template: 'Fetching data...'

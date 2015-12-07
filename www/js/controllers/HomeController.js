@@ -93,5 +93,4 @@ angular.module('MyBath.HomeController', [])
             if ($scope.carParkApi) $scope.carParkApi.update();
         }
     });
-
 });

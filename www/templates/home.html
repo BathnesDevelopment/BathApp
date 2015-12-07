@@ -14,6 +14,9 @@
                         <a class="tab-item" ng-click="register()">
                             <i class="icon balanced ion-ios-location"></i> Set location
                         </a>
+                        <a class="tab-item" ng-click="displayOptions()">
+                            <i class="icon ion-android-settings assertive"></i> Display options
+                        </a>
                     </div>
                 </div>
                 <h5 class="card-header" ng-if="userData.uprn"><i class="ion-person"></i> Personal details</h5>
@@ -25,8 +28,8 @@
                         <p>This page displays any details held about you on this device.  To clear the data held on the device, use the link below.</p>
                     </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="deleteData()">
-                            <i class="icon assertive ion-android-delete"></i> Remove all data
+                        <a class="tab-item" ng-click="displayOptions()">
+                            <i class="icon ion-android-settings assertive"></i> Display options
                         </a>
                     </div>
                 </div>
@@ -40,6 +43,11 @@
                     </div>
                     <div class="item item item-icon-left">
                         <p><i class="icon ion-at royal"></i> {{ userData.email }}</p>
+                    </div>
+                    <div class="item item-divider tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="deleteData()">
+                            <i class="icon assertive ion-android-delete"></i> Remove all data
+                        </a>
                     </div>
                 </div>
             </div>

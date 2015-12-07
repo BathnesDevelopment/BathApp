@@ -29,7 +29,7 @@ angular.module('MyBath.LiveTravelService', [])
         fetchAll: function () {
             var liveTravel = [];
             var liveTravel_q = $q.defer();
-            $http.get({ url: config.liveTravelWS, params: { 'foobar': new Date().getTime() } })
+            $http.get(config.liveTravelWS + '?foobar=' + new Date().getTime())
                 .success(function (data, status, headers, config) {
                     liveTravel = JSON.parse(data.GetLiveTravelResult);
                     if (liveTravel && liveTravel != []) {

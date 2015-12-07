@@ -1,31 +1,26 @@
 <ion-view view-title="Comments">
     <ion-content padding="false">
-        <h3>My Comments</h3>
-        <p>This page shows the comments to planning applications you have sent to the council.</p>
-        <button type="button" ng-click="newComment()" class="button button-full button-clear button-positive">
-            New Comment
-        </button>
-        <div class="list list-inset">
-            <div ng-repeat="comment in comments">
-                <div class="item item-avatar">
-                    <img src="{{ comment.photo }}" ng-show="comment.photo">
-                    <h2>{{ comment.reference }} - {{ comment.type  }}</h2>
-                    <p>{{ comment.body }}</p>
+
+        <div class="row responsive-sm">
+            <div class="col">
+                <div class="card">
+                    <div class="item item-text-wrap top-calm">
+                        <h1>Planning applications and Licensing</h1>
+                    </div>
+                    <div class="item">
+                        <p>Existing and new licenses and current planning applications</p>
+                    </div>
+                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                        <a class="tab-item" ng-click="showPopup('Planning and licensing', 'This page shows your licenses nearest to your locations, and also new licence application and current planning applications in your immediate area.')">
+                            <i class="icon positive ion-help"></i> Help
+                        </a>
+                    </div>
                 </div>
-                <div class="item tabs tabs-secondary tabs-icon-left">
-                    <a class="tab-item" href="#">
-                        <i class="icon ion-paper-airplane"></i>
-                        Send comment
-                    </a>
-                    <a class="tab-item" ng-click="deleteComment($index)">
-                        <i class="icon ion-trash-a"></i>
-                        Delete
-                    </a>
-                    <a class="tab-item" ng-show="comment.useUserLocation" browse-to="geo:0,0?q={{comment.lat}},{{comment.long}}">
-                        <i class="icon ion-map"></i>
-                        View map
-                    </a>
-                </div>
+
+            </div>
+            <div class="col">
+
+
             </div>
         </div>
     </ion-content>
