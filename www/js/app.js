@@ -13,7 +13,7 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSan
     });
 })
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-    if (!ionic.Platform.isIOS()) $ionicConfigProvider.scrolling.jsScrolling(false);
+
     $stateProvider
         .state('menu', {
             url: "/menu",
