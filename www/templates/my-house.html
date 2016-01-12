@@ -84,7 +84,7 @@
                             <p>{{ data | binDates }}</p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite("{{dataRow.Website | encodeURIComponent }}")">
                                 <i class="icon ion-android-open assertive"></i> Website
                             </a>
                         </div>

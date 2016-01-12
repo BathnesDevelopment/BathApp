@@ -16,6 +16,14 @@ angular.module('MyBath.BathAppFilters', [])
         return value;
     };
 })
+.filter('encodeURIComponent', function () {
+    return function (input) {
+        if (input.substring(0, 9) == "/projects") {
+            input = 'http://isharemaps.bathnes.gov.uk' + escape(input.replace(/'/g, ""));
+        }
+        return input;
+    };
+})
 .filter('title', function () {
     // converts a string (i.e. one in allcaps) to Sentence case
     return function (original) {

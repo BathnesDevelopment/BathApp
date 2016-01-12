@@ -1,11 +1,11 @@
 ﻿angular.module('BathApp.config', [])
    .constant('config', {
-       'bathDataWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetAllData',
-       'addressWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetAddress',
-       'reportsWS': 'https://isharemapstest.bathnes.gov.uk/residentsapp/Open311ReportWS.svc',
-       'planningWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/PlanningComments.svc',
-       'mapLayerConfigWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetAvailableMapLayers',
-       'mapLayerWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetMapLayer/',
-       'newsWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetNews',
-       'liveTravelWS': 'http://isharemapstest.bathnes.gov.uk/residentsapp/BathData.svc/GetLiveTravel'
+       'bathDataWS': 'https://residentsapptest.bathnes.gov.uk/BathData.svc/GetAllData',
+       'addressWS': 'https://residentsapptest.bathnes.gov.uk/BathData.svc/GetAddress',
+       'reportsWS': 'https://residentsapptest.bathnes.gov.uk/Open311ReportWS.svc',
+       'planningWS': 'https://residentsapptest.bathnes.gov.uk/PlanningComments.svc',
+       'mapLayerConfigWS': 'https://residentsapptest.bathnes.gov.uk/BathData.svc/GetAvailableMapLayers',
+       'mapLayerWS': 'https://residentsapptest.bathnes.gov.uk/BathData.svc/GetMapLayer/',
+       'newsWS': 'https://residentsapptest.bathnes.gov.uk/BathData.svc/GetNews',
+       'liveTravelWS': 'https://residentsapptest.bathnes.gov.uk/BathData.svc/GetLiveTravel'
 });

@@ -1,5 +1,5 @@
 angular.module('MyBath.MapController', [])
-.controller('MapController', function ($scope, $ionicSideMenuDelegate, $ionicModal, MapData, leafletEvents, leafletData, UserData) {
+.controller('MapController', function ($scope, $ionicLoading, $ionicSideMenuDelegate, $ionicModal, MapData, leafletEvents, leafletData, UserData) {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,6 +147,8 @@ angular.module('MyBath.MapController', [])
     //////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapData = function () {
 
+        var loader = false;
+        
         if ($scope.markers != null) {
             $scope.markers.clearLayers();
         }
@@ -156,7 +158,7 @@ angular.module('MyBath.MapController', [])
         // Remove layers
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && !$scope.userData.MapDisplay[e]) {
-                // Removes all layers that are set to false.  
+                // Removes all layers that are set to false.
                 $scope.removeLayer(e);
             }
         }
@@ -169,6 +171,13 @@ angular.module('MyBath.MapController', [])
         // Add layers
         for (var e in $scope.userData.MapDisplay) { // Generate a list of layers we are displaying
             if ($scope.userData.MapDisplay.hasOwnProperty(e) && $scope.userData.MapDisplay[e]) {
+                if (!loader) {
+                    // Show the loader
+                    $ionicLoading.show({
+                        template: 'Loading map...'
+                    });
+                    loader = true;
+                }
                 $scope.addLayer(e);
             }
         }
@@ -202,6 +211,8 @@ angular.module('MyBath.MapController', [])
             $scope.markers.addLayer(geoJsonLayer);
             leafletData.getMap().then(function (map) {
                 map.addLayer($scope.markers);
+                // Hide the loader
+                $ionicLoading.hide();
             });
         }
     };

@@ -12,6 +12,7 @@ angular.module('MyBath.UserDataService', [])
             if (!userData) {
                 // Defaults
                 userData = {
+                    "pushNotifications": true,
                     "displayCategories": {
                         "Leisure and Culture": true,
                         "Transport and Travel": true,
