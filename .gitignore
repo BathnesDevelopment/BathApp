@@ -48,3 +48,5 @@ test.js
 build.bat
 *.sublime-project
 *.sublime-workspace
+residentsapp.keystore
+*.apk
