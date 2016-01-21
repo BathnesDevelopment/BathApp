@@ -81,6 +81,9 @@
                         <div id="divCarParks"><nvd3 options="carParkOptions" data="carParkData" api="api"></nvd3></div>
                     </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="showPopup('Car park spaces', 'Select an individual bar on the chart to see more information about the car park occupancy.')">
+                            <i class="icon positive ion-help"></i> Help
+                        </a>
                         <a class="tab-item" ng-click="updateCarParks()">
                             <i class="icon balanced ion-refresh"></i> Refresh
                         </a>

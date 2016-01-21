@@ -5,19 +5,19 @@ An ionic app for Bath and North East Somerset Area.
 
 To build, install cordova, then run:
 
+- $ ionic resources
 - $ cordova platform add ios
-- $ cordova plugin add org.apache.cordova.device
+- $ cordova plugin add cordova-plugin-device
 - $ cordova plugin add cordova-plugin-geolocation
 - $ cordova plugin add cordova-plugin-camera
 - $ cordova plugin add cordova-plugin-inappbrowser
 - $ cordova plugin add cordova-plugin-statusbar
 - $ cordova plugin add cordova-plugin-whitelist
-- $ cordova plugin add org.apache.cordova.file
-- $ cordova plugin add org.apache.cordova.network-information
+- $ cordova plugin add cordova-plugin-file
+- $ cordova plugin add cordova-plugin-network-information
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
 - $ ionic browser add crosswalk
-- $ ionic resources
 - $ cordova prepare
 - $ cordova build ios
 - $ cordova emulate ios
