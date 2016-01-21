@@ -1,7 +1,6 @@
 angular.module('MyBath.MyNearestController', [])
 .controller('MyNearestController', function ($scope, $ionicScrollDelegate, BathData, $ionicSideMenuDelegate) {
 
-
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: filterData
     // Filters the data based on user options

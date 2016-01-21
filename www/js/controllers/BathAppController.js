@@ -302,13 +302,15 @@ angular.module('MyBath.BathAppController', [])
             text: '<b><i class="ion-android-done"></i> OK</b>',
             type: 'button-clear button-full button-positive'
         }];
-        var template = '<div class="list card">';
+        //var template = '<div class="list card">';
+        var template = '';
         angular.forEach(item, function (val, key) {
             if (!key.match("Name|Max|Min|Easting|Northing|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Category|hashKey")) {
-                template += '<div class="item item-icon-left"><small><i class="icon ion-home"></i><strong>' + key + '</strong> ' + val + (key == "Distance" ? " metres" : "") + '</small></div>';
+                //template += '<div class="item"><small><strong>' + key + '</strong><br/> ' + val + (key == "Distance" ? " metres" : "") + '</small></div>';
+                template += '<div class="item"><h4>' + key + '</h4><p>' + val + (key == "Distance" ? " metres" : "") + '</p></div>';
             }
         });
-        template += '</div>';
+        //template += '</div>';
 
         var alertPopup = $ionicPopup.alert({
             title: item.Name,

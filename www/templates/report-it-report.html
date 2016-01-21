@@ -8,7 +8,9 @@
         <div class="list list-inset">
             <h3>Report Issue</h3>
             <p ng-if="reportServices && reportServices.length > 0">Select a category and then select Next to complete your report.</p>
+            <p ng-if="reportServices && reportServices.length > 0"><strong>During this testing phase these reports are being used for testing purposes. </strong></p>
             <p ng-if="!reportServices || reportServices.length == 0">There are currently no available categories of report.</p>
+            <p ng-if="!reportServices || reportServices.length == 0"><strong>During this testing phase we will be enabling a number of different report types and testing these in our systems.  Pleaase check back intermittendly to see which report types will be possible.</strong></p>
             <form ng-submit="submitReportItPage1(currentReport)" ng-if="reportServices != []">
                 <div class="list">
                     <label class="item item-radio" ng-repeat="service in reportServices">

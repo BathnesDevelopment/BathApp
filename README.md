@@ -6,6 +6,7 @@ An ionic app for Bath and North East Somerset Area.
 To build, install cordova, then run:
 
 - $ cordova platform add ios
+- $ cordova plugin add org.apache.cordova.device
 - $ cordova plugin add cordova-plugin-geolocation
 - $ cordova plugin add cordova-plugin-camera
 - $ cordova plugin add cordova-plugin-inappbrowser
