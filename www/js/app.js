@@ -2,14 +2,8 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSan
 .run(function ($ionicPlatform, $cordovaStatusbar) {
 
     $ionicPlatform.ready(function () {
-        if (typeof StatusBar != 'undefined') {
-            $cordovaStatusbar.overlaysWebView(false);
-            $cordovaStatusbar.style(1);
-            if (cordova.platformId == 'android') {
-                StatusBar.backgroundColorByHexString("#33AB5F");
-            }
-            $cordovaStatusbar.show();
-        }
+        $cordovaStatusbar.overlaysWebView(true);
+	$cordovaStatusBar.style(1); //Light
     });
 })
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
