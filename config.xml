@@ -5,6 +5,14 @@
   <author email="david_rowe@bathnes.gov.uk" href="http://www.bathnes.gov.uk"/>
   <content src="index.html"/>
   <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="android-minSdkVersion" value="16"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
   <access launch-external="yes" origin="tel:*"/>
   <access launch-external="yes" origin="mailto:*"/>
   <allow-navigation href="http://*/*"/>

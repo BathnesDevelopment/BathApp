@@ -26,11 +26,11 @@ header h1 {
 }
 
 .top-calm {
-    border-top: 4px solid #11c1f3 !important;
+    border-top: 4px solid #00AEF0 !important;
 }
 
 .top-calm h2, .top-calm h1 {
-    color: #11c1f3 !important;
+    color: #00AEF0 !important;
 }
 
 .top-assertive {
@@ -42,11 +42,11 @@ header h1 {
 }
 
 .top-balanced {
-    border-top: 4px solid #33cd5f !important;
+    border-top: 4px solid #1FB25A !important;
 }
 
 .top-balanced h2, .top-balanced h1 {
-    color: #33cd5f !important;
+    color: #1FB25A !important;
 }
 
 .top-energized {
@@ -133,7 +133,7 @@ This happens on portrait phone screens, and is unhelpful at best
 }
 
 #divLogo img {
-    padding: 5px;
+    /* padding: 5px;*/
 }
 
 #divCarParks {

@@ -215,7 +215,7 @@ angular.module('MyBath.BathAppController', [])
             ],
             destructiveText: 'Clear data',
             titleText: 'App options',
-            cancelText: '<i class="ion-android-close"></i> Cancel',
+            cancelText: '<b><i class="ion-android-close"></i> Cancel</b>',
             buttonClicked: function (index) {
                 if (index === 0) {
                     // either registering or un-registering
@@ -273,7 +273,7 @@ angular.module('MyBath.BathAppController', [])
             scope: $scope,
             buttons: [
               {
-                  text: '<i class="ion-android-close"></i> Cancel',
+                  text: '<b><i class="ion-android-close"></i> Cancel</b>',
                   type: 'button-clear button-full button-stable'
               },
               {
@@ -373,7 +373,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Open the following link in your default browser ' + url + '?',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -399,7 +399,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Use default mail app to compose email to: ' + emailAddress + '?',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -425,7 +425,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Call this number: ' + phone + '?',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -451,7 +451,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Compose text message to ' + phone + '?',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -477,7 +477,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Create event:' + name,
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -533,7 +533,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Council Connect can help you with a range of enquiries including waste & recycling, roads & highways and general library & planning enquiries.',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -559,7 +559,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Council connect is open 8.00am – 6.00pm Mon, Tues, Thurs & Fri and 9.30am – 6.00pm on Weds.  An emergency out of hours service is provided.',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {
@@ -587,7 +587,7 @@ angular.module('MyBath.BathAppController', [])
             template: 'Launch default maps application?',
             buttons: [
                 {
-                    text: '<i class="ion-android-close"></i> Cancel',
+                    text: '<b><i class="ion-android-close"></i> Cancel</b>',
                     type: 'button-clear button-stable'
                 },
                 {

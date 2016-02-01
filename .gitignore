@@ -50,3 +50,10 @@ build.bat
 *.sublime-workspace
 residentsapp.keystore
 *.apk
+
+
+# =========================
+# Node stuff
+# =========================
+npm-debug.log*
+node_modules

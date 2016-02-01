@@ -8,7 +8,7 @@
                         <h2>No details or location set</h2>
                     </div>
                     <div class="item item-text-wrap">
-                        <p>To begin using this app you need to register and set a location.  Personal details will only be used to customise data shown in the app, and pre-populate report/comment forms.</p>
+                        <p>To begin using this app you need to register and set a location.  Personal details are used to customise the information shown in this app, and pre-populate reporting forms.</p>
                     </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
                         <a class="tab-item" ng-click="register()">
@@ -24,18 +24,8 @@
                     <div class="item item-text-wrap top-calm">
                         <h2 ng-if="userData.firstname">{{ userData.firstname + ' ' + userData.lastname }}</h2>
                     </div>
-                    <div class="item item-text-wrap">
-                        <p>This page displays any details held about you on this device.  To clear the data held on the device, use the link below.</p>
-                    </div>
-                    <div class="item item-divider tabs tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="displayOptions()">
-                            <i class="icon ion-android-settings assertive"></i> Display options
-                        </a>
-                    </div>
-                </div>
-                <h5 class="card-header" ng-if="userData.address"><i class="ion-android-home"></i> Stored details</h5>
-                <div class="card" ng-if="userData.address">
                     <div class="item item item-icon-left">
+                        <h3>Address</h3>
                         <p><i class="icon ion-android-home calm"></i> {{ userData.address }}</p>
                     </div>
                     <div class="item item item-icon-left">
@@ -45,8 +35,14 @@
                         <p><i class="icon ion-at royal"></i> {{ userData.email }}</p>
                     </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
+                        <a class="tab-item" ng-click="showPopup('Personal details are used to customise the information shown in this app, and pre-populate reporting forms.')">
+                            <i class="icon positive ion-help-circled"></i> Help
+                        </a>
+                        <a class="tab-item" ng-click="displayPersonalData()">
+                            <i class="icon calm ion-person"></i> My data
+                        </a>
                         <a class="tab-item" ng-click="deleteData()">
-                            <i class="icon assertive ion-android-delete"></i> Remove all data
+                            <i class="icon assertive ion-android-delete"></i> Delete data
                         </a>
                     </div>
                 </div>
@@ -82,7 +78,7 @@
                     </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
                         <a class="tab-item" ng-click="showPopup('Car park spaces', 'Select an individual bar on the chart to see more information about the car park occupancy.')">
-                            <i class="icon positive ion-help"></i> Help
+                            <i class="icon positive ion-help-circled"></i> Help
                         </a>
                         <a class="tab-item" ng-click="updateCarParks()">
                             <i class="icon balanced ion-refresh"></i> Refresh

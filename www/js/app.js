@@ -3,7 +3,7 @@ angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSan
 
     $ionicPlatform.ready(function () {
         $cordovaStatusbar.overlaysWebView(true);
-	$cordovaStatusBar.style(1); //Light
+        $cordovaStatusBar.style(1); //Light
     });
 })
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

@@ -1,7 +1,7 @@
 <ion-side-menus enable-menu-with-back-views="true">
     <!-- Center content -->
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-balanced">
+        <ion-nav-bar class="bar-calm">
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
@@ -15,16 +15,16 @@
     </ion-side-menu-content>
     <!-- Left menu -->
     <ion-side-menu side="left" expose-aside-when="large">
-        <ion-header-bar class="bar-balanced">
+        <ion-header-bar class="bar-calm">
             <h1 class="title">Menu</h1>
         </ion-header-bar>
         <ion-content>
             <div id="divLogo" class="item item-image">
-                <img src="images/logo.svg" />
+                <img src="images/logo.png" />
             </div>
             <div class="item tabs item-divider tabs-primary tabs-icon-left">
                 <a class="tab-item" ng-click="showPopup('Bath &amp North East Somerset Council App', 'The Bath &amp North East Somerset Council residents app provides reporting facilities to easily connect with the Council and report issues')">
-                    <i class="icon positive ion-help"></i> Help
+                    <i class="icon positive ion-help-circled"></i> Help
                 </a>
                 <a class="tab-item" ng-click="textTo('07797806545','Residents app message: ')">
                     <i class="icon energized ion-android-textsms"></i> Text
@@ -37,19 +37,19 @@
                 </a>
             </div>
             <ul class="list">
-                <li><a href="#/menu/home" class="item item-icon-left" menu-close><i class="icon ion-home"></i>Home</a></li>
+                <li><a href="#/menu/home" class="item item-icon-left" menu-close><i class="icon calm ion-home"></i>Home</a></li>
                 <li class="item item-divider">The Council</li>
-                <li><a href="#/menu/news" class="item item-icon-left" menu-close><i class="icon fa fa-newspaper-o"></i>News</a></li>
-                <li><a href="#/menu/mycouncil" class="item item-icon-left" menu-close><i class="icon ion-chatbubbles"></i>My Council</a></li>
+                <li><a href="#/menu/news" class="item item-icon-left" menu-close><i class="icon calm fa fa-newspaper-o"></i>News</a></li>
+                <li><a href="#/menu/mycouncil" class="item item-icon-left" menu-close><i class="icon calm ion-chatbubbles"></i>My Council</a></li>
                 <li class="item item-divider">Your environment</li>
-                <li><a href="#/menu/house" class="item item-icon-left" menu-close><i class="icon ion-location"></i>My House</a></li>
-                <li><a href="#/menu/reports" class="item item-icon-left" menu-close><i class="icon ion-compose"></i>Report Issue</a></li>
-                <li class="item item-divider">Nearest</li>
-                <li><a href="#/menu/local" class="item item-icon-left" menu-close><i class="icon ion-pinpoint"></i>My Nearest</a></li>
+                <li><a href="#/menu/house" class="item item-icon-left" menu-close><i class="icon calm ion-location"></i>My House</a></li>
+                <li><a href="#/menu/reports" class="item item-icon-left" menu-close><i class="icon calm ion-compose"></i>Report Issue</a></li>
+                <li class="item item-divider">My nearest</li>
+                <li><a href="#/menu/local" class="item item-icon-left" menu-close><i class="icon calm ion-pinpoint"></i>Services</a></li>
                 <!--<li><a href="#/menu/planning" class="item" menu-close>Planning and Licensing</a></li>-->
-                <li><a href="#/menu/health" class="item item-icon-left" menu-close><i class="icon ion-medkit"></i>Health providers</a></li>
+                <li><a href="#/menu/health" class="item item-icon-left" menu-close><i class="icon calm ion-medkit"></i>Health providers</a></li>
                 <li class="item item-divider">Out and about</li>
-                <li><a href="#/menu/map" class="item item-icon-left" menu-close><i class="icon ion-map"></i>Local Map</a></li>
+                <li><a href="#/menu/map" class="item item-icon-left" menu-close><i class="icon calm ion-map"></i>Local Map</a></li>
             </ul>
         </ion-content>
     </ion-side-menu>
