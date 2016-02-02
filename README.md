@@ -19,11 +19,9 @@ To build, install cordova, then run:
 - $ cordova plugin add https://github.com/katzer/cordova-plugin-email-composer.git
 - $ ionic browser add crosswalk
 - $ cordova prepare
-- $ cordova build ios
-- $ cordova emulate ios
+- $ cordova build ios --release
 
-Substitute ios for android above to test on Android.
-
+Substitute ios for android above for Android
 ## Supporting technologies
 
 The following plugins/technologies are used:
