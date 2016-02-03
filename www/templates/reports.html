@@ -1,22 +1,19 @@
-<ion-view view-title="Reports">
+<ion-view view-title="<b>MY</b>REPORTS">
     <ion-content padding="false">
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div class="item item-text-wrap top-calm">
-                        <h1>My Reports</h1>
-                    </div>
-                    <div class="item item-text-wrap">
-                        <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
-                    </div>
-                    <div class="item tabs tabs-primary tabs-icon-left item-divider">
-                        <a class="tab-item" ng-click="reportIt()">
-                            <i class="icon energized ion-compose"></i> New report
-                        </a>
-                        <a class="tab-item" ng-click="submitReports()">
-                            <i class="icon balanced ion-refresh"></i> Sync reports
-                        </a>
-                    </div>
+                <h1 class="pageHeader"><b>My</b>Reports</h1>
+                <p>This page shows the reports you have sent to the Council, including those waiting to be sent. To start a new report use the button below.</p>
+                <div class="item tabs tabs-primary tabs-icon-left item-divider">
+                    <a class="tab-item" ng-click="showPopup('My Reports', 'To start a new report select New Report.  Reports can be completed offline and sent by pressing send when online.')">
+                        <i class="icon positive ion-help-circled"></i> Help
+                    </a>
+                    <a class="tab-item" ng-click="reportIt()">
+                        <i class="icon royal ion-compose"></i> New report
+                    </a>
+                    <a class="tab-item" ng-click="submitReports()">
+                        <i class="icon balanced ion-android-send"></i> Send reports
+                    </a>
                 </div>
                 <div class="list list-inset" ng-repeat="(key, data) in (reports | splitObject:'left')">
                     <div class="item">

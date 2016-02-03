@@ -6,10 +6,15 @@ header h1 {
     font-weight: bold;
 }
 
+.pageHeader {
+    text-transform: uppercase !important;
+    color: #00AEF0;
+}
+
 .card-header {
     margin: 20px 10px !important;
     text-transform: uppercase !important;
-    color: #33B652;
+    color: #00AEF0;
     font-weight: 700;
 }
 

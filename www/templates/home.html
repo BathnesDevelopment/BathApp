@@ -1,8 +1,8 @@
-<ion-view cache-view="false" view-title="My Place">
+<ion-view cache-view="false" view-title="<b>MY</b>PLACE">
     <ion-content padding="false">
         <div class="row responsive-sm">
             <div class="col">
-                <h5 class="card-header" ng-if="!userData.uprn"><i class="ion-location"></i> Location</h5>
+                <h5 class="card-header" ng-if="!userData.uprn">Location</h5>
                 <div class="card" ng-if="!userData.uprn">
                     <div class="item item-text-wrap top-assertive">
                         <h2>No details or location set</h2>
@@ -19,7 +19,7 @@
                         </a>
                     </div>
                 </div>
-                <h5 class="card-header" ng-if="userData.uprn"><i class="ion-person"></i> Personal details</h5>
+                <h5 class="card-header" ng-if="userData.uprn">Personal details</h5>
                 <div class="card" ng-if="userData.uprn">
                     <div class="item item-text-wrap top-calm">
                         <h2 ng-if="userData.firstname">{{ userData.firstname + ' ' + userData.lastname }}</h2>
@@ -28,27 +28,21 @@
                         <h3>Address</h3>
                         <p><i class="icon ion-android-home calm"></i> {{ userData.address }}</p>
                     </div>
-                    <div class="item item item-icon-left">
-                        <p><i class="icon ion-ios-telephone balanced"></i> {{ userData.phone }}</p>
-                    </div>
-                    <div class="item item item-icon-left">
-                        <p><i class="icon ion-at royal"></i> {{ userData.email }}</p>
-                    </div>
                     <div class="item item-divider tabs tabs-primary tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('Personal details are used to customise the information shown in this app, and pre-populate reporting forms.')">
+                        <a class="tab-item" ng-click="showPopup('Personal data','Personal details are used to customise the information shown in this app, and pre-populate reporting forms.')">
                             <i class="icon positive ion-help-circled"></i> Help
                         </a>
                         <a class="tab-item" ng-click="displayPersonalData()">
                             <i class="icon calm ion-person"></i> My data
                         </a>
                         <a class="tab-item" ng-click="deleteData()">
-                            <i class="icon assertive ion-android-delete"></i> Delete data
+                            <i class="icon assertive ion-trash-a"></i> Delete data
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <h5 class="card-header" ng-if="news && news['Council news'] && news['Council news'][0]"><i class="fa fa-newspaper-o"></i> Latest news</h5>
+                <h5 class="card-header" ng-if="news && news['Council news'] && news['Council news'][0]">Latest news</h5>
                 <div class="card" ng-if="news && news['Council news'] && news['Council news'][0]">
                     <div class="item item-text-wrap top-calm">
                         <h2>{{ news['Council news'][0].Name }}</h2>
@@ -68,7 +62,7 @@
                         </a>
                     </div>
                 </div>
-                <h5 class="card-header" ng-if="carParkData[0].values.length > 0"><i class="ion-android-car"></i> Car parks</h5>
+                <h5 class="card-header" ng-if="carParkData[0].values.length > 0">Car parks</h5>
                 <div class="card" ng-if="carParkData[0].values.length > 0">
                     <div class="item item-text-wrap item-text-wrap top-royal">
                         <h2>Available spaces</h2>

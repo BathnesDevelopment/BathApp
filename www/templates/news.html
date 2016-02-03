@@ -1,4 +1,4 @@
-<ion-view view-title="News">
+<ion-view view-title="NEWS">
     <ion-content padding="false">
         <ion-refresher on-refresh="pullRefresh()"
                        pulling-text="Pull to refresh..."
@@ -7,23 +7,17 @@
         </ion-refresher>
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div class="item item-text-wrap top-calm">
-                        <h1>News</h1>
-                    </div>
-                    <div class="item">
-                        <p>Council and democracy news stories.</p>
-                    </div>
-                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('Council news', 'The news page shows Council news as listed on the Council website, as well as updates on Council meetings')">
-                            <i class="icon positive ion-help-circled"></i> Help
-                        </a>
-                        <a class="tab-item" ng-click="updateNews()">
-                            <i class="icon balanced ion-refresh"></i> Refresh
-                        </a>
-                    </div>
+                <h1 class="pageHeader">News</h1>
+                <p>Council and democracy news stories.</p>
+                <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('Council News', 'The news page shows Council news as listed on the Council website, as well as updates on Council meetings')">
+                        <i class="icon positive ion-help-circled"></i> Help
+                    </a>
+                    <a class="tab-item" ng-click="updateNews()">
+                        <i class="icon balanced ion-refresh"></i> Refresh
+                    </a>
                 </div>
-                <h5 class="card-header" ng-if="news && news['Council news'] && news['Council news'].length > 0"><i class="fa fa-newspaper-o"></i> Council news</h5>
+                <h5 class="card-header" ng-if="news && news['Council news'] && news['Council news'].length > 0">Council news</h5>
                 <div class="card" ng-repeat="newsItem in news['Council news']">
                     <div class="item item-text-wrap top-balanced">
                         <h2>{{ newsItem.Name }}</h2>
@@ -42,7 +36,7 @@
                 </div>
             </div>
             <div class="col">
-                <h5 class="card-header" ng-if="news && news['Democracy news'] && news['Democracy news'].length > 0"><i class="fa fa-newspaper-o"></i> Democracy news</h5>
+                <h5 class="card-header" ng-if="news && news['Democracy news'] && news['Democracy news'].length > 0">Democracy news</h5>
                 <div class="card" ng-repeat="newsItem in news['Democracy news']">
                     <div class="item item-text-wrap top-royal">
                         <h2>{{ newsItem.Name }}</h2>

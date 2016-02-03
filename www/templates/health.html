@@ -1,4 +1,4 @@
-<ion-view view-title="Health">
+<ion-view view-title="<b>HEALTH</b>">
     <ion-content padding="false">
         <ion-refresher on-refresh="pullRefresh()"
                        pulling-text="Pull to refresh..."
@@ -7,18 +7,12 @@
         </ion-refresher>
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div class="item item-text-wrap top-calm">
-                        <h1>Health Providers</h1>
-                    </div>
-                    <div class="item">
-                        <p>Health provider links in Bath and North East Somerset.  Information provided by NHS Choices.</p>
-                    </div>
-                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('Health providers', 'To see health provider links, a user location needs to be set within the app.  The links are provided via NHS Choices.')">
-                            <i class="icon dark ion-help"></i> Help
-                        </a>
-                    </div>
+                <h1 class="pageHeader">HEALTH</h1>
+                <p>Health provider links in Bath and North East Somerset.  Information provided by NHS Choices.</p>
+                <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('Health providers', 'To see health provider links, a user location needs to be set within the app.  The links are provided via NHS Choices.')">
+                        <i class="icon positive ion-help-circled"></i> Help
+                    </a>
                 </div>
                 <div ng-repeat="(key, data) in (health | splitObject:'left')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>

@@ -11,6 +11,12 @@
             <ul class="list">
                 <li>
                     <label class="item item-input item-floating-label">
+                        <span class="input-label">First line of address</span>
+                        <input tabindex="5" type="text" placeholder="First line of address" ng-model="userData.addressSearch" required>
+                    </label>
+                </li>
+                <li>
+                    <label class="item item-input item-floating-label">
                         <span class="input-label">First Name</span>
                         <input tabindex="1" type="text" placeholder="First Name" ng-model="userData.firstname">
                     </label>
@@ -31,12 +37,6 @@
                     <label class="item item-input item-floating-label">
                         <span class="input-label">Phone</span>
                         <input tabindex="4" type="tel" placeholder="Phone" ng-model="userData.phone">
-                    </label>
-                </li>
-                <li>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">First line of address</span>
-                        <input tabindex="5" type="text" placeholder="First line of address" ng-model="userData.addressSearch" required>
                     </label>
                 </li>
                 <li class="item item-toggle">

@@ -1,9 +1,10 @@
 angular.module('MyBath.HomeController', [])
-.controller('HomeController', function ($scope, $state, LiveTravel) {
+.controller('HomeController', function ($scope, $state, $ionicLoading, $ionicPopup, LiveTravel) {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // STARTUP
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Home page
@@ -38,7 +39,30 @@ angular.module('MyBath.HomeController', [])
                         html += '<div class="row"><div class="col big">' + e.point.value + '</div><div class="col big">' + e.point.capacity + '</div></div>';
                         html += '<div class="row"><div class="col"><small>Last updated</small></div></div>';
                         html += '<div class="row"><div class="col">' + moment(e.point.lastUpdated, 'DD/MM/YYYY hh:mm:ss').fromNow() + '</div></div>';
-                        $scope.showPopup(e.point.label, html);
+
+                        var carParkPopup = $ionicPopup.alert({
+                            title: e.point.label,
+                            template: html,
+                            buttons: [{
+                                text: '<b><i class="ion-android-close"></i> Cancel</b>',
+                                type: 'button-clear button-full button-stable'
+                            },
+                            {
+                                text: '<b><i class="ion-navigate"></i> Navigate</b>',
+                                type: 'button-clear button-full button-balanced',
+                                onTap: function (e) {
+                                    var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(" + e.point.value + ")";
+                                    if (ionic.Platform.isIOS()) {
+                                        geoUrl = 'maps:q=' + e.point.value + '&ll=' + lat + "," + lng;
+                                    }
+                                    window.open(geoUrl, '_system');
+                                }
+                            }]
+                        });
+                        carParkPopup.then(function (res) {
+                        });
+
+
                     }
                 }
             },
@@ -66,8 +90,13 @@ angular.module('MyBath.HomeController', [])
     $scope.updateCarParks = function () {
         if (!$scope.refreshingCarParks) {
             $scope.refreshingCarParks = true;
+            $ionicLoading.show({
+                template: 'Refreshing car parks...'
+            });
+
             LiveTravel.fetchAll()
                     .then(function (data) {
+                        $ionicLoading.hide();
                         if (data && data != [] && data != "Failed") {
                             $scope.carParkData[0].values = [];
                             for (var carPark in data.carParks) {

@@ -1,4 +1,4 @@
-<ion-view view-title="My nearest">
+<ion-view view-title="<b>MY</b>NEAREST">
     <ion-content padding="false">
         <ion-refresher on-refresh="pullRefresh()"
                        pulling-text="Pull to refresh..."
@@ -7,21 +7,15 @@
         </ion-refresher>
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div class="item item-text-wrap top-calm">
-                        <h1>My Nearest</h1>
-                    </div>
-                    <div class="item">
-                        <p>This page shows locations of interest near to your registered location.</p>
-                    </div>
-                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('My nearest', 'This page shows nearest services and facilities to your registered location.  To customise items shown, use the display options link.')">
-                            <i class="icon positive ion-help-circled"></i> Help
-                        </a>
-                        <a class="tab-item" ng-click="displayOptions()">
-                            <i class="icon ion-android-settings assertive"></i> Display options
-                        </a>
-                    </div>
+                <h1 class="pageHeader"><b>My</b>Nearest</h1>
+                <p>This page shows locations of interest near to your registered location.</p>
+                <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('My nearest', 'This page shows nearest services and facilities to your registered location.  To customise items shown, use the display options link.')">
+                        <i class="icon positive ion-help-circled"></i> Help
+                    </a>
+                    <a class="tab-item" ng-click="displayOptions()">
+                        <i class="icon ion-android-settings assertive"></i> Display options
+                    </a>
                 </div>
                 <div ng-repeat="(key, data) in (myNearest | splitObject:'left')">
                     <h5 class="card-header" ng-if="data[0] && data[0].Category && userData.displayCategories[data[0].Category]">{{ key }}</h5>

@@ -179,6 +179,32 @@ angular.module('MyBath.BathAppController', [])
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: showPersonalData
+    // Gives the user a popup showing what personal data is stored on the device.
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.displayPersonalData = function () {
+
+        var telNo = $scope.userData.phone;
+        var email = $scope.userData.email;
+        var address = $scope.userData.address;
+        var html = '<div class="item item item-icon-left"><p><i class="icon ion-android-home calm"></i> ' + address + '</p></div><div class="item item item-icon-left"><p><i class="icon ion-ios-telephone balanced"></i> ' + telNo + '</p></div><div class="item item item-icon-left"><p><i class="icon ion-at royal"></i> ' + email + '</p></div>';
+        var personalPopup = $ionicPopup.show({
+            template: html,
+            title: 'Personal details',
+            subTitle: 'The MyPlace app is currently registered with the following personal details.',
+            scope: $scope,
+            buttons: [
+              {
+                  text: '<b><i class="ion-android-done"></i> Dismiss</b>',
+                  type: 'button-clear button-full button-positive'
+              }
+            ]
+        });
+        personalPopup.then(function (res) { });
+    };
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Function: toggleGroup
     // To do:
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -269,7 +295,7 @@ angular.module('MyBath.BathAppController', [])
         var payPopUp = $ionicPopup.show({
             template: '<label class="item item-input item-select"><div class="input-label">Pay type</div><select ng-model="payData.selection"><option value="BH">Allotments</option><option value="20">Council tax</option><option value="47">Garden waste</option></select>',
             title: 'Pay a bill',
-            subTitle: 'Select the type of bill you would like to pay.  This will launch the bathnes.gov.uk website.',
+            subTitle: 'Select the type of bill you would like to pay.  This will launch the secure bathnes.gov.uk payment website.',
             scope: $scope,
             buttons: [
               {
@@ -580,7 +606,7 @@ angular.module('MyBath.BathAppController', [])
     // Function: navigateTo
     // Uses the default map application to navigate
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.navigateTo = function (lat, lng) {
+    $scope.navigateTo = function (lat, lng, title) {
 
         var alertPopup = $ionicPopup.alert({
             title: 'Navigation',
@@ -594,13 +620,11 @@ angular.module('MyBath.BathAppController', [])
                     text: '<b><i class="ion-navigate"></i> Navigate</b>',
                     type: 'button-clear button-balanced',
                     onTap: function (e) {
-
-                        var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng;
+                        var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(" + title + ")";
                         if (ionic.Platform.isIOS()) {
-                            geoUrl = 'maps:q=' + lat + "," + lng + '&ll=' + lat + "," + lng;
+                            geoUrl = 'maps:q=' + title + '&ll=' + lat + "," + lng;
                         }
                         window.open(geoUrl, '_system');
-
                     }
                 }
             ]

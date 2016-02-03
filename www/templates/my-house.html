@@ -1,4 +1,4 @@
-<ion-view view-title="My house">
+<ion-view view-title="<b>MY</b>HOUSE">
     <ion-content padding="false">
         <ion-refresher on-refresh="pullRefresh()"
                        pulling-text="Pull to refresh..."
@@ -7,18 +7,12 @@
         </ion-refresher>
         <div class="row responsive-sm">
             <div class="col">
-                <div class="card">
-                    <div class="item item-text-wrap top-calm">
-                        <h1>My House</h1>
-                    </div>
-                    <div class="item item-text-wrap">
-                        <p>This page shows information about your registered location.</p>
-                    </div>
-                    <div class="item tabs tabs-secondary item-divider tabs-icon-left">
-                        <a class="tab-item" ng-click="showPopup('My house', 'Return to this page for information about your registered location.  Bin dates, planning applications, listed status and more.')">
-                            <i class="icon positive ion-help-circled"></i> Help
-                        </a>
-                    </div>
+                <h1 class="pageHeader"><b>My</b>House</h1>
+                <p>This page shows information about your registered location.</p>
+                <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+                    <a class="tab-item" ng-click="showPopup('My House', 'Return to this page for information about your registered location.  Bin dates, planning applications, listed status and more.')">
+                        <i class="icon positive ion-help-circled"></i> Help
+                    </a>
                 </div>
                 <div ng-repeat="(key, data) in (myHouse | splitObject:'left')">
                     <h5 class="card-header" ng-if="data && data[0] && !data[0].Info">{{ key }}</h5>
@@ -78,13 +72,14 @@
                             </p>
                         </div>
                         <div ng-repeat="(key, data) in dataRow" ng-if="key == 'Household waste' || key == 'Recycling' || key == 'Garden waste'" class="item item-icon-left">
-                            <i class="icon ion-trash-b" ng-if="key == 'Household waste'"></i>
-                            <i class="icon fa fa-recycle" ng-if="key == 'Recycling'"></i>
-                            <i class="icon ion-leaf" ng-if="key == 'Garden waste'"></i>
+                            <i class="icon assertive ion-trash-b" ng-if="key == 'Household waste'"></i>
+                            <i class="icon calm fa fa-recycle" ng-if="key == 'Recycling'"></i>
+                            <i class="icon balanced ion-leaf" ng-if="key == 'Garden waste'"></i>
+                            <h3>{{ key }}</h3>
                             <p>{{ data | binDates }}</p>
                         </div>
                         <div class="item tabs tabs-secondary tabs-icon-left item-divider">
-                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite("{{dataRow.Website | encodeURIComponent }}")">
+                            <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite(" {{dataRow.Website | encodeURIComponent }} ")">
                                 <i class="icon ion-android-open assertive"></i> Website
                             </a>
                         </div>
