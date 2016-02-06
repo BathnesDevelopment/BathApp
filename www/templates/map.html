@@ -1,5 +1,15 @@
-<ion-view cache-view="false" view-title="<b>LOCAL</b>MAP">
+<ion-view cache-view="false" view-title="<b>MY</b>MAP">
     <ion-content padding="false">
+        <h1 class="pageHeader"><b>My</b>Map</h1>
+        <p>This page shows locations of interest near to your registered location.</p>
+        <div class="item tabs tabs-secondary item-divider tabs-icon-left">
+            <a class="tab-item" ng-click="showPopup('My Map', 'Customise your own map of Bath by choosing what points of interest you want to display.')">
+                <i class="icon positive ion-help-circled"></i> Help
+            </a>
+            <a class="tab-item" ng-click="displayOptions()">
+                <i class="icon ion-android-settings assertive"></i> Display options
+            </a>
+        </div>
         <leaflet class="custom-popup" 
                  data-tap-disabled="true"
                  defaults="map.defaults"

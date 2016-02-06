@@ -241,7 +241,7 @@ angular.module('MyBath.BathAppController', [])
             ],
             destructiveText: 'Clear data',
             titleText: 'App options',
-            cancelText: '<b><i class="ion-android-close"></i> Cancel</b>',
+            cancelText: '<i class="ion-android-close"></i> Cancel',
             buttonClicked: function (index) {
                 if (index === 0) {
                     // either registering or un-registering
@@ -303,7 +303,7 @@ angular.module('MyBath.BathAppController', [])
                   type: 'button-clear button-full button-stable'
               },
               {
-                  text: '<b><i class="ion-card"></i> Pay</b>',
+                  text: '<b><i class="ion-card"></i> Pay</b>', 
                   type: 'button-clear button-full button-positive',
                   onTap: function (e) {
                       if (!$scope.payData.selection) {
@@ -328,16 +328,12 @@ angular.module('MyBath.BathAppController', [])
             text: '<b><i class="ion-android-done"></i> OK</b>',
             type: 'button-clear button-full button-positive'
         }];
-        //var template = '<div class="list card">';
         var template = '';
         angular.forEach(item, function (val, key) {
             if (!key.match("Name|Max|Min|Easting|Northing|Website|Lat|Lng|photoUrl|Recycling|Household waste|Garden waste|type|Committees|Category|hashKey")) {
-                //template += '<div class="item"><small><strong>' + key + '</strong><br/> ' + val + (key == "Distance" ? " metres" : "") + '</small></div>';
                 template += '<div class="item"><h4>' + key + '</h4><p>' + val + (key == "Distance" ? " metres" : "") + '</p></div>';
             }
         });
-        //template += '</div>';
-
         var alertPopup = $ionicPopup.alert({
             title: item.Name,
             template: template,
@@ -352,20 +348,21 @@ angular.module('MyBath.BathAppController', [])
     // Removes the user's registered data
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.deleteData = function () {
-        $ionicPopup.confirm({
-            title: 'Clear data',
-            template: 'This will clear all stored data on the app (including saved reports).',
-            cancelType: 'button-clear button-full button-stable',
-            okType: 'button-clear button-full button-assertive'
-        }).then(function (res) {
-            if (res) {
+
+        var buttons = [{
+            text: '<b><i class="ion-close"></i> Cancel</b>',
+            type: 'button-clear button-full button-stable'
+        }, {
+            text: '<b><i class="ion-ios-trash"></i> OK</b>',
+            type: 'button-clear button-full button-assertive',
+            onTap: function () {
                 UserData.clear();
                 BathData.clear();
                 Reports.saveReports([]);
                 Comments.saveComments([]);
                 $scope.reports = Reports.getReports();
                 $scope.comments = Comments.getComments();
-                $scope.userData = UserData.all(); //Get defaults
+                $scope.userData = UserData.all();
                 $scope.bathData = {};
                 $scope.myCouncil = {};
                 $scope.myNearest = {};
@@ -375,6 +372,13 @@ angular.module('MyBath.BathAppController', [])
                 $scope.feedData = {};
                 $scope.feedDataObject = {};
             }
+        }];
+        var deletePopup = $ionicPopup.alert({
+            title: 'Delete data',
+            template: 'This will clear all stored data on the app (including saved reports).  Are you sure?',
+            buttons: buttons
+        });
+        deletePopup.then(function (res) {
         });
     };
 

@@ -1,5 +1,5 @@
 angular.module('MyBath.MapController', [])
-.controller('MapController', function ($scope, $ionicLoading, $ionicSideMenuDelegate, $ionicModal, MapData, leafletEvents, leafletData, UserData) {
+.controller('MapController', function ($scope, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, MapData, leafletEvents, leafletData, UserData) {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Variables: Global
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ angular.module('MyBath.MapController', [])
 
     $scope.map.controls = {
         custom: [
-                L.control.locate({ follow: true }),
+                //L.control.locate({ follow: true }),
                 L.control.customlayers({ position: 'topright', action: $scope.mapDisplayOptions })
         ]
     };
@@ -148,7 +148,7 @@ angular.module('MyBath.MapController', [])
     $scope.updateMapData = function () {
 
         var loader = false;
-        
+
         if ($scope.markers != null) {
             $scope.markers.clearLayers();
         }
@@ -183,6 +183,49 @@ angular.module('MyBath.MapController', [])
         }
     };
 
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: mapPopup
+    // Shows a map popup - shows information about the item and provides various links
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    $scope.mapPopup = function (features, lat, lng) {
+
+        var title = '';
+        var buttons = [{
+            text: '<b><i class="ion-android-done"></i> OK</b>',
+            type: 'button-clear button-full button-stable'
+        },
+        {
+            text: '<b><i class="ion-android-done"></i> Navigate</b>',
+            type: 'button-clear button-full button-balanced',
+            onTap: function (e) {
+                var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(" + title + ")";
+                if (ionic.Platform.isIOS()) {
+                    geoUrl = 'maps:q=' + title + '&ll=' + lat + "," + lng;
+                }
+                window.open(geoUrl, '_system');
+            }
+        }];
+
+        var template = '';
+        angular.forEach(features, function (val, key) {
+            var exclusions = ['Colour', 'Distance', 'Icon', 'LayerName', 'LayerDisplayName', 'Website', 'Name'];
+            if (exclusions.indexOf(key) == -1) template += '<div class="item"><h4>' + key + '</h4><p>' + val + (key == "Distance" ? " metres" : "") + '</p></div>';
+            if (key == 'Name') title = val;
+        });
+
+        var alertPopup = $ionicPopup.alert({
+            title: title,
+            template: template,
+            buttons: buttons
+        });
+        alertPopup.then(function (res) {
+        });
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Function: updateMapDisplay
+    // 
+    /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.updateMapDisplay = function () {
 
         var update = true;
@@ -205,7 +248,14 @@ angular.module('MyBath.MapController', [])
                     for (var key in feature.properties) {
                         if (exclusions.indexOf(key) == -1) popupString += '<strong>' + key + '</strong> ' + feature.properties[key] + '<br/>';
                     }
-                    layer.bindPopup(popupString);
+
+                    // layer.bindPopup(popupString);
+                    var clickEvent = function () {
+                        $scope.mapPopup(feature.properties, layer.feature.geometry.coordinates[0], layer.feature.geometry.coordinates[1]);
+                    };
+                    layer.on({
+                        click: clickEvent
+                    });
                 }
             });
             $scope.markers.addLayer(geoJsonLayer);
