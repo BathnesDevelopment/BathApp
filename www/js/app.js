@@ -1,12 +1,14 @@
 angular.module('BathCouncil', ['ionic', 'leaflet-directive', 'ngCordova', 'ngSanitize', 'BathApp.config', 'MyBath.BathDataService', 'MyBath.ReportsService', 'MyBath.CommentsService', 'MyBath.UserDataService', 'MyBath.MapDataService', 'MyBath.NewsDataService', 'MyBath.BathAppController', 'MyBath.HomeController', 'MyBath.ReportsController', 'MyBath.MyNearestController', 'MyBath.MyCouncilController', 'MyBath.MyHouseController', 'MyBath.MapController', 'MyBath.DataTransformations', 'MyBath.BathAppFilters', 'MyBath.BathAppDirectives', 'MyBath.LiveTravelService', 'nvd3'])
-.run(function ($ionicPlatform, $cordovaStatusbar) {
-
+.run(function ($ionicPlatform, $cordovaStatusbar, $cordovaSplashscreen) {
     $ionicPlatform.ready(function () {
-        $cordovaStatusbar.overlaysWebView(true);
-        $cordovaStatusBar.style(1); //Light
+        $cordovaStatusbar.overlaysWebView(false);
+        $cordovaStatusbar.style(1); //Light
         if (cordova.platformId == 'android') {
-            StatusBar.backgroundColorByHexString("#1FB25A");
+            $cordovaStatusbar.styleHex("#00AEF0");
         }
+        setTimeout(function () {
+            $cordovaSplashscreen.hide()
+        }, 2000)
     });
 })
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

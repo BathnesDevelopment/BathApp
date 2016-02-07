@@ -40,6 +40,9 @@ angular.module('MyBath.HomeController', [])
                         html += '<div class="row"><div class="col"><small>Last updated</small></div></div>';
                         html += '<div class="row"><div class="col">' + moment(e.point.lastUpdated, 'DD/MM/YYYY hh:mm:ss').fromNow() + '</div></div>';
 
+                        var lat = e.point.location.replace('(', '').split(',')[0];
+                        var lng = e.point.location.replace(')', '').split(',')[1];
+                        var title = e.point.label;
                         var carParkPopup = $ionicPopup.alert({
                             title: e.point.label,
                             template: html,
@@ -51,9 +54,9 @@ angular.module('MyBath.HomeController', [])
                                 text: '<b><i class="ion-navigate"></i> Navigate</b>',
                                 type: 'button-clear button-full button-balanced',
                                 onTap: function (e) {
-                                    var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(" + e.point.value + ")";
+                                    var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(" + title + ")";
                                     if (ionic.Platform.isIOS()) {
-                                        geoUrl = 'maps:q=' + e.point.value + '&ll=' + lat + "," + lng;
+                                        geoUrl = 'maps:q=' + title + '&ll=' + lat + "," + lng;
                                     }
                                     window.open(geoUrl, '_system');
                                 }
@@ -106,7 +109,7 @@ angular.module('MyBath.HomeController', [])
                                 if (data.carParks[carPark] && moment().diff(moment(data.carParks[carPark]['last updated']), 'minutes') < 15) {
                                     var numberOfSpaces = parseInt(data.carParks[carPark].Capacity - parseInt(data.carParks[carPark].Occupancy));
                                     if (numberOfSpaces < 0) numberOfSpaces = 0;
-                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces, "status": data.carParks[carPark].Status, "capacity": data.carParks[carPark].Capacity, "lastUpdated": data.carParks[carPark]['Last updated'] });
+                                    $scope.carParkData[0].values.push({ "label": data.carParks[carPark].Name.replace('CP', ''), "value": numberOfSpaces, "status": data.carParks[carPark].Status, "capacity": data.carParks[carPark].Capacity, "lastUpdated": data.carParks[carPark]['Last updated'], "location": data.carParks[carPark]['Location'] });
                                 }
                             }
                             $scope.refreshingCarParks = false;

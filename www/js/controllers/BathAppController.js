@@ -135,16 +135,18 @@ angular.module('MyBath.BathAppController', [])
     // Sets the user selected property during registration
     /////////////////////////////////////////////////////////////////////////////////////////////
     $scope.setProperty = function (address) {
-        $scope.propertyModal.hide();
-        $ionicLoading.show({
-            template: 'Fetching data...'
-        });
-        $scope.uprn = address.uprn;
+        if (address) {
+            $scope.propertyModal.hide();
+            $ionicLoading.show({
+                template: 'Fetching data...'
+            });
+            $scope.uprn = address.uprn;
 
-        UserData.save({ "address": address.addressLine, "uprn": address.uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": address.postcode, "lat": address.easting, "lon": address.northing, "displayCategories": $scope.userData.displayCategories, "pushNotifications": $scope.userData.pushNotifications });
-        $scope.userData = UserData.all();
+            UserData.save({ "address": address.addressLine, "uprn": address.uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": address.postcode, "lat": address.easting, "lon": address.northing, "displayCategories": $scope.userData.displayCategories, "pushNotifications": $scope.userData.pushNotifications });
+            $scope.userData = UserData.all();
 
-        $scope.pullRefresh();
+            $scope.pullRefresh();
+        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////

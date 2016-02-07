@@ -251,7 +251,7 @@ angular.module('MyBath.MapController', [])
 
                     // layer.bindPopup(popupString);
                     var clickEvent = function () {
-                        $scope.mapPopup(feature.properties, layer.feature.geometry.coordinates[0], layer.feature.geometry.coordinates[1]);
+                        $scope.mapPopup(feature.properties, layer.feature.geometry.coordinates[1], layer.feature.geometry.coordinates[0]);
                     };
                     layer.on({
                         click: clickEvent
