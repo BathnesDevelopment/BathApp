@@ -18,6 +18,10 @@ header h1 {
     font-weight: 700;
 }
 
+.input-label {
+    font-weight: 700;
+}
+
 .top-stable {
     border-top: 4px solid #f8f8f8 !important;
 }
@@ -143,6 +147,13 @@ This happens on portrait phone screens, and is unhelpful at best
 
 #divCarParks {
     height: 300px;
+}
+
+#divMapOverlay {
+    margin: 5px;
+    width: 98%;
+    position: absolute;
+    z-index: 99999999;
 }
 
 /**

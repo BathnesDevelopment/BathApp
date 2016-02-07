@@ -87,16 +87,18 @@ angular.module('MyBath.HomeController', [])
     // Function: updateCarParks
     // Updates the car park data - will run on each load
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.updateCarParks = function () {
+    $scope.updateCarParks = function (showLoading) {
         if (!$scope.refreshingCarParks) {
             $scope.refreshingCarParks = true;
-            $ionicLoading.show({
-                template: 'Refreshing car parks...'
-            });
+            if (showLoading) {
+                $ionicLoading.show({
+                    template: 'Refreshing car parks...'
+                });
+            }
 
             LiveTravel.fetchAll()
                     .then(function (data) {
-                        $ionicLoading.hide();
+                        if (showLoading) $ionicLoading.hide();
                         if (data && data != [] && data != "Failed") {
                             $scope.carParkData[0].values = [];
                             for (var carPark in data.carParks) {
@@ -115,7 +117,7 @@ angular.module('MyBath.HomeController', [])
                     });
         }
     };
-    $scope.updateCarParks();
+    $scope.updateCarParks(false);
     // Need this to refresh the chart when moving back to the page.
     $scope.$on('$ionicView.loaded', function (e) {
         if (this.location.toString().indexOf('/home') != -1) {

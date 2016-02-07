@@ -134,14 +134,14 @@ angular.module('MyBath.BathAppController', [])
     // Function: setProperty
     // Sets the user selected property during registration
     /////////////////////////////////////////////////////////////////////////////////////////////
-    $scope.setProperty = function (uprn, lat, lng, address, postcode) {
+    $scope.setProperty = function (address) {
         $scope.propertyModal.hide();
         $ionicLoading.show({
             template: 'Fetching data...'
         });
-        $scope.uprn = uprn;
+        $scope.uprn = address.uprn;
 
-        UserData.save({ "address": address, "uprn": uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": postcode, "lat": lat, "lon": lng, "displayCategories": $scope.userData.displayCategories, "pushNotifications": $scope.userData.pushNotifications });
+        UserData.save({ "address": address.addressLine, "uprn": address.uprn, "addressSearch": $scope.userData.addressSearch, "firstname": $scope.userData.firstname, "lastname": $scope.userData.lastname, "email": $scope.userData.email, "phone": $scope.userData.phone, "postcode": address.postcode, "lat": address.easting, "lon": address.northing, "displayCategories": $scope.userData.displayCategories, "pushNotifications": $scope.userData.pushNotifications });
         $scope.userData = UserData.all();
 
         $scope.pullRefresh();

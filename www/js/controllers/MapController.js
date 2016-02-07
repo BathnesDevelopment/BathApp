@@ -80,7 +80,7 @@ angular.module('MyBath.MapController', [])
     $scope.map.controls = {
         custom: [
                 //L.control.locate({ follow: true }),
-                L.control.customlayers({ position: 'topright', action: $scope.mapDisplayOptions })
+                //L.control.customlayers({ position: 'topright', action: $scope.mapDisplayOptions })
         ]
     };
 

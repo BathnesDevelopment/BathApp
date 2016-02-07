@@ -1,46 +1,45 @@
 <div class="modal">
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="closeRegister()"><i class="ion-android-close"></i> Cancel</button>
-        <h1 class="title">Register</h1>
+        <h1 class="title">Register Details</h1>
         <button class="button button-clear button-positive" ng-click="searchUserAddress(userData.addressSearch)"><b><i class="ion-android-done"></i> Next</b></button>
     </ion-header-bar>
     <ion-content class="padding">
-        <p>Registering will save your personal details when submitting reports, and show you personalised information for your address.</p>
-        <p>Complete the details and then select <b>Next</b> (above).</p>
+        <p>Registering will save your personal details when submitting reports, and show you personalised information for your address.  Complete the details and then select <b>Next</b> (above).</p>
         <form ng-submit="searchUserAddress(userData.addressSearch)">
             <ul class="list">
                 <li>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">First line of address</span>
+                    <label class="item item-input">
+                        <span class="input-label"><small>Address</small></span>
                         <input tabindex="1" type="text" placeholder="First line of address" ng-model="userData.addressSearch" required>
                     </label>
                 </li>
                 <li>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">First Name</span>
+                    <label class="item item-input">
+                        <span class="input-label"><small>First Name</small></span>
                         <input tabindex="2" type="text" placeholder="First Name" ng-model="userData.firstname">
                     </label>
                 </li>
                 <li>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Last Name</span>
+                    <label class="item item-input">
+                        <span class="input-label"><small>Last Name</small></span>
                         <input tabindex="3" type="text" placeholder="Last Name" ng-model="userData.lastname">
                     </label>
                 </li>
                 <li>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Email</span>
+                    <label class="item item-input">
+                        <span class="input-label"><small>Email</small></span>
                         <input tabindex="4" type="email" placeholder="Email" ng-model="userData.email">
                     </label>
                 </li>
                 <li>
-                    <label class="item item-input item-floating-label">
-                        <span class="input-label">Phone</span>
+                    <label class="item item-input">
+                        <span class="input-label"><small>Phone</small></span>
                         <input tabindex="5" type="tel" placeholder="Phone" ng-model="userData.phone">
                     </label>
                 </li>
                 <li class="item item-toggle">
-                    Enable push notifications
+                    <span class="input-label"><small>Push notifications</small></span>
                     <label class="toggle">
                         <input type="checkbox" tabindex="6" ng-model="userData.pushNotifications">
                         <div class="track">
@@ -49,7 +48,7 @@
                     </label>
                 </li>
                 <li class="item">
-                    <p>Opting into this service will enable the Council to provide news and other updates directly to your device. If you do not wish to receive these then please unselect this option.</p>
+                    <p><small>Opting into this service will enable the Council to provide news and other updates directly to your device. If you do not wish to receive these then please unselect this option.</small></p>
                 </li>
             </ul>
         </form>

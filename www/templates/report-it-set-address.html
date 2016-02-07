@@ -2,11 +2,21 @@
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="closeReportItSetAddress()"><i class="ion-android-close"></i> Cancel</button>
         <h1 class="title">Select address</h1>
-        <button class="button button-clear button-positive" ng-click="submitReportItSetAddress(address)"><i class="i"></i> Confirm</button>
+        <button class="button button-clear button-positive" ng-click="submitReportItSetAddress(currentReport)"><i class="ion-android-done-all"></i> Confirm</button>
     </ion-header-bar>
     <ion-content padding="true">
-        <button class="button button-full button-clear button-stable" ng-repeat="address in reportItAddresses">
-            {{address.addressLine}}
-        </button>
+        <form ng-submit="submitReportItSetAddress(currentReport)">
+            <div class="list">
+                <label class="item item-radio" ng-repeat="address in reportItAddresses">
+                    <input type="radio" name="service_code" ng-model="currentReport.address" ng-value="address" required>
+                    <div class="radio-content">
+                        <div class="item-content">
+                            <h2>{{ address.addressLine }}</h2>
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </div>
+                </label>
+            </div>
+        </form>
     </ion-content>
 </div>

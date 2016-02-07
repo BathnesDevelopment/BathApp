@@ -10,18 +10,23 @@
             <p>Please check your personal details and amend where necessary.</p>
             <form ng-submit="submitReportItPage4(currentReport)">
                 <label class="item item-input">
+                    <span class="input-label">First name</span>
                     <input type="text" placeholder="First Name" ng-model="currentReport.userFirstname" required>
                 </label>
                 <label class="item item-input">
+                    <span class="input-label">Last name</span>
                     <input type="text" placeholder="Last Name" ng-model="currentReport.userLastname" required>
                 </label>
                 <label class="item item-input">
-                    <input type="email" placeholder="Contact email" ng-model="currentReport.userEmail" required>
+                    <span class="input-label">Contact email</span>
+                    <input type="email" placeholder="Email" ng-model="currentReport.userEmail" required>
                 </label>
                 <label class="item item-input">
-                    <input type="tel" placeholder="Contact phone" ng-model="currentReport.userPhone">
+                    <span class="input-label">First name</span>
+                    <input type="tel" placeholder="Phone" ng-model="currentReport.userPhone">
                 </label>
                 <label class="item item-input">
+                    <span class="input-label">Address</span>
                     <input type="text" placeholder="Address" ng-model="currentReport.userAddress">
                 </label>
                 <!--<ul class="list">
