@@ -53,7 +53,7 @@ angular.module('MyBath.HomeController', [])
                             {
                                 text: '<b><i class="ion-navigate"></i> Navigate</b>',
                                 type: 'button-clear button-full button-balanced',
-                                onTap: function (e) {
+                                onTap: function () {
                                     var geoUrl = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(" + title + ")";
                                     if (ionic.Platform.isIOS()) {
                                         geoUrl = 'maps:q=' + title + '&ll=' + lat + "," + lng;
@@ -64,8 +64,6 @@ angular.module('MyBath.HomeController', [])
                         });
                         carParkPopup.then(function (res) {
                         });
-
-
                     }
                 }
             },

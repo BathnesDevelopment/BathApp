@@ -57,7 +57,7 @@
                             <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
                                 <i class="icon ion-android-open assertive"></i> Website
                             </a>
-                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}', '{{ dataRow.Name }}')">
                                 <i class="icon ion-navigate calm"></i> Navigate
                             </a>
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
@@ -113,7 +113,7 @@
                             <a ng-if="dataRow.Website && dataRow.Website != ''" class="tab-item" ng-click="openWebsite('{{dataRow.Website}}')">
                                 <i class="icon ion-android-open assertive"></i> Website
                             </a>
-                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}')">
+                            <a ng-if="dataRow.Lat && dataRow.Lat != ''" class="tab-item" ng-click="navigateTo('{{ dataRow.Lat }}','{{ dataRow.Lng }}', '{{ dataRow.Name }}')">
                                 <i class="icon ion-navigate calm"></i> Navigate
                             </a>
                             <a ng-if="dataRow.Phone && dataRow.Phone != ''" class="tab-item" ng-click="callNumber('{{dataRow.Phone}}')">
