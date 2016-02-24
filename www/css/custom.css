@@ -11,6 +11,11 @@ header h1 {
     color: #00AEF0;
 }
 
+.card {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+}
+
 .card-header {
     margin: 20px 10px !important;
     text-transform: uppercase !important;
@@ -174,7 +179,7 @@ This happens on portrait phone screens, and is unhelpful at best
 }
 
 .background, .background .pane {
-    background-color: #F2F2F2;
+    background-color: #F5F5F5;
 }
 
 
