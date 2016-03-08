@@ -1,14 +1,13 @@
 <div class="modal">
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="reportItPhotoModal.hide()"><i class="ion-android-close"></i> Cancel</button>
-        <h1 class="title">Report It</h1>
+        <h1 class="title">Photo</h1>
         <button class="button button-clear button-positive" ng-click="submitReportItPhoto(photo)"><b><i class="ion-android-done"></i> Next</b></button>
     </ion-header-bar>
     <ion-content padding="true">
         <div class="list list-inset">
-            <h3>Photo</h3>
             If you wish to attach a photo to the report (a picture of a pothole for example) please do so here.
-            <form ng-submit="submitReportItPage2(photo)">
+            <form ng-submit="submitReportItPhoto(photo)">
                 <button type="button" ng-click="takePhoto()" class="button button-full button-clear button-positive">
                     Take photo
                 </button>
@@ -16,8 +15,8 @@
                     <div class="item item-divider">
                         Report photo
                     </div>
-                    <div class="item item-image">
-                        <img src="{{ currentReport.photo }}" ng-if="currentReport.photo" />
+                    <div class="item item-image" ng-if="currentReport.photo">
+                        <img src="data:image/jpeg;base64,{{ currentReport.photo }}" />
                     </div>
                 </div>
             </form>

@@ -1,12 +1,11 @@
 <div class="modal">
     <ion-header-bar class="bar-light">
         <button class="button button-clear button-stable" ng-click="reportItLocationModal.hide()"><i class="ion-android-close"></i> Cancel</button>
-        <h1 class="title">Report It</h1>
+        <h1 class="title">Report Location</h1>
         <button class="button button-clear button-positive" ng-click="submitReportItLocation(currentReport)"><b><i class="ion-android-done"></i> Next</b></button>
     </ion-header-bar>
     <ion-content padding="true">
         <div class="list list-inset">
-            <h3>Location</h3>
             <p>{{ currentReport.locationMessage }}</p>
             <form ng-submit="submitReportItPage3(currentReport)">
                 <div class="list">
@@ -19,6 +18,7 @@
                             <i class="radio-icon ion-checkmark"></i>
                         </div>
                     </label>
+                    <br />
                     <label class="item item-radio">
                         <input type="radio" value="newAddress" name="reportLocation" ng-model="currentReport.userLocationOption">
                         <div class="radio-content">
@@ -29,27 +29,31 @@
                             <i class="radio-icon ion-checkmark"></i>
                         </div>
                     </label>
-                    <label class="item item-input">
+                    <label class="item item-input" ng-if="currentReport.userLocationOption == 'newAddress'">
                         <span class="input-label">First line of address</span>
                         <input tabindex="5" type="text" placeholder="First line of address" ng-model="currentReport.customAddressSearch">
                     </label>
+                    <br/>
                     <label class="item item-radio" ng-if="userData.address != null">
                         <input type="radio" value="userAddress" name="reportLocation" ng-model="currentReport.userLocationOption">
                         <div class="radio-content">
                             <div class="item-content">
-                                <h3>Use my saved address details</h3> 
+                                <h3>Use my saved address details</h3>
                                 <p>({{ userData.address }})</p>
                             </div>
                             <i class="radio-icon ion-checkmark"></i>
                         </div>
                     </label>
-                    <!--<label class="item item-radio">
+                    <br />
+                    <label class="item item-radio">
                         <input type="radio" value="mapLocation" name="reportLocation" ng-model="currentReport.userLocationOption">
-                        <div class="item-content">
-                            Pinpoint location on a map
+                        <div class="radio-content">
+                            <div class="item-content">
+                                <h3>Pinpoint location on a map</h3>
+                            </div>
+                            <i class="radio-icon ion-checkmark"></i>
                         </div>
-                        <i class="radio-icon ion-checkmark"></i>
-                    </label>-->
+                    </label>
                 </div>
             </form>
         </div>

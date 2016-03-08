@@ -74,11 +74,11 @@
         $scope.reportItDetailsModal.hide();
 
         // We only show the photo dialog if 'photo' is one of the attributes on the service.
-        if (report.service.attributes[0] && report.service.attributes[0].code == 'photo') {
+        //if (report.service.photo) {
             $scope.reportItPhoto();
-        } else {
-            $scope.reportItLocation();
-        }
+        //} else {
+            //$scope.reportItLocation();
+        //}
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,11 +125,11 @@
               $scope.updateMap(position);
               $ionicLoading.hide();
               $scope.currentReport.locationFound = true;
-              $scope.currentReport.locationMessage = "Your location has been successfully detected.  If you would like this to be used as part of the report, check the option below.";
+              $scope.currentReport.locationMessage = "Select which location you would like to be used for the report.  Your current location has been successfully detected.";
               $scope.reportItLocationModal.show();
           }, function (error) {
               $ionicLoading.hide();
-              $scope.currentReport.locationMessage = "Your location was not detected.";
+              $scope.currentReport.locationMessage = "Select which location you would like to be used for the report.  Your current location was not detected.";
               $scope.currentReport.locationFound = false;
               $scope.reportItLocationModal.show();
           });
@@ -263,10 +263,6 @@
     // Submit
     $scope.submitReportItPersonal = function (report) {
         $scope.reportItPersonalModal.hide();
-
-        // To do: deal with photos as a file.
-
-        $scope.currentReport.photo = '';
         Reports.addReport($scope.currentReport);
         $scope.currentReport = { type: '', description: '', userFirstname: '', userLastname: '', useUserLocation: true, usePersonalDetails: true, userAddress: '', userUPRN: '', userLat: '', userLon: '', photo: '', lat: '', long: '', status: 'Not sent', photo: '' };
         $scope.reports = Reports.getReports();

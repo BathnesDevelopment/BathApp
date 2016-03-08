@@ -70,7 +70,7 @@ angular.module('MyBath.HomeController', [])
             tooltips: false,
             margin: { left: 110 },
             barColor: function (d, i) {
-                var color = '#387ef5';
+                var color = '#00AEF0';
                 if (d.value < 150) color = '#ffc900';
                 if (d.value < 70) color = '#ef473a';
                 return color;

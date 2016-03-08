@@ -2,6 +2,21 @@
     /*background-color: #F0F0F0 !important; */
 }
 
+
+.myplacemenu li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #00AEF0;
+}
+
+.myplacemenu .item-divider {
+    text-transform: uppercase;
+    text-align: right;
+    font-size: small;
+    background-color: #00AEF0;
+    color: #FFF;
+}
+
 header h1 {
     font-weight: bold;
 }

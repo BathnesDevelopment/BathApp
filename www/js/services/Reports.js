@@ -9,7 +9,7 @@ angular.module('MyBath.ReportsService', [])
                 reportJson.forEach(function (report) {
                     if (report.photo) {
                         // Get the photo
-                        $cordovaFile.readAsDataURL(cordova.file.dataDirectory, $scope.inputs.readFile)
+                        $cordovaFile.readAsDataURL(cordova.file.dataDirectory, report.photo)
                             .then(function (success) {
                                 report.photoData = success;
                             }, function (error) {
@@ -48,7 +48,7 @@ angular.module('MyBath.ReportsService', [])
         saveReports: function (reports) {
 
             // Whenever we save the reports we need to strip out the photo data 
-            // (it should already be saved away).
+            // (it should already be saved).
             reports.forEach(function (report) {
                 if (report.photoData) delete report.photoData;
             });
@@ -56,6 +56,21 @@ angular.module('MyBath.ReportsService', [])
             window.localStorage.reports = angular.toJson(reports);
         },
         addReport: function (report) {
+
+            // If there's a photo then save it
+            // This replaces the photo data with a reference to the file name.
+            if (report.photoData) {
+                var photoData = report.photoData;
+                var photoId = new Date().getTime();
+                report.photo = photoId;
+                $cordovaFile.writeFile(cordova.file.dataDirectory, photoId, photoData, true)
+                    .then(function (success) {
+                        // No need to do anything 
+                    }, function (error) {
+                        // Do nothing.
+                    });
+            }
+
             var reports = window.localStorage.reports;
             var reportsArray;
             if (reports) {
@@ -66,15 +81,11 @@ angular.module('MyBath.ReportsService', [])
                 reportsArray = [report];
             }
 
-            // If there's a photo then save it
-            if (report.photoData) {
-                $cordovaFile.writeFile(cordova.file.dataDirectory, report.photo, report.photoData, true)
-                    .then(function (success) {
-                        // No need to do anything 
-                    }, function (error) {
-                        // Do nothing.
-                    });
-            }
+            // Whenever we save the reports we need to strip out the photo data 
+            // (it should already be saved away).
+            reports.forEach(function (report) {
+                if (report.photoData) delete report.photoData;
+            });
             window.localStorage.reports = angular.toJson(reportsArray);
         },
         submitReports: function () {
@@ -82,8 +93,7 @@ angular.module('MyBath.ReportsService', [])
             var reportResponse_q = $q.defer();
             var reportsData = [];
 
-            var reports = window.localStorage.reports;
-            var reportsArray = angular.fromJson(reports);
+            var reportsArray = this.getReports;
             var index;
             if (reportsArray) {
                 for (index = 0; index < reportsArray.length; ++index) {
@@ -108,9 +118,6 @@ angular.module('MyBath.ReportsService', [])
                             "last_name": reportsArray[index].userLastname,
                             "phone": reportsArray[index].userPhone,
                             "description": reportsArray[index].description,
-                            // We're using the media url here for the actual photo content.
-                            // This isn't official Open 311 but we're calling a modified method anyway to submit multiple requests
-                            // Will also support 'normal' use
                             "media_url": reportsArray[index].photoData
                         });
                     }
