@@ -53,6 +53,9 @@ angular.module('MyBath.UserDataService', [])
         },
         clear: function () {
             window.localStorage.removeItem('UserData');
+        },
+        registerPushNotifications: function () {
+            return null;
         }
     };
 });
