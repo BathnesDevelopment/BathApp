@@ -1,7 +1,7 @@
 Residents App
 ===========
 
-An ionic app for Bath and North East Somerset Area.
+An ionic app for Bath and North East Somerset Area.   
 
 To build, install cordova, then run:
 
