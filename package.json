@@ -1,6 +1,6 @@
 {
   "name": "MyPlace",
-  "version": “0.5”,
+  "version": "0.5",
   "description": "MyPlace",
   "dependencies": {
     "gulp": "^3.5.6",
