@@ -6,13 +6,7 @@ angular.module('MyBath.NewsDataService', [])
 */
 .factory('NewsData', function ($http, $q, DataTransformations, config) {
     return {
-        // Method: NewsData.get()
-        // Input: None
-        // Output: JSON
-        // 
-        get: function() {
 
-        },
         // Method: NewsData.save()
         // Input: JSON
         // Output: None
